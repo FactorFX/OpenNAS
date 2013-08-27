@@ -81,7 +81,7 @@ NAS4FREE_SVN_SRCTREE="svn://svn.FreeBSD.org/base/releng/9.1"
 NAS4FREE_MFSROOT_SIZE=206
 NAS4FREE_IMG_SIZE=110
 if [ "amd64" = ${NAS4FREE_ARCH} ]; then
-	NAS4FREE_MFSROOT_SIZE=222
+	NAS4FREE_MFSROOT_SIZE=270
 	NAS4FREE_IMG_SIZE=110
 fi
 
@@ -195,7 +195,10 @@ build_world() {
 	echo "Building World:"
 
 	[ -f $NAS4FREE_WORKINGDIR/nas4free.files ] && rm -f $NAS4FREE_WORKINGDIR/nas4free.files
-	cp $NAS4FREE_SVNDIR/build/nas4free.files $NAS4FREE_WORKINGDIR
+	    cp $NAS4FREE_SVNDIR/build/nas4free.files $NAS4FREE_WORKINGDIR
+
+	[ -f $NAS4FREE_SVNDIR/build/nas4free.custfiles ] && [ -f $NAS4FREE_WORKINGDIR/nas4free.custfiles ] && rm -f $NAS4FREE_WORKINGDIR/nas4free.custfiles
+	    cp $NAS4FREE_SVNDIR/build/nas4free.custfiles $NAS4FREE_WORKINGDIR
 
 	# Add custom binaries
 	if [ -f $NAS4FREE_WORKINGDIR/nas4free.custfiles ]; then
