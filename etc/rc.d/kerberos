@@ -1,0 +1,51 @@
+#!/bin/sh
+#
+# $FreeBSD: release/9.1.0/etc/rc.d/kerberos 180563 2008-07-16 19:22:48Z dougb $
+#
+
+# PROVIDE: kerberos
+
+. /etc/rc.subr
+. /etc/configxml.subr
+
+name="kerberos"
+start_precmd="generate_nsswitch_ldap_conf"
+
+load_rc_config "$name"
+
+kerberos_config="/etc/krb5.conf"
+ldap_config=${ldap_config:-"/var/etc/ldap.conf"}
+
+if configxml_isset //kerberos/enable; then
+	echo "Generating krb5.conf."
+	/usr/local/bin/xml sel -t \
+		-o "[libdefaults]" -n \
+		-v "concat('default_realm =  ', //kerberos/realms)" -n \
+		-n \
+		-o "[realms]" -n \
+		-v "concat(//kerberos/realms, ' = {')" -n \
+		-v "concat('kdc = ', //kerberos/kdc)" -n \
+		-o "}" -n \
+		${configxml_file} | /usr/local/bin/xml unesc > ${kerberos_config}
+fi
+
+generate_nsswitch_ldap_conf()
+{
+if configxml_isset //kerberos/enable; then
+	/usr/local/bin/xml sel -t \
+		-o "group: files ldap" -n \
+		-o "group_compat: nis" -n \
+		-o "hosts: files dns" -n \
+		-o "networks: files" -n \
+		-o "passwd: files ldap" -n \
+		${configxml_file} | /usr/local/bin/xml unesc > /etc/nsswitch.conf
+
+	/usr/local/bin/xml sel -t \
+		-v "concat('host ',//kerberos/ldaphostname)" -n \
+		-v "concat('base ',//kerberos/ldapbase)" -n \
+		-m "//kerberos/ldapauxparam" -v "." -n -b \
+		${configxml_file} | /usr/local/bin/xml unesc > ${ldap_config}
+fi
+}
+
+run_rc_command "$1"
