@@ -60,6 +60,7 @@ echo "Generating user database(s)."
 	-o "nogroup:*:65533:" -n \
 	-o "nobody:*:65534:" -n \
 	-o "ftp:*:50:" -n \
+	-o "bacula:*:910:" -n \
 	-m "//system/usermanagement/group" \
 		-v "concat(name,':*:',id,':')" -n \
 	-b \

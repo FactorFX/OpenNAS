@@ -1,0 +1,85 @@
+#!/bin/sh
+#
+# Part of OpenNas (http://opennas.factorfx.com).
+# Copyright (c) 2012-2013
+# All rights reserved.
+#
+# $FreeBSD: sysutils/bacula-server/files/bacula-sd.in 309025 2012-12-16 16:32:45Z rm $
+#
+# PROVIDE: bacula_sd
+# REQUIRE: DAEMON
+# BEFORE: LOGIN
+# KEYWORD: shutdown
+# XQUERY: -i "count(//bacula_sd/enable) > 0" -o "0" -b
+# RCVAR: bacula_sd
+#
+# Add the following lines to /etc/rc.conf.local or /etc/rc.conf
+# to enable this service:
+#
+# bacula_sd_enable  (bool):  Set to NO by default.
+#               Set it to YES to enable bacula_sd.
+# bacula_sd_flags (params):  Set params used to start bacula_sd.
+#
+
+. /etc/rc.subr
+. /etc/util.subr
+. /etc/configxml.subr
+
+name="bacula_sd"
+rcvar=`set_rcvar`
+command=/usr/local/sbin/.libs/bacula-sd
+
+# Custom commands
+extra_commands="mkconf"
+mkconf_cmd="bacula_sd_mkconf"
+start_precmd="bacula_sd_mkconf"
+
+bacula_sd_config="/usr/local/etc/bacula-sd.conf"
+bacula_sd_workingdir="/var/db/bacula"
+
+load_rc_config $name
+
+: ${bacula_sd_enable="NO"}
+: ${bacula_sd_flags=" -u bacula -g bacula -v -c /usr/local/etc/bacula-sd.conf"}
+: ${bacula_sd_pidfile="/var/run/bacula-sd.9103.pid"}
+
+pidfile="${bacula_sd_pidfile}"
+
+bacula_sd_mkconf()
+{
+	# Check if required directories exists.
+	[ ! -d "${bacula_sd_workingdir}" ] && mkdir "${bacula_sd_workingdir}"
+
+	/usr/local/bin/xml sel -t \
+		-o "Storage {" -n \
+		-v "concat('Name = ', //bacula_sd/storagename)" -n \
+		-v "concat('SDPort = ', //bacula_sd/storageport)" -n \
+		-o "WorkingDirectory = ${bacula_sd_workingdir} " -n \
+		-o "Pid Directory = /var/run" -n \
+		-v "concat('Maximum Concurrent Jobs = ', //bacula_sd/storagemaxjobs)" -n \
+		-o "}" -n \
+		-n \
+		-o "Director {" -n \
+		-v "concat('Name = ', //bacula_sd/directorname)" -n \
+		-v "concat('Password = ', //bacula_sd/directorpassword)" -n \
+		-o "}" -n \
+		-o "Device {" -n \
+		-v "concat('Name = ', //bacula_sd/devicename)" -n \
+		-v "concat('Media Type = ', //bacula_sd/devicemediatype)" -n \
+		-v "concat('Archive Device = ', //bacula_sd/devicearchivepath)" -n \
+		-v "concat('LabelMedia = ', //bacula_sd/devicelabelmedia, ';')" -n \
+		-v "concat('Random Access = ', //bacula_sd/devicerandomaccess, ';')" -n \
+		-o "AutomaticMount = yes;" -n \
+		-v "concat('RemovableMedia = ', //bacula_sd/deviceremovablemedia, ';')" -n \
+		-v "concat('AlwaysOpen = ', //bacula_sd/devicealwaysopen, ';')" -n \
+		-o "}" -n \
+		-o "Messages {" -n\
+		-o "Name     = Standard" -n \
+		-v "concat('director = ', //bacula_sd/directorname, ' = all')" -n \
+		-o "}" -n \
+		${configxml_file} | /usr/local/bin/xml unesc > ${bacula_sd_config}
+
+}
+
+
+run_rc_command "$1"

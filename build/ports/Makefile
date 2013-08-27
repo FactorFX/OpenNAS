@@ -3,6 +3,7 @@
     SUBDIR += arcconf
     SUBDIR += ataidle
     SUBDIR += autosnapshot
+    SUBDIR += bacula
     SUBDIR += bash
     SUBDIR += bsnmp-ucd
     SUBDIR += cdialog

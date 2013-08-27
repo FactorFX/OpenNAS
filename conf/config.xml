@@ -393,6 +393,13 @@
 				<group>50</group>
 				<extraoptions>-m -w random</extraoptions>
 			</user>
+			<user>
+				<name>bacula</name>
+				<id>910</id>
+				<primarygroup>910</primarygroup>
+				<group>910</group>
+				<extraoptions>-d /var/db/bacula -s /usr/sbin/nologin -c Bacula Daemon</extraoptions>
+			</user>
 			<group>
 				<uuid>e8cc78b8-7c3d-46de-a34c-11b1c260a37e</uuid>
 				<id>999</id>
@@ -1518,4 +1525,25 @@
 			<!-- <auxparam></auxparam> -->
 		</lcdproc>
 	</lcdproc>
+    <bacula_fd>
+        <directorname>OPENNAS-DIRECTOR-bacula</directorname>
+        <directorpassword>opennas</directorpassword>
+        <filedaemonname>OPENNAS-CLIENT-bacula</filedaemonname>
+        <filedaemonport>9102</filedaemonport>
+        <filedaemonmaxjobs>20</filedaemonmaxjobs>
+    </bacula_fd>
+    <bacula_sd>
+        <storagename>OPENNAS-STORAGE-bacula</storagename>
+        <storageport>9103</storageport>
+        <storagemaxjobs>20</storagemaxjobs>
+        <directorname>OPENNAS-DIRECTOR-bacula</directorname>
+        <directorpassword>opennas</directorpassword>
+        <devicename>OPENNAS-DEVICE-default</devicename>
+        <devicemedia_type>File</devicemedia_type>
+        <devicearchivepath>/mnt/storage/default</devicearchivepath>
+        <devicelabelmedia>yes</devicelabelmedia>
+        <devicerandomaccess>no</devicerandomaccess>
+        <deviceremovablemedia>no</deviceremovablemedia>
+        <devicealwaysopen>yes</devicealwaysopen>
+    </bacula_sd>
 </opennas>

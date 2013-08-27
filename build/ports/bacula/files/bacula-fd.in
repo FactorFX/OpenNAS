@@ -1,0 +1,77 @@
+#!/bin/sh
+#
+# Part of OpenNas (http://opennas.factorfx.com).
+# Copyright (c) 2012-2013
+# All rights reserved.
+#
+# $FreeBSD: sysutils/bacula-server/files/bacula-fd.in 309025 2012-12-16 16:32:45Z rm $
+#
+# PROVIDE: bacula_fd
+# REQUIRE: DAEMON
+# BEFORE: LOGIN
+# KEYWORD: shutdown
+# XQUERY: -i "count(//bacula_fd/enable) > 0" -o "0" -b
+# RCVAR: bacula_fd
+#
+# Add the following lines to /etc/rc.conf.local or /etc/rc.conf
+# to enable this service:
+#
+# bacula_fd_enable  (bool):  Set to NO by default.
+#               Set it to YES to enable bacula_fd.
+# bacula_fd_flags (params):  Set params used to start bacula_fd.
+#
+
+. /etc/rc.subr
+. /etc/util.subr
+. /etc/configxml.subr
+
+name="bacula_fd"
+rcvar=`set_rcvar`
+command=/usr/local/sbin/.libs/bacula-fd
+
+# Custom commands
+extra_commands="mkconf"
+mkconf_cmd="bacula_fd_mkconf"
+start_precmd="bacula_fd_mkconf"
+
+bacula_fd_config="/usr/local/etc/bacula-fd.conf"
+bacula_fd_workingdir="/var/db/bacula"
+
+# Requirements
+required_files="${bacula_fd_config}"
+
+load_rc_config $name
+
+: ${bacula_fd_enable="NO"}
+: ${bacula_fd_flags=" -u root -g wheel -v -c /usr/local/etc/bacula-fd.conf"}
+: ${bacula_fd_pidfile="/var/run/bacula-fd.9102.pid"}
+
+pidfile="${bacula_fd_pidfile}"
+
+bacula_fd_mkconf()
+{
+	# Check if required directories exists.
+	[ ! -d "${bacula_fd_workingdir}" ] && mkdir "${bacula_fd_workingdir}"
+
+	/usr/local/bin/xml sel -t \
+		-o "Director {" -n \
+		-v "concat('Name = ', //bacula_fd/directorname)" -n \
+		-v "concat('Password = \"', //bacula_fd/directorpassword, '\"')" -n \
+		-o "}" -n \
+		-n \
+		-o "FileDaemon {" -n \
+		-v "concat('Name = ', //bacula_fd/filedaemonname)" -n \
+		-v "concat('FDport = ', //bacula_fd/filedaemonport)" -n \
+		-o "WorkingDirectory = ${bacula_fd_workingdir}" -n \
+		-o "Pid Directory = /var/run" -n \
+		-v "concat('Maximum Concurrent Jobs = ', //bacula_fd/filedaemonmaxjobs)" -n \
+		-o "}" -n \
+		-o "Messages {" -n \
+		-o "Name = OPENNAS-MESSAGES-bacula" -n \
+		-o "director = undef-dir = all, !skipped" -n \
+		-o "}" -n \
+		${configxml_file} | /usr/local/bin/xml unesc > ${bacula_fd_config}
+
+}
+
+run_rc_command "$1"
