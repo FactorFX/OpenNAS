@@ -48,11 +48,11 @@ load_rc_config $name
 
 pidfile="${bacula_fd_pidfile}"
 
+# Check if required directories exists.
+[ ! -d "${bacula_fd_workingdir}" ] && mkdir "${bacula_fd_workingdir}"
+
 bacula_fd_mkconf()
 {
-	# Check if required directories exists.
-	[ ! -d "${bacula_fd_workingdir}" ] && mkdir "${bacula_fd_workingdir}"
-
 	/usr/local/bin/xml sel -t \
 		-o "Director {" -n \
 		-v "concat('Name = ', //bacula_fd/directorname)" -n \

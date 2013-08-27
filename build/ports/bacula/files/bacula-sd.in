@@ -45,11 +45,11 @@ load_rc_config $name
 
 pidfile="${bacula_sd_pidfile}"
 
+# Check if required directories exists.
+[ ! -d "${bacula_sd_workingdir}" ] && mkdir "${bacula_sd_workingdir}"
+
 bacula_sd_mkconf()
 {
-	# Check if required directories exists.
-	[ ! -d "${bacula_sd_workingdir}" ] && mkdir "${bacula_sd_workingdir}"
-
 	/usr/local/bin/xml sel -t \
 		-o "Storage {" -n \
 		-v "concat('Name = ', //bacula_sd/storagename)" -n \
