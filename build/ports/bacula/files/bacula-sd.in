@@ -27,7 +27,7 @@
 
 name="bacula_sd"
 rcvar=`set_rcvar`
-command=/usr/local/sbin/.libs/bacula-sd
+command=/usr/local/sbin/bacula-sd
 
 # Custom commands
 extra_commands="mkconf"
