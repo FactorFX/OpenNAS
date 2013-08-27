@@ -1,0 +1,41 @@
+### Custom files for Opennas
+
+#### clear
+usr/bin/clear
+usr/bin/tput
+
+####### Copy Keyboard Mappings
+usr/sbin/kbdcontrol
+usr/sbin/kbdmap
+usr/bin/dialog
+usr/share/syscons/keymaps/
+usr/share/syscons/fonts/
+
+### man pages
+usr/bin/tbl
+usr/bin/groff
+usr/bin/man
+usr/bin/locale
+usr/bin/manpath
+usr/bin/troff
+usr/bin/grotty
+usr/share/man/
+usr/share/groff_font/
+
+## network
+usr/bin/nslookup
+usr/bin/whois
+
+## who
+usr/bin/who
+usr/bin/whoami
+
+### whereis
+usr/bin/whereis
+usr/bin/which
+
+### kerberos
+usr/bin/kadmin
+usr/bin/klist
+usr/bin/kdestroy
+usr/bin/kinit

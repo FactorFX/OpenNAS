@@ -648,6 +648,9 @@ usr/sbin/vidcontrol
 ## kbdcontrol -- keyboard control and configuration utility
 usr/sbin/kbdcontrol
 
+## kbdmap -- keyboard control and configuration utility
+usr/sbin/kbdmap
+
 ## gstat -- print statistics about GEOM disks
 usr/sbin/gstat
 
