@@ -218,7 +218,7 @@ if (isset($_POST['txtPHPCommand']) && !isBlank($_POST['txtPHPCommand'])) {
 }
 ?>
 <form action="<?=$_SERVER['SCRIPT_NAME'];?>" method="post" enctype="multipart/form-data" name="frmExecPlus" id="frmExecPlus" onsubmit="return frmExecPlus_onSubmit( this );">
-  <table>
+  <table class="tabcont">
     <tr>
       <td class="label" align="right"><?=gettext("Command");?></td>
       <td class="type"><input name="txtCommand" type="text" size="80" value="" onkeypress="txtCommand_onKey(event);" /></td>

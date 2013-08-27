@@ -104,21 +104,22 @@ $menu['services']['menuitem'][] = array("desc" => gettext("HAST"), "link" => "se
 $menu['services']['menuitem'][] = array("type" => "separator", "visible" => TRUE);
 $menu['services']['menuitem'][] = array("desc" => gettext("CIFS/SMB"), "link" => "services_samba.php", "visible" => TRUE);
 $menu['services']['menuitem'][] = array("desc" => gettext("FTP"), "link" => "services_ftp.php", "visible" => TRUE);
-$menu['services']['menuitem'][] = array("desc" => gettext("TFTP"), "link" => "services_tftp.php", "visible" => TRUE);
+$menu['services']['menuitem'][] = array("desc" => gettext("TFTP"), "link" => "services_tftp.php", "visible" => false);
 $menu['services']['menuitem'][] = array("desc" => gettext("SSH"), "link" => "services_sshd.php", "visible" => TRUE);
 $menu['services']['menuitem'][] = array("desc" => gettext("NFS"), "link" => "services_nfs.php", "visible" => TRUE);
 $menu['services']['menuitem'][] = array("desc" => gettext("AFP"), "link" => "services_afp.php", "visible" => TRUE);
 $menu['services']['menuitem'][] = array("desc" => gettext("Rsync"), "link" => "services_rsyncd.php", "visible" => TRUE);
 $menu['services']['menuitem'][] = array("desc" => gettext("Unison"), "link" => "services_unison.php", "visible" => TRUE);
 $menu['services']['menuitem'][] = array("desc" => gettext("iSCSI Target"), "link" => "services_iscsitarget.php", "visible" => TRUE);
-$menu['services']['menuitem'][] = array("desc" => gettext("DNLA/UPnP"), "link" => "services_upnp.php", "visible" => TRUE);
-$menu['services']['menuitem'][] = array("desc" => gettext("iTunes/DAAP"), "link" => "services_daap.php", "visible" => TRUE);
-$menu['services']['menuitem'][] = array("desc" => gettext("Dynamic DNS"), "link" => "services_dynamicdns.php", "visible" => TRUE);
+$menu['services']['menuitem'][] = array("desc" => gettext("DNLA/UPnP"), "link" => "services_upnp.php", "visible" => false);
+$menu['services']['menuitem'][] = array("desc" => gettext("iTunes/DAAP"), "link" => "services_daap.php", "visible" => false);
+$menu['services']['menuitem'][] = array("desc" => gettext("Dynamic DNS"), "link" => "services_dynamicdns.php", "visible" => false);
 $menu['services']['menuitem'][] = array("desc" => gettext("SNMP"), "link" => "services_snmp.php", "visible" => TRUE);
 $menu['services']['menuitem'][] = array("desc" => gettext("UPS"), "link" => "services_ups.php", "visible" => TRUE);
-$menu['services']['menuitem'][] = array("desc" => gettext("Webserver"), "link" => "services_websrv.php", "visible" => TRUE);
-$menu['services']['menuitem'][] = array("desc" => gettext("BitTorrent"), "link" => "services_bittorrent.php", "visible" => TRUE);
-$menu['services']['menuitem'][] = array("desc" => gettext("LCDproc"), "link" => "services_lcdproc.php", "visible" => TRUE);
+$menu['services']['menuitem'][] = array("desc" => gettext("Webserver"), "link" => "services_websrv.php", "visible" => false);
+$menu['services']['menuitem'][] = array("desc" => gettext("BitTorrent"), "link" => "services_bittorrent.php", "visible" => false);
+$menu['services']['menuitem'][] = array("desc" => gettext("LCDproc"), "link" => "services_lcdproc.php", "visible" => false);
+$menu['services']['menuitem'][] = array("desc" => gettext("Bacula"), "link" => "services_bacula_file_daemon.php", "visible" => true);
 
 // Access
 $menu['access']['desc'] = gettext("Access");
@@ -127,6 +128,7 @@ $menu['access']['link'] = "";
 $menu['access']['menuitem'] = array();
 $menu['access']['menuitem'][] = array("desc" => gettext("Users and Groups"), "link" => "access_users.php", "visible" => TRUE);
 $menu['access']['menuitem'][] = array("desc" => gettext("Active Directory"), "link" => "access_ad.php", "visible" => TRUE);
+$menu['access']['menuitem'][] = array("desc" => gettext("Kerberos"), "link" => "access_kerberos.php", "visible" => true);
 $menu['access']['menuitem'][] = array("desc" => gettext("LDAP"), "link" => "access_ldap.php", "visible" => TRUE);
 $menu['access']['menuitem'][] = array("desc" => gettext("NIS"), "link" => "notavailable.php", "visible" => false);
 
@@ -169,7 +171,7 @@ $menu['diagnostics']['menuitem'][] = array("desc" => gettext("Routes"), "link" =
 
 // Help
 $menu['help']['desc'] = gettext("Help");
-$menu['help']['visible'] = TRUE;
+$menu['help']['visible'] = FALSE;
 $menu['help']['link'] = "";
 $menu['help']['menuitem'] = array();
 $menu['help']['menuitem'][] = array("desc" => gettext("Report Generator"), "link" => "report_generator.php", "visible" => TRUE);

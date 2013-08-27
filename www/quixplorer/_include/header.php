@@ -121,14 +121,15 @@ $menu['services']['menuitem'][] = array("desc" => gettext("AFP"), "link" => "../
 $menu['services']['menuitem'][] = array("desc" => gettext("Rsync"), "link" => "../services_rsyncd.php", "visible" => TRUE);
 $menu['services']['menuitem'][] = array("desc" => gettext("Unison"), "link" => "../services_unison.php", "visible" => TRUE);
 $menu['services']['menuitem'][] = array("desc" => gettext("iSCSI Target"), "link" => "../services_iscsitarget.php", "visible" => TRUE);
-$menu['services']['menuitem'][] = array("desc" => gettext("DNLA/UPnP"), "link" => "../services_upnp.php", "visible" => TRUE);
-$menu['services']['menuitem'][] = array("desc" => gettext("iTunes/DAAP"), "link" => "../services_daap.php", "visible" => TRUE);
-$menu['services']['menuitem'][] = array("desc" => gettext("Dynamic DNS"), "link" => "../services_dynamicdns.php", "visible" => TRUE);
+$menu['services']['menuitem'][] = array("desc" => gettext("DNLA/UPnP"), "link" => "../services_upnp.php", "visible" => false);
+$menu['services']['menuitem'][] = array("desc" => gettext("iTunes/DAAP"), "link" => "../services_daap.php", "visible" => false);
+$menu['services']['menuitem'][] = array("desc" => gettext("Dynamic DNS"), "link" => "../services_dynamicdns.php", "visible" => false);
 $menu['services']['menuitem'][] = array("desc" => gettext("SNMP"), "link" => "../services_snmp.php", "visible" => TRUE);
 $menu['services']['menuitem'][] = array("desc" => gettext("UPS"), "link" => "../services_ups.php", "visible" => TRUE);
-$menu['services']['menuitem'][] = array("desc" => gettext("Webserver"), "link" => "../services_websrv.php", "visible" => TRUE);
-$menu['services']['menuitem'][] = array("desc" => gettext("BitTorrent"), "link" => "../services_bittorrent.php", "visible" => TRUE);
-$menu['services']['menuitem'][] = array("desc" => gettext("LCDproc"), "link" => "../services_lcdproc.php", "visible" => TRUE);
+$menu['services']['menuitem'][] = array("desc" => gettext("Webserver"), "link" => "../services_websrv.php", "visible" => false);
+$menu['services']['menuitem'][] = array("desc" => gettext("BitTorrent"), "link" => "../services_bittorrent.php", "visible" => false);
+$menu['services']['menuitem'][] = array("desc" => gettext("LCDproc"), "link" => "../services_lcdproc.php", "visible" => false);
+$menu['services']['menuitem'][] = array("desc" => gettext("Bacula"), "link" => "../services_bacula_file_daemon.php", "visible" => true);
 
 // Access
 $menu['access']['desc'] = gettext("Access");
@@ -137,6 +138,7 @@ $menu['access']['link'] = "../index.php";
 $menu['access']['menuitem'] = array();
 $menu['access']['menuitem'][] = array("desc" => gettext("Users and Groups"), "link" => "../access_users.php", "visible" => TRUE);
 $menu['access']['menuitem'][] = array("desc" => gettext("Active Directory"), "link" => "../access_ad.php", "visible" => TRUE);
+$menu['access']['menuitem'][] = array("desc" => gettext("Kerberos"), "link" => "access_kerberos.php", "visible" => true);
 $menu['access']['menuitem'][] = array("desc" => gettext("LDAP"), "link" => "../access_ldap.php", "visible" => TRUE);
 $menu['access']['menuitem'][] = array("desc" => gettext("NIS"), "link" => "../notavailable.php", "visible" => false);
 
@@ -179,18 +181,18 @@ $menu['diagnostics']['menuitem'][] = array("desc" => gettext("Routes"), "link" =
 
 // Help
 $menu['help']['desc'] = gettext("Help");
-$menu['help']['visible'] = TRUE;
-$menu['help']['link'] = "../index.php";
+$menu['help']['visible'] = false;
+$menu['help']['link'] = "http://support.factorfx.com";
 $menu['help']['menuitem'] = array();
-$menu['help']['menuitem'][] = array("desc" => gettext("Report Generator"), "link" => "../report_generator.php", "visible" => TRUE);
-$menu['help']['menuitem'][] = array("type" => "separator", "visible" => TRUE);
-$menu['help']['menuitem'][] = array("desc" => gettext("Forum"), "link" => "http://apps.sourceforge.net/phpbb/nas4free/index.php", "visible" => TRUE, "target" => "_blank");
-$menu['help']['menuitem'][] = array("desc" => gettext("Information & Manual"), "link" => "http://wiki.nas4free.org/", "visible" => TRUE, "target" => "_blank");
-$menu['help']['menuitem'][] = array("desc" => gettext("IRC Live Support"), "link" => "http://webchat.freenode.net/?channels=#nas4free", "visible" => TRUE, "target" => "_blank");
-$menu['help']['menuitem'][] = array("type" => "separator", "visible" => TRUE);
-$menu['help']['menuitem'][] = array("desc" => gettext("Release Notes"), "link" => "../changes.php", "visible" => TRUE);
-$menu['help']['menuitem'][] = array("desc" => gettext("License & Credits"), "link" => "../license.php", "visible" => TRUE);
-$menu['help']['menuitem'][] = array("desc" => gettext("Donate"), "link" => "https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=SAW6UG4WBJVGG&lc=US&item_name=NAS4Free&item_number=Donation%20to%20NAS4Free&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted", "visible" => TRUE, "target" => "_blank");
+$menu['help']['menuitem'][] = array("desc" => gettext("Report Generator"), "link" => "../report_generator.php", "visible" => false);
+$menu['help']['menuitem'][] = array("type" => "separator", "visible" => false);
+$menu['help']['menuitem'][] = array("desc" => gettext("Forum"), "link" => "http://apps.sourceforge.net/phpbb/nas4free/index.php", "visible" => false, "target" => "_blank");
+$menu['help']['menuitem'][] = array("desc" => gettext("Information & Manual"), "link" => "http://wiki.nas4free.org/", "visible" => false, "target" => "_blank");
+$menu['help']['menuitem'][] = array("desc" => gettext("IRC Live Support"), "link" => "http://webchat.freenode.net/?channels=#nas4free", "visible" => false, "target" => "_blank");
+$menu['help']['menuitem'][] = array("type" => "separator", "visible" => false);
+$menu['help']['menuitem'][] = array("desc" => gettext("Release Notes"), "link" => "../changes.php", "visible" => false);
+$menu['help']['menuitem'][] = array("desc" => gettext("License & Credits"), "link" => "../license.php", "visible" => false);
+$menu['help']['menuitem'][] = array("desc" => gettext("Donate"), "link" => "https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=SAW6UG4WBJVGG&lc=US&item_name=NAS4Free&item_number=Donation%20to%20NAS4Free&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted", "visible" => false, "target" => "_blank");
 function display_menu($menuid) {
 	global $menu;
 

@@ -50,13 +50,15 @@ $a_service[] = array("desc" => gettext("RSYNC"), "link" => "services_rsyncd.php"
 $a_service[] = array("desc" => gettext("Unison"), "link" => "services_unison.php", "config" => "unison", "scriptname" => "unison");
 $a_service[] = array("desc" => gettext("iSCSI Target"), "link" => "services_iscsitarget.php", "config" => "iscsitarget", "scriptname" => "iscsi_target");
 $a_service[] = array("desc" => gettext("DNLA/UPnP"), "link" => "services_upnp.php", "config" => "upnp", "scriptname" => "fuppes");
-$a_service[] = array("desc" => gettext("iTunes/DAAP"), "link" => "services_daap.php", "config" => "daap", "scriptname" => "mt-daapd");
-$a_service[] = array("desc" => gettext("Dynamic DNS"), "link" => "services_dynamicdns.php", "config" => "dynamicdns", "scriptname" => "inadyn");
-$a_service[] = array("desc" => gettext("SNMP"), "link" => "services_snmp.php", "config" => "snmpd", "scriptname" => "bsnmpd");
+//$a_service[] = array("desc" => gettext("iTunes/DAAP"), "link" => "services_daap.php", "config" => "daap", "scriptname" => "mt-daapd");
+//$a_service[] = array("desc" => gettext("Dynamic DNS"), "link" => "services_dynamicdns.php", "config" => "dynamicdns", "scriptname" => "inadyn");
+//<$a_service[] = array("desc" => gettext("SNMP"), "link" => "services_snmp.php", "config" => "snmpd", "scriptname" => "bsnmpd");
 $a_service[] = array("desc" => gettext("UPS"), "link" => "services_ups.php", "config" => "ups", "scriptname" => "nut");
-$a_service[] = array("desc" => gettext("Webserver"), "link" => "services_websrv.php", "config" => "websrv", "scriptname" => "websrv");
-$a_service[] = array("desc" => gettext("BitTorrent"), "link" => "services_bittorrent.php", "config" => "bittorrent", "scriptname" => "transmission");
-$a_service[] = array("desc" => gettext("LCDproc"), "link" => "services_lcdproc.php", "config" => "lcdproc", "scriptname" => "LCDd");
+//$a_service[] = array("desc" => gettext("Webserver"), "link" => "services_websrv.php", "config" => "websrv", "scriptname" => "websrv");
+//$a_service[] = array("desc" => gettext("BitTorrent"), "link" => "services_bittorrent.php", "config" => "bittorrent", "scriptname" => "transmission");
+//$a_service[] = array("desc" => gettext("LCDproc"), "link" => "services_lcdproc.php", "config" => "lcdproc", "scriptname" => "LCDd");
+$a_service[] = array("desc" => gettext("Bacula FD"), "link" => "services_bacula_file_daemon.php", "config" => "bacula_fd", "scriptname" => "bacula_fd");
+$a_service[] = array("desc" => gettext("Bacula SD"), "link" => "services_bacula_storage_daemon.php", "config" => "bacula_sd", "scriptname" => "bacula_sd");
 ?>
 <?php include("fbegin.inc");?>
 <table width="100%" border="0" cellpadding="0" cellspacing="0">

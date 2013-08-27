@@ -67,6 +67,12 @@ div.main_tbl {
 		width: 98.5%;
 		margin-left: 45px;
 }
+div.main_tbl table{
+  		background-color: #EEEEEE;
+    	border: 1px solid #DEDBD1;
+    	padding: 5px;
+}
+
 a, a:link, a:visited {
         color: #000;
         text-decoration: none;

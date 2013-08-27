@@ -111,7 +111,7 @@ EOD;
 		round($meminfo['real'] / 1024 / 1024));
 ?>
 <form action="<?=$_SERVER['SCRIPT_NAME'];?>" method="post" enctype="multipart/form-data" name="iform">
-  <table>
+  <table class="tabcont">
 		<tr>
 			<td class="label" align="right"><?=gettext("Info");?></td>
 			<td class="text" align="left"><?=$sys_summary;?></td>

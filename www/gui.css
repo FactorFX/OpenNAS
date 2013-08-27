@@ -38,7 +38,7 @@ body, td, th, input, select {
 	font-size: 11px;
 }
 body {
-	background: #D9DCE1;
+	background: #1F1F1F;
 	margin: 0 auto;
 	padding: 0pt;
 	min-width: 700px;
@@ -295,7 +295,7 @@ div#header {
 	min-width: 880px;
 	height: 80px;
 	width: 100%;
-	background: #171717 url("header_bg.png") top left no-repeat;
+	background: #DA001D url("header_bg.png") top left no-repeat;
 	position: fixed;
 	top: 0;
 }
@@ -305,14 +305,14 @@ div#headerlogo {
 div#headerlogo a {
 }
 div#headerlogo a img {
-    margin-top: 6px;
-    margin-left: 34px;
+    margin-top: 2px;
+    margin-left: 25px;
     border: 0;
 }
 div#headerrlogo {
 	float: right;
 	height: 100%;
-	width: 400px;
+	width: 359px;
 	background-image: url("header_rlogo.png");
 }
 div#headerrlogo .hostname {
