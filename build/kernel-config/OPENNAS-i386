@@ -1,5 +1,5 @@
 include         GENERIC
-ident		NAS4FREE-x86
+ident		OPENNAS-x86
 
 #####################################################################
 # NAS4FREE

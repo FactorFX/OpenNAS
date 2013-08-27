@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- NAS4Free default system configuration -->
-<nas4free>
+<opennas>
 	<version>1.7</version>
 	<lastchange></lastchange>
 	<system>
-		<hostname>nas4free</hostname>
+		<hostname>opennas</hostname>
 		<domain>local</domain>
 		<dnsserver></dnsserver>
 		<ipv6dnsserver></ipv6dnsserver>
 		<dnsallowoverride/>
 		<username>admin</username>
-		<password>nas4free</password>
+		<password>opennas</password>
 		<timezone>Etc/UTC</timezone>
 		<language>en_US</language>
 		<ntp>
@@ -857,9 +857,9 @@
 	</mounts>
 	<samba>
 		<!-- <enable/> -->
-		<netbiosname>nas4free</netbiosname>
+		<netbiosname>opennas</netbiosname>
 		<workgroup>WORKGROUP</workgroup>
-		<serverdesc>NAS4Free Server</serverdesc>
+		<serverdesc>OpenNas Server</serverdesc>
 		<security>user</security>
 		<maxprotocol>SMB2</maxprotocol>
 		<guestaccount>ftp</guestaccount>
@@ -1104,7 +1104,7 @@
 		<rescaninterval>3600</rescaninterval>
 		<scantype>0</scantype>
 		<dbdir></dbdir>
-		<admin_pw>nas4free</admin_pw>
+		<admin_pw>opennas</admin_pw>
 	</daap>
 	<bittorrent>
 		<!--
@@ -1120,7 +1120,7 @@
 		<configdir></configdir>
 		<authrequired/>
 		<username>admin</username>
-		<password>nas4free</password>
+		<password>opennas</password>
 		<pex/>
 		<dht/>
 		<encryption>1</encryption>
@@ -1518,4 +1518,4 @@
 			<!-- <auxparam></auxparam> -->
 		</lcdproc>
 	</lcdproc>
-</nas4free>
+</opennas>

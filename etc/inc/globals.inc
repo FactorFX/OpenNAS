@@ -53,12 +53,12 @@ $g = array(
 	"cf_path" => "/cf",
 	"cf_conf_path" => "/cf/conf",
 	"www_path" => "/usr/local/www",
-	"xml_rootobj" => "nas4free",
+	"xml_rootobj" => "opennas",
 	"debug" => false,
 	"latest_config" => "1.7",
 	"nopccard_platforms" => array("wrap", "net48xx"),
 	"wireless_regex" => "/^(ndis|wi|ath|an|ral|ural|wai|iwi|awi|wlan|ipw|wpi|rum|arl|zyd)/",
-	"default_passwd" => "nas4free",
+	"default_passwd" => "opennas",
 	"default_ip" => "192.168.1.250"
 );
 
