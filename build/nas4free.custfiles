@@ -21,6 +21,7 @@ usr/bin/troff
 usr/bin/grotty
 usr/share/man/
 usr/share/groff_font/
+usr/share/tmac/
 
 ## network
 usr/bin/nslookup
