@@ -45,6 +45,8 @@ if (!isset($config['vinterfaces']['carp']) || !is_array($config['vinterfaces']['
 $pconfig['enable'] = isset($config['hast']['enable']);
 //$pconfig['role'] = $config['hast']['role'];
 $pconfig['auxparam'] = implode("\n", $config['hast']['auxparam']);
+$pconfig['alertemail'] = $config['hast']['alertemail'];
+$pconfig['alertemailto'] = $config['hast']['alertemailto'];
 
 $nodeid = @exec("/sbin/sysctl -q -n kern.hostuuid");
 if (empty($nodeid))
@@ -55,6 +57,12 @@ if (empty($nodename))
 
 $a_carp = &$config['vinterfaces']['carp'];
 array_sort_key($a_carp, "if");
+
+$a_cronjob = &$config['cron']['job'];
+$cnid = false;
+if (isset($config['hast']['alertemailcronuuid'])) {
+	$cnid = array_search_ex($config['hast']['alertemailcronuuid'], $a_cronjob, "uuid");
+}
 
 if (!sizeof($a_carp)) {
 	$errormsg = sprintf(gettext("No configured CARP interfaces. Please add new <a href='%s'>CARP interface</a> first."), "interfaces_carp.php");
@@ -124,6 +132,8 @@ if ($_POST) {
 	if (empty($input_errors)) {
 		$old_enable = isset($config['hast']['enable']) ? true : false;
 		$config['hast']['enable'] = isset($_POST['enable']) ? true : false;
+		$config['hast']['alertemail'] = isset($_POST['alertemail']) ? true : false;
+		$config['hast']['alertemailto'] = $_POST['alertemailto'];
 		//$config['hast']['role'] = $_POST['role'];
 
 		unset($config['hast']['auxparam']);
@@ -132,7 +142,35 @@ if ($_POST) {
 			if (!empty($auxparam))
 				$config['hast']['auxparam'][] = $auxparam;
 		}
-
+		
+		$mode = false;
+		
+		if (false !== $cnid) {
+			$cronjob = $a_cronjob[$cnid];	
+			if ($config['hast']['enable'] && isset($_POST['alertemail'])){
+				$a_cronjob[$cnid]['enable'] = true;
+				$mode = UPDATENOTIFY_MODE_MODIFIED;
+			}elseif ($config['hast']['enable'] && !isset($_POST['alertemail'])) {
+				$a_cronjob[$cnid]['enable'] = false;
+				$mode = UPDATENOTIFY_MODE_MODIFIED;
+			}elseif (!$config['hast']['enable']){
+				unset($a_cronjob[$cnid], $config['hast']['alertemailcronuuid']);
+				$mode = UPDATENOTIFY_MODE_DIRTY;
+			}			
+		}elseif($config['hast']['enable']) {					
+			$cronjob = array();
+			$cronjob['enable'] = isset($_POST['alertemail']);
+			$cronjob['uuid'] = uuid();
+			$cronjob['desc'] = gettext("Hast Alert");
+			$cronjob['minute'] = $cronjob['hour'] = $cronjob['day'] = $cronjob['month'] = $cronjob['weekday'] = '';
+			$cronjob['all_mins'] = $cronjob['all_hours'] = $cronjob['all_days'] = $cronjob['all_months'] = $cronjob['all_weekdays'] = 1;
+			$cronjob['who'] = 'root';
+			$cronjob['command'] = '/etc/inc/hast_alerts.php -d ' . $pconfig['alertemailto'];
+			$a_cronjob[] = $cronjob;
+			$mode = UPDATENOTIFY_MODE_NEW;
+		}
+		$config['hast']['alertemailcronuuid'] = $cronjob['uuid'];
+		
 		$retval = 0;
 
 		if ($old_enable == false && $config['hast']['enable'] == true) {
@@ -153,8 +191,8 @@ if ($_POST) {
 			$config['ups']['enable'] = false;
 			$config['websrv']['enable'] = false;
 			$config['bittorrent']['enable'] = false;
-			$config['lcdproc']['enable'] = false;
-
+			$config['lcdproc']['enable'] = false;			
+			
 			// update config
 			write_config();
 
@@ -188,14 +226,23 @@ if ($_POST) {
 		} else {
 			write_config();
 		}
+		
+		if ($mode) {
+			updatenotify_set("cronjob", $mode, $cronjob['uuid']);
+		}
 
 		if (!file_exists($d_sysrebootreqd_path)) {
 			config_lock();
 			$retval |= rc_update_service("hastd");
+			$retval |= rc_update_service("cron");
 			config_unlock();
 		}
 
 		$savemsg = get_std_save_message($retval);
+		
+		if ($retval == 0) {
+			updatenotify_delete("cronjob");
+		}
 	}
 }
 ?>
@@ -204,7 +251,10 @@ if ($_POST) {
 $(document).ready(function(){
 	function enable_change(enable_change) {
 		var val = !($('#enable').attr('checked') || enable_change);
+		console.log($('#alertemail').attr('checked'));
 		$('#auxparam').attr('disabled', val);
+		$('#alertemail').attr('disabled', val);
+		$('#alertemailto').attr('disabled', val);
 	}
 	$('#enable').click(function(){
 		enable_change(false);
@@ -256,6 +306,8 @@ $(document).ready(function(){
 	</tr>
 	<?php html_separator();?>
 	<?php html_titleline(gettext("Advanced settings"));?>
+	<?php html_checkbox("alertemail", gettext("Alert email"), isset($pconfig['alertemail']) ? true : false, gettext("Send email if error")); ?>				
+	<?php html_inputbox("alertemailto", gettext("Email to"), $pconfig['alertemailto'], gettext("Where email alert will be send."), true, 40);?>					
 	<?php html_textarea("auxparam", gettext("Auxiliary parameters"), $pconfig['auxparam'], sprintf(gettext("These parameters are added to %s."), "hast.conf") . " " . sprintf(gettext("Please check the <a href='%s' target='_blank'>documentation</a>."), "http://www.freebsd.org/doc/en_US.ISO8859-1/books/handbook/disks-hast.html"), false, 65, 5, false, false);?>
 	</table>
 	<div id="submit">
