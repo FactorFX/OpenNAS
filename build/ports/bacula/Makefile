@@ -99,7 +99,7 @@ CONFIGURE_ARGS+=	--with-openssl="no"
 
 MAN8+=	bacula-fd.8 bconsole.8 bacula.8 bacula-dir.8 bacula-sd.8 bcopy.8 bextract.8 bls.8 bscan.8 \
 	btape.8 btraceback.8 dbcheck.8 bwild.8 bregex.8
-MAN1+=	bsmtp.1 bacula-tray-monitor.1 bacula-bwxconsole.1
+MAN1+=	bsmtp.1
 
 MAKE_ENV+=	MAN8="${MAN8}" MAN1="${MAN1}"
 
@@ -122,7 +122,21 @@ post-patch:
 		${WRKSRC}/src/tools/bpluginfo.c
 
 do-install:
-
+	# manpages
+	$(MKDIR) ${NAS4FREE_ROOTFS}/usr/share/man/man8
+	for I in ${MAN8}; \
+		do ($(RMF) $$I.gz; gzip -c $$I >$$I.gz; \
+			$(INSTALL_DATA) $$I.gz ${NAS4FREE_ROOTFS}/usr/share/man/man8/$$I.gz; \
+			rm -f $$I.gz); \
+	done
+	$(MKDIR) ${NAS4FREE_ROOTFS}/usr/share/man/man1
+	for I in ${MAN1}; \
+		do ($(RMF) $$I.gz; gzip -c $$I >$$I.gz; \
+			$(INSTALL_DATA) $$I.gz ${NAS4FREE_ROOTFS}/usr/share/man/man1/$$I.gz; \
+			rm -f $$I.gz); \
+	done
+	
+	
 	# bconsole
 	${INSTALL_PROGRAM} ${WRKSRC}/src/console/.libs/bconsole ${NAS4FREE_ROOTFS}/usr/local/sbin/
 	@${CP} -pv ${WRKSRC}/src/console/bconsole.conf ${NAS4FREE_ROOTFS}/usr/local/etc/
