@@ -124,4 +124,5 @@ ln -s /var/etc/pam.d/netatalk etc/pam.d/netatalk
 ln -s /var/etc/pam.d/login etc/pam.d/login
 ln -s /var/etc/pam.d/system etc/pam.d/system
 ln -s /var/etc/nsswitch.conf etc/nsswitch.conf
+ln -s /var/etc/krb5.conf etc/krb5.conf
 ln -s /var/tmp tmp
