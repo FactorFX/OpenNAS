@@ -35,6 +35,10 @@ usr/bin/whoami
 usr/bin/whereis
 usr/bin/which
 
+### dig- netstat
+usr/bin/dig
+usr/bin/netstat
+
 ### kerberos
 usr/bin/kadmin
 usr/bin/klist

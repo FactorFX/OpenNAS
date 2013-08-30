@@ -46,11 +46,14 @@
     SUBDIR += smartmontools
     SUBDIR += tftp-hpa
     SUBDIR += transmission
+    SUBDIR += tmux
     SUBDIR += unison
     SUBDIR += vbox-additions
+    SUBDIR += vim-lite
     SUBDIR += vmxnet3
     SUBDIR += wol
     SUBDIR += xmlstarlet
+    SUBDIR += zfs-stats
     SUBDIR += zoneinfo
 
 .include <bsd.port.subdir.mk>
