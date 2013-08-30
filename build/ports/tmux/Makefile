@@ -52,6 +52,8 @@ post-patch:
 
 do-install:
 	@${INSTALL_PROGRAM} ${WRKSRC}/tmux ${NAS4FREE_ROOTFS}/bin
-	@${INSTALL_MAN} ${WRKSRC}/tmux.1 ${MANPREFIX}/man/man1
+	gzip -c ${WRKSRC}/tmux.1 >${WRKSRC}/tmux.1.gz
+	@$(INSTALL_DATA) ${WRKSRC}/tmux.1.gz ${NAS4FREE_ROOTFS}/usr/share/man/man1
+	rm -f ${WRKSRC}/tmux.1.gz
 
 .include <bsd.port.mk>
