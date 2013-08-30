@@ -125,15 +125,15 @@ do-install:
 	# manpages
 	$(MKDIR) ${NAS4FREE_ROOTFS}/usr/share/man/man8
 	for I in ${MAN8}; \
-		do ($(RMF) $$I.gz; gzip -c $$I >$$I.gz; \
-			$(INSTALL_DATA) $$I.gz ${NAS4FREE_ROOTFS}/usr/share/man/man8/$$I.gz; \
-			rm -f $$I.gz); \
+		do ($(RMF) ${WRKSRC}/manpages/$$I.gz; gzip -c $$I >$$I.gz; \
+			$(INSTALL_DATA) ${WRKSRC}/manpages/$$I.gz ${NAS4FREE_ROOTFS}/usr/share/man/man8/$$I.gz; \
+			rm -f ${WRKSRC}/manpages/$$I.gz); \
 	done
 	$(MKDIR) ${NAS4FREE_ROOTFS}/usr/share/man/man1
 	for I in ${MAN1}; \
-		do ($(RMF) $$I.gz; gzip -c $$I >$$I.gz; \
-			$(INSTALL_DATA) $$I.gz ${NAS4FREE_ROOTFS}/usr/share/man/man1/$$I.gz; \
-			rm -f $$I.gz); \
+		do ($(RMF) ${WRKSRC}/manpages/$$I.gz; gzip -c $$I >$$I.gz; \
+			$(INSTALL_DATA) ${WRKSRC}/manpages/$$I.gz ${NAS4FREE_ROOTFS}/usr/share/man/man1/$$I.gz; \
+			rm -f ${WRKSRC}/manpages/$$I.gz); \
 	done
 	
 	
