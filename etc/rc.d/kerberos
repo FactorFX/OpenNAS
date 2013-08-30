@@ -4,48 +4,57 @@
 #
 
 # PROVIDE: kerberos
+# REQUIRE: root var nsswitch ldap
+# BEFORE: NETWORK
 
 . /etc/rc.subr
 . /etc/configxml.subr
 
 name="kerberos"
-start_precmd="generate_nsswitch_ldap_conf"
 
-load_rc_config "$name"
+load_rc_config "${name}"
 
-kerberos_config="/etc/krb5.conf"
+kerberos_config="/var/etc/krb5.conf"
 ldap_config=${ldap_config:-"/var/etc/ldap.conf"}
+nsswitch_config="/var/etc/nsswitch.conf"
+
+# clearing existing files
+/bin/cat /dev/null > ${kerberos_config}
+/bin/cat /dev/null > ${ldap_config}
+/bin/cat /dev/null > ${nsswitch_config}
 
 if configxml_isset //kerberos/enable; then
-	echo "Generating krb5.conf."
-	/usr/local/bin/xml sel -t \
+	echo "Generating krb5.conf."	
+	/usr/local/bin/xml sel -t -m "//kerberos" \
 		-o "[libdefaults]" -n \
-		-v "concat('default_realm =  ', //kerberos/realms)" -n \
+		-v "concat('default_realm =  ', realms)" -n \
 		-n \
 		-o "[realms]" -n \
-		-v "concat(//kerberos/realms, ' = {')" -n \
-		-v "concat('kdc = ', //kerberos/kdc)" -n \
+		-v "concat(realms, ' = {')" -n \
+		-v "concat('kdc = ', kdc)" -n \
 		-o "}" -n \
 		${configxml_file} | /usr/local/bin/xml unesc > ${kerberos_config}
-fi
 
-generate_nsswitch_ldap_conf()
-{
-if configxml_isset //kerberos/enable; then
+	echo "Generating nsswitch.conf."	
 	/usr/local/bin/xml sel -t \
 		-o "group: files ldap" -n \
 		-o "group_compat: nis" -n \
 		-o "hosts: files dns" -n \
 		-o "networks: files" -n \
 		-o "passwd: files ldap" -n \
-		${configxml_file} | /usr/local/bin/xml unesc > /etc/nsswitch.conf
+		-o "passwd_compat: nis" -n \
+		-o "shells: files" -n \
+		-o "services: compat" -n \
+		-o "services_compat: nis" -n \
+		-o "protocols: files" -n \
+		-o "rpc: files" -n \
+		${configxml_file} | /usr/local/bin/xml unesc > ${nsswitch_config}
 
-	/usr/local/bin/xml sel -t \
-		-v "concat('host ',//kerberos/ldaphostname)" -n \
-		-v "concat('base ',//kerberos/ldapbase)" -n \
-		-m "//kerberos/ldapauxparam" -v "." -n -b \
+	echo "Generating ldap.conf."
+	/usr/local/bin/xml sel -t -m "//kerberos" \
+		-v "concat('uri ', ldaphostname)" -n \
+		-v "concat('base ', ldapbase)" -n \
+		-m "ldapauxparam" -v "." -n -b \
 		${configxml_file} | /usr/local/bin/xml unesc > ${ldap_config}
+		
 fi
-}
-
-run_rc_command "$1"

@@ -60,8 +60,14 @@ if ($_POST) {
 		} else {
 			$errormsg = sprintf("%s %s", gettext("Failed to upload file."),
 				$g_file_upload_error[$_FILES['krb5']['error']]);
+		}	
+		
+		unset($pconfig['ldapauxparam']);
+		foreach (explode("\n", $_POST['ldapauxparam']) as $auxparam) {
+			$auxparam = trim($auxparam, "\t\n\r");
+			if (!empty($auxparam))
+				$pconfig['ldapauxparam'][] = $auxparam;
 		}
-	
 	 }		
 	 
 	write_config();
@@ -69,13 +75,16 @@ if ($_POST) {
 	$retval = 0;
 	if (!file_exists($d_sysrebootreqd_path)) {
 		config_lock();
-		$retval |= rc_update_service("kerberos");
+		rc_exec_service("kerberos");
 		config_unlock();
 	}
 	
 	$savemsg = get_std_save_message($retval);
 	
 }
+
+if (isset($pconfig['ldapauxparam']) && is_array($pconfig['ldapauxparam']))
+	$pconfig['ldapauxparam'] = implode("\n", $pconfig['ldapauxparam']);
 ?>
 <?php include("fbegin.inc");?>
 <script type="text/javascript">
@@ -97,7 +106,7 @@ function enable_change(enable_change) {
 				<?php if (!empty($input_errors)) print_input_errors($input_errors);?>
 				<?php if (!empty($savemsg)) print_info_box($savemsg);?>
 				<table width="100%" border="0" cellpadding="6" cellspacing="0">
-					<?php html_titleline_checkbox("enable", gettext("Kerberos Protocol"), !empty($pconfig['enable']) ? true : false, gettext("Enable"), "enable_change(false)");?>
+					<?php html_titleline_checkbox("enable", gettext("Kerberos Protocol"), isset($pconfig['enable']) ? true : false, gettext("Enable"), "enable_change(false)");?>
 					<?php html_inputbox("kdc", "KDC", $pconfig['kdc'],"", true, 60);?>
 					<?php html_inputbox("realms","Realms", $pconfig['realms'],"",  true, 60);?>
 				<tr id="krb5_keytabid" style="display: visible">
