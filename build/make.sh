@@ -15,6 +15,8 @@
 ################################################################################
 
 # Global variables
+OPENNAS_BRANCH=$(git status |grep 'On branch'|awk '{print $4}'|tr '[:lower:]' '[:upper:]')
+NAS4FREE_NEW_STABLE_VERSION=$(curl -s http://www.nas4free.org/downloads.html | sed -nr 's/NAS4Free.*\.([0-9]+)+.*Download Now.*/\1/p' |tr -d '/')
 NAS4FREE_ROOTDIR="/usr/local/nas4free"
 NAS4FREE_WORKINGDIR="$NAS4FREE_ROOTDIR/work"
 NAS4FREE_ROOTFS="$NAS4FREE_ROOTDIR/rootfs"
@@ -875,11 +877,15 @@ create_full() {
 	return 0
 }
 
-# Update Subversion Sources.
-update_svn() {
+# Update Git Sources.
+update_git() {
 	# Update sources from repository.
-	cd $NAS4FREE_ROOTDIR
-	svn co $NAS4FREE_SVNURL svn
+	cd $NAS4FREE_SVNDIR
+	git checkout master
+	svn update -r ${NAS4FREE_NEW_STABLE_VERSION}
+	git add .
+	git commit -m "revision ${NAS4FREE_NEW_STABLE_VERSION}"
+	git status
 
 	# Update Revision Number.
 	NAS4FREE_REVISION=$(svn info ${NAS4FREE_SVNDIR} | grep Revision | awk '{print $2}')
@@ -908,6 +914,7 @@ echo -n '
 Compile NAS4FREE from Scratch
 -----------------------------
 Menu Options:
+
 
 1 - Update FreeBSD Source Tree and Ports Collections.
 2 - Create Filesystem Structure.
@@ -1047,9 +1054,13 @@ main() {
 ${NAS4FREE_PRODUCTNAME} Build Environment
 --------------------------
 Menu Options:
+"
+echo "You are on branch ${OPENNAS_BRANCH} with Nas4free revision ${NAS4FREE_REVISION}"
+echo "The last Stable version of Nas4Free is revision ${NAS4FREE_NEW_STABLE_VERSION}"
+echo -n "
 
-1  - Update NAS4FREE Source Files to CURRENT.
-2  - Compile NAS4FREE from Scratch.
+1  - Update OPENNAS Source Files to LATEST STABLE.
+2  - Compile OPENNAS from Scratch.
 10 - Create 'Embedded' (IMG) File (rawrite to CF/USB/DD).
 11 - Create 'LiveUSB' (IMG) File.
 12 - Create 'LiveCD' (ISO) File.
@@ -1059,7 +1070,7 @@ Menu Options:
 Press # "
 	read choice
 	case $choice in
-		1)	update_svn;;
+		1)	update_git;;
 		2)	build_system;;
 		10)	create_image;;
 		11)	create_usb;;
