@@ -14,19 +14,38 @@
 # Settings
 ################################################################################
 
-# Global variables
-OPENNAS_BRANCH=$(git status |grep 'On branch'|awk '{print $4}'|tr '[:lower:]' '[:upper:]')
-NAS4FREE_NEW_STABLE_VERSION=$(curl -s http://www.nas4free.org/downloads.html | sed -nr 's/NAS4Free.*\.([0-9]+)+.*Download Now.*/\1/p' |tr -d '/')
 NAS4FREE_ROOTDIR="/usr/local/nas4free"
+
+SCRIPT_LOCATION=`realpath $0`
+NAS4FREE_BUILDIR=`dirname $SCRIPT_LOCATION`
+NAS4FREE_SVNDIR=`dirname $NAS4FREE_BUILDIR`
+NAS4FREE_ROOTDIR=`dirname $NAS4FREE_SVNDIR`
+
+MAKE_ALL=FORCE_BUILD_KERNEL=''
+if [ "$1" = "make_all" ]; then
+	shift
+	
+	if [ "$1" = "force_build_kernel" ]; then
+		FORCE_BUILD_KERNEL="true"
+		shift
+	fi
+	MAKE_ALL=$@
+elif [ $# -gt 0 ]; then
+	echo 'Bad parameters'
+	exit 1
+fi		
+
+# Global variables
+NAS4FREE_NEW_STABLE_VERSION=$(curl -s http://www.nas4free.org/downloads.html | sed -nr 's/NAS4Free.*\.([0-9]+)+.*Download Now.*/\1/p' | tr -d '/')
 NAS4FREE_WORKINGDIR="$NAS4FREE_ROOTDIR/work"
 NAS4FREE_ROOTFS="$NAS4FREE_ROOTDIR/rootfs"
-NAS4FREE_SVNDIR="$NAS4FREE_ROOTDIR/svn"
+OPENNAS_BRANCH=$(git --work-tree=$NAS4FREE_SVNDIR --git-dir=$NAS4FREE_SVNDIR/.git status | grep 'On branch'| awk '{print $4}')
 NAS4FREE_WORLD=""
 NAS4FREE_PRODUCTNAME=$(cat $NAS4FREE_SVNDIR/etc/prd.name)
 NAS4FREE_VERSION=$(cat $NAS4FREE_SVNDIR/etc/prd.version)
 NAS4FREE_REVISION=$(svn info ${NAS4FREE_SVNDIR} | grep "Revision:" | awk '{print $2}')
 if [ -f "${NAS4FREE_SVNDIR}/local.revision" ]; then
-	NAS4FREE_REVISION=$(printf $(cat ${NAS4FREE_SVNDIR}/local.revision) ${NAS4FREE_REVISION})
+	NAS4FREE_REVISION=$(printf ${NAS4FREE_REVISION}-$(cat ${NAS4FREE_SVNDIR}/local.revision))
 fi
 NAS4FREE_ARCH=$(uname -p)
 if [ "amd64" = ${NAS4FREE_ARCH} ]; then
@@ -191,9 +210,8 @@ update_sources() {
 # Build world. Copying required files defined in 'build/nas4free.files'.
 build_world() {
 	# Make a pseudo 'chroot' to NAS4FREE root.
-  cd $NAS4FREE_ROOTFS
+	cd $NAS4FREE_ROOTFS
 
-	echo
 	echo "Building World:"
 
 	[ -f $NAS4FREE_WORKINGDIR/nas4free.files ] && rm -f $NAS4FREE_WORKINGDIR/nas4free.files
@@ -302,24 +320,29 @@ $DIALOG --title \"$NAS4FREE_PRODUCTNAME - Kernel Patches\" \\
 }
 
 # Build/Install the kernel.
+# Parameter $1 is build, $2 is install
 build_kernel() {
 	tempfile=$NAS4FREE_WORKINGDIR/tmp$$
 
 	# Make sure kernel directory exists.
 	[ ! -d "${NAS4FREE_ROOTFS}/boot/kernel" ] && mkdir -p ${NAS4FREE_ROOTFS}/boot/kernel
 
-	# Choose what to do.
-	$DIALOG --title "$NAS4FREE_PRODUCTNAME - Build/Install Kernel" --checklist "Please select whether you want to build or install the kernel." 10 75 3 \
-		"prebuild" "Apply kernel patches" OFF \
-		"build" "Build kernel" OFF \
-		"install" "Install kernel + modules" ON 2> $tempfile
-	if [ 0 != $? ]; then # successful?
-		rm $tempfile
-		return 1
-	fi
+	if [ $# -gt 0 ]; then
+		choices=$@
+	else
+		# Choose what to do.
+		$DIALOG --title "$NAS4FREE_PRODUCTNAME - Build/Install Kernel" --checklist "Please select whether you want to build or install the kernel." 10 75 3 \
+			"prebuild" "Apply kernel patches" OFF \
+			"build" "Build kernel" OFF \
+			"install" "Install kernel + modules" ON 2> $tempfile
+		if [ 0 != $? ]; then # successful?
+			rm $tempfile
+			return 1
+		fi
 
-	choices=`cat $tempfile`
-	rm $tempfile
+		choices=`cat $tempfile`
+		rm $tempfile
+	fi
 
 	for choice in $(echo $choices | tr -d '"'); do
 		case $choice in
@@ -350,8 +373,8 @@ build_kernel() {
 				for module in $(cat ${NAS4FREE_WORKINGDIR}/modules.files | grep -v "^#"); do
 					install -v -o root -g wheel -m 555 ${modulesdir}/${module} ${NAS4FREE_ROOTFS}/boot/kernel
 				done;;
-  	esac
-  done
+  		esac
+	done
 
 	return 0
 }
@@ -881,14 +904,14 @@ create_full() {
 update_git() {
 	# Update sources from repository.
 	cd $NAS4FREE_SVNDIR
-	git checkout master
-	svn update -r ${NAS4FREE_NEW_STABLE_VERSION}
-	git add .
-	git commit -m "revision ${NAS4FREE_NEW_STABLE_VERSION}"
-	git status
+	#git checkout master
+	#svn update -r ${NAS4FREE_NEW_STABLE_VERSION}
+	#git add .
+	#git commit -m "revision ${NAS4FREE_NEW_STABLE_VERSION}"
+	#git status
 
 	# Update Revision Number.
-	NAS4FREE_REVISION=$(svn info ${NAS4FREE_SVNDIR} | grep Revision | awk '{print $2}')
+	#NAS4FREE_REVISION=$(svn info ${NAS4FREE_SVNDIR} | grep Revision | awk '{print $2}')
 
 	return 0
 }
@@ -905,6 +928,26 @@ use_svn() {
 	cd ${NAS4FREE_SVNDIR}/conf && find . \! -iregex ".*/\.svn.*" -print | cpio -pdumv ${NAS4FREE_ROOTFS}/conf.default
 
 	return 0
+}
+
+build_bootloader()
+{
+	opt="-f";
+	if [ 0 != $OPT_BOOTMENU ]; then
+		opt="$opt -m"
+	fi
+	if [ 0 != $OPT_BOOTSPLASH ]; then
+		opt="$opt -b"
+	fi
+	if [ 0 != $OPT_SERIALCONSOLE ]; then
+		opt="$opt -s"
+	fi
+	$NAS4FREE_SVNDIR/build/nas4free-create-bootdir.sh $opt $NAS4FREE_BOOTDIR
+}
+
+modify_permissions()
+{
+	$NAS4FREE_SVNDIR/build/nas4free-modify-permissions.sh $NAS4FREE_ROOTFS
 }
 
 build_system() {
@@ -933,19 +976,9 @@ Press # '
 			3)	build_kernel;;
 			4)	build_world;;
 			5)	build_ports;;
-			6)	opt="-f";
-					if [ 0 != $OPT_BOOTMENU ]; then
-						opt="$opt -m"
-					fi;
-					if [ 0 != $OPT_BOOTSPLASH ]; then
-						opt="$opt -b"
-					fi;
-					if [ 0 != $OPT_SERIALCONSOLE ]; then
-						opt="$opt -s"
-					fi;
-					$NAS4FREE_SVNDIR/build/nas4free-create-bootdir.sh $opt $NAS4FREE_BOOTDIR;;
+			6)	build_bootloader;;
 			7)	add_libs;;
-			8)	$NAS4FREE_SVNDIR/build/nas4free-modify-permissions.sh $NAS4FREE_ROOTFS;;
+			8)	modify_permissions;;
 			*)	main; return $?;;
 		esac
 		[ 0 == $? ] && echo "=> Successfully done <=" || echo "=> Failed!"
@@ -957,22 +990,27 @@ build_ports() {
 	tempfile=$NAS4FREE_WORKINGDIR/tmp$$
 	ports=$NAS4FREE_WORKINGDIR/ports$$
 
-	# Choose what to do.
-	$DIALOG --title "$NAS4FREE_PRODUCTNAME - Build/Install Ports" --menu "Please select whether you want to build or install ports." 10 45 2 \
-		"build" "Build ports" \
-		"install" "Install ports" 2> $tempfile
-	if [ 0 != $? ]; then # successful?
+
+	if [ $# -gt 0 ]; then
+		choices=$@
+	else
+		# Choose what to do.
+		$DIALOG --title "$NAS4FREE_PRODUCTNAME - Build/Install Ports" --menu "Please select whether you want to build or install ports." 10 45 2 \
+			"build" "Build ports" \
+			"install" "Install ports" 2> $tempfile
+		if [ 0 != $? ]; then # successful?
+			rm $tempfile
+			return 1
+		fi
+		
+		choices=`cat $tempfile`
 		rm $tempfile
-		return 1
+
+		# Create list of available ports.
+		echo "#! /bin/sh
+		$DIALOG --title \"$NAS4FREE_PRODUCTNAME - Ports\" \\
+		--checklist \"Select the ports you want to process.\" 21 75 14 \\" > $tempfile
 	fi
-
-	choice=`cat $tempfile`
-	rm $tempfile
-
-	# Create list of available ports.
-	echo "#! /bin/sh
-$DIALOG --title \"$NAS4FREE_PRODUCTNAME - Ports\" \\
---checklist \"Select the ports you want to process.\" 21 75 14 \\" > $tempfile
 
 	for s in $NAS4FREE_SVNDIR/build/ports/*; do
 		[ ! -d "$s" ] && continue
@@ -997,48 +1035,50 @@ $DIALOG --title \"$NAS4FREE_PRODUCTNAME - Ports\" \\
 	fi
 	rm $tempfile
 
-	case ${choice} in
-		build)
-			# Set ports options
-			echo;
-			echo "--------------------------------------------------------------";
-			echo ">>> Set Ports Options.";
-			echo "--------------------------------------------------------------";
-			cd ${NAS4FREE_SVNDIR}/build/ports/options && make
-			# Clean ports.
-			echo;
-			echo "--------------------------------------------------------------";
-			echo ">>> Cleaning Ports.";
-			echo "--------------------------------------------------------------";
-			for port in $(cat ${ports} | tr -d '"'); do
-				cd ${NAS4FREE_SVNDIR}/build/ports/${port};
-				make clean;
-			done;
-			# Build ports.
-			for port in $(cat $ports | tr -d '"'); do
+	for choice in $(echo $choices | tr -d '"'); do
+		case ${choice} in
+			build)
+				# Set ports options
 				echo;
 				echo "--------------------------------------------------------------";
-				echo ">>> Building Port: ${port}";
+				echo ">>> Set Ports Options.";
 				echo "--------------------------------------------------------------";
-				cd ${NAS4FREE_SVNDIR}/build/ports/${port};
-				make build;
-				[ 0 != $? ] && return 1; # successful?
-			done;
-			;;
-		install)
-			for port in $(cat ${ports} | tr -d '"'); do
+				cd ${NAS4FREE_SVNDIR}/build/ports/options && make
+				# Clean ports.
 				echo;
 				echo "--------------------------------------------------------------";
-				echo ">>> Installing Port: ${port}";
+				echo ">>> Cleaning Ports.";
 				echo "--------------------------------------------------------------";
-				cd ${NAS4FREE_SVNDIR}/build/ports/${port};
-				# Delete cookie first, otherwise Makefile will skip this step.
-				rm -f ./work/.install_done.*;
-				env NO_PKG_REGISTER=1 make install;
-				[ 0 != $? ] && return 1; # successful?
-			done;
-			;;
-	esac
+				for port in $(cat ${ports} | tr -d '"'); do
+					cd ${NAS4FREE_SVNDIR}/build/ports/${port};
+					make clean;
+				done;
+				# Build ports.
+				for port in $(cat $ports | tr -d '"'); do
+					echo;
+					echo "--------------------------------------------------------------";
+					echo ">>> Building Port: ${port}";
+					echo "--------------------------------------------------------------";
+					cd ${NAS4FREE_SVNDIR}/build/ports/${port};
+					make build;
+					[ 0 != $? ] && return 1; # successful?
+				done;
+				;;
+			install)
+				for port in $(cat ${ports} | tr -d '"'); do
+					echo;
+					echo "--------------------------------------------------------------";
+					echo ">>> Installing Port: ${port}";
+					echo "--------------------------------------------------------------";
+					cd ${NAS4FREE_SVNDIR}/build/ports/${port};
+					# Delete cookie first, otherwise Makefile will skip this step.
+					rm -f ./work/.install_done.*;
+					env NO_PKG_REGISTER=1 make install;
+					[ 0 != $? ] && return 1; # successful?
+				done;
+				;;
+		esac
+	done
 	rm ${ports}
 
   return 0
@@ -1086,7 +1126,42 @@ Press # "
 	return 0
 }
 
-while true; do
-	main
-done
+if [ -z $MAKE_ALL ]; then
+	while true; do
+		main
+	done
+else
+	
+	create_rootfs
+	if ! [ -d ${NAS4FREE_OBJDIRPREFIX} ] || [ $FORCE_BUILD_KERNEL = "true" ]; then
+		build_kernel build
+	fi	
+	build_kernel install
+	build_world
+	build_ports build install
+	build_bootloader
+	add_libs
+	modify_permissions
+	for make in $MAKE_ALL; do
+		case $make in
+			"full")
+				create_full;;
+			"usb")
+				create_usb;;
+			"tiny")
+				create_iso_tiny;;
+			"iso")
+				create_iso;;
+			"image")
+				create_image;;
+			"all")
+				create_full
+				create_usb
+				create_iso
+				create_image;;
+			*)
+				echo "Bad Parameter";;	
+		esac
+	done
+fi	
 exit 0

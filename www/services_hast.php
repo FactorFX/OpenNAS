@@ -251,7 +251,6 @@ if ($_POST) {
 $(document).ready(function(){
 	function enable_change(enable_change) {
 		var val = !($('#enable').attr('checked') || enable_change);
-		console.log($('#alertemail').attr('checked'));
 		$('#auxparam').attr('disabled', val);
 		$('#alertemail').attr('disabled', val);
 		$('#alertemailto').attr('disabled', val);
