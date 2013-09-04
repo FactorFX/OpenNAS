@@ -14,14 +14,11 @@
 # Settings
 ################################################################################
 
-NAS4FREE_ROOTDIR="/usr/local/nas4free"
-
 SCRIPT_LOCATION=`realpath $0`
 NAS4FREE_BUILDIR=`dirname $SCRIPT_LOCATION`
 NAS4FREE_SVNDIR=`dirname $NAS4FREE_BUILDIR`
 NAS4FREE_ROOTDIR=`dirname $NAS4FREE_SVNDIR`
 
-MAKE_ALL=FORCE_BUILD_KERNEL=''
 if [ "$1" = "make_all" ]; then
 	shift
 	
@@ -990,9 +987,20 @@ build_ports() {
 	tempfile=$NAS4FREE_WORKINGDIR/tmp$$
 	ports=$NAS4FREE_WORKINGDIR/ports$$
 
-
 	if [ $# -gt 0 ]; then
 		choices=$@
+		for s in $NAS4FREE_SVNDIR/build/ports/*; do
+			[ ! -d "$s" ] && continue
+			port=`basename $s`
+			state=`cat $s/pkg-state`
+			case ${state} in
+				[hH][iI][dD][eE])
+					;;
+				*)
+					echo "\"$port\"" >> $ports;
+					;;
+			esac
+		done
 	else
 		# Choose what to do.
 		$DIALOG --title "$NAS4FREE_PRODUCTNAME - Build/Install Ports" --menu "Please select whether you want to build or install ports." 10 45 2 \
@@ -1010,30 +1018,30 @@ build_ports() {
 		echo "#! /bin/sh
 		$DIALOG --title \"$NAS4FREE_PRODUCTNAME - Ports\" \\
 		--checklist \"Select the ports you want to process.\" 21 75 14 \\" > $tempfile
-	fi
-
-	for s in $NAS4FREE_SVNDIR/build/ports/*; do
-		[ ! -d "$s" ] && continue
-		port=`basename $s`
-		state=`cat $s/pkg-state`
-		case ${state} in
-			[hH][iI][dD][eE])
-				;;
-			*)
-				desc=`cat $s/pkg-descr`;
-				echo "\"$port\" \"$desc\" $state \\" >> $tempfile;
-				;;
-		esac
-	done
-
-	# Display list of available ports.
-	sh $tempfile 2> $ports
-	if [ 0 != $? ]; then # successful?
+	
+		for s in $NAS4FREE_SVNDIR/build/ports/*; do
+			[ ! -d "$s" ] && continue
+			port=`basename $s`
+			state=`cat $s/pkg-state`
+			case ${state} in
+				[hH][iI][dD][eE])
+					;;
+				*)
+					desc=`cat $s/pkg-descr`;
+					echo "\"$port\" \"$desc\" $state \\" >> $tempfile;
+					;;
+			esac
+		done
+	
+		# Display list of available ports.
+		sh $tempfile 2> $ports
+		if [ 0 != $? ]; then # successful?
+			rm $tempfile
+			rm $ports
+			return 1
+		fi
 		rm $tempfile
-		rm $ports
-		return 1
 	fi
-	rm $tempfile
 
 	for choice in $(echo $choices | tr -d '"'); do
 		case ${choice} in
@@ -1052,6 +1060,7 @@ build_ports() {
 				for port in $(cat ${ports} | tr -d '"'); do
 					cd ${NAS4FREE_SVNDIR}/build/ports/${port};
 					make clean;
+					[ 0 != $? ] && return 1; # successful?
 				done;
 				# Build ports.
 				for port in $(cat $ports | tr -d '"'); do
@@ -1133,7 +1142,7 @@ if [ -z $MAKE_ALL ]; then
 else
 	
 	create_rootfs
-	if ! [ -d ${NAS4FREE_OBJDIRPREFIX} ] || [ $FORCE_BUILD_KERNEL = "true" ]; then
+	if ! [ -f ${NAS4FREE_WORKINGDIR}/kernel.gz ] || [ "$FORCE_BUILD_KERNEL" = "true" ]; then
 		build_kernel build
 	fi	
 	build_kernel install
