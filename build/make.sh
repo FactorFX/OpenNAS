@@ -1144,10 +1144,13 @@ else
 	create_rootfs
 	if ! [ -f ${NAS4FREE_WORKINGDIR}/kernel.gz ] || [ "$FORCE_BUILD_KERNEL" = "true" ]; then
 		build_kernel build
+		[ 0 != $? ] && exit 1
 	fi	
 	build_kernel install
 	build_world
-	build_ports build install
+	build_ports build
+	[ 0 != $? ] && exit 1
+	build_ports install
 	build_bootloader
 	add_libs
 	modify_permissions
