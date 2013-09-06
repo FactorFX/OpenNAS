@@ -72,7 +72,7 @@ ALL_TARGET=	#
 _DATADIR=	${RELEASE:S/-//g:S/.//g}
 DATADIR=	${PREFIX}/share/vim/${_DATADIR}
 PLIST_SUB=	VIM_VER=${_DATADIR}
-##MAN1=		evim.1 vim.1 vimdiff.1 vimtutor.1 xxd.1
+MAN1=		evim.1 vim.1 vimdiff.1 vimtutor.1 xxd.1
 ##MLINKS=		vim.1 rvim.1	vim.1 rview.1
 .if !defined(LITE)
 MLINKS+=	vim.1 gvim.1	vim.1 gview.1	vimdiff.1 gvimdiff.1 \
@@ -211,6 +211,14 @@ do-install:
 	@${INSTALL_PROGRAM} -v ${WRKSRC}/vim ${NAS4FREE_ROOTFS}/${PREFIX}/bin/vim
 	${MKDIR} -p ${NAS4FREE_ROOTFS}/${PREFIX}/share/vim/${_DATADIR}
 	${CP} -R ${WRKSRC}/../runtime/* ${NAS4FREE_ROOTFS}/${PREFIX}/share/vim/${_DATADIR}
+	
+	## Manpage
+	$(MKDIR) ${NAS4FREE_ROOTFS}/usr/share/man/man1
+	for I in ${MAN1}; \
+		do (rm -f ${WRKSRC}/../runtime/doc/$$I.gz; gzip -c ${WRKSRC}/../runtime/doc/$$I >${WRKSRC}/../runtime/doc/$$I.gz; \
+			$(INSTALL_DATA) ${WRKSRC}/../runtime/doc/$$I.gz ${NAS4FREE_ROOTFS}/usr/share/man/man1/$$I.gz; \
+			rm -f ${WRKSRC}/../runtime/doc/$$I.gz); \
+	done
 
 show-options:
 	@${MAKE} -DWITH_OPTIONS showconfig
