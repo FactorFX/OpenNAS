@@ -16,7 +16,8 @@ alias j		jobs -l
 alias la	ls -a
 alias lf	ls -FA
 alias ll	ls -lAF
-alias ls      ls -G
+alias ls    ls -G
+alias reboot shutdown -r now
 
 # A righteous umask
 umask 22
