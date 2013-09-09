@@ -3,7 +3,7 @@
 # Created:	Sat June 29, 1996
 # $FreeBSD: editors/vim/Makefile 322817 2013-07-12 06:36:02Z obrien $
 LITE=		yes
-
+NO_PKG_REGISTER=yes
 
 PORTNAME?=	vim
 #		! _NEVER_ reduce or lower PATCHLEVEL, even if the PATCHLEVEL
@@ -210,7 +210,7 @@ pre-install:
 do-install:
 	@${INSTALL_PROGRAM} -v ${WRKSRC}/vim ${NAS4FREE_ROOTFS}/${PREFIX}/bin/vim
 	${MKDIR} -p ${NAS4FREE_ROOTFS}/${PREFIX}/share/vim/${_DATADIR}
-	${CP} -R ${WRKSRC}/../runtime/* ${NAS4FREE_ROOTFS}/${PREFIX}/share/vim/${_DATADIR}
+	(cd ${WRKSRC}/../runtime/ && ${COPYTREE_SHARE} . ${NAS4FREE_ROOTFS}/${PREFIX}/share/vim/${_DATADIR})
 	
 	## Manpage
 	$(MKDIR) ${NAS4FREE_ROOTFS}/usr/share/man/man1

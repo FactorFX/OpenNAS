@@ -55,5 +55,6 @@
     SUBDIR += xmlstarlet
     SUBDIR += zfs-stats
     SUBDIR += zoneinfo
+    SUBDIR += zsh
 
 .include <bsd.port.subdir.mk>

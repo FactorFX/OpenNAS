@@ -18,10 +18,12 @@ SCRIPT_LOCATION=`realpath $0`
 NAS4FREE_BUILDIR=`dirname $SCRIPT_LOCATION`
 NAS4FREE_SVNDIR=`dirname $NAS4FREE_BUILDIR`
 NAS4FREE_ROOTDIR=`dirname $NAS4FREE_SVNDIR`
+BUILD_NUMBER=''
 
 if [ "$1" = "make_all" ]; then
 	shift
-	
+	BUILD_NUMBER=$1
+	shift
 	if [ "$1" = "force_build_kernel" ]; then
 		FORCE_BUILD_KERNEL="true"
 		shift
@@ -43,6 +45,9 @@ NAS4FREE_VERSION=$(cat $NAS4FREE_SVNDIR/etc/prd.version)
 NAS4FREE_REVISION=$(svn info ${NAS4FREE_SVNDIR} | grep "Revision:" | awk '{print $2}')
 if [ -f "${NAS4FREE_SVNDIR}/local.revision" ]; then
 	NAS4FREE_REVISION=$(printf ${NAS4FREE_REVISION}-$(cat ${NAS4FREE_SVNDIR}/local.revision))
+fi
+if ! [ -z $BUILD_NUMBER ]
+	NAS4FREE_REVISION=$(printf ${NAS4FREE_REVISION}-${BUILD_NUMBER} )
 fi
 NAS4FREE_ARCH=$(uname -p)
 if [ "amd64" = ${NAS4FREE_ARCH} ]; then
