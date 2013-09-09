@@ -46,7 +46,7 @@ NAS4FREE_REVISION=$(svn info ${NAS4FREE_SVNDIR} | grep "Revision:" | awk '{print
 if [ -f "${NAS4FREE_SVNDIR}/local.revision" ]; then
 	NAS4FREE_REVISION=$(printf ${NAS4FREE_REVISION}-$(cat ${NAS4FREE_SVNDIR}/local.revision))
 fi
-if ! [ -z $BUILD_NUMBER ]
+if ! [ -z $BUILD_NUMBER ]; then
 	NAS4FREE_REVISION=$(printf ${NAS4FREE_REVISION}-${BUILD_NUMBER} )
 fi
 NAS4FREE_ARCH=$(uname -p)
