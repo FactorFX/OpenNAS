@@ -115,6 +115,13 @@ post-build:
 INFO=	zsh
 .endif
 
+post-install:
+	@${ECHO} "Updating /etc/shells"
+	@${CP} ${NAS4FREE_ROOTFS}/etc/shells ${NAS4FREE_ROOTFS}/etc/shells.bak
+	@(${GREP} -v "/bin/zsh$$" ${NAS4FREE_ROOTFS}/etc/shells.bak; \
+		${ECHO_CMD} /bin/zsh) > ${NAS4FREE_ROOTFS}/etc/shells
+	@${RM} ${NAS4FREE_ROOTFS}/etc/shells.bak
+
 do-install:
 	
 	${INSTALL_PROGRAM} -v ${WRKSRC}/Src/zsh ${NAS4FREE_ROOTFS}/bin/
@@ -122,7 +129,6 @@ do-install:
 	${MKDIR} -p ${NAS4FREE_ROOTFS}/${PREFIX}/lib/zsh/${ZSH_VER}/zsh/net
 	${FIND} ${WRKSRC}/Src -type f -name '*.so' -not -name 'tcp.so' -not -name 'socket.so' -exec cp -R {} ${NAS4FREE_ROOTFS}/${PREFIX}/lib/zsh/${ZSH_VER}/zsh \;
 	${FIND} ${WRKSRC}/Src -type f \( -name 'tcp.so' -o -name 'socket.so' \) -exec cp -R {} ${NAS4FREE_ROOTFS}/${PREFIX}/lib/zsh/${ZSH_VER}/zsh/net \;
-	
 	
 	sdir_top="${WRKSRC}" \
 	fndir="${NAS4FREE_ROOTFS}/${PREFIX}/share/zsh/${ZSH_VER}/functions" \
