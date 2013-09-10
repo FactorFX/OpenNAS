@@ -1146,19 +1146,17 @@ if [ -z $MAKE_ALL ]; then
 	done
 else
 	
-	create_rootfs
+	create_rootfs || exit 1;
 	if ! [ -f ${NAS4FREE_WORKINGDIR}/kernel.gz ] || [ "$FORCE_BUILD_KERNEL" = "true" ]; then
-		build_kernel build
-		[ 0 != $? ] && exit 1
+		build_kernel build || exit 1;
 	fi	
-	build_kernel install
-	build_world
-	build_ports build
-	[ 0 != $? ] && exit 1
-	build_ports install
-	build_bootloader
-	add_libs
-	modify_permissions
+	build_kernel install || exit 1;
+	build_world || exit 1;
+	build_ports build || exit 1;
+	build_ports install || exit 1;
+	build_bootloader || exit 1;
+	add_libs || exit 1;
+	modify_permissions || exit 1;
 	for make in $MAKE_ALL; do
 		case $make in
 			"full")
