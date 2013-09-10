@@ -19,3 +19,5 @@
 /usr/bin/scp
 /usr/local/bin/scponly
 /bin/bash
+/bin/ksh
+/bin/zsh

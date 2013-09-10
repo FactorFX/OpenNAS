@@ -115,13 +115,6 @@ post-build:
 INFO=	zsh
 .endif
 
-post-install:
-	@${ECHO} "Updating /etc/shells"
-	@${CP} ${NAS4FREE_ROOTFS}/etc/shells ${NAS4FREE_ROOTFS}/etc/shells.bak
-	@(${GREP} -v "/bin/zsh$$" ${NAS4FREE_ROOTFS}/etc/shells.bak; \
-		${ECHO_CMD} /bin/zsh) > ${NAS4FREE_ROOTFS}/etc/shells
-	@${RM} ${NAS4FREE_ROOTFS}/etc/shells.bak
-
 do-install:
 	
 	${INSTALL_PROGRAM} -v ${WRKSRC}/Src/zsh ${NAS4FREE_ROOTFS}/bin/

@@ -34,14 +34,6 @@ CONFIGURE_ENV+=	LDSTATIC=-static
 post-patch:
 	@(${ECHO_CMD} ",s/v${PORTVERSION:C/p.*//}/v${PORTVERSION:S/p/./}/"; \
 		${ECHO_CMD} "wq") | ed -s ${WRKSRC}/version.c
-
-
-post-install:
-	@${ECHO} "Updating /etc/shells"
-	@${CP} ${NAS4FREE_ROOTFS}/etc/shells ${NAS4FREE_ROOTFS}/etc/shells.bak
-	@(${GREP} -v "/bin/ksh$$" ${NAS4FREE_ROOTFS}/etc/shells.bak; \
-		${ECHO_CMD} /bin/ksh) > ${NAS4FREE_ROOTFS}/etc/shells
-	@${RM} ${NAS4FREE_ROOTFS}/etc/shells.bak
 	
 do-install:
 	${INSTALL_PROGRAM} -v ${WRKSRC}/ksh ${NAS4FREE_ROOTFS}/bin/
