@@ -44,3 +44,7 @@ usr/bin/kadmin
 usr/bin/klist
 usr/bin/kdestroy
 usr/bin/kinit
+
+
+### nscd
+usr/sbin/nscd
