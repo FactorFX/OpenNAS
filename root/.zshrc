@@ -29,6 +29,7 @@ setopt correctall
 setopt appendhistory autocd extendedglob nomatch
 
 alias ls='ls -G'
+alias reboot='shutdown -r now'
 
 typeset -A key
 
