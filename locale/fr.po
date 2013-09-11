@@ -4660,6 +4660,12 @@ msgstr "Tag"
 msgid "Edit portal group"
 msgstr "Modifier un groupe portail"
 
+msgid "Monday Tuesday Wednesday Thursday Friday Saturday Sunday"
+msgstr ""
+
+msgid "Months"
+msgstr "Mois"
+
 #: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_iscsitarget_pg.php:163
 msgid "Do you really want to delete this portal group?"
 msgstr "Voulez-vous vraiment supprimer ce groupe portail?"
@@ -7809,6 +7815,19 @@ msgstr "Activer le mode cache en écriture."
 msgid "It can be changed from the client side by standard SCSI mode page at any time."
 msgstr "Peut être modifié n'importe quand côté client  par « SCSI mode page » standard."
 
+msgid ""
+"These option(s) will be added to /boot/loader.conf.local. This allows you to "
+"specify parameters to be passed to kernel, and additional modules to be "
+"loaded."
+msgstr ""
+
+msgid ""
+"These option(s) will be added to /etc/rc.conf. This allow you to overwrite "
+"options used by various generic startup scripts."
+msgstr ""
+"Ces options seront ajoutées au fichier /etc/rc.conf. Ceci permet de "
+"surcharger les options génériques utilisées par les scripts de démarrage."
+
 #: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_iscsitarget_target_edit.php:757
 #: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_iscsitarget_target_edit.php:758
 #: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_iscsitarget_target_edit.php:759
@@ -9061,6 +9080,12 @@ msgstr "Impossible d'ouvrir le fichier"
 
 #~ msgid "The attribute '%s' is not a valid IP address."
 #~ msgstr "L'attribut '% s' n'est pas une adresse IP valide."
+
+msgid "loader.conf"
+msgstr ""
+
+msgid "maximum (highest performance)"
+msgstr "maximum (très haute performance)"
 
 #~ msgid "The attribute '%s' is not a valid MAC address."
 #~ msgstr "L'attribut '% s' n'est pas une adresse MAC valide."
