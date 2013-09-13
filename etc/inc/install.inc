@@ -531,9 +531,11 @@ function install_restore_config($disk)
 			return 1;
 		}
 	}
+	if (file_exists("{$tmp_cf_bak}/loader.conf.local")) {
        if (1 == mwexec("/bin/cp -p {$tmp_cf_bak}/loader.conf.local {$mnt_cf_disk}/boot")) {
 		write_console("Error: Failed to restore the configuration file!\n");
 		return 1;
+		}
 	}
 
 	/* Unmount the upgraded drive */
