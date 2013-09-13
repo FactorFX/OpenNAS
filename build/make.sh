@@ -598,6 +598,9 @@ create_iso () {
 
 	# Set Revision.
 	echo ${NAS4FREE_REVISION} > ${NAS4FREE_ROOTFS}/etc/prd.revision
+	
+	# Set build time.
+	date > ${NAS4FREE_ROOTFS}/etc/prd.version.buildtime
 
 	echo "ISO: Generating temporary folder '$NAS4FREE_TMPDIR'"
 	mkdir $NAS4FREE_TMPDIR
@@ -698,6 +701,9 @@ create_usb () {
 
 	# Set Revision.
 	echo ${NAS4FREE_REVISION} > ${NAS4FREE_ROOTFS}/etc/prd.revision
+	
+	# Set build time.
+	date > ${NAS4FREE_ROOTFS}/etc/prd.version.buildtime
 
 	IMGFILENAME="${NAS4FREE_PRODUCTNAME}-${NAS4FREE_XARCH}-LiveUSB-${NAS4FREE_VERSION}.${NAS4FREE_REVISION}.img"
 
@@ -813,6 +819,9 @@ create_full() {
 
 	# Set Revision.
 	echo ${NAS4FREE_REVISION} > ${NAS4FREE_ROOTFS}/etc/prd.revision
+	
+	# Set build time.
+	date > ${NAS4FREE_ROOTFS}/etc/prd.version.buildtime
 
 	FULLFILENAME="${NAS4FREE_PRODUCTNAME}-${PLATFORM}-${NAS4FREE_VERSION}.${NAS4FREE_REVISION}.tgz"
 
