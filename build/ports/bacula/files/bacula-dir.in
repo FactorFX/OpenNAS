@@ -3,8 +3,10 @@
 # $FreeBSD: sysutils/bacula-server/files/bacula-dir.in 309025 2012-12-16 16:32:45Z rm $
 #
 # PROVIDE: bacula_dir
-# REQUIRE: DAEMON %%REQ_MYSQL%% %%REQ_PGSQL%%
+# REQUIRE: DAEMON
 # KEYWORD: shutdown
+# XQUERY: -i "count(//bacula_dir/enable) > 0" -o "0" -b
+# RCVAR: bacula_dir
 #
 # Add the following lines to /etc/rc.conf.local or /etc/rc.conf
 # to enable this service:
@@ -15,17 +17,24 @@
 #
 
 . /etc/rc.subr
+. /etc/util.subr
+. /etc/configxml.subr
 
 name="bacula_dir"
-rcvar=${name}_enable
-command=%%PREFIX%%/sbin/bacula-dir
+rcvar=`set_rcvar`
+command=/usr/local/sbin/bacula-dir
+
+bacula_dir_config="/usr/local/etc/bacula-dir.conf"
+bacula_dir_workingdir="/var/db/bacula"
 
 load_rc_config $name
 
 : ${bacula_dir_enable="NO"}
-: ${bacula_dir_flags=" -u bacula -g bacula -v -c %%PREFIX%%/etc/bacula-dir.conf"}
-: ${bacula_dir_pidfile="/var/run/bacula-dir.9101.pid"}
+: ${bacula_dir_flags=" -u bacula -g bacula -v -c /usr/local/etc/bacula-dir.conf"}
 
 pidfile="${bacula_dir_pidfile}"
+
+# Check if required directories exists.
+[ ! -d "${bacula_dir_workingdir}" ] && mkdir "${bacula_dir_workingdir}"
 
 run_rc_command "$1"
