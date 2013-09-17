@@ -59,6 +59,7 @@ $a_carp = &$config['vinterfaces']['carp'];
 array_sort_key($a_carp, "if");
 
 $a_cronjob = &$config['cron']['job'];
+$alert_script = '/etc/inc/hast_alerts.php';
 $cnid = false;
 if (isset($config['hast']['alertemailcronuuid'])) {
 	$cnid = array_search_ex($config['hast']['alertemailcronuuid'], $a_cronjob, "uuid");
@@ -133,7 +134,6 @@ if ($_POST) {
 		$old_enable = isset($config['hast']['enable']) ? true : false;
 		$config['hast']['enable'] = isset($_POST['enable']) ? true : false;
 		$config['hast']['alertemail'] = isset($_POST['alertemail']) ? true : false;
-		$config['hast']['alertemailto'] = $_POST['alertemailto'];
 		//$config['hast']['role'] = $_POST['role'];
 
 		unset($config['hast']['auxparam']);
@@ -149,15 +149,23 @@ if ($_POST) {
 			$cronjob = $a_cronjob[$cnid];	
 			if ($config['hast']['enable'] && isset($_POST['alertemail'])){
 				$a_cronjob[$cnid]['enable'] = true;
+				if (filter_var($_POST['alertemailto'], FILTER_VALIDATE_EMAIL)){
+					$config['hast']['alertemailto'] = $_POST['alertemailto'];
+					$a_cronjob[$cnid]['command'] = $alert_script . ' -d ' . $config['hast']['alertemailto'];
+				}
 				$mode = UPDATENOTIFY_MODE_MODIFIED;
 			}elseif ($config['hast']['enable'] && !isset($_POST['alertemail'])) {
 				$a_cronjob[$cnid]['enable'] = false;
+				if (filter_var($_POST['alertemailto'], FILTER_VALIDATE_EMAIL)){
+					$config['hast']['alertemailto'] = $_POST['alertemailto'];
+					$a_cronjob[$cnid]['command'] = $alert_script . ' -d ' . $config['hast']['alertemailto'];
+				}
 				$mode = UPDATENOTIFY_MODE_MODIFIED;
 			}elseif (!$config['hast']['enable']){
 				unset($a_cronjob[$cnid], $config['hast']['alertemailcronuuid']);
 				$mode = UPDATENOTIFY_MODE_DIRTY;
 			}			
-		}elseif($config['hast']['enable']) {					
+		}elseif($config['hast']['enable'] && filter_var($config['hast']['alertemailto'], FILTER_VALIDATE_EMAIL)) {					
 			$cronjob = array();
 			$cronjob['enable'] = isset($_POST['alertemail']);
 			$cronjob['uuid'] = uuid();
@@ -165,7 +173,7 @@ if ($_POST) {
 			$cronjob['minute'] = $cronjob['hour'] = $cronjob['day'] = $cronjob['month'] = $cronjob['weekday'] = '';
 			$cronjob['all_mins'] = $cronjob['all_hours'] = $cronjob['all_days'] = $cronjob['all_months'] = $cronjob['all_weekdays'] = 1;
 			$cronjob['who'] = 'root';
-			$cronjob['command'] = '/etc/inc/hast_alerts.php -d ' . $pconfig['alertemailto'];
+			$cronjob['command'] = $alert_script . ' -d ' . $config['hast']['alertemailto'];
 			$a_cronjob[] = $cronjob;
 			$mode = UPDATENOTIFY_MODE_NEW;
 		}

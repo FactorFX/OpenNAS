@@ -8,23 +8,31 @@ require_once("disks.inc");
 require_once("email.inc");
 require_once("rc.inc");
 
-function getMailTo() {
-	$shortopts = 'd:'; // Destinataire des emails d'alerte 
+function validEmailTo() {
+	$shortopts = 'd:'; // Destinataire des emails d'alerte
 	$opt = getopt($shortopts);
 	if (!$opt) {
-		echo "Please enter a valid email address (-d option)";
-		exit(1);
+		return false;
 	}
-
+	
 	// Si les options ont bien été récuperées
 	$mailto = $opt['d'];
 	if (!$mailto or !filter_var($mailto, FILTER_VALIDATE_EMAIL)) {
 		echo "Please enter a valid email address (-d option)";
 		exit(1);
 	}
-
-	// Si le destinataire est valide
 	return $mailto;
+}
+
+function getMailTo() {
+	
+	if ($mailto = validEmailTo()) {
+		return $mailto;
+	}
+	else {
+		exit(1);
+	} 
+	
 }
 
 function hasPreviousError() {
@@ -167,6 +175,12 @@ function sendSuccessReport() {
 	$name = $xml->xpath('/opennas/system/hostname');
 	email_send(getMailTo(), "Plus d'erreur détectées sur OpenNAS", "Aucune erreur n'a été détectée sur l'OpenNAS \"" . $name['0'] . "\" ( " . get_hast_role() . " ).", $outError);
 	return !$outError;
+}
+
+
+if (!validEmailTo()) {
+	echo "Please enter a valid email address (-d option)";
+	exit(1);
 }
 
 $errors = runTests();
