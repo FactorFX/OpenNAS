@@ -36,7 +36,7 @@ function getMailTo() {
 }
 
 function hasPreviousError() {
-	$filename = 'prev_error.ini';
+	$filename = '/var/tmp/prev_error.ini';
 	
 	if (file_exists($filename)) {
 		$ini = parse_ini_file($filename);
@@ -47,7 +47,7 @@ function hasPreviousError() {
 }
 
 function saveErrorState($error) {
-	$filename = 'prev_error.ini';
+	$filename = '/var/tmp/prev_error.ini';
 	
 	if (file_exists($filename)) {
 		unlink($filename);
