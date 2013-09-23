@@ -1153,10 +1153,11 @@ if [ -z $MAKE_ALL ]; then
 		main
 	done
 else
+	# Ensure we are in $NAS4FREE_WORKINGDIR
+	[ ! -d "$NAS4FREE_WORKINGDIR" ] && mkdir $NAS4FREE_WORKINGDIR
 	
 	create_rootfs || exit 1;
-	if ! [ -f ${NAS4FREE_WORKINGDIR}/kernel.gz ] || [ "$FORCE_BUILD_KERNEL" = "true" ]; then
-		rm -rf ${NAS4FREE_WORKINGDIR}
+	if ! [ -f ${NAS4FREE_WORKINGDIR}/kernel.gz ] || [ "$FORCE_BUILD_KERNEL" = "true" ]; then		
 		build_kernel build || exit 1;
 	fi	
 	build_kernel install || exit 1;
