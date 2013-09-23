@@ -37,6 +37,9 @@ else
 	case ${PLATFORM} in
 		*-live[cC][dD]|*-live[uU][sS][bB])
 			echo
+			echo "The WebGUI default login is : `configxml_get '//system/username'`"
+			echo "and password is : `configxml_get '//system/password'`"
+			echo
 			echo "Now, the blank USB memory for installation can be inserted."
 			echo "To redisplay Console Menu, press enter key.";;
 	esac
