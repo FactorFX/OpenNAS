@@ -964,7 +964,7 @@ build_system() {
   while true; do
 echo -n '
 -----------------------------
-Compile NAS4FREE from Scratch
+Compile ${NAS4FREE_PRODUCTNAME} from Scratch
 -----------------------------
 Menu Options:
 
@@ -1156,6 +1156,7 @@ else
 	
 	create_rootfs || exit 1;
 	if ! [ -f ${NAS4FREE_WORKINGDIR}/kernel.gz ] || [ "$FORCE_BUILD_KERNEL" = "true" ]; then
+		rm -rf ${NAS4FREE_WORKINGDIR}
 		build_kernel build || exit 1;
 	fi	
 	build_kernel install || exit 1;
