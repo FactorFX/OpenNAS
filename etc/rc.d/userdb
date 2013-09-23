@@ -99,7 +99,8 @@ www:*:80:80::0:0:World Wide Web Owner:/nonexistent:/usr/sbin/nologin
 hast:*:845:845::0:0:HAST unprivileged user:/var/empty:/usr/sbin/nologin
 nobody:*:65534:65534::0:0:Unprivileged user:/nonexistent:/usr/sbin/nologin
 ftp:*:21:50::0:0:FTP user:/mnt:/sbin/nologin
-uucp:*:66:66::0:0:UUCP pseudo-user:/var/empty:/usr/sbin/nologin" > ${userdb_masterpasswd}
+uucp:*:66:66::0:0:UUCP pseudo-user:/var/empty:/usr/sbin/nologin
+bacula:*:910:910::0:0:Bacula Daemon:/usr/sbin/nologin:/var/db/bacula" > ${userdb_masterpasswd}
 
 # Generate the /etc/passwd, pwd.db and spwd.db files
 /usr/sbin/pwd_mkdb -p ${userdb_masterpasswd} > /dev/null 2>&1

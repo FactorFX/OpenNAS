@@ -385,17 +385,6 @@
 				<name>xxx</name>
 			</group>
 			-->
-			<user>
-				<name>bacula</name>
-				<id>910</id>
-				<primarygroup>910</primarygroup>
-				<group>910</group>
-				<extraoptions>-d /var/db/bacula -s /usr/sbin/nologin -c Bacula Daemon</extraoptions>
-			</user>
-			<group>
-				<id>910</id>
-				<name>bacula</name>
-			</group>
 			<group>
 				<uuid>e504881b-c8dc-43d7-9ca4-74552f9b405b</uuid>
 				<id>1000</id>
