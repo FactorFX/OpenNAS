@@ -49,7 +49,7 @@ else
 	# Display default login and password
 	if [ ${LOGIN} == 'admin' ] && [ ${PASSWORD} == 'opennas' ]; then
 		echo
-		echo "The WebGUI default login  / password is : admin / opennas"
+		echo "The WebGUI default login is : admin and password is : opennas"
 	fi
 	
 	while : ; do
