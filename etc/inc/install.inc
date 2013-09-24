@@ -559,33 +559,97 @@ function install_restore_config($disk)
 	return 0;
 }
 
+
+/**
+ * upgrade config.xml in install
+ * 
+ */
 function upgrade_config_install($disk)
 {
-	global $g;
+	global $g, $g_languages;
 	
-	$raw_config = parse_xml_config_raw("${disk}/{$g['conf_path']}/config.xml", "");
-	if (false === $raw_config) {
+	$config_path = "{$disk}/{$g['conf_path']}";
+	$config_file = "{$config_path}/config.xml";
+	$config_file_bak = "{$config_path}/config_upd";
+	$error_with_file = false;
+	
+	$config = parse_xml_config($config_file, $g['xml_rootobj']);
+	if (false === $config) {
 		return 1;
 	}
-	$keys = array_keys($raw_config);
-	$tmp_config = $raw_config[$keys[0]];
 	
-	/* Remove transmission user */
-	if (!empty($config['system']['usermanagement']) && !empty($config['system']['usermanagement']['user'])) {
-		$index = array_search_ex("transmission", $config['system']['usermanagement']['user'], "name");
-		if ($index !== false) {
-			unset($config['system']['usermanagement']['user'][$index]);
+	$prev_revision = chop(file_get_contents("{$disk}/{$g['etc_path']}/prd.revision"));
+
+	if (false === $prev_revision) {
+		return 1;
+	}
+	
+	$codeset = $g_languages[$config['system']['language']]['codeset'];
+	if (empty($codeset))
+		$codeset = "UTF-8"; // Set default codeset.
+		
+	/* Backup the configuration file */
+	if (1 == mwexec("/bin/cp -p {$config_file} {$config_file_bak}")) {
+		write_console("Error: Failed to update the configuration file!\n");
+		return 1;
+	}
+	
+	/* 
+	 * If Previous version is a BETA
+	 * @todo Could be remove in future version
+	 * 
+	 */
+	if (false !== strpos($prev_revision, 'BETA')) {
+		
+		write_console("The previous version is a BETA.\n");
+		
+		if (!empty($config['system']['usermanagement'])) {
+			
+			/* Remove some user */
+			if (!empty($config['system']['usermanagement']['user'])) {
+				
+				/* transmission user */
+				$index = array_search_ex("60c4bfb1-7c3c-4535-800c-2b17eeae9369", $config['system']['usermanagement']['user'], "uuid");
+				if ($index !== false) {
+					unset($config['system']['usermanagement']['user'][$index]);
+					write_console("We remove transmission user.\n");
+				}
+				
+				/* bacula user jump to /etc/rc.d/userdb */
+				$index = array_search_ex("bacula", $config['system']['usermanagement']['user'], "name");
+				if ($index !== false) {
+					unset($config['system']['usermanagement']['user'][$index]);
+					write_console("We remove bacula user from config.xml but still exist after reboot.\n");
+				}
+			}
+			
+			/* Remove some group */
+			if (!empty($config['system']['usermanagement']['group'])) {
+				
+				/* transmission group */
+				$index = array_search_ex("e8cc78b8-7c3d-46de-a34c-11b1c260a37e", $config['system']['usermanagement']['group'], "uuid");
+				if ($index !== false) {
+					unset($config['system']['usermanagement']['group'][$index]);
+					write_console("We remove transmission group user.\n");
+				}
+			}
+			
 		}
 	}
 	
-	/* Remove transmission group */
-	if (!empty($config['system']['usermanagement']) && !empty($config['system']['usermanagement']['group'])) {
-		$index = array_search_ex("transmission", $config['system']['usermanagement']['group'], "name");
-		if ($index !== false) {
-			unset($config['system']['usermanagement']['group'][$index]);
-		}
-	}
+	$xmlconfig = dump_xml_config($config, $g['xml_rootobj'], $codeset);
 	
+	// Write configuration file
+	if (!file_put_contents_safe($config_file, $xmlconfig) && !validate_xml_config($config_file, $g['xml_rootobj'])) {
+		write_console("Error: Failed to write configuration file '{$config_file}'!\n");
+		mwexec("/bin/cp -p {$config_file_bak} {$config_file}");
+		return 1;
+	}
+	// Modify file permissions
+	@chmod($config_file, 0600);
+	
+	// Delete Config file backup
+	@unlink($config_file_bak);
 }
 
 // Create two partitions on the destination hard drive.
