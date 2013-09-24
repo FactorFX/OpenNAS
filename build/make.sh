@@ -962,7 +962,7 @@ modify_permissions()
 
 build_system() {
   while true; do
-echo -n '
+echo -n "
 -----------------------------
 Compile ${NAS4FREE_PRODUCTNAME} from Scratch
 -----------------------------
@@ -978,7 +978,7 @@ Menu Options:
 7 - Add Necessary Libraries.
 8 - Modify File Permissions.
 * - Exit.
-Press # '
+Press # "
 		read choice
 		case $choice in
 			1)	update_sources;;
