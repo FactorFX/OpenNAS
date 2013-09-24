@@ -520,6 +520,12 @@ function install_restore_config($disk)
 		write_console("Error: Failed to restore the configuration file!\n");
 		return 1;
 	}
+	
+	if (1 == upgrade_config_install("{$mnt_cf_disk}") ) {
+		write_console("Error: Failed to upgrade config.xml.\n");
+		return 1;
+	}
+	
 	if (file_exists("{$tmp_cf_bak}/boot.config")) {
 		if (1 == mwexec("/bin/cp -p {$tmp_cf_bak}/boot.config {$mnt_cf_disk}/")) {
 			write_console("Error: Failed to restore the configuration file!\n");
@@ -551,6 +557,35 @@ function install_restore_config($disk)
 	}
 
 	return 0;
+}
+
+function upgrade_config_install($disk)
+{
+	global $g;
+	
+	$raw_config = parse_xml_config_raw("${disk}/{$g['conf_path']}/config.xml", "");
+	if (false === $raw_config) {
+		return 1;
+	}
+	$keys = array_keys($raw_config);
+	$tmp_config = $raw_config[$keys[0]];
+	
+	/* Remove transmission user */
+	if (!empty($config['system']['usermanagement']) && !empty($config['system']['usermanagement']['user'])) {
+		$index = array_search_ex("transmission", $config['system']['usermanagement']['user'], "name");
+		if ($index !== false) {
+			unset($config['system']['usermanagement']['user'][$index]);
+		}
+	}
+	
+	/* Remove transmission group */
+	if (!empty($config['system']['usermanagement']) && !empty($config['system']['usermanagement']['group'])) {
+		$index = array_search_ex("transmission", $config['system']['usermanagement']['group'], "name");
+		if ($index !== false) {
+			unset($config['system']['usermanagement']['group'][$index]);
+		}
+	}
+	
 }
 
 // Create two partitions on the destination hard drive.
