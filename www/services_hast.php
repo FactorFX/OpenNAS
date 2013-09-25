@@ -60,10 +60,7 @@ array_sort_key($a_carp, "if");
 
 $a_cronjob = &$config['cron']['job'];
 $alert_script = '/etc/inc/hast_alerts.php';
-$cnid = false;
-if (isset($config['hast']['alertemailcronuuid'])) {
-	$cnid = array_search_ex($config['hast']['alertemailcronuuid'], $a_cronjob, "uuid");
-}
+$cnid = isset($config['hast']['alertemailcronuuid'])?array_search_ex($config['hast']['alertemailcronuuid'], $a_cronjob, "uuid"):false;
 
 if (!sizeof($a_carp)) {
 	$errormsg = sprintf(gettext("No configured CARP interfaces. Please add new <a href='%s'>CARP interface</a> first."), "interfaces_carp.php");
@@ -133,7 +130,6 @@ if ($_POST) {
 	if (empty($input_errors)) {
 		$old_enable = isset($config['hast']['enable']) ? true : false;
 		$config['hast']['enable'] = isset($_POST['enable']) ? true : false;
-		$config['hast']['alertemail'] = isset($_POST['alertemail']) ? true : false;
 		//$config['hast']['role'] = $_POST['role'];
 
 		unset($config['hast']['auxparam']);
@@ -144,40 +140,31 @@ if ($_POST) {
 		}
 		
 		$mode = false;
-		
-		if (false !== $cnid) {
-			$cronjob = $a_cronjob[$cnid];	
-			if ($config['hast']['enable'] && isset($_POST['alertemail'])){
-				$a_cronjob[$cnid]['enable'] = true;
-				if (filter_var($_POST['alertemailto'], FILTER_VALIDATE_EMAIL)){
-					$config['hast']['alertemailto'] = $_POST['alertemailto'];
-					$a_cronjob[$cnid]['command'] = $alert_script . ' -d ' . $config['hast']['alertemailto'];
-				}
+		if ($config['hast']['enable'] && filter_var($pconfig['alertemailto'], FILTER_VALIDATE_EMAIL)) {
+			if (false !== $cnid) {
+				$cronjob = &$a_cronjob[$cnid];
+				$cronjob['command'] = $alert_script . ' -d ' . $pconfig['alertemailto'];
 				$mode = UPDATENOTIFY_MODE_MODIFIED;
-			}elseif ($config['hast']['enable'] && !isset($_POST['alertemail'])) {
-				$a_cronjob[$cnid]['enable'] = false;
-				if (filter_var($_POST['alertemailto'], FILTER_VALIDATE_EMAIL)){
-					$config['hast']['alertemailto'] = $_POST['alertemailto'];
-					$a_cronjob[$cnid]['command'] = $alert_script . ' -d ' . $config['hast']['alertemailto'];
-				}
-				$mode = UPDATENOTIFY_MODE_MODIFIED;
-			}elseif (!$config['hast']['enable']){
-				unset($a_cronjob[$cnid], $config['hast']['alertemailcronuuid']);
-				$mode = UPDATENOTIFY_MODE_DIRTY;
-			}			
-		}elseif($config['hast']['enable'] && filter_var($config['hast']['alertemailto'], FILTER_VALIDATE_EMAIL)) {					
-			$cronjob = array();
-			$cronjob['enable'] = isset($_POST['alertemail']);
-			$cronjob['uuid'] = uuid();
-			$cronjob['desc'] = gettext("Hast Alert");
-			$cronjob['minute'] = $cronjob['hour'] = $cronjob['day'] = $cronjob['month'] = $cronjob['weekday'] = '';
-			$cronjob['all_mins'] = $cronjob['all_hours'] = $cronjob['all_days'] = $cronjob['all_months'] = $cronjob['all_weekdays'] = 1;
-			$cronjob['who'] = 'root';
-			$cronjob['command'] = $alert_script . ' -d ' . $config['hast']['alertemailto'];
-			$a_cronjob[] = $cronjob;
-			$mode = UPDATENOTIFY_MODE_NEW;
+			} else {
+				$cronjob = &$a_cronjob[];
+				$cronjob['uuid'] = uuid();
+				$cronjob['desc'] = gettext("Hast Alert");
+				$cronjob['minute'] = $cronjob['hour'] = $cronjob['day'] = $cronjob['month'] = $cronjob['weekday'] = '';
+				$cronjob['all_mins'] = $cronjob['all_hours'] = $cronjob['all_days'] = $cronjob['all_months'] = $cronjob['all_weekdays'] = 1;
+				$cronjob['who'] = 'root';
+				$cronjob['command'] = $alert_script . ' -d ' . $pconfig['alertemailto'];
+				$mode = UPDATENOTIFY_MODE_NEW;
+			}
+			$config['hast']['alertemailto'] = $pconfig['alertemailto'];
+			$config['hast']['alertemailcronuuid'] = $cronjob['uuid'];
+			$config['hast']['alertemail'] = $cronjob['enable'] = isset($pconfig['alertemail']);
+			
+		} elseif(!$config['hast']['enable'] && false !== $cnid) {
+			unset($a_cronjob[$cnid], $config['hast']['alertemailcronuuid'], $config['hast']['alertemail']);
+			$mode = UPDATENOTIFY_MODE_DIRTY;
+		} elseif (empty($a_cronjob)) {
+			unset($config['cron']['job']);
 		}
-		$config['hast']['alertemailcronuuid'] = $cronjob['uuid'];
 		
 		$retval = 0;
 
@@ -234,21 +221,20 @@ if ($_POST) {
 		} else {
 			write_config();
 		}
-		
-		if ($mode) {
-			updatenotify_set("cronjob", $mode, $cronjob['uuid']);
-		}
 
 		if (!file_exists($d_sysrebootreqd_path)) {
 			config_lock();
 			$retval |= rc_update_service("hastd");
-			$retval |= rc_update_service("cron");
+			if (false !== $mode) {
+				updatenotify_set("cronjob", $mode, $cronjob['uuid']);
+				$retval_cron |= rc_update_service("cron");
+			}
 			config_unlock();
 		}
 
 		$savemsg = get_std_save_message($retval);
 		
-		if ($retval == 0) {
+		if ($retval_cron == 0) {
 			updatenotify_delete("cronjob");
 		}
 	}
