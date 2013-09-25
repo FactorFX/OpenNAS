@@ -52,7 +52,7 @@ $a_service[] = array("desc" => gettext("iSCSI Target"), "link" => "services_iscs
 $a_service[] = array("desc" => gettext("DNLA/UPnP"), "link" => "services_upnp.php", "config" => "upnp", "scriptname" => "fuppes");
 //$a_service[] = array("desc" => gettext("iTunes/DAAP"), "link" => "services_daap.php", "config" => "daap", "scriptname" => "mt-daapd");
 //$a_service[] = array("desc" => gettext("Dynamic DNS"), "link" => "services_dynamicdns.php", "config" => "dynamicdns", "scriptname" => "inadyn");
-//<$a_service[] = array("desc" => gettext("SNMP"), "link" => "services_snmp.php", "config" => "snmpd", "scriptname" => "bsnmpd");
+//$a_service[] = array("desc" => gettext("SNMP"), "link" => "services_snmp.php", "config" => "snmpd", "scriptname" => "bsnmpd");
 $a_service[] = array("desc" => gettext("UPS"), "link" => "services_ups.php", "config" => "ups", "scriptname" => "nut");
 //$a_service[] = array("desc" => gettext("Webserver"), "link" => "services_websrv.php", "config" => "websrv", "scriptname" => "websrv");
 //$a_service[] = array("desc" => gettext("BitTorrent"), "link" => "services_bittorrent.php", "config" => "bittorrent", "scriptname" => "transmission");

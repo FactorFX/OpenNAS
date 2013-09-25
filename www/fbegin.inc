@@ -104,7 +104,7 @@ $menu['services']['menuitem'][] = array("desc" => gettext("HAST"), "link" => "se
 $menu['services']['menuitem'][] = array("type" => "separator", "visible" => TRUE);
 $menu['services']['menuitem'][] = array("desc" => gettext("CIFS/SMB"), "link" => "services_samba.php", "visible" => TRUE);
 $menu['services']['menuitem'][] = array("desc" => gettext("FTP"), "link" => "services_ftp.php", "visible" => TRUE);
-$menu['services']['menuitem'][] = array("desc" => gettext("TFTP"), "link" => "services_tftp.php", "visible" => false);
+$menu['services']['menuitem'][] = array("desc" => gettext("TFTP"), "link" => "services_tftp.php", "visible" => TRUE);
 $menu['services']['menuitem'][] = array("desc" => gettext("SSH"), "link" => "services_sshd.php", "visible" => TRUE);
 $menu['services']['menuitem'][] = array("desc" => gettext("NFS"), "link" => "services_nfs.php", "visible" => TRUE);
 $menu['services']['menuitem'][] = array("desc" => gettext("AFP"), "link" => "services_afp.php", "visible" => TRUE);

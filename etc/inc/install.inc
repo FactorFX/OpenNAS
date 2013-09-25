@@ -612,14 +612,12 @@ function upgrade_config_install($disk)
 				$index = array_search_ex("60c4bfb1-7c3c-4535-800c-2b17eeae9369", $config['system']['usermanagement']['user'], "uuid");
 				if ($index !== false) {
 					unset($config['system']['usermanagement']['user'][$index]);
-					write_console("We remove transmission user.\n");
 				}
 				
 				/* bacula user jump to /etc/rc.d/userdb */
 				$index = array_search_ex("bacula", $config['system']['usermanagement']['user'], "name");
 				if ($index !== false) {
 					unset($config['system']['usermanagement']['user'][$index]);
-					write_console("We remove bacula user from config.xml but still exist after reboot.\n");
 				}
 			}
 			
@@ -630,10 +628,8 @@ function upgrade_config_install($disk)
 				$index = array_search_ex("e8cc78b8-7c3d-46de-a34c-11b1c260a37e", $config['system']['usermanagement']['group'], "uuid");
 				if ($index !== false) {
 					unset($config['system']['usermanagement']['group'][$index]);
-					write_console("We remove transmission group user.\n");
 				}
-			}
-			
+			}			
 		}
 	}
 	
