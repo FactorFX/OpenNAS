@@ -48,7 +48,6 @@ if ($_POST) {
 			$retval |= updatenotify_process("userdb_user", "userdbuser_process_updatenotification");
 			config_lock();
 			$retval |= rc_exec_service("userdb");
-			$retval |= rc_exec_service("websrv_htpasswd");
 			$retval |= rc_exec_service("fmperm");
 			if (isset($config['samba']['enable'])) {
 				$retval |= rc_exec_service("passdb");

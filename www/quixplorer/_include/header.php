@@ -123,7 +123,6 @@ $menu['services']['menuitem'][] = array("desc" => gettext("Unison"), "link" => "
 $menu['services']['menuitem'][] = array("desc" => gettext("iSCSI Target"), "link" => "../services_iscsitarget.php", "visible" => TRUE);
 $menu['services']['menuitem'][] = array("desc" => gettext("SNMP"), "link" => "../services_snmp.php", "visible" => TRUE);
 $menu['services']['menuitem'][] = array("desc" => gettext("UPS"), "link" => "../services_ups.php", "visible" => TRUE);
-$menu['services']['menuitem'][] = array("desc" => gettext("Webserver"), "link" => "../services_websrv.php", "visible" => false);
 $menu['services']['menuitem'][] = array("desc" => gettext("Bacula"), "link" => "../services_bacula_file_daemon.php", "visible" => true);
 
 // Access

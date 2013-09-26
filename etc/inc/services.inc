@@ -45,7 +45,6 @@ function services_is_port_used($port, $except = "") {
 
 	$a_port = array(
 		"sysgui" => !empty($config['system']['webgui']['port']) ? $config['system']['webgui']['port'] : "",
-		"websrv" => $config['websrv']['port'],
 	);
 
 	// Special handling for webgui port.

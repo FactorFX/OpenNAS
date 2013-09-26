@@ -59,13 +59,6 @@ if ($_POST) {
 		$input_errors[] = gettext("The new password does not match. Please ensure the passwords match exactly.");
 	}
 
-	// Check Webserver document root if auth is required
-	if (isset($config['websrv']['enable'])
-	    && isset($config['websrv']['authentication']['enable'])
-	    && !is_dir($config['websrv']['documentroot'])) {
-		$input_errors[] = gettext("Webserver document root is missing.");
-	}
-
 	if (empty($input_errors)) {
 		$config['system']['password'] = $_POST['password_new'];
 
@@ -76,7 +69,6 @@ if ($_POST) {
 			config_lock();
 			$retval |= rc_exec_service("userdb");
 			$retval |= rc_exec_service("htpasswd");
-			$retval |= rc_exec_service("websrv_htpasswd");
 			$retval |= rc_exec_service("fmperm");
 			config_unlock();
 		}

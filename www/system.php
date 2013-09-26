@@ -136,13 +136,6 @@ if ($_POST) {
 		$input_errors[] = sprintf(gettext("Port %ld is already used by another service."), (!empty($_POST['webguiport']) ? $_POST['webguiport'] : 80));
 	}
 
-	// Check Webserver document root if auth is required
-	if (isset($config['websrv']['enable'])
-	    && isset($config['websrv']['authentication']['enable'])
-	    && !is_dir($config['websrv']['documentroot'])) {
-		$input_errors[] = gettext("Webserver document root is missing.");
-	}
-
 	if (empty($input_errors)) {
 		// Store old values for later processing.
 		$oldcert = $config['system']['webgui']['certificate'];
@@ -208,7 +201,6 @@ if ($_POST) {
 			$retval |= rc_restart_service("hostname");
 			$retval |= rc_exec_service("userdb");
 			$retval |= rc_exec_service("htpasswd");
-			$retval |= rc_exec_service("websrv_htpasswd");
  			$retval |= rc_update_service("ntpdate");
  			$retval |= rc_update_service("mdnsresponder");
  			$retval |= rc_update_service("bsnmpd");

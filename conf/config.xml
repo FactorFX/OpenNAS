@@ -1234,26 +1234,6 @@
 			-->
 		</shutdown>
 	</rc>
-	<websrv>
-		<protocol>http</protocol>
-		<port></port>
-		<documentroot></documentroot>
-		<privatekey></privatekey>
-		<certificate></certificate>
-		<authentication>
-			<!-- <enable/> -->
-			<url>
-				<uuid>9feabff2-dc8a-48d6-987a-dafe961e7680</uuid>
-				<path>/</path>
-				<realm>Webserver</realm>
-			</url>
-		</authentication>
-		<!--
-		<enable/>
-		<protocol>http|https</protocol>
-		<dirlisting/>
-		-->
-	</websrv>
 	<smartd>
 		<!--
 		<enable/>

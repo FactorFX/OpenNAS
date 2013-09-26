@@ -137,13 +137,6 @@ if ($_POST) {
 		$input_errors[] = gettext("The unique user ID is already used.");
 	}
 
-	// Check Webserver document root if auth is required
-	if (isset($config['websrv']['enable'])
-	    && isset($config['websrv']['authentication']['enable'])
-	    && !is_dir($config['websrv']['documentroot'])) {
-		$input_errors[] = gettext("Webserver document root is missing.");
-	}
-
 	if (empty($input_errors)) {
 		$user = array();
 		$user['uuid'] = $_POST['uuid'];

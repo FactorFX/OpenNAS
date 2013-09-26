@@ -632,6 +632,9 @@ function upgrade_config_install($disk)
 		
 		/* bittorent */
 		unset($config['bittorrent']);
+		
+		/* websrv */
+		unset($config['websrv']);
 	}
 	
 	$xmlconfig = dump_xml_config($config, $g['xml_rootobj'], $codeset);
