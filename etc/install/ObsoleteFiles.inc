@@ -96,4 +96,7 @@ usr/local/sbin/mt-daapd
 usr/local/share/mt-daapd/
 usr/local/www/services_daap.php
 
-
+#inadyn(DynamicDns)
+usr/local/bin/inadyn
+etc/rc.d/inadyn
+usr/local/www/services_dynamicdns.php

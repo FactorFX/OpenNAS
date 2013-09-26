@@ -1168,19 +1168,6 @@
 		</group>
 		-->
 	</access>
-	<dynamicdns>
-		<!--
-		<enable/>
-		<provider></provider>
-		<domainname></domainname>
-		<username></username>
-		<password></password>
-		<updateperiod></updateperiod>
-		<forcedupdateperiod></forcedupdateperiod>
-		<wildcard/>
-		<auxparam></auxparam> // Can be defined multiple times.
-		-->
-	</dynamicdns>
 	<statusreport>
 		<!-- <enable/> -->
 		<to></to>

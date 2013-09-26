@@ -190,10 +190,6 @@ $pgtitle = array(gettext("Help"), gettext("License & Credits"));
       <p>e2fsprogs (<a href="http://e2fsprogs.sourceforge.net" target="_blank">http://e2fsprogs.sourceforge.net</a>)<br />
         Copyright &copy; 2007 Theodore Ts'o. All Rights Reserved.</p>
 
-      <p>inadyn-mt - Simple Dynamic DNS client (<a href="http://sourceforge.net/projects/inadyn-mt" target="_blank">http://sourceforge.net/projects/inadyn-mt</a>)<br />
-        Inadyn Copyright &copy; 2003-2004 Narcis Ilisei. All Rights Reserved.<br />
-        Inadyn-mt Copyright &copy; 2007 Bryan Hoover (<a href="mailto:bhoover@wecs.com">bhoover@wecs.com</a>). All Rights Reserved.</p>
-
       <p>XMLStarlet Command Line XML Toolkit (<a href="http://xmlstar.sourceforge.net" target="_blank">http://xmlstar.sourceforge.net</a>)<br />
         Copyright &copy; 2002 Mikhail Grushinskiy. All Rights Reserved.</p>
 

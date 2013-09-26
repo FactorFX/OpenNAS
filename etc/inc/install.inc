@@ -607,23 +607,25 @@ function upgrade_config_install($disk)
 		
 		write_console("The previous version is a BETA.\n");
 
-		/* transmission user */
+		/* transmission */
 		searchAndRemoveInConfig("60c4bfb1-7c3c-4535-800c-2b17eeae9369", $config['system']['usermanagement']['user'], "uuid");
+
+		/* transmission */
+		searchAndRemoveInConfig("e8cc78b8-7c3d-46de-a34c-11b1c260a37e", $config['system']['usermanagement']['group'], "uuid");
 		
 		/* bacula user jump to /etc/rc.d/userdb */
 		searchAndRemoveInConfig("bacula", $config['system']['usermanagement']['user'], "name");
-		
-		/* transmission group */
-		searchAndRemoveInConfig("e8cc78b8-7c3d-46de-a34c-11b1c260a37e", $config['system']['usermanagement']['group'], "uuid");
-		
-		/* fuppes_log file */
+				
+		/* fuppes */
 		searchAndRemoveInConfig("b67e6ffd-169d-493a-9197-155a9ae84582", $config['system']['rcconf']['param'], "uuid");
 		unset($config['upnp']);
 		
-		/* mtdaapd_logfile file */
+		/* mtdaapd */
 		searchAndRemoveInConfig("0b5cbdf6-0a84-4806-b85c-6605d38c7008", $config['system']['rcconf']['param'], "uuid");
 		unset($config['daap']);
-
+		
+		/* Dynamics DNS */
+		unset($config['dynamicdns']);
 	}
 	
 	$xmlconfig = dump_xml_config($config, $g['xml_rootobj'], $codeset);

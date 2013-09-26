@@ -15,7 +15,6 @@
     SUBDIR += geom_raid5
     SUBDIR += gzip
     SUBDIR += host
-    SUBDIR += inadyn-mt
     SUBDIR += iperf
     SUBDIR += iscontrol
     SUBDIR += istgt
