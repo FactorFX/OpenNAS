@@ -1050,28 +1050,6 @@
 		<workdir></workdir>
 		<mkdir/>
 	</unison>
-	<bittorrent>
-		<!--
-		<enable/>
-		<uplimit>xxx</uplimit> // in KB/s
-		<downlimit>xxx</downlimit> // in KB/s
-		<encryption>tolerated=0|preferred=1|required=2</encryption>
-		-->
-		<peerport>51413</peerport>
-		<portforwarding/>
-		<port>9091</port>
-		<downloaddir></downloaddir>
-		<configdir></configdir>
-		<authrequired/>
-		<username>admin</username>
-		<password>opennas</password>
-		<pex/>
-		<dht/>
-		<encryption>1</encryption>
-		<watchdir></watchdir>
-		<umask></umask>
-		<extraoptions></extraoptions>
-	</bittorrent>
 	<sshd>
 		<!-- <enable/> -->
 		<port>22</port>

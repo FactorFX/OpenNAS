@@ -205,9 +205,6 @@ $pgtitle = array(gettext("Help"), gettext("License & Credits"));
       <p>host - An utility to query DNS servers<br />
         Rewritten by Eric Wassenaar, Nikhef-H, (<a href="mailto:e07@nikhef.nl">e07@nikhef.nl</a>). All Rights Reserved.</p>
 
-      <p>Transmission - Transmission is a fast, easy, and free multi-platform BitTorrent client (<a href="http://www.transmissionbt.com" target="_blank">http://www.transmissionbt.com</a>)<br />
-        Copyright &copy; 2008-2013 Transmission Project. All Rights Reserved.</p>
-
       <p>QuiXplorer - Web-based file-management (<a href="http://quixplorer.sourceforge.net" target="_blank">http://quixplorer.sourceforge.net</a>)<br />
         Copyright &copy; Felix C. Stegerman. All Rights Reserved.</p>
 

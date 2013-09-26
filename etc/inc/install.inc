@@ -629,6 +629,9 @@ function upgrade_config_install($disk)
 		
 		/* LCDProc */
 		unset($config['lcdproc']);
+		
+		/* bittorent */
+		unset($config['bittorrent']);
 	}
 	
 	$xmlconfig = dump_xml_config($config, $g['xml_rootobj'], $codeset);

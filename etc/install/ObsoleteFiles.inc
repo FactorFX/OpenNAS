@@ -111,3 +111,11 @@ usr/local/lib/lcdproc/
 usr/local/share/lcdproc/
 usr/local/www/services_lcdproc.php
 
+#transmission
+etc/rc.d/transmission
+usr/local/bin/transmission-daemon
+usr/local/bin/transmission-remote
+usr/local/share/transmission/
+usr/local/www/services_bittorrent.php
+
+

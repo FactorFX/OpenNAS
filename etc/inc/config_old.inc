@@ -1148,26 +1148,11 @@ function config_upgrade_old() {
 	}
 
 	/* Convert 6.2 -> 6.3 */
-	/* Add system group 'admin' and 'transmission' to //system/usermanagement/group. */
-	/* Add system user 'transmission' to //system/usermanagement/user. */
 	if ($config['version'] === "6.2") {
 		$config['system']['usermanagement']['group'][] = array(
 			"uuid" => "e504881b-c8dc-43d7-9ca4-74552f9b405b",
 			"id" => "1000",
 			"name" => "admin");
-
-		$config['system']['usermanagement']['group'][] = array(
-			"uuid" => "e8cc78b8-7c3d-46de-a34c-11b1c260a37e",
-			"id" => "999",
-			"name" => "transmission");
-
-		$config['system']['usermanagement']['user'][] = array(
-			"uuid" => "60c4bfb1-7c3c-4535-800c-2b17eeae9369",
-			"id" => "999",
-			"name" => "transmission",
-			"primarygroup" => "999",
-			"group" => "50",
-			"extraoptions" => "-m -w none");
 
 		$config['version'] = "6.3";
 	}
@@ -1259,9 +1244,7 @@ function config_upgrade_old() {
 	}
 
 	/* Convert 7.0 -> 7.1 */
-	/* Add //bittorrent/authrequired flag. */
 	if ($config['version'] === "7.0") {
-		$config['bittorrent']['authrequired'] = true;
 
 		$config['version'] = "7.1";
 	}
@@ -1309,18 +1292,7 @@ function config_upgrade_old() {
 	}
 
 	/* Convert 7.4 -> 7.5 */
-	/* Set default username //bittorrent/username. */
-	/* Set default peer port //bittorrent/peerport. */
-	/* Enable port forwarding //bittorrent/portforwarding. */
-	/* Enable port peer exchange //bittorrent/pex. */
-	/* Set default encryption mode //bittorrent/encryption. */
 	if ($config['version'] === "7.4") {
-		$config['bittorrent']['username'] = "admin";
-		$config['bittorrent']['peerport'] = "51413";
-		$config['bittorrent']['portforwarding'] = true;
-		$config['bittorrent']['pex'] = true;
-		$config['bittorrent']['encryption'] = "1";
-
 		$config['version'] = "7.5";
 	}
 
@@ -1380,13 +1352,8 @@ function config_upgrade_old() {
 	}
 
 	/* Convert 7.9 -> 8.0 */
-	/* Modify 'extraoptions' attribute for user 'transmission'. */
 	/* Convert 'fullshell' attribute to its 'shell' equivalent. */
 	if ($config['version'] === "7.9") {
-		$index = array_search_ex("60c4bfb1-7c3c-4535-800c-2b17eeae9369", $config['system']['usermanagement']['user'], "uuid");
-		if (false !== $index) {
-			$config['system']['usermanagement']['user'][$index]['extraoptions'] = "-m -w random";
-		}
 
 		for ($i = 0; isset($config['access']['user'][$i]); $i++) {
 			if (isset($config['access']['user'][$i]['fullshell'])) {

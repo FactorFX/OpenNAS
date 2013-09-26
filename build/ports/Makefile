@@ -41,7 +41,6 @@
     SUBDIR += sipcalc
     SUBDIR += smartmontools
     SUBDIR += tftp-hpa
-    SUBDIR += transmission
     SUBDIR += tmux
     SUBDIR += unison
     SUBDIR += vbox-additions

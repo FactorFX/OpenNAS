@@ -181,8 +181,7 @@ if ($_POST) {
 			$config['iscsitarget']['enable'] = false;
 			$config['snmpd']['enable'] = false;
 			$config['ups']['enable'] = false;
-			$config['websrv']['enable'] = false;
-			$config['bittorrent']['enable'] = false;		
+			$config['websrv']['enable'] = false;		
 			
 			// update config
 			write_config();
@@ -208,7 +207,6 @@ if ($_POST) {
 			$retval |= rc_update_service("nut_upsmon");
 			$retval |= rc_exec_service("websrv_htpasswd");
 			$retval |= rc_update_service("websrv");
-			$retval |= rc_update_service("transmission");
 			$retval |= rc_update_service("mdnsresponder");
 			config_unlock();
 		} else {
