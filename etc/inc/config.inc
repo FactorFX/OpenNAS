@@ -849,22 +849,7 @@ function config_postinit() {
 	$need_write_config = false;
 
 	if (isset($config['old_after072'])) {
-		// remove database
-		if (isset($config['upnp']['enable'])) {
-			rc_stop_service("fuppes");
-		}
-		if (!empty($config['upnp']['home'])) {
-			$file = $config['upnp']['home']."/fuppes.db";
-			if (file_exists($file)) {
-				echo "remove old $file\n";
-				@unlink($file);
-			}
-		}
-		if (isset($config['upnp']['enable'])) {
-			rc_start_service("fuppes");
-		}
 		unset($config['old_after072']);
-		$need_write_config = true;
 	}
 
 	if ($need_write_config) {

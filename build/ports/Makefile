@@ -12,7 +12,6 @@
     SUBDIR += e2fsprogs
     SUBDIR += fdisk
     SUBDIR += firefly
-    SUBDIR += fuppes
     SUBDIR += fusefs-ntfs
     SUBDIR += geom_raid5
     SUBDIR += gzip

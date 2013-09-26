@@ -1064,22 +1064,6 @@
 		<workdir></workdir>
 		<mkdir/>
 	</unison>
-	<upnp>
-		<!--
-		<enable/>
-		<name>xxx</name>
-		<if>xxx</if>
-		<content>xxx</content>
-		<home>xxx</home> // Directory where sqlite database is stored. The mediatomb.html bookmark file will also be generated in that directory.
-		<web/>
-		<profile>default|...</profile>
-		<deviceip>xxx.xxx.xxx.xxx<deviceip>
-		<transcoding/>
-		<tempdir>xxx</tempdir> // Temporary directory to store transcoded files.
-		-->
-		<port>49152</port>
-		<profile>default</profile>
-	</upnp>
 	<daap>
 		<!--
 		<enable/>

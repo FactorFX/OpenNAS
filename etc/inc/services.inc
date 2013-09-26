@@ -47,7 +47,6 @@ function services_is_port_used($port, $except = "") {
 		"sysgui" => !empty($config['system']['webgui']['port']) ? $config['system']['webgui']['port'] : "",
 		"daap" => $config['daap']['port'],
 		"websrv" => $config['websrv']['port'],
-		"upnp" => $config['upnp']['port'],
 		"bittorrent" => $config['bittorrent']['port']
 	);
 

@@ -177,16 +177,6 @@ $loginfo = array(
 		)),
 	array(
 		"visible" => TRUE,
-		"desc" => gettext("UPnP"),
-		"logfile" => $fuppes_logfile,
-		"filename" => "fuppes.log",
-		"type" => "plain",
-		"pattern" => "/^(.*)$/",
-		"columns" => array(
-			array("title" => gettext("Event"), "class" => "listlr", "param" => "", "pmid" => 1)
-		)),
-	array(
-		"visible" => TRUE,
 		"desc" => gettext("DAAP"),
 		"logfile" => $mtdaapd_logfile,
 		"filename" => "daap.log",

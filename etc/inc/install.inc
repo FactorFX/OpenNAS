@@ -631,6 +631,11 @@ function upgrade_config_install($disk)
 				}
 			}			
 		}
+		
+		/* Remove Upnp config */
+		if (!empty($config['upnp'])){
+			unset($config['upnp']);
+		}
 	}
 	
 	$xmlconfig = dump_xml_config($config, $g['xml_rootobj'], $codeset);

@@ -179,7 +179,6 @@ if ($_POST) {
 			$config['rsyncd']['enable'] = false;
 			$config['unison']['enable'] = false;
 			$config['iscsitarget']['enable'] = false;
-			$config['upnp']['enable'] = false;
 			$config['daap']['enable'] = false;
 			$config['dynamicdns']['enable'] = false;
 			$config['snmpd']['enable'] = false;
@@ -206,7 +205,6 @@ if ($_POST) {
 			$retval |= rc_update_service("rsyncd");
 			$retval |= rc_update_service("unison");
 			$retval |= rc_update_service("iscsi_target");
-			$retval |= rc_update_service("fuppes");
 			$retval |= rc_update_service("mt-daapd");
 			$retval |= rc_update_service("inadyn");
 			$retval |= rc_update_service("bsnmpd");

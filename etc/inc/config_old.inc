@@ -416,10 +416,7 @@ function config_upgrade_old() {
 	}
 
 	/* Convert 2.2 -> 2.3 */
-	/* Set default UPnP profile //upnp/profile. */
 	if ($config['version'] === "2.2") {
-		$config['upnp']['profile'] = "default";
-
 		$config['version'] = "2.3";
 	}
 
@@ -690,11 +687,7 @@ function config_upgrade_old() {
 	}
 
 	/* Convert 3.6 -> 3.7 */
-	/* Remove attribute //upnp/profile. */
 	if ($config['version'] === "3.6") {
-		if (isset($config['upnp']['profile']))
-			unset($config['upnp']['profile']);
-
 		$config['version'] = "3.7";
 	}
 
@@ -771,12 +764,10 @@ function config_upgrade_old() {
 	}
 
 	/* Convert 4.0 -> 4.1 */
-	/* Add attribute //upnp/profile. */
 	/* Add attribute //ftp/tls. */
 	/* Add attribute //ftp/certificate. */
 	/* Add attribute //ftp/privatekey. */
 	if ($config['version'] === "4.0") {
-		$config['upnp']['profile'] = "default";
 		$config['ftp']['tls'] = "0";
 		$config['ftp']['certificate'] = "";
 		$config['ftp']['privatekey'] = "";
@@ -950,11 +941,7 @@ function config_upgrade_old() {
 	}
 
 	/* Convert 4.9 -> 5.0 */
-	/* Set default //upnp/port. */
 	if ($config['version'] === "4.9") {
-		if (!isset($config['upnp']['port']) || empty($config['upnp']['port']))
-			$config['upnp']['port'] = "49152";
-
 		$config['version'] = "5.0";
 	}
 
