@@ -110,13 +110,6 @@
 				<enable/>
 			</param>
 			<param>
-				<uuid>b67e6ffd-169d-493a-9197-155a9ae84582</uuid>
-				<name>fuppes_logfile</name>
-				<value>/var/log/fuppes.log</value>
-				<comment>Default log file</comment>
-				<enable/>
-			</param>
-			<param>
 				<uuid>0b5cbdf6-0a84-4806-b85c-6605d38c7008</uuid>
 				<name>mtdaapd_logfile</name>
 				<value>/var/log/mt-daapd.log</value>

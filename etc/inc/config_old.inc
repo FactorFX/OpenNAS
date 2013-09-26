@@ -1628,7 +1628,6 @@ function config_upgrade_old() {
 				"enable" => true );
 		}
 		$a_log = array(
-			"fuppes_logfile" => "/var/log/fuppes.log",
 			"mtdaapd_logfile" => "/var/log/mt-daapd.log",
 			"rsync_client_logfile" => "/var/log/rsync_client.log",
 			"rsync_local_logfile" => "/var/log/rsync_local.log",
