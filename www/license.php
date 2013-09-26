@@ -221,9 +221,6 @@ $pgtitle = array(gettext("Help"), gettext("License & Credits"));
 
       <p>VirtualBox Open Source Edition (OSE) (guest additions) (<a href="http://www.virtualbox.org/" target="_blank">http://www.virtualbox.org/</a>)</p>
 
-      <p>LCDproc: A client/server suite for LCD devices (<a href="http://lcdproc.org/" target="_blank">http://lcdproc.org</a>)<br />
-	 Copyright &copy; 1998-2006 William Ferrell, Selene Scriven and many other contributors. All Rights Reserved.</p>
-
       <p>Some of the software used for NAS4Free are under the <a href="gpl-license.txt">GNU General Public License</a> (<a href="gpl-license.txt">GPLv2</a>, <a href="gpl3-license.txt">GPLv3</a>), <a href="lgpl-license.txt">GNU Lesser General Public License (LGPL)</a>, <a href="apple-license.txt">Apple Public Source License</a> and <a href="php-license.txt">PHP License</a>.</p>
 
 					</td>

@@ -97,6 +97,17 @@ usr/local/share/mt-daapd/
 usr/local/www/services_daap.php
 
 #inadyn(DynamicDns)
-usr/local/bin/inadyn
 etc/rc.d/inadyn
+usr/local/bin/inadyn
 usr/local/www/services_dynamicdns.php
+
+#LcdProc
+etc/rc.d/LCDd
+etc/rc.d/lcdproc
+usr/local/sbin/LCDd
+usr/local/bin/lcdexec
+usr/local/bin/lcdproc
+usr/local/lib/lcdproc/
+usr/local/share/lcdproc/
+usr/local/www/services_lcdproc.php
+

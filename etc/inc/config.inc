@@ -632,24 +632,6 @@ function config_upgrade() {
 
 	/* Convert 1.1 -> 1.2 */
 	if ($config['version'] === "1.1") {
-		$params = array(
-			"# USB connected HD44780 based LCD",
-			"ConnectionType=lcd2usb",
-			"Contrast=825",
-			"Brightness=4",
-			"OffBrightness=0",
-			"Keypad=yes",
-			"Backlight=yes",
-			"Size=20x4",
-			"KeyDirect_1=Enter",
-			"KeyDirect_2=Down",
-			"KeyDirect_3=Escape",
-		);
-		unset($config['lcdproc']['param']);
-		foreach ($params as $param) {
-			$config['lcdproc']['param'][] = $param;
-		}
-		$config['lcdproc']['titlespeed'] = 10;
 		$config['version'] = "1.2";
 	}
 

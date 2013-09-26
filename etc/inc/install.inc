@@ -626,6 +626,9 @@ function upgrade_config_install($disk)
 		
 		/* Dynamics DNS */
 		unset($config['dynamicdns']);
+		
+		/* LCDProc */
+		unset($config['lcdproc']);
 	}
 	
 	$xmlconfig = dump_xml_config($config, $g['xml_rootobj'], $codeset);

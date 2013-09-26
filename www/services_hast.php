@@ -182,8 +182,7 @@ if ($_POST) {
 			$config['snmpd']['enable'] = false;
 			$config['ups']['enable'] = false;
 			$config['websrv']['enable'] = false;
-			$config['bittorrent']['enable'] = false;
-			$config['lcdproc']['enable'] = false;			
+			$config['bittorrent']['enable'] = false;		
 			
 			// update config
 			write_config();

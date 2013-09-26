@@ -49,11 +49,10 @@ $a_service[] = array("desc" => gettext("AFP"), "link" => "services_afp.php", "co
 $a_service[] = array("desc" => gettext("RSYNC"), "link" => "services_rsyncd.php", "config" => "rsyncd", "scriptname" => "rsyncd");
 $a_service[] = array("desc" => gettext("Unison"), "link" => "services_unison.php", "config" => "unison", "scriptname" => "unison");
 $a_service[] = array("desc" => gettext("iSCSI Target"), "link" => "services_iscsitarget.php", "config" => "iscsitarget", "scriptname" => "iscsi_target");
-//$a_service[] = array("desc" => gettext("SNMP"), "link" => "services_snmp.php", "config" => "snmpd", "scriptname" => "bsnmpd");
+$a_service[] = array("desc" => gettext("SNMP"), "link" => "services_snmp.php", "config" => "snmpd", "scriptname" => "bsnmpd");
 $a_service[] = array("desc" => gettext("UPS"), "link" => "services_ups.php", "config" => "ups", "scriptname" => "nut");
 //$a_service[] = array("desc" => gettext("Webserver"), "link" => "services_websrv.php", "config" => "websrv", "scriptname" => "websrv");
 //$a_service[] = array("desc" => gettext("BitTorrent"), "link" => "services_bittorrent.php", "config" => "bittorrent", "scriptname" => "transmission");
-//$a_service[] = array("desc" => gettext("LCDproc"), "link" => "services_lcdproc.php", "config" => "lcdproc", "scriptname" => "LCDd");
 $a_service[] = array("desc" => gettext("Bacula FD"), "link" => "services_bacula_file_daemon.php", "config" => "bacula_fd", "scriptname" => "bacula_fd");
 $a_service[] = array("desc" => gettext("Bacula SD"), "link" => "services_bacula_storage_daemon.php", "config" => "bacula_sd", "scriptname" => "bacula_sd");
 ?>
