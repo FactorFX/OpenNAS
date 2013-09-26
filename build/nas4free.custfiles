@@ -52,3 +52,10 @@ usr/sbin/nscd
 ### newsyslog
 usr/sbin/newsyslog
 etc/newsyslog.conf
+
+### nload
+usr/local/bin/nload
+
+### calendar
+usr/bin/cal
+usr/bin/ncal
