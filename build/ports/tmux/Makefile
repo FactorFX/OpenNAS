@@ -53,6 +53,7 @@ post-patch:
 do-install:
 	@${INSTALL_PROGRAM} ${WRKSRC}/tmux ${NAS4FREE_ROOTFS}/bin
 	gzip -c ${WRKSRC}/tmux.1 >${WRKSRC}/tmux.1.gz
+	${MKDIR} -v ${NAS4FREE_ROOTFS}/usr/share/man/man1
 	@$(INSTALL_DATA) ${WRKSRC}/tmux.1.gz ${NAS4FREE_ROOTFS}/usr/share/man/man1
 	rm -f ${WRKSRC}/tmux.1.gz
 
