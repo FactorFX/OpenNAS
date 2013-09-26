@@ -45,7 +45,6 @@ require_once("rc.inc");
 $clogdir = rc_getenv_ex("clog_logdir", $g['varlog_path']);
 $rsync_client_logfile = rc_getenv_ex("rsync_client_logfile", "{$g['varlog_path']}/rsync_client.log");
 $rsync_local_logfile = rc_getenv_ex("rsync_local_logfile", "{$g['varlog_path']}/rsync_local.log");
-$mtdaapd_logfile = rc_getenv_ex("mtdaapd_logfile", "{$g['varlog_path']}/mt-daapd.log");
 $proftpd_modban_logfile = rc_getenv_ex("proftpd_modban_banlog", "{$g['varlog_path']}/proftpd/ban.log");
 
 // The log configuration
@@ -174,17 +173,6 @@ $loginfo = array(
 		"columns" => array(
 			array("title" => gettext("Event"), "class" => "listlr", "param" => "", "pmid" => 1)
 		)),
-	array(
-		"visible" => TRUE,
-		"desc" => gettext("DAAP"),
-		"logfile" => $mtdaapd_logfile,
-		"filename" => "daap.log",
-		"type" => "plain",
-		"pattern" => "/^(\S+\s+\S+)\s+\S+:\s+(.*)$/",
-		"columns" => array(
-			array("title" => gettext("Date & Time"), "class" => "listlr", "param" => "nowrap=\"nowrap\"", "pmid" => 1),
-			array("title" => gettext("Event"), "class" => "listr", "param" => "", "pmid" => 2)
-		))
 );
 
 function log_get_contents($logfile, $type) {

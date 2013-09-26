@@ -181,9 +181,6 @@ $pgtitle = array(gettext("Help"), gettext("License & Credits"));
       <p>istgt - iSCSI target for FreeBSD (<a href="http://shell.peach.ne.jp/aoyama" target="_blank">http://shell.peach.ne.jp/aoyama</a>)<br />
         Copyright &copy; 2008-2013 Daisuke Aoyama (<a href="mailto:aoyama@peach.ne.jp">aoyama@peach.ne.jp</a>). All Rights Reserved.</p>
 
-      <p>mt-daapd - Multithread daapd Apple iTunes server (<a href="http://www.fireflymediaserver.org" target="_blank">http://www.fireflymediaserver.org</a>)<br />
-        Copyright &copy; 2003 Ron Pedde (<a href="mailto:ron@pedde.com">ron@pedde.com</a>). All Rights Reserved.</p>
-
       <p>NTFS-3G driver (<a href="http://www.ntfs-3g.org" target="_blank">http://www.ntfs-3g.org</a>)<br />
         from Szabolcs Szakacsits. All Rights Reserved.</p>
 

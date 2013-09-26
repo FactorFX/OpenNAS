@@ -83,9 +83,17 @@ usr/local/www/javascript/navbar.js
 usr/local/www/javascript
 
 #fuppes
-usr/local/bin/fuppesd
-usr/local/lib/libfuppes.so.0
 etc/rc.d/fuppes
-usr/local/share/fuppes/
+usr/local/bin/fuppesd
 usr/local/lib/fuppes/
+usr/local/lib/libfuppes.so.0
+usr/local/share/fuppes/
 usr/local/www/services_upnp.php
+
+#daap
+etc/rc.d/mt-daapd
+usr/local/sbin/mt-daapd
+usr/local/share/mt-daapd/
+usr/local/www/services_daap.php
+
+

@@ -618,8 +618,11 @@ function upgrade_config_install($disk)
 		
 		/* fuppes_log file */
 		searchAndRemoveInConfig("b67e6ffd-169d-493a-9197-155a9ae84582", $config['system']['rcconf']['param'], "uuid");
-		
 		unset($config['upnp']);
+		
+		/* mtdaapd_logfile file */
+		searchAndRemoveInConfig("0b5cbdf6-0a84-4806-b85c-6605d38c7008", $config['system']['rcconf']['param'], "uuid");
+		unset($config['daap']);
 
 	}
 	

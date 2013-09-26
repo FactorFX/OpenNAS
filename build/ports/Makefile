@@ -11,7 +11,6 @@
     SUBDIR += dmidecode
     SUBDIR += e2fsprogs
     SUBDIR += fdisk
-    SUBDIR += firefly
     SUBDIR += fusefs-ntfs
     SUBDIR += geom_raid5
     SUBDIR += gzip
@@ -25,7 +24,6 @@
     SUBDIR += mDNSResponder
     SUBDIR += mkpw
     SUBDIR += msmtp
-    SUBDIR += mt-daapd
     SUBDIR += nano
     SUBDIR += netatalk
     SUBDIR += nss_ldap

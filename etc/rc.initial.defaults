@@ -56,7 +56,7 @@ function remove_logs() {
 		'rsync_client_logfile' => $g['varlog_path'].'/rsync_client.log',
 		'rsync_local_logfile' => $g['varlog_path'].'/rsync_local.log',
 	);
-	rc_stop_service("mt-daapd");
+	
 	foreach ($logs as $key => $val) {
 		$file = rc_getenv_ex($key, $val);
 		if (!empty($file) && file_exists($file)) {

@@ -110,13 +110,6 @@
 				<enable/>
 			</param>
 			<param>
-				<uuid>0b5cbdf6-0a84-4806-b85c-6605d38c7008</uuid>
-				<name>mtdaapd_logfile</name>
-				<value>/var/log/mt-daapd.log</value>
-				<comment>Default log file</comment>
-				<enable/>
-			</param>
-			<param>
 				<uuid>40fe3290-51ac-4a70-b03e-a5613b981be4</uuid>
 				<name>rsync_client_logfile</name>
 				<value>/var/log/rsync_client.log</value>
@@ -1057,19 +1050,6 @@
 		<workdir></workdir>
 		<mkdir/>
 	</unison>
-	<daap>
-		<!--
-		<enable/>
-		<servername>xxx</servername>
-		<alwaysscan/>
-		<content></content>
-		-->
-		<port>3689</port>
-		<rescaninterval>3600</rescaninterval>
-		<scantype>0</scantype>
-		<dbdir></dbdir>
-		<admin_pw>opennas</admin_pw>
-	</daap>
 	<bittorrent>
 		<!--
 		<enable/>
