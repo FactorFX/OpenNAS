@@ -31,10 +31,6 @@ command="/sbin/${name}"
 hastctl="/sbin/hastctl"
 required_modules="geom_gate:g_gate"
 
-if [ -f "/var/tmp/prev_error.ini" ]; then
-	rm -f /var/tmp/prev_error.ini
-fi
-
 hastd_mkconf()
 {
 	# Create hastd.conf file

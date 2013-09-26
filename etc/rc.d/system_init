@@ -27,6 +27,11 @@ system_init_start()
 	if [ -f "/var/run/firmware.lock" ]; then
 		rm -f /var/run/firmware.lock
 	fi
+	
+	# If previous hast error in booting delete it 	
+	if [ -f "/var/tmp/prev_error.ini" ]; then
+		rm -f /var/tmp/prev_error.ini
+	fi
 
 	# Start core system
 	eval /etc/rc.d.php/${name}
