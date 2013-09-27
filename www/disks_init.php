@@ -70,63 +70,96 @@ if (is_ajax()) {
 	render_ajax($fstype);
 }
 
+function filter_disk($array) {
+	return array_filter($array, function($diskv){
+		if (0 != strcmp($diskv['size'], "NA") && 1 != disks_exists($diskv['devicespecialfile'])) return $diskv;
+	});
+}
+
 // Advanced Format
-$pconfig['aft4k'] = false;
+$pconfig['aft4k'] = $aft4k = false;
+
+$do_format = array();
+$disks = array();
+$type = 'zfs';
+$minspace = '';
+$volumelabels = $_volumelabels= array();
 
 if ($_POST) {
 	unset($input_errors);
 	unset($errormsg);
 	unset($do_format);
 
+	$disks = $_POST['disks'];
+	$type = $_POST['type'];
+	$minspace = $_POST['minspace'];
+	$notinitmbr = isset($_POST['notinitmbr']) ? true : false;
+	$aft4k = isset($_POST['aft4k']) ? true : false;
+	$volumelabels = explode(" ", trim($_POST['volumelabels']));
+
 	// Input validation.
-	$reqdfields = explode(" ", "disk type");
+	$reqdfields = explode(" ", "disks type");
 	$reqdfieldsn = array(gettext("Disk"),gettext("Type"));
 	do_input_validation($_POST, $reqdfields, $reqdfieldsn, $input_errors);
 
-	$reqdfields = explode(" ", "volumelabel");
-	$reqdfieldsn = array(gettext("Volume label"));
-	$reqdfieldst = explode(" ", "alias");
-	do_input_validation_type($_POST, $reqdfields, $reqdfieldsn, $reqdfieldst, $input_errors);
+	foreach($volumelabels as $volumelabel) {
+		$reqdfields = explode(" ", "volumelabel");
+		$reqdfieldsn = array(gettext("Volume label"));
+		$reqdfieldst = explode(" ", "alias");
+		do_input_validation_type(array('volumelabel' => $volumelabel), $reqdfields, $reqdfieldsn, $reqdfieldst, $input_errors);
+	}
+	
+	if (count($volumelabels) > 1 && count($volumelabels) > count($disks)) {
+		$input_errors[] = gettext("Wrong number of argument for Volume label");
+	}
 
 	if (empty($input_errors)) {
-		$do_format = true;
-		$disk = $_POST['disk'];
-		$type = $_POST['type'];
-		$minspace = $_POST['minspace'];
-		$notinitmbr = isset($_POST['notinitmbr']) ? true : false;
-		$volumelabel = $_POST['volumelabel'];
-		$aft4k = isset($_POST['aft4k']) ? true : false;
+		$do_format = array();
+	
+		if (count($disks)>0) {
+			
+			foreach ($disks as $key => $disk) {
+				$do_format[$key] = true;
+				// Check whether disk is mounted.
+				if (disks_ismounted_ex($disk, "devicespecialfile")) {
+					$errormsg = sprintf(gettext("The disk is currently mounted! <a href='%s'>Unmount</a> this disk first before proceeding."), "disks_mount_tools.php?disk={$disk}&action=umount");
+					$do_format[$key] = true;
+				}
 
-		// Check whether disk is mounted.
-		if (disks_ismounted_ex($disk, "devicespecialfile")) {
-			$errormsg = sprintf(gettext("The disk is currently mounted! <a href='%s'>Unmount</a> this disk first before proceeding."), "disks_mount_tools.php?disk={$disk}&action=umount");
-			$do_format = false;
-		}
+				// Check if user tries to format the OS disk.
+				if (preg_match("/" . preg_quote($disk, "/") . "\D+/", $cfdevice)) {
+					$input_errors[] = gettext("Can't format the OS origin disk!");
+					$do_format[$key] = false;
+				}
+				
+				if ($do_format[$key]) {
+					// Set new file system type attribute ('fstype') in configuration.
+					set_conf_disk_fstype($disk, $type);
+					
+					if (count($volumelabels) == 1 && count($disks) > 1) {
+						for ($i=0; $i < count($disks); $i++) {
+							$_volumelabels[$i] = "${volumelabels[0]}${i}";
+						}
+					} 
+					elseif(count($volumelabels) == 1 && count($disks) == 1) {
+						$_volumelabels[0] = $volumelabels[0];
+					}
+					else {
+						$_volumelabels = $volumelabels;
+					}
+					print_r($volumelabels);
+					write_config();
 
-		// Check if user tries to format the OS disk.
-		if (preg_match("/" . preg_quote($disk, "/") . "\D+/", $cfdevice)) {
-			$input_errors[] = gettext("Can't format the OS origin disk!");
-		}
-
-		if ($do_format) {
-			// Set new file system type attribute ('fstype') in configuration.
-			set_conf_disk_fstype($disk, $type);
-
-			write_config();
-
-			// Update list of configured disks.
-			$a_disk = get_conf_all_disks_list_filtered();
+					// Update list of configured disks.
+					$a_disk = get_conf_all_disks_list_filtered();
+				}
+			}
 		}
 	}
 }
 
-if (!isset($do_format)) {
-	$do_format = false;
-	$disk = '';
-	$type = '';
-	$minspace = '';
-	$volumelabel = '';
-	$aft4k = false;
+if (empty($do_format)) {
+
 }
 ?>
 <?php include("fbegin.inc");?>
@@ -151,13 +184,7 @@ $(document).ready(function(){
 			$('#volumelabel_tr').hide();
 			$('#aft4k_tr').hide();
 			break;
-		}
-	});
-	$('#disk').change(function(){
-		var devfile = $('#disk').val();
-		gui.ajax('', { devfile: devfile }, function(data){
-			$('#type').val(data.data).change();
-		});
+		}  
 	});
 	$('#type').change();
 });
@@ -171,18 +198,19 @@ $(document).ready(function(){
 				<?php if(!empty($errormsg)) print_error_box($errormsg);?>
 			  <table width="100%" border="0" cellpadding="6" cellspacing="0">
 			    <tr>
-			      <td valign="top" class="vncellreq"><?=gettext("Disk"); ?></td>
+			      <td valign="top" class="vncellreq"><?=gettext("Disks"); ?></td>
 			      <td class="vtable">
-			        <select name="disk" class="formfld" id="disk">
-								<option value=""><?=gettext("Must choose one");?></option>
-								<?php foreach ($a_disk as $diskv):?>
-								<?php if (0 == strcmp($diskv['size'], "NA")) continue;?>
-								<?php if (1 == disks_exists($diskv['devicespecialfile'])) continue;?>
-								<option value="<?=$diskv['devicespecialfile'];?>" <?php if ($diskv['devicespecialfile'] === $disk) echo "selected=\"selected\"";?>>
-								<?php $diskinfo = disks_get_diskinfo($diskv['devicespecialfile']); echo htmlspecialchars("{$diskv['name']}: {$diskinfo['mediasize_mbytes']}MB ({$diskv['desc']})");?>
-								</option>
-								<?php endforeach;?>
-			        </select>
+					  <?php if (count($a_disks_filter = filter_disk($a_disk))>0) :?>
+					  <select name="disks[]" class="formselect" id="disks" multiple='true' size='10'>
+						<?php foreach ($a_disks_filter as $diskv):?>
+							<option value="<?=$diskv['devicespecialfile'];?>" <?php if (in_array($diskv['devicespecialfile'], $disks)) echo "selected=\"selected\"";?>>
+							<?php $diskinfo = disks_get_diskinfo($diskv['devicespecialfile']); echo htmlspecialchars("{$diskv['name']}: {$diskinfo['mediasize_mbytes']}MB ({$diskv['desc']})");?>
+							</option>
+						<?php endforeach;?>
+						</select>
+					<?php else: ?>
+						<?=sprintf(gettext("No disks available. Please add new <a href='%s'>disk</a> first."),'disks_manage.php'); ?>
+					<?php endif;?>
 			      </td>
 					</tr>
 					<tr>
@@ -198,8 +226,8 @@ $(document).ready(function(){
 					<tr id="volumelabel_tr">
 						<td width="22%" valign="top" class="vncell"><?=gettext("Volume label");?></td>
 						<td width="78%" class="vtable">
-							<input name="volumelabel" type="text" class="formfld" id="volumelabel" size="20" value="<?=htmlspecialchars($volumelabel);?>" /><br />
-							<?=gettext("Volume label of the new file system.");?>
+							<input name="volumelabels" type="text" class="formfld" id="volumelabels" size="100" value="<?php echo !empty($volumelabels)?htmlspecialchars(trim(implode(' ', $volumelabels))):'';?>" /><br />
+							<?=gettext("Volume label of the new file system.");?><?=gettext("Use a space to separate multiple (if only one specify is autoincrement)");?>
 						</td>
 					</tr>
 					<tr id="minspace_tr">
@@ -226,12 +254,15 @@ $(document).ready(function(){
 				<div id="submit">
 					<input name="Submit" type="submit" class="formbtn" value="<?=gettext("Format disk");?>" onclick="return confirm('<?=gettext("Do you really want to format this disk? All data will be lost!");?>')" />
 				</div>
-				<?php if ($do_format) {
-				echo(sprintf("<div id='cmdoutput'>%s</div>", gettext("Command output:")));
-				echo('<pre class="cmdoutput">');
-				//ob_end_flush();
-				disks_format($disk,$type,$notinitmbr,$minspace,$volumelabel, $aft4k);
-				echo('</pre>');
+				<?php if (count($disks)>0) {
+					foreach ($disks as $key => $disk) {
+						if ($do_format[$key]) {
+							echo(sprintf("<div id='cmdoutput'>%s</div>", sprintf(gettext("Command output")." for disk %s :", $disk)));
+							echo('<pre class="cmdoutput">');
+								disks_format($disk,$type,$notinitmbr,$minspace,$_volumelabels[$key], $aft4k);
+							echo('</pre><br/>');
+						}
+					}
 				}
 				?>
 				<div id="remarks">
