@@ -59,3 +59,4 @@ post-install:
 	rm -f ${WRKSRC}/doc/sysinfo.8.gz
 
 .include <bsd.port.mk>
+
