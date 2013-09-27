@@ -160,9 +160,9 @@ do-install:
 	${INSTALL_SCRIPT} ${WRKSRC}/src/cats/delete_catalog_backup ${NAS4FREE_ROOTFS}/usr/local/share/bacula/
 
 	# dird
-	${INSTALL_PROGRAM} ${WRKSRC}/src/dird/.libs/bacula-dir ${NAS4FREE_ROOTFS}/usr/local/sbin/
-	@${CP} -pv ${WRKSRC}/src/dird/bacula-dir.conf ${NAS4FREE_ROOTFS}/usr/local/etc/
-	${CHGRP} -f ${BACULA_GROUP} ${NAS4FREE_ROOTFS}/usr/local/etc/bacula-dir.conf
+	#${INSTALL_PROGRAM} ${WRKSRC}/src/dird/.libs/bacula-dir ${NAS4FREE_ROOTFS}/usr/local/sbin/
+	#@${CP} -pv ${WRKSRC}/src/dird/bacula-dir.conf ${NAS4FREE_ROOTFS}/usr/local/etc/
+	#${CHGRP} -f ${BACULA_GROUP} ${NAS4FREE_ROOTFS}/usr/local/etc/bacula-dir.conf
 
 	# stored
 .for file in bacula-sd bcopy bextract bls bscan btape
@@ -195,6 +195,6 @@ do-install:
 	# Install service srcipt
 	@${INSTALL_SCRIPT} -v ${FILESDIR}/bacula-fd.in ${NAS4FREE_ROOTFS}/etc/rc.d/bacula_fd
 	@${INSTALL_SCRIPT} -v ${FILESDIR}/bacula-sd.in ${NAS4FREE_ROOTFS}/etc/rc.d/bacula_sd
-	@${INSTALL_SCRIPT} -v ${FILESDIR}/bacula-dir.in ${NAS4FREE_ROOTFS}/etc/rc.d/bacula_dir
+	#@${INSTALL_SCRIPT} -v ${FILESDIR}/bacula-dir.in ${NAS4FREE_ROOTFS}/etc/rc.d/bacula_dir
 
 .include <bsd.port.mk>

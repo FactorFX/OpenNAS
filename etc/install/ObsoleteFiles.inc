@@ -118,4 +118,9 @@ usr/local/bin/transmission-remote
 usr/local/share/transmission/
 usr/local/www/services_bittorrent.php
 
+#bacula-dir
+etc/rc.d/bacula_dir
+usr/local/sbin/bacula-dir
+usr/local/etc/bacula-dir.conf
+
 
