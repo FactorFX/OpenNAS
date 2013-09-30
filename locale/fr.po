@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenNas\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-09-27 17:40+0100\n"
-"PO-Revision-Date: 2013-09-27 17:44+0100\n"
+"POT-Creation-Date: 2013-09-30 10:11+0100\n"
+"PO-Revision-Date: 2013-09-30 10:11+0100\n"
 "Last-Translator: Cédric Denis <cedric.denis@factorfx.com>\n"
 "Language-Team: OpenNas\n"
 "Language: fr_FR\n"
@@ -7966,7 +7966,7 @@ msgstr "Étiquette de volume"
 
 #: /home/cedric/DEV/Nas4Free/opennas/trunk/www/disks_init.php:113
 msgid "Wrong number of argument for Volume label"
-msgstr "Vous avez spécifié un nombre incorrecte de labels "
+msgstr "Vous avez spécifié un nombre incorrecte d'étiquette "
 
 #: /home/cedric/DEV/Nas4Free/opennas/trunk/www/disks_init.php:131
 msgid "Can't format the OS origin disk!"
@@ -7977,8 +7977,8 @@ msgid "Volume label of the new file system."
 msgstr "Étiquette de volume du nouveau système de fichiers."
 
 #: /home/cedric/DEV/Nas4Free/opennas/trunk/www/disks_init.php:230
-msgid "Use a space to separate multiple (if only one specify is autoincrement)"
-msgstr "Utilisez un espace pour séparer plusieurs entrées (si un seul label est spécifié les autre seront autoincrémentés)"
+msgid "Use a space to separate multiple (if only one specify next will be autoincrement)"
+msgstr "Utilisez un espace pour séparer plusieurs entrées (si un seul label est spécifié les suivants seront autoincrémentés)"
 
 #: /home/cedric/DEV/Nas4Free/opennas/trunk/www/disks_init.php:234
 msgid "Minimum free space"

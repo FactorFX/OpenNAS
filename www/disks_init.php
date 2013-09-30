@@ -227,7 +227,7 @@ $(document).ready(function(){
 						<td width="22%" valign="top" class="vncell"><?=gettext("Volume label");?></td>
 						<td width="78%" class="vtable">
 							<input name="volumelabels" type="text" class="formfld" id="volumelabels" size="100" value="<?php echo !empty($volumelabels)?htmlspecialchars(trim(implode(' ', $volumelabels))):'';?>" /><br />
-							<?=gettext("Volume label of the new file system.");?><?=gettext("Use a space to separate multiple (if only one specify is autoincrement)");?>
+							<?=gettext("Volume label of the new file system.");?><?=''.gettext("Use a space to separate multiple (if only one specify next will be autoincrement)");?>
 						</td>
 					</tr>
 					<tr id="minspace_tr">
