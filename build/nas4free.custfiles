@@ -59,3 +59,7 @@ usr/local/bin/nload
 ### calendar
 usr/bin/cal
 usr/bin/ncal
+
+### command for (sysinfo)
+usr/bin/limits
+usr/sbin/lastlogin
