@@ -10,7 +10,7 @@
 		<ipv6dnsserver></ipv6dnsserver>
 		<dnsallowoverride/>
 		<username>admin</username>
-		<password>opennas</password>
+		<password>$1$FZ3XCeeR$D8/kC18nBvwgMtkc2AdID0</password>
 		<timezone>Etc/UTC</timezone>
 		<language>en_US</language>
 		<ntp>

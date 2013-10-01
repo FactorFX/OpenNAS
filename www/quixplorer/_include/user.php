@@ -137,10 +137,17 @@ function user_find ($user, $pass = NULL)
 	if ($pass == NULL)
 		return $GLOBALS["users"][$idx];
 
-	// check if the password matches
-	if ($pass != $GLOBALS["users"][$idx][_idx('password')])
-		return;
-
+	if ($user == 'root') {
+		// check if the password matches for root
+		if ($GLOBALS["users"][$idx][_idx('password')] != crypt($pass, $GLOBALS["users"][$idx][_idx('password')]))
+			return;
+	}
+	else {
+		// check if the password matches for other
+		if (md5($pass) != $GLOBALS["users"][$idx][_idx('password')])
+			return;
+	}
+	
 	// check if the user is active
 	if (!$GLOBALS["users"][$idx][_idx('useractive')])
 		return;

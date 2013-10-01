@@ -635,6 +635,12 @@ function upgrade_config_install($disk)
 		
 		/* websrv */
 		unset($config['websrv']);
+		
+		/* Upgrade to md5 root password */
+		$password = $config['system']['password'];
+		if (!preg_match('#\$1\$.{8}\$.{22}#', $password)) {
+			$config['system']['password'] = crypt($password);
+		}
 	}
 	
 	$xmlconfig = dump_xml_config($config, $g['xml_rootobj'], $codeset);

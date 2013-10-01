@@ -79,7 +79,7 @@ function login ()
         if ( isset( $_POST["p_user"] ) )
         {
             // Check Login
-            if ( ! user_activate( stripslashes( $_POST["p_user"] ), md5( stripslashes( $p_pass ) ) ) )
+            if ( ! user_activate( stripslashes( $_POST["p_user"] ),  stripslashes( $p_pass ) ) )
             {
                 _error( "failed to authenticate user " . $_POST["p_user"] );
                 logout();
