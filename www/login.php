@@ -85,29 +85,6 @@ function genhtmltitle($title) {
 	return system_get_hostname() . " - " . gentitle($title);
 }
 
-// Menu items.
-// Info and Manual
-$menu['info']['desc'] = gettext("Information & Manuals");
-$menu['info']['visible'] = FALSE;
-$menu['info']['link'] = "http://wiki.nas4free.org/";
-$menu['info']['menuitem']['visible'] = FALSE;
-// Forum
-$menu['forum']['desc'] = gettext("Forum");
-$menu['forum']['link'] = "http://forums.nas4free.org";
-$menu['forum']['visible'] = FALSE;
-$menu['forum']['menuitem']['visible'] = FALSE;
-// IRC
-$menu['irc']['desc'] = gettext("IRC Live Support");
-$menu['irc']['visible'] = FALSE;
-$menu['irc']['link'] = "http://webchat.freenode.net/?channels=#nas4free";
-$menu['irc']['menuitem']['visible'] = FALSE;
-// Donate
-$menu['donate']['desc'] = gettext("Donate");
-$menu['donate']['visible'] = FALSE;
-$menu['donate']['link'] = "https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=info%40nas4free%2eorg&lc=US&item_name=NAS4Free%20Project&no_note=0&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHostedGuest";
-$menu['donate']['menuitem']['visible'] = FALSE;
-
-
 function display_menu($menuid) {
 	global $menu;
 

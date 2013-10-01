@@ -173,20 +173,6 @@ $menu['diagnostics']['menuitem'][] = array("desc" => gettext("Ping/Traceroute"),
 $menu['diagnostics']['menuitem'][] = array("desc" => gettext("ARP Tables"), "link" => "../diag_arp.php", "visible" => TRUE);
 $menu['diagnostics']['menuitem'][] = array("desc" => gettext("Routes"), "link" => "../diag_routes.php", "visible" => TRUE);
 
-// Help
-$menu['help']['desc'] = gettext("Help");
-$menu['help']['visible'] = false;
-$menu['help']['link'] = "http://support.factorfx.com";
-$menu['help']['menuitem'] = array();
-$menu['help']['menuitem'][] = array("desc" => gettext("Report Generator"), "link" => "../report_generator.php", "visible" => false);
-$menu['help']['menuitem'][] = array("type" => "separator", "visible" => false);
-$menu['help']['menuitem'][] = array("desc" => gettext("Forum"), "link" => "http://apps.sourceforge.net/phpbb/nas4free/index.php", "visible" => false, "target" => "_blank");
-$menu['help']['menuitem'][] = array("desc" => gettext("Information & Manual"), "link" => "http://wiki.nas4free.org/", "visible" => false, "target" => "_blank");
-$menu['help']['menuitem'][] = array("desc" => gettext("IRC Live Support"), "link" => "http://webchat.freenode.net/?channels=#nas4free", "visible" => false, "target" => "_blank");
-$menu['help']['menuitem'][] = array("type" => "separator", "visible" => false);
-$menu['help']['menuitem'][] = array("desc" => gettext("Release Notes"), "link" => "../changes.php", "visible" => false);
-$menu['help']['menuitem'][] = array("desc" => gettext("License & Credits"), "link" => "../license.php", "visible" => false);
-$menu['help']['menuitem'][] = array("desc" => gettext("Donate"), "link" => "https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=SAW6UG4WBJVGG&lc=US&item_name=NAS4Free&item_number=Donation%20to%20NAS4Free&currency_code=USD&bn=PP%2dDonationsBF%3abtn_donateCC_LG%2egif%3aNonHosted", "visible" => false, "target" => "_blank");
 function display_menu($menuid) {
 	global $menu;
 
