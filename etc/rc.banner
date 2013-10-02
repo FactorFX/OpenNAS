@@ -93,6 +93,12 @@ EOD;
 			"({$config['interfaces']['opt' . $i]['descr']})\n";
 			
 echo <<<EOD
-	echo "The WebGUI default login is : admin and password is : opennas"
+		\nWebGUI default login is : admin and password is : opennas\n		
 EOD;
+
+		if ($if_isboot == 0) {
+echo <<<EOD
+			\nDefault login is : root and password is : opennas\n	
+EOD;			
+		}
 ?>
