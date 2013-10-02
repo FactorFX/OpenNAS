@@ -129,6 +129,11 @@ if (install_restore_config("{$devinfo['device']}{$devinfo['partition']}")) {
 	exit(0);
 }
 
+if (install_upgrade_config("{$devinfo['device']}{$devinfo['partition']}")) {
+	tui_wait_keypress("There was a problem while upgrading config.xml.");
+	exit(0);
+}
+
 install_unmount_cd();
 
 // Display final message

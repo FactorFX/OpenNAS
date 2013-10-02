@@ -260,8 +260,8 @@ function install_system($mntpath)
 	global $g;
 	
 	mwexec("/usr/bin/tar --exclude etc/inc/install.inc --exclude etc/rc.initial.install* --exclude mnt/ --exclude dev/ --exclude var/ --exclude tmp/ --exclude {$g['cf_path']}/ -c -f - -C / . | tar -xvpf - -C {$mntpath}");
-	// Remove autologin in /etx/ttys
-	mwexec("sed '/^ttyv0/ s/autlogin/Pc/' {$mntpath}/etc/ttys > {$mntpath}/etc/ttys");
+	// Remove autologin in /etc/ttys
+	mwexec("sed -i '' -e '/^ttyv0/ s|autologin|Pc|' {$mntpath}/etc/ttys");
 	mwexec("/bin/mkdir -p {$mntpath}/var");
 	mwexec("/bin/mkdir -p {$mntpath}/dev");
 	mwexec("/bin/mkdir -p {$mntpath}/mnt");
@@ -312,12 +312,6 @@ function install_upgrade_full($harddrive)
 	// Install system files
 	write_console("Installing system files on device {$harddrive}s1a.\n");
 	install_system($mntpath);
-	
-	// Upgrade some config files
-	if (1 == upgrade_config_install("{$mntpath}") ) {
-		write_console("Error: Failed to upgrade config.xml.\n");
-		return 1;
-	}
 
 	// Decompress kernel
 	mwexec("/usr/bin/gzip -d -f {$mntpath}/boot/kernel/kernel.gz");
@@ -546,17 +540,35 @@ function searchAndRemoveInConfig($needle, &$haystack, $key){
  * upgrade config.xml in install
  * 
  */
-function upgrade_config_install($disk)
+function install_upgrade_config($disk)
 {
 	global $g, $g_languages;
+
+	$mnt_cf_disk = "/mnt/conf_{$disk}";
 	
-	$config_path = "{$disk}/{$g['conf_path']}";
+	write_console("Upgrade configuration.\n");
+	
+	/* Creating temporary directory for the disk containing the configuration file. */
+	if (1 == mwexec("/bin/mkdir -p {$mnt_cf_disk}")) {
+		write_console("Error: Failed to create '{$mnt_cf_disk}'!\n");
+		return 1;
+	}
+	
+	/* Mount the drive to be upgraded */
+	if (1 == mwexec("/sbin/mount /dev/{$disk} {$mnt_cf_disk}")) {
+		write_console("Error: Failed to mount device '{$disk}'!\n");
+		return 1;
+	}
+	
+	$config_path = "{$mnt_cf_disk}/{$g['conf_path']}";
+	$etc_path = "{$mnt_cf_disk}/{$g['etc_path']}";
 	$config_file = "{$config_path}/config.xml";
 	$config_file_bak = "{$config_path}/config_upd";
+	$revision_file = "{$etc_path}/prd.revision";
 	$error_with_file = false;
 	
 	$config = parse_xml_config($config_file, $g['xml_rootobj']);	
-	$prev_revision = chop(file_get_contents("{$disk}/{$g['etc_path']}/prd.revision"));
+	$prev_revision = chop(file_get_contents("{$revision_file}"));
 	
 	if (false === $prev_revision || false === $config) {
 		return 1;
@@ -630,6 +642,18 @@ function upgrade_config_install($disk)
 	
 	// Delete Config file backup
 	@unlink($config_file_bak);
+	
+	/* Unmount the upgraded drive */
+	if (1 == mwexec("/sbin/umount {$mnt_cf_disk}")) {
+		write_console("Error: Failed to unmount '{$mnt_cf_disk}'!\n");
+		return 1;
+	}
+	
+	/* Cleanup */
+	if (1 == mwexec("/bin/rm -fr {$mnt_cf_disk}")) {
+		write_console("Error: Failed to remove upgrade mount point!\n");
+		return 1;
+	}
 }
 
 // Create two partitions on the destination hard drive.
