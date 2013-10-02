@@ -24,10 +24,6 @@ trap : 18
 # Set our operating platform
 PLATFORM=`cat /etc/platform`
 
-# Retrieve login and password
-LOGIN=`configxml_get '//system/username'`
-PASSWORD=`configxml_get '//system/password'`
-
 # Redirect input/output
 #exec </dev/console >/dev/console 2>/dev/console
 
@@ -38,20 +34,6 @@ if configxml_isset "//system/disableconsolemenu"; then
 		read tmp
 	done
 else
-	case ${PLATFORM} in
-		*-live[cC][dD]|*-live[uU][sS][bB])
-			echo
-			echo "Now, the blank USB memory for installation can be inserted."
-			echo "To redisplay Console Menu, press enter key.";;
-	esac
-	# endless loop
-	
-	# Display default login and password
-	if [ ${LOGIN} == 'admin' ] && [ ${PASSWORD} == 'opennas' ]; then
-		echo
-		echo "The WebGUI default login is : admin and password is : opennas"
-	fi
-	
 	while : ; do
 		# display menu
 		echo
