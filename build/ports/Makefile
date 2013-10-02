@@ -21,7 +21,6 @@
     SUBDIR += lighttpd
     SUBDIR += locale
     SUBDIR += mDNSResponder
-    SUBDIR += mkpw
     SUBDIR += msmtp
     SUBDIR += nano
     SUBDIR += netatalk
