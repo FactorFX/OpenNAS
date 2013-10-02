@@ -123,4 +123,14 @@ etc/rc.d/bacula_dir
 usr/local/sbin/bacula-dir
 usr/local/etc/bacula-dir.conf
 
+#Clean install files
+etc/inc/install.inc
+etc/rc.initial.install
+etc/rc.initial.install1
+etc/rc.initial.install2
+etc/rc.initial.install3
+etc/rc.initial.full2emb
+etc/rc.initial.embupgfromcdrom
+etc/rc.initial.fullupfromcdrom
+etc/rc.initial.installfull
 
