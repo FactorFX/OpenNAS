@@ -30,7 +30,7 @@ while : ; do
 			/etc/rc.initial.installfull
 			;;
 		2)
-			/etc/rc.initial.fullupgfromcdrom
+			/etc/rc.initial.installfullupg
 			;;
 	esac
 done
