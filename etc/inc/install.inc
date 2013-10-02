@@ -145,33 +145,6 @@ function install_unmount_cd()
 	return $result;
 }
 
-// Install the IMG on the destination harddrive.
-// Return 0 if successful, otherwise 1
-function install_dd_image($harddrive)
-{
-	global $g;
-
-	$imgfilename=get_product_name(). "-{$g['arch']}-embedded.gz";
-
-	// Test firmware file integrity.
-	if (mwexec("/usr/bin/gzip -t /mnt/cdrom/{$imgfilename}")) {
-		write_console("Error: Firmware file is corrupted.\n");
-		return 1;
-	}
-
-	set_kern_geom_debugflags(0x10);
-	// dd image file on the destination disk.
-	write_console("Installing system image on device {$harddrive}.\n");
-	if (mwexec("/usr/bin/gzip -cd /mnt/cdrom/{$imgfilename} | /bin/dd of=/dev/{$harddrive} ibs=16k obs=16k > /dev/null 2>&1")) {
-		set_kern_geom_debugflags(0);
-		write_console("Error: Failed to dd image on '/dev/{$harddrive}'!\n");
-		return 1;
-	}
-	set_kern_geom_debugflags(0);
-
-	return 0;
-}
-
 // Install NAS4Free on the destination harddrive.
 // Return 0 if successful, otherwise 1
 function install_harddrive_image($harddrive)
@@ -189,17 +162,8 @@ function install_harddrive_image($harddrive)
 
 	// Install system files.
 	write_console("Installing system files on device {$harddrive}s1a.\n");
-	mwexec("/usr/bin/tar --exclude mnt/ --exclude dev/ --exclude var/ --exclude tmp/ --exclude {$g['cf_path']}/ -c -f - -C / . | tar -xvpf - -C {$mntpath}");
-	mwexec("/bin/mkdir -p {$mntpath}/var");
-	mwexec("/bin/mkdir -p {$mntpath}/dev");
-	mwexec("/bin/mkdir -p {$mntpath}/mnt");
-	mwexec("/bin/mkdir -p {$mntpath}/tmp");
-	mwexec("/bin/chmod 1777 {$mntpath}/tmp");
-	mwexec("/bin/mkdir -p {$mntpath}/boot/defaults");
-	mwexec("/bin/cp -v /mnt/cdrom/boot/* {$mntpath}/boot");
-	mwexec("/bin/cp -v /mnt/cdrom/boot/defaults/* {$mntpath}/boot/defaults");
-	mwexec("/bin/cp -v /mnt/cdrom/boot/kernel/* {$mntpath}/boot/kernel");
-
+	install_system($mntpath);
+	
 	// Install configuration file
 	mwexec("/bin/mkdir -p {$mntpath}{$g['cf_conf_path']}");
 	mwexec("/bin/cp -v {$g['conf_default_path']}/config.xml {$mntpath}{$g['conf_path']}");
@@ -291,6 +255,24 @@ EOD;
 	return 0;
 }
 
+function install_system($mntpath)
+{
+	global $g;
+	
+	mwexec("/usr/bin/tar --exclude etc/inc/install.inc --exclude etc/rc.initial.install* --exclude mnt/ --exclude dev/ --exclude var/ --exclude tmp/ --exclude {$g['cf_path']}/ -c -f - -C / . | tar -xvpf - -C {$mntpath}");
+	// Remove autologin in /etx/ttys
+	mwexec("sed '/^ttyv0/ s/autlogin/Pc/' {$mntpath}/etc/ttys > {$mntpath}/etc/ttys");
+	mwexec("/bin/mkdir -p {$mntpath}/var");
+	mwexec("/bin/mkdir -p {$mntpath}/dev");
+	mwexec("/bin/mkdir -p {$mntpath}/mnt");
+	mwexec("/bin/mkdir -p {$mntpath}/tmp");
+	mwexec("/bin/chmod 1777 {$mntpath}/tmp");
+	mwexec("/bin/mkdir -p {$mntpath}/boot/defaults");
+	mwexec("/bin/cp -v /mnt/cdrom/boot/* {$mntpath}/boot");
+	mwexec("/bin/cp -v /mnt/cdrom/boot/defaults/* {$mntpath}/boot/defaults");
+	mwexec("/bin/cp -v /mnt/cdrom/boot/kernel/* {$mntpath}/boot/kernel");
+}
+
 // Upgrade a NAS4Free 'full' release on the destination harddrive.
 // Return 0 if successful, otherwise 1
 function install_upgrade_full($harddrive)
@@ -329,16 +311,13 @@ function install_upgrade_full($harddrive)
 
 	// Install system files
 	write_console("Installing system files on device {$harddrive}s1a.\n");
-	mwexec("/usr/bin/tar --exclude mnt/ --exclude dev/ --exclude var/ --exclude tmp/ --exclude {$g['cf_path']}/ -c -f - -C / . | tar -xvpf - -C {$mntpath}");
-	mwexec("/bin/mkdir -p {$mntpath}/var");
-	mwexec("/bin/mkdir -p {$mntpath}/dev");
-	mwexec("/bin/mkdir -p {$mntpath}/mnt");
-	mwexec("/bin/mkdir -p {$mntpath}/tmp");
-	mwexec("/bin/chmod 1777 {$mntpath}/tmp");
-	mwexec("/bin/mkdir -p {$mntpath}/boot/defaults");
-	mwexec("/bin/cp -v /mnt/cdrom/boot/* {$mntpath}/boot");
-	mwexec("/bin/cp -v /mnt/cdrom/boot/defaults/* {$mntpath}/boot/defaults");
-	mwexec("/bin/cp -v /mnt/cdrom/boot/kernel/* {$mntpath}/boot/kernel");
+	install_system($mntpath);
+	
+	// Upgrade some config files
+	if (1 == upgrade_config_install("{$mntpath}") ) {
+		write_console("Error: Failed to upgrade config.xml.\n");
+		return 1;
+	}
 
 	// Decompress kernel
 	mwexec("/usr/bin/gzip -d -f {$mntpath}/boot/kernel/kernel.gz");
@@ -518,11 +497,6 @@ function install_restore_config($disk)
 	/* Restore the configuration file */
 	if (1 == mwexec("/bin/cp -p {$tmp_cf_bak}/config.xml {$mnt_cf_disk}/conf")) {
 		write_console("Error: Failed to restore the configuration file!\n");
-		return 1;
-	}
-	
-	if (1 == upgrade_config_install("{$mnt_cf_disk}") ) {
-		write_console("Error: Failed to upgrade config.xml.\n");
 		return 1;
 	}
 	
