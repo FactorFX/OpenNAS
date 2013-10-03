@@ -205,6 +205,7 @@ if ($_POST) {
  			$retval |= rc_update_service("mdnsresponder");
  			$retval |= rc_update_service("bsnmpd");
  			$retval |= rc_update_service("cron");
+ 			$retval |= rc_exec_service("fmperm");
 			config_unlock();
 		}
 
