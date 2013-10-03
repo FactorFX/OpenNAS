@@ -110,13 +110,15 @@ function admin($admin, $dir)
  */
 function changepwd ($dir)
 {
-	$pwd=md5(stripslashes($GLOBALS['__POST']["oldpwd"]));
+	$pwd=stripslashes($GLOBALS['__POST']["oldpwd"]);
 	if($GLOBALS['__POST']["newpwd1"]!=$GLOBALS['__POST']["newpwd2"]) show_error($GLOBALS["error_msg"]["miscnopassmatch"]);
 	
 	$data=user_find($GLOBALS['__SESSION']["s_user"],$pwd);
+
 	if($data==NULL) show_error($GLOBALS["error_msg"]["miscnouserpass"]);
+
+	$data[1]=correctpasswd($GLOBALS['__SESSION']["s_user"], $GLOBALS['__POST']["newpwd1"]);
 	
-	$data[1]=md5(stripslashes($GLOBALS['__POST']["newpwd1"]));
 	if(!user_update($data[0],$data)) show_error($data[0].": ".$GLOBALS["error_msg"]["chpass"]);
 	user_activate($data[0],NULL);
 	
@@ -200,6 +202,20 @@ function adduser ($dir)
 }
 
 
+function correctpasswd($user, $pass)
+{
+	$idx = user_get_index($user);
+	
+	if ($idx == 0 || $idx == 1) 
+	{
+		return crypt(stripslashes($pass));
+	}
+	else 
+	{
+		return md5(stripslashes($pass));
+	}
+}
+
 /**
  * edit user
  */
@@ -225,7 +241,9 @@ function edituser($dir)
 			$GLOBALS['__POST']["chpass"]=="true")
 		{
 			if($GLOBALS['__POST']["pass1"]!=$GLOBALS['__POST']["pass2"]) show_error($GLOBALS["error_msg"]["miscnopassmatch"]);
-			$pass=md5(stripslashes($GLOBALS['__POST']["pass1"]));
+			
+			$pass=correctpasswd($user, $GLOBALS['__POST']["pass1"]);
+
 		} else $pass=$data[1];
 		
 		if($self) $GLOBALS['__POST']["active"]=1;

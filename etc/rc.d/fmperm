@@ -38,8 +38,9 @@ fi
 	_password=`configxml_get "//system/password"`
 
 	/usr/local/bin/xml sel -t -m "//system" \
-		-v "concat('array(\"',username,'\",\"${_password}\",\"/\",\"http://localhost\",1,\"\",32847,1),')" -n \
-		-o "array(\"root\",\"${_password}\",\"/\",\"http://localhost\",1,\"\",32847,1)," \
+		-v "concat('array(\"',username,'\",')" \
+		-o "'${_password}',\"/\",\"http://localhost\",1,\"\",32847,1)," -n \
+		-o "array(\"root\",'${_password}',\"/\",\"http://localhost\",1,\"\",32847,1)," -n \
 	${configxml_file} | /usr/local/bin/xml unesc >> ${fmperm_htusers}
 
 # Export and set Users account
