@@ -137,13 +137,13 @@ function user_find ($user, $pass = NULL)
 	if ($pass == NULL)
 		return $GLOBALS["users"][$idx];
 
-	if ($user == 'root') {
-		// check if the password matches for root
+	if ($idx == 0) {
+		// check if the password matches for admin
 		if ($GLOBALS["users"][$idx][_idx('password')] != crypt($pass, $GLOBALS["users"][$idx][_idx('password')]))
 			return;
 	}
 	else {
-		// check if the password matches for other
+		// check if the password matches for others
 		if (md5($pass) != $GLOBALS["users"][$idx][_idx('password')])
 			return;
 	}
@@ -184,7 +184,7 @@ function user_activate($user, $pass)
 
 	// store the user data in the globals variable
 	$_SESSION["s_user"]	= $data[0];
-	$_SESSION["s_pass"]	= $data[1];
+	$_SESSION["s_pass"]	= $pass;
 	$GLOBALS["home_dir"]	= $data[2];
 	$GLOBALS["home_url"]	= $data[3];
 	$GLOBALS["show_hidden"]	= $data[4];

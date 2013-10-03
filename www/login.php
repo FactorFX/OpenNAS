@@ -41,12 +41,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 	if(is_validlogin($_POST['username'])){
 		Session::start();
-
-		if ($_POST['username'] === $config['system']['username'] &&
-			$_POST['password'] === $config['system']['password']) {
-			Session::initAdmin();
-			header('Location: index.php');
-			exit;
+		if ($_POST['username'] === $config['system']['username']) {
+			$password = crypt($_POST['password'], $config['system']['password']);
+			if ($password === $config['system']['password'] ) {
+				Session::initAdmin();
+				header('Location: index.php');
+				exit;
+			}
 		} else {
 			$users = system_get_user_list();
 			foreach ($users as $userk => $userv) {

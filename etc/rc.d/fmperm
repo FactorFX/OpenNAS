@@ -34,6 +34,14 @@ if [ `configxml_get_count "//system/disablefm"` -gt 0 ]; then
     exit 0;
 fi
 
+# Export and set Administrator and Root account
+	_password=`configxml_get "//system/password"`
+
+	/usr/local/bin/xml sel -t -m "//system" \
+		-v "concat('array(\"',username,'\",\"${_password}\",\"/\",\"http://localhost\",1,\"\",32847,1),')" -n \
+		-o "array(\"root\",\"${_password}\",\"/\",\"http://localhost\",1,\"\",32847,1)," \
+	${configxml_file} | /usr/local/bin/xml unesc >> ${fmperm_htusers}
+
 # Export and set Users account
 _index=`configxml_get_count "//access/user"`
 while [ ${_index} -gt 0 ]
@@ -49,13 +57,5 @@ do
 
 	_index=$(( ${_index} - 1 ))
 done
-
-# Export and set Administrator and Root account
-	_password=`configxml_get "//system/password"`
-
-	/usr/local/bin/xml sel -t -m "//system" \
-		-v "concat('array(\"',username,'\",\"${_password_md5}\",\"/\",\"http://localhost\",1,\"\",32847,1),')" -n \
-		-o "array(\"root\",\"${_password_md5}\",\"/\",\"http://localhost\",1,\"\",32847,1)," \
-	${configxml_file} | /usr/local/bin/xml unesc >> ${fmperm_htusers}
 
 echo ');?>' >> ${fmperm_htusers}
