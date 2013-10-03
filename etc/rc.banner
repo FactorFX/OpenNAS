@@ -94,12 +94,7 @@ EOD;
 			
 echo <<<EOD
 		\nWebGUI default login is : admin and password is : opennas\n
+		Default login is : root and password is : opennas\n
 EOD;
 
-		if ($if_isboot == 0) {
-		echo <<<EOD
-		\nDefault login is : root and password is : opennas\n
-EOD;
-		}
-		
 ?>
