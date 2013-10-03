@@ -118,6 +118,10 @@ usr/local/bin/transmission-remote
 usr/local/share/transmission/
 usr/local/www/services_bittorrent.php
 
+#websrv
+usr/local/www/services_websrv.php
+usr/local/www/services_websrv_authurl.php
+
 #bacula-dir
 etc/rc.d/bacula_dir
 usr/local/sbin/bacula-dir
