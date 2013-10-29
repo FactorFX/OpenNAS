@@ -622,11 +622,10 @@ function install_upgrade_config($disk)
 		/* websrv */
 		unset($config['websrv']);
 		
-		/* Upgrade to md5 root password */
-		$password = $config['system']['password'];
-		if (!preg_match('#\$1\$.{8}\$.{22}#', $password)) {
-			$config['system']['password'] = crypt($password);
-		}
+		/* Reset password to opennas */
+		$default_passwd = $g['default_passwd'];
+		write_console("\33[1;33mInfo: Password will be reset to $default_passwd \33[0;37m\n");
+		$config['system']['password'] = crypt($default_passwd);
 	}
 	
 	$xmlconfig = dump_xml_config($config, $g['xml_rootobj'], $codeset);

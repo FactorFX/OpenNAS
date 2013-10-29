@@ -111,6 +111,11 @@ if (install_check_version("{$devinfo['device']}{$devinfo['partition']}")) {
 	exit(0);
 }
 
+if (install_upgrade_config("{$devinfo['device']}{$devinfo['partition']}")) {
+	tui_wait_keypress("There was a problem while upgrading config.xml.");
+	exit(0);
+}
+
 if (install_backup_config("{$devinfo['device']}{$devinfo['partition']}")) {
 	install_unmount_cd();
 	tui_wait_keypress("There was a problem during configuration file backup.");
@@ -126,11 +131,6 @@ if (install_upgrade_full($devinfo['device'])) {
 if (install_restore_config("{$devinfo['device']}{$devinfo['partition']}")) {
 	install_unmount_cd();
 	tui_wait_keypress("There was a problem while restoring configuration file.");
-	exit(0);
-}
-
-if (install_upgrade_config("{$devinfo['device']}{$devinfo['partition']}")) {
-	tui_wait_keypress("There was a problem while upgrading config.xml.");
 	exit(0);
 }
 
