@@ -13,7 +13,7 @@ USE_AUTOTOOLS=  autoconf
 GNU_CONFIGURE=	yes
 USE_GMAKE=		yes
 USE_LDCONFIG=		yes
-USE_GNOME=		pkgconfig
+USES=		pkgconfig
 
 NUT_USER=		root
 NUT_GROUP=		root
