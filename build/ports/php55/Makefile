@@ -28,7 +28,6 @@ USE_GNOME=	 libxml2
 USE_OPENLDAP=	 yes
 USE_OPENSSL=	 yes
 GNU_CONFIGURE=	 yes
-NO_PKG_REGISTER=yes
 
 CONFIGURE_ARGS+=	\
 		--without-mysql \

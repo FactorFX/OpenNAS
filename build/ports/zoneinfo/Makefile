@@ -7,7 +7,6 @@ MAINTAINER=		zoon01@nas4free.org
 MASTER_SITES=   	ftp://ftp.iana.org/tz/releases/ \
 					ftp://munnari.oz.au/pub/
 DISTNAME=		tzdata${DISTVERSION}
-NO_PKG_REGISTER=yes
 
 WRKSRC=	${WRKDIR}
 PREFIX=	/usr

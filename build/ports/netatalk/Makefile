@@ -16,7 +16,6 @@ GNU_CONFIGURE=	yes
 USE_GMAKE=	yes
 USE_PERL5=	yes
 WANT_GNOME=	yes
-NO_PKG_REGISTER=yes
 
 CONFIGURE_ARGS+=	--bindir=/usr/local/bin \
 			--sbindir=/usr/local/sbin \

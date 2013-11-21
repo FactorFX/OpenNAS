@@ -21,7 +21,6 @@ IPATHS=			-I${WRKDIR}/${DISTNAME}/source3/m4 -I${WRKDIR}/${DISTNAME}/m4 -I${WRKD
 AUTOHEADER_ARGS=	${IPATHS}
 AUTOCONF_ARGS=		${IPATHS}
 
-NO_PKG_REGISTER=yes
 USE_GMAKE=		yes
 GNU_CONFIGURE=	yes
 USES=                pkgconfig iconv

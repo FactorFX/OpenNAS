@@ -5,7 +5,6 @@ COMMENT=		vmxnet3 driver (ESXi version)
 MAINTAINER=		aoyama@peach.ne.jp
 DISTFILES=
 WRKSRC=${WRKDIR}/vmxnet3-only
-NO_PKG_REGISTER=yes
 
 do-extract:
 	@${RM} -rf ${WRKDIR}

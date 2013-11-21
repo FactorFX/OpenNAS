@@ -5,7 +5,7 @@ PORTREVISION?=	0
 CATEGORIES=			shells
 COMMENT=				The GNU Project's Bourne Again SHell
 MAINTAINER=			zoon01@nas4free.org
-NO_PKG_REGISTER=yes
+
 
 MASTER_SITES=				${MASTER_SITE_GNU:S/$/:bash/} \
 										ftp://ftp.cwru.edu/pub/%SUBDIR%/:faq

@@ -16,7 +16,7 @@ CONFIGURE_ARGS=	--with-docdir=${DOCSDIR} --disable-sample \
 
 
 CFLAGS:=		${CFLAGS:S/-O2/-O/} -Wno-write-strings
-NO_PKG_REGISTER=yes
+
 
 do-install:
 	@${INSTALL_PROGRAM} -v ${WRKSRC}/smartctl ${NAS4FREE_ROOTFS}/usr/local/sbin

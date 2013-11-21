@@ -5,7 +5,6 @@ COMMENT=		Implementation of userland ISCSI target
 MAINTAINER=		aoyama@nas4free.org
 
 MASTER_SITES=		http://www.peach.ne.jp/archives/istgt/
-NO_PKG_REGISTER=yes
 
 CC=clang
 GNU_CONFIGURE=	yes

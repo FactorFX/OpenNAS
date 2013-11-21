@@ -14,7 +14,6 @@ MASTER_SITES=	http://www.chruetertee.ch/files/download/
 MAINTAINER=	beat@FreeBSD.org
 COMMENT=	Watches the output from a command at specified intervals
 
-NO_PKG_REGISTER=yes
 MAN1=		cmdwatch.1
 PLIST_FILES=	bin/cmdwatch
 

@@ -4,7 +4,6 @@ CATEGORIES=		sysutils
 COMMENT=		Circular log file tool
 MAINTAINER=		aoyama@peach.ne.jp
 
-NO_PKG_REGISTER=yes
 DISTFILES?=
 
 do-build:

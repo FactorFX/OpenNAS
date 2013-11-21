@@ -5,7 +5,6 @@ COMMENT=		Language packages for NAS4Free
 MAINTAINER=		zoon01@nas4free.org
 
 DISTFILES?=
-NO_PKG_REGISTER=yes
 
 .include <../nas4free.mk>
 

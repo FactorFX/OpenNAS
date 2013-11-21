@@ -4,7 +4,6 @@ CATEGORIES=		sysutils
 COMMENT=		PC slice table maintenance utility
 MAINTAINER=		aoyama@peach.ne.jp
 DISTFILES=
-NO_PKG_REGISTER=yes
 
 do-extract:
 	@${RM} -rf ${WRKDIR}

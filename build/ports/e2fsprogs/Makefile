@@ -8,7 +8,6 @@ MAINTAINER=		zoon01@nas4free.org
 
 MASTER_SITES=		KERNEL_ORG/linux/kernel/people/tytso/${PORTNAME}/v${PORTVERSION}
 
-NO_PKG_REGISTER=yes
 PATCH_STRIP=	  -p1
 USE_GMAKE=	  yes
 USE_CSTD=	  gnu99

@@ -7,7 +7,7 @@ MAINTAINER=		zoon01@nas4free.org
 
 MASTER_SITES=	ftp://invisible-island.net/${PORTNAME:S|^c||}/
 DISTNAME=			${PORTNAME:S|^c||}-${PORTVERSION:R}-${PORTVERSION:E}
-NO_PKG_REGISTER=yes
+
 EXTRACT_SUFX=			.tgz
 USE_AUTOTOOLS=		libtool
 GNU_CONFIGURE=		yes

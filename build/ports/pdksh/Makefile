@@ -22,7 +22,6 @@ MAINTAINER=	skreuzer@FreeBSD.org
 COMMENT=	The Public Domain Korn Shell
 LICENSE=	BSD
 
-NO_PKG_REGISTER=yes
 GNU_CONFIGURE=	yes
 MAN1=		ksh.1
 

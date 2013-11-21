@@ -8,7 +8,6 @@
     SUBDIR += bsnmp-ucd
     SUBDIR += cdialog
     SUBDIR += clog
-    SUBDIR += cmdwatch
     SUBDIR += dmidecode
     SUBDIR += e2fsprogs
     SUBDIR += fdisk
@@ -40,7 +39,6 @@
     SUBDIR += scponly
     SUBDIR += sipcalc
     SUBDIR += smartmontools
-    SUBDIR += sysinfo
     SUBDIR += tftp-hpa
     SUBDIR += tmux
     SUBDIR += unison

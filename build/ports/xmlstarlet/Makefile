@@ -5,7 +5,6 @@ COMMENT=		Command line XML toolkit
 MAINTAINER=		zoon01@nas4free.org
 
 MASTER_SITES=		SF/xmlstar/${PORTNAME}/${PORTVERSION}
-NO_PKG_REGISTER=yes
 
 USE_GNOME=		libxslt
 USE_ICONV=		yes

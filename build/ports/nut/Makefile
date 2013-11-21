@@ -15,7 +15,6 @@ USE_GMAKE=		yes
 USE_LDCONFIG=		yes
 USES=		pkgconfig
 
-NO_PKG_REGISTER=yes
 NUT_USER=		root
 NUT_GROUP=		root
 NUT_PIDDIR=		/var/run
