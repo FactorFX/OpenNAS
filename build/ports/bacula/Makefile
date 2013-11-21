@@ -1,6 +1,6 @@
 # Created by: Dmitry Sivachenko <demon@FreeBSD.org>
 # $FreeBSD: sysutils/bacula-server/Makefile 317491 2013-05-06 09:07:58Z bapt $
-NO_PKG_REGISTER=yes
+
 PORTNAME=	bacula
 DISTVERSION=	5.2.12
 PORTREVISION?=	3

@@ -1,6 +1,6 @@
 # Created by: Wen Heping <wenheping@gmail.com>
 # $FreeBSD: sysutils/tmux/Makefile 323874 2013-07-29 08:30:06Z gahr $
-NO_PKG_REGISTER=yes
+
 PORTNAME=	tmux
 PORTVERSION=	1.8
 PORTREVISION=	1

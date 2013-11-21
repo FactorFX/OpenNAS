@@ -4,7 +4,7 @@
 #
 # $FreeBSD: ports/sysutils/zfs-stats/Makefile,v 1.9 2012/11/17 06:01:51 svnexp Exp $
 #
-NO_PKG_REGISTER=yes
+
 PORTNAME=	zfs-stats
 PORTVERSION=	1.2.2
 CATEGORIES=	sysutils

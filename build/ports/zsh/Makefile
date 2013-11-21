@@ -1,6 +1,6 @@
 # Created by: torstenb
 # $FreeBSD: shells/zsh/Makefile 325238 2013-08-22 22:18:13Z bapt $
-NO_PKG_REGISTER=yes
+
 PORTNAME=	zsh
 PORTVERSION=	5.0.2
 PORTREVISION=	1
