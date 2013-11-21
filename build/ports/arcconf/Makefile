@@ -8,7 +8,7 @@ MASTER_SITES=	http://download.adaptec.com/raid/storage_manager/
 
 DISTNAME=			asm_freebsd_${DIST_EXT}_${DISTVERSION}
 EXTRACT_SUFX=	.tgz
-
+NO_PKG_REGISTER=yes
 ONLY_FOR_ARCHS=	i386 amd64
 RESTRICTED=			May not be redistributed in binary form
 NO_CDROM=				yes

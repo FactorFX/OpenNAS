@@ -8,6 +8,7 @@ MAINTAINER=		aoyama@peach.ne.jp
 DISTFILES=
 NO_BUILD=	yes
 NO_WRKSUBDIR=	yes
+NO_PKG_REGISTER=yes
 
 do-install:
 	@${INSTALL_SCRIPT} -v ${FILESDIR}/autosnapshot ${NAS4FREE_ROOTFS}/${PREFIX}/sbin

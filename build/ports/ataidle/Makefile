@@ -5,6 +5,7 @@ COMMENT=		Utility to set spindown timeout for ATA drives
 MAINTAINER=		zoon01@nas4free.org
 
 MASTER_SITES=		http://www.cran.org.uk/bruce/software/
+NO_PKG_REGISTER=yes
 
 do-install:
 	@${INSTALL_SCRIPT} -v ${FILESDIR}/${PORTNAME}.in ${NAS4FREE_ROOTFS}/etc/rc.d/${PORTNAME}

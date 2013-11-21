@@ -5,7 +5,7 @@ COMMENT=			A bsnmpd module that implements parts of UCD-SNMP-MIB
 MAINTAINER=		zoon01@nas4free.org
 
 MASTER_SITES=	${MASTER_SITE_GOOGLE_CODE}
-
+NO_PKG_REGISTER=yes
 USE_MAKE=				yes
 USE_AUTOTOOLS=	libtool:env
 

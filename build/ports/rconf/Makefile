@@ -9,6 +9,7 @@ MAINTAINER=		zoon01@nas4free.org
 DISTFILES?=
 # No build is required for this port.
 NO_BUILD?=	yes
+NO_PKG_REGISTER=yes
 
 NO_WRKSUBDIR=	yes
 

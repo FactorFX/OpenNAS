@@ -12,6 +12,7 @@ LIB_DEPENDS+=		uuid.1:${PORTSDIR}/misc/e2fsprogs-libuuid \
 							sqlite3.8:${PORTSDIR}/databases/sqlite3 \
 							pcre:${PORTSDIR}/devel/pcre
 
+NO_PKG_REGISTER=yes
 USE_BZIP2=	  yes
 #USE_AUTOTOOLS= libtool
 GNU_CONFIGURE=  yes

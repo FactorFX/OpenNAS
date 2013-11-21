@@ -7,6 +7,7 @@ MAINTAINER=		zoon01@nas4free.org
 MASTER_SITES=	http://www.nano-editor.org/dist/v2.2/ \
 						${MASTER_SITE_GNU}
 MASTER_SITE_SUBDIR=	${PORTNAME}
+NO_PKG_REGISTER=yes
 
 GNU_CONFIGURE=	yes
 USE_GETTEXT=    	yes

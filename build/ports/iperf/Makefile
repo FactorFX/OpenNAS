@@ -5,7 +5,7 @@ COMMENT=		A tool to measure maximum TCP and UDP bandwidth
 MAINTAINER=		zoon01@nas4free.org
 
 MASTER_SITES=			SF/${PORTNAME}/${PORTNAME}/${PORTVERSION}%20source
-
+NO_PKG_REGISTER=yes
 GNU_CONFIGURE=		yes
 CONFIGURE_ARGS+=	--enable-ipv6 \
 									--enable-threads \

@@ -6,6 +6,7 @@ MAINTAINER=		aoyama@peach.ne.jp
 
 MASTER_SITES=		SF/ahh/OldFiles
 
+NO_PKG_REGISTER=yes
 GNU_CONFIGURE=		yes
 USE_PERL5_BUILD=	yes
 CPPFLAGS+=		-I${LOCALBASE}/include

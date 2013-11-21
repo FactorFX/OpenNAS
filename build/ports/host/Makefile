@@ -5,6 +5,7 @@ CATEGORIES=		dns
 COMMENT=		An utility to query DNS servers
 MAINTAINER=		zoon01@nas4free.org
 
+NO_PKG_REGISTER=yes
 MASTER_SITES=	http://www.dtek.chalmers.se/~d3august/xt/
 DISTNAME=			${PORTNAME}
 

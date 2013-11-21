@@ -6,6 +6,7 @@ PORTEPOCH=	3
 CATEGORIES=		sysutils
 COMMENT=		GEOM RAID5 filesystem
 MAINTAINER=		aoyama@peach.ne.jp
+NO_PKG_REGISTER=yes
 
 DISTFILES?=
 

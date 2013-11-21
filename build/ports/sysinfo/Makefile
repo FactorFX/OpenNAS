@@ -17,6 +17,8 @@ WRKSRC=		${WRKDIR}/${PORTNAME}
 MAN5=		sysinfo.conf.5
 MAN8=		sysinfo.8
 
+NO_PKG_REGISTER=yes
+
 OPTIONS_DEFINE=	DMIDECODE PORTAUDIT
 DMIDECODE_DESC=	Include information from the dmidecode tool
 PORTAUDIT_DESC=	Include information from the portaudit tool

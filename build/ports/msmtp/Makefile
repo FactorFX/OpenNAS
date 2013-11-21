@@ -7,6 +7,7 @@ MAINTAINER=		zoon01@nas4free.org
 
 MASTER_SITES=	SF
 
+NO_PKG_REGISTER=yes
 USE_BZIP2=      yes 
 GNU_CONFIGURE=  yes 
 USES=      pkgconfig 
