@@ -63,3 +63,7 @@ usr/bin/ncal
 ### command for (sysinfo)
 usr/bin/limits
 usr/sbin/lastlogin
+
+
+## cap_mkdb
+usr/bin/cap_mkdb
