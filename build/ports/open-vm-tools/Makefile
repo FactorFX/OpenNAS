@@ -38,12 +38,12 @@ do-install:
 	@${INSTALL_DATA} -v ${BLDSRC}/modules/freebsd/vmblock.ko ${NAS4FREE_ROOTFS}/${PREFIX}/lib/vmware-tools/modules/drivers/vmblock.ko
 
 	@${INSTALL_PROGRAM} -v ${BLDSRC}/services/vmtoolsd/.libs/vmtoolsd ${NAS4FREE_ROOTFS}/${PREFIX}/bin
-	@${INSTALL_PROGRAM} -v ${BLDSRC}/checkvm/vmware-checkvm ${NAS4FREE_ROOTFS}/${PREFIX}/bin
+	@${INSTALL_PROGRAM} -v ${BLDSRC}/checkvm/.libs/vmware-checkvm ${NAS4FREE_ROOTFS}/${PREFIX}/bin
 	@${INSTALL_PROGRAM} -v ${BLDSRC}/hgfsclient/.libs/vmware-hgfsclient ${NAS4FREE_ROOTFS}/${PREFIX}/bin
 	@${INSTALL_PROGRAM} -v ${BLDSRC}/rpctool/vmware-rpctool ${NAS4FREE_ROOTFS}/${PREFIX}/bin
 	@${INSTALL_PROGRAM} -v ${BLDSRC}/toolbox/.libs/vmware-toolbox-cmd ${NAS4FREE_ROOTFS}/${PREFIX}/bin
 	@${INSTALL_PROGRAM} -v ${BLDSRC}/vmblock-fuse/vmware-vmblock-fuse ${NAS4FREE_ROOTFS}/${PREFIX}/bin
-	@${INSTALL_PROGRAM} -v ${BLDSRC}/xferlogs/vmware-xferlogs ${NAS4FREE_ROOTFS}/${PREFIX}/bin
+	@${INSTALL_PROGRAM} -v ${BLDSRC}/xferlogs/.libs/vmware-xferlogs ${NAS4FREE_ROOTFS}/${PREFIX}/bin
 
 	@${INSTALL_PROGRAM} -v ${BLDSRC}/hgfsmounter/mount.vmhgfs ${NAS4FREE_ROOTFS}/${PREFIX}/sbin/mount_vmhgfs
 
