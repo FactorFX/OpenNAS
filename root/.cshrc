@@ -18,6 +18,7 @@ alias lf	ls -FA
 alias ll	ls -lAF
 alias ls    ls -G
 alias reboot shutdown -r now
+alias menu /etc/rc.initial
 
 # A righteous umask
 umask 22
@@ -47,8 +48,7 @@ if ($?prompt) then
 	endif
 endif
 
-# Display console menu (only on ttyv0/ttyd0).
+# Display console banner (only on ttyv0/ttyd0).
 if ( "ttyv0" == "$tty" || "ttyu0" == "$tty" ) then
 	/etc/rc.banner
-	/etc/rc.initial
 endif

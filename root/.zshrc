@@ -30,6 +30,7 @@ setopt appendhistory autocd extendedglob nomatch
 
 alias ls='ls -G'
 alias reboot='shutdown -r now'
+alias menu='/etc/rc.initial'
 
 typeset -A key
 
@@ -72,4 +73,14 @@ fi
 ncmpcppShow() { BUFFER="ncmpcpp"; zle accept-line; }
 zle -N ncmpcppShow
 bindkey '^[\' ncmpcppShow
+
+# History
+export HISTSIZE=2000 
+export HISTFILE="$HOME/.zsh_history"
+export SAVEHIST=$HISTSIZE
+setopt hist_ignore_all_dups
+setopt hist_ignore_space
+
+# Display console banner (only on ttyv0/ttyd0).
+if [[ "/dev/ttyv0" == "$TTY" ]] || [[ "/dev/ttyu0" == "$TTY" ]]; then /etc/rc.banner; fi
 
