@@ -30,7 +30,7 @@ setopt appendhistory autocd extendedglob nomatch
 
 alias ls='ls -G'
 alias reboot='shutdown -r now'
-alias menu='/etc/rc.initial'
+alias menu='/etc/rc.initial display_menu'
 
 typeset -A key
 
@@ -81,6 +81,6 @@ export SAVEHIST=$HISTSIZE
 setopt hist_ignore_all_dups
 setopt hist_ignore_space
 
-# Display console banner (only on ttyv0/ttyd0).
-if [[ "/dev/ttyv0" == "$TTY" ]] || [[ "/dev/ttyu0" == "$TTY" ]]; then /etc/rc.banner; fi
+# Display console menu (only on ttyv0/ttyd0).
+if [[ "/dev/ttyv0" == "$TTY" ]] || [[ "/dev/ttyu0" == "$TTY" ]]; then /etc/rc.banner;/etc/rc.initial; fi
 
