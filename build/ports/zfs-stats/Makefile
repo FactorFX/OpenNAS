@@ -19,9 +19,6 @@ USE_PERL5=	yes
 
 NO_BUILD=	yes
 
-PLIST_FILES=	bin/zfs-stats \
-		bin/zfs-mon
-
 post-patch:
 	@${REINPLACE_CMD} -e "s|/usr/bin/env -iS perl|${PERL}|g" ${WRKSRC}/zfs-stats
 

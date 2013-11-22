@@ -12,7 +12,7 @@ COMMENT=	Ncurses du(1)
 LICENSE=	MIT
 
 GNU_CONFIGURE=	yes
-PLIST_FILES=	bin/${PORTNAME}
+
 MAN1=		${PORTNAME}.1
 
 do-install:
