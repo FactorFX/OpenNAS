@@ -30,9 +30,8 @@ do-install:
 	${INSTALL_PROGRAM} /usr/bin/sed ${NAS4FREE_ROOTFS}/usr/bin
 	${INSTALL_PROGRAM} /sbin/sysctl ${NAS4FREE_ROOTFS}/sbin
 	${INSTALL_PROGRAM} /usr/bin/vmstat ${NAS4FREE_ROOTFS}/usr/bin
+	
 	${INSTALL_PROGRAM} /usr/bin/perl ${NAS4FREE_ROOTFS}/usr/bin
-	@${RM} -f ${NAS4FREE_ROOTFS}/usr/local/bin/perl
-	${LN} -s /usr/bin/perl ${NAS4FREE_ROOTFS}/usr/local/bin/perl
 	${MKDIR} -p ${NAS4FREE_ROOTFS}/usr/local/lib/perl5/${PERL_VER}
 	${MKDIR} -p ${NAS4FREE_ROOTFS}/usr/local/lib/perl5/site_perl/${PERL_VER}
 	${CP} -R /usr/local/lib/perl5/${PERL_VER}/* ${NAS4FREE_ROOTFS}/usr/local/lib/perl5/${PERL_VER}/
