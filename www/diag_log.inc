@@ -173,6 +173,18 @@ $loginfo = array(
 		"columns" => array(
 			array("title" => gettext("Event"), "class" => "listlr", "param" => "", "pmid" => 1)
 		)),
+	array(
+		"visible" => TRUE,
+		"desc" => gettext("Ocs Inventory"),
+		"logfile" =>  "{$clogdir}/ocsinventory-agent.log",
+		"filename" => "ocsinventory-agent.log",
+		"type" => "plain",
+		"pattern" => "/^\[(.*)\]\[(.*)\] (.*)$/",
+		"columns" => array(
+			array("title" => gettext("Date & Time"), "class" => "listlr", "param" => "nowrap=\"nowrap\"", "pmid" => 1),
+			array("title" => gettext("Type"), "class" => "listr", "param" => "nowrap=\"nowrap\"", "pmid" => 2),
+			array("title" => gettext("Event"), "class" => "listlr", "param" => "", "pmid" => 3)
+		)),
 );
 
 function log_get_contents($logfile, $type) {

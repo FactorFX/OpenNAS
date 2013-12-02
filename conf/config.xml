@@ -1352,4 +1352,7 @@
         <deviceremovablemedia>no</deviceremovablemedia>
         <devicealwaysopen>yes</devicealwaysopen>
     </bacula_sd>
+	<ocsinventory_agent>
+		<ssl>1</ssl>
+	</ocsinventory_agent> 
 </opennas>

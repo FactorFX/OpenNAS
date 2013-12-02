@@ -53,6 +53,7 @@ $a_service[] = array("desc" => gettext("SNMP"), "link" => "services_snmp.php", "
 $a_service[] = array("desc" => gettext("UPS"), "link" => "services_ups.php", "config" => "ups", "scriptname" => "nut");
 $a_service[] = array("desc" => gettext("Bacula FD"), "link" => "services_bacula_file_daemon.php", "config" => "bacula_fd", "scriptname" => "bacula_fd");
 $a_service[] = array("desc" => gettext("Bacula SD"), "link" => "services_bacula_storage_daemon.php", "config" => "bacula_sd", "scriptname" => "bacula_sd");
+$a_service[] = array("desc" => gettext("Ocs Inventory"), "link" => "services_ocs_inventory_agent.php", "config" => "ocsinventory_agent", "scriptname" => "ocsinventory_agent");
 ?>
 <?php include("fbegin.inc");?>
 <table width="100%" border="0" cellpadding="0" cellspacing="0">

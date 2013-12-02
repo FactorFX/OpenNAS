@@ -124,6 +124,7 @@ $menu['services']['menuitem'][] = array("desc" => gettext("iSCSI Target"), "link
 $menu['services']['menuitem'][] = array("desc" => gettext("SNMP"), "link" => "../services_snmp.php", "visible" => TRUE);
 $menu['services']['menuitem'][] = array("desc" => gettext("UPS"), "link" => "../services_ups.php", "visible" => TRUE);
 $menu['services']['menuitem'][] = array("desc" => gettext("Bacula"), "link" => "../services_bacula_file_daemon.php", "visible" => true);
+$menu['services']['menuitem'][] = array("desc" => gettext("Ocs Inventory"), "link" => "../services_ocs_inventory_agent.php", "visible" => true);
 
 // Access
 $menu['access']['desc'] = gettext("Access");

@@ -30,6 +30,7 @@
     SUBDIR += nut
     SUBDIR += open-vm-tools
     SUBDIR += openssh-portable
+    SUBDIR += ocsinventory-agent
     SUBDIR += pam_ldap
     SUBDIR += pam_mkhomedir
     SUBDIR += php55
