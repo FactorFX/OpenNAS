@@ -192,7 +192,7 @@ do-install:
 	${INSTALL_SCRIPT} ${FILESDIR}/chio-bacula ${NAS4FREE_ROOTFS}/usr/local/bin/
 	${INSTALL_DATA} ${FILESDIR}/bacula-barcodes ${NAS4FREE_ROOTFS}/usr/local/bin/
 
-	# Install service srcipt
+	# Install service script
 	@${INSTALL_SCRIPT} -v ${FILESDIR}/bacula-fd.in ${NAS4FREE_ROOTFS}/etc/rc.d/bacula_fd
 	@${INSTALL_SCRIPT} -v ${FILESDIR}/bacula-sd.in ${NAS4FREE_ROOTFS}/etc/rc.d/bacula_sd
 	#@${INSTALL_SCRIPT} -v ${FILESDIR}/bacula-dir.in ${NAS4FREE_ROOTFS}/etc/rc.d/bacula_dir
