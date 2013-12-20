@@ -21,10 +21,6 @@ LDFLAGS+=	-L${LOCALBASE}/lib -lpci
 MAKE_ENV=	LANG=C
 USES=		gmake
 
-PLIST_FILES=	bin/lspci \
-		bin/setpci \
-		man/man8/lspci.8.gz \
-		man/man8/setpci.8.gz
 
 post-patch:
 	@${REINPLACE_CMD} -e '/^CC=/d; /^CFLAGS=/ s|=|+=|; /^IDSDIR=/ s|$$|/pciids|; /^OPT=/d; /^PREFIX=/d; s| lib/$$(PCILIB)||' ${WRKSRC}/Makefile
