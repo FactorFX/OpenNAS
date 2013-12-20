@@ -45,23 +45,22 @@ if (!isset($pconfig) || !is_array($pconfig))
     $pconfig = array();
 
 if ($_POST) {
-	//unset($input_errors);
+
 	unset($_POST['authtoken'], $_POST['Submit']);
 	$pconfig = $_POST;
 
 	if (isset($_POST['enable']) && $_POST['enable']) {
-	 	
-		if (is_uploaded_file($_FILES['krb5']['tmp_name'])) {
-			$fn = "/etc/krb5.keytab";
 		
-			// Move the metadata backup file so PHP won't delete it.
-			move_uploaded_file($_FILES['krb5']['tmp_name'], $fn);
-			chmod ($fn, 0600); 
-		} else {
-			$errormsg = sprintf("%s %s", gettext("Failed to upload file."),
-				$g_file_upload_error[$_FILES['krb5']['error']]);
-		}	
-		
+		if (!empty($_FILES['krb5']['tmp_name'])) {
+			if (is_uploaded_file($_FILES['krb5']['tmp_name'])) {
+				$fn = "/etc/krb5.keytab";
+				move_uploaded_file($_FILES['krb5']['tmp_name'], $fn);
+				chmod ($fn, 0600); 
+			} else {
+				$errormsg = sprintf("%s %s", gettext("Failed to upload file."),
+					$g_file_upload_error[$_FILES['krb5']['error']]);
+			}	
+		}
 		unset($pconfig['ldapauxparam']);
 		foreach (explode("\n", $_POST['ldapauxparam']) as $auxparam) {
 			$auxparam = trim($auxparam, "\t\n\r");
