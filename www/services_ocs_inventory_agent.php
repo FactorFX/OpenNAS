@@ -138,7 +138,7 @@ function enable_change(enable_change) {
 						<td width="22%" valign="top" class="vncellreq"><?=htmlspecialchars("CA Certificate");?></td>
 						<td width="78%" class="vtable">
 							<input name="cacert" type="file" class="formfld" size="40" /><br />
-							CA certificate chain file in PEM format<br/>
+							<?php gettext("CA certificate chain file in PEM format") ?><br/>
 							<?php if(!empty($pconfig['cacert'])): ?>
 								<?php html_checkbox("delete_cacert", gettext("Delete previous CA Certificate"), false, "","" , true);?>
 							<?php endif; ?>
