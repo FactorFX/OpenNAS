@@ -38,7 +38,7 @@ ocsinventory_agent_config="/usr/local/etc/ocsinventory/ocsinventory-agent.cfg"
 pidfile="/var/run/ocsinventory-agent.pid"
 
 # Check if required directories exists.
-[ ! -d "${basevardir}" ] && mkdir "${basevardir}"
+[ ! -d "${basevardir}" ] && mkdir -p "${basevardir}"
 
 ocsinventory_agent_start()
 {
