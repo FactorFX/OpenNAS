@@ -105,7 +105,7 @@ function enable_change(enable_change) {
 	document.iform.proxy.disabled = endis;	
 	document.iform.realm.disabled = endis;
 	document.iform.ssl.disabled = endis;
-	document.iform.cacert.disabled = endis;
+	document.iform.ocs_cacert.disabled = endis;
 	document.iform.tag.disabled = endis;	
 	document.iform.nosoftware.disabled = endis;
 }
@@ -137,7 +137,7 @@ function enable_change(enable_change) {
 					<tr id="cacert">
 						<td width="22%" valign="top" class="vncellreq"><?=htmlspecialchars("CA Certificate");?></td>
 						<td width="78%" class="vtable">
-							<input name="cacert" type="file" class="formfld" size="40" /><br />
+							<input name="ocs_cacert" type="file" class="formfld" size="40" /><br />
 							<?php gettext("CA certificate chain file in PEM format") ?><br/>
 							<?php if(!empty($pconfig['ocs_cacert'])): ?>
 								<?php html_checkbox("delete_cacert", gettext("Delete previous CA Certificate"), false, "","" , true);?>
