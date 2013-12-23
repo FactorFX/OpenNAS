@@ -54,20 +54,20 @@ if ($_POST) {
 		if (!preg_match('#^https?://#', $_POST['server'])) {
 			$input_errors[] = gettext("Server must begin with http ot https");
 		}
-		if ($_POST['ssl'] && empty($_FILES['cacert']['tmp_name']) && !file_exists($pconfig['cacert'][0])) {
+		if ($_POST['ssl'] && empty($_FILES['ocs_cacert']['tmp_name']) && !file_exists($pconfig['ocs_cacert'])) {
 			$input_errors[] = gettext("You must join a CA Certificate file");
 		}	
 		if ($_POST['delete_cacert']) {
-			@unlink($pconfig['cacert'][0]);
-			unset($pconfig['cacert']);
+			@unlink($pconfig['ocs_cacert']);
+			unset($pconfig['ocs_cacert']);
 		}
 
-		if (!empty($_FILES['cacert']['tmp_name'])) {
-			if (is_uploaded_file($_FILES['cacert']['tmp_name'])) {					
-				move_uploaded_file($_FILES['cacert']['tmp_name'], $fn);
+		if (!empty($_FILES['ocs_cacert']['tmp_name'])) {
+			if (is_uploaded_file($_FILES['ocs_cacert']['tmp_name'])) {					
+				move_uploaded_file($_FILES['ocs_cacert']['tmp_name'], $fn);
 				chmod ($fn, 0600); 		
 			} else {
-				$input_errors[] = sprintf("%s %s", gettext("Failed to upload file."), $g_file_upload_error[$_FILES['cacert']['error']]);
+				$input_errors[] = sprintf("%s %s", gettext("Failed to upload file."), $g_file_upload_error[$_FILES['ocs_cacert']['error']]);
 			}
 		}
 		
@@ -78,7 +78,7 @@ if ($_POST) {
     	$pconfig['ssl'] = $_POST['ssl'] == 'yes' ? 1 : null;
     	$pconfig['nosoftware'] = $_POST['nosoftware'] == 'yes' ? 1 : null;
     	if (file_exists($fn)) {
-			$pconfig['cacert'] = $fn;
+			$pconfig['ocs_cacert'] = $fn;
 		}    	
     }
 	
@@ -129,9 +129,9 @@ function enable_change(enable_change) {
 					<?php html_separator()?>
 					<?php html_inputbox("server", gettext("Server"), $pconfig['server'], gettext("The uri of the server, http[s]://servername/ocsinventory"), true, 40);?>
 					<?php html_inputbox("realm", gettext("Realm"), $pconfig['realm'], gettext("Use REALM for an HTTP identification with the server"), true, 40);?>					
-					<?php html_inputbox("user", gettext("User"), $pconfig['user'], gettext("Use USER for the server authentication"), true, 40);?>					
+					<?php html_inputbox("user", gettext("User"), $pconfig['ocs_user'], gettext("Use USER for the server authentication"), true, 40);?>					
 					<?php html_passwordbox("password", gettext("Password"), $pconfig['password'], gettext('Use PASSWORD for an HTTP identification with the server'), true, 40);?>
-					<?php html_passwordbox("proxy", gettext("Proxy"), $pconfig['proxy'], gettext('Use PROXY to specify a proxy HTTP server'), true, 40);?>
+					<?php html_passwordbox("proxy", gettext("Proxy"), $pconfig['proxy'], gettext('Use PROXY to specify a proxy HTTP server, http[s]://serverproxy:port'), true, 40);?>
 					<?php html_separator()?>
 					<?php html_checkbox("ssl", gettext("Ssl Check"), !empty($pconfig['ssl']) ? true : false, gettext("Check SSL communications using a certificate"),"" , true);?>
 					<tr id="cacert">
@@ -139,13 +139,13 @@ function enable_change(enable_change) {
 						<td width="78%" class="vtable">
 							<input name="cacert" type="file" class="formfld" size="40" /><br />
 							<?php gettext("CA certificate chain file in PEM format") ?><br/>
-							<?php if(!empty($pconfig['cacert'])): ?>
+							<?php if(!empty($pconfig['ocs_cacert'])): ?>
 								<?php html_checkbox("delete_cacert", gettext("Delete previous CA Certificate"), false, "","" , true);?>
 							<?php endif; ?>
 						</td>
 					</tr>
 					<?php html_inputbox("tag", gettext("Tag"), $pconfig['tag'], gettext("Mark the machine with the TAG"), false, 40)?>
-					<?php html_checkbox("nosoftware", gettext("Nosoftware"), !empty($pconfig['nosoftware']) ? true : false, gettext("Check Do not inventory the software installed on the machine"), false);?>					
+					<?php html_checkbox("nosoftware", gettext("No software"), !empty($pconfig['nosoftware']) ? true : false, gettext("Do not inventory the software installed on the machine"), false);?>					
 				</table>
 				<div id="submit">
 					<input name="Submit" type="submit" class="formbtn" value="<?=gettext("Save and Restart");?>" onclick="enable_change(true)" />

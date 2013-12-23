@@ -87,8 +87,8 @@ ocsinventory_agent_mkconf()
 		-i "string-length(realm) > 0" \
 			-v "concat('realm=', realm)" -n \
 		-b \
-		-i "string-length(user) > 0" \
-			-v "concat('user=', user)" -n \
+		-i "string-length(ocs_user) > 0" \
+			-v "concat('user=', ocs_user)" -n \
 		-b \
 		-i "string-length(password) > 0" \
 			-v "concat('password=\"', password, '\"')" -n \
@@ -96,14 +96,11 @@ ocsinventory_agent_mkconf()
 		-i "string-length(proxy) > 0" \
 			-v "concat('proxy=', proxy)" -n \
 		-b \
-		-i "string-length(delaytime) > 0" \
-			-v "concat('delaytime=', delaytime)" -n \
-		-b \
 		-i "string-length(ssl) > 0" \
 			-v "concat('ssl=', ssl)" -n \
 		-b \
-		-i "string-length(cacert) > 0" \
-			-v "concat('ca=', cacert)" -n \
+		-i "string-length(ocs_cacert) > 0" \
+			-v "concat('ca=', ocs_cacert)" -n \
 		-b \
 		-i "string-length(tag) > 0" \
 			-v "concat('tag=', tag)" -n \

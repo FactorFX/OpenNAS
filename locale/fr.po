@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: OpenNas\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-20 17:14+0100\n"
-"PO-Revision-Date: 2013-12-20 17:14+0100\n"
+"POT-Creation-Date: 2013-12-23 11:00+0100\n"
+"PO-Revision-Date: 2013-12-23 11:01+0100\n"
 "Last-Translator: Cédric Denis <cedric@factorfx.com>\n"
 "Language-Team: OpenNas\n"
 "Language: fr_FR\n"
@@ -2655,28 +2655,27 @@ msgstr "Domaine"
 
 #: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_ocs_inventory_agent.php:131
 msgid "Use REALM for an HTTP identification with the server"
-msgstr "Le Realm pour une authentification Http"
+msgstr "Utiliser REALM pour une authentification HTTP avec le serveur Ocs"
 
 #: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_ocs_inventory_agent.php:132
 msgid "User"
 msgstr "Utilisateur"
 
 #: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_ocs_inventory_agent.php:132
-#, fuzzy
 msgid "Use USER for the server authentication"
-msgstr "Activer l'authentification."
+msgstr "Indiquer l'utilisateur pour une authentification HTTP avec le serveur Ocs"
 
 #: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_ocs_inventory_agent.php:133
 msgid "Use PASSWORD for an HTTP identification with the server"
-msgstr "Le mot de passe pour une authentification http"
+msgstr "Indiquer le mot de passe pour une authentification HTTP avec le serveur Ocs"
 
 #: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_ocs_inventory_agent.php:134
 msgid "Proxy"
 msgstr "Proxy"
 
 #: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_ocs_inventory_agent.php:134
-msgid "Use PROXY to specify a proxy HTTP server"
-msgstr "Utiliser le serveur Proxy spécifié."
+msgid "Use PROXY to specify a proxy HTTP server, http[s]://serverproxy:port"
+msgstr "Indiquer l'adresse du serveur PROXY si besoin, http[s]://serverproxy:port"
 
 #: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_ocs_inventory_agent.php:136
 msgid "Ssl Check"
@@ -2699,12 +2698,12 @@ msgid "Mark the machine with the TAG"
 msgstr "Le TAG pour cette machine"
 
 #: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_ocs_inventory_agent.php:148
-msgid "Nosoftware"
-msgstr "Répertorier les logiciels installés"
+msgid "No software"
+msgstr "Pas de logiciels"
 
 #: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_ocs_inventory_agent.php:148
-msgid "Check Do not inventory the software installed on the machine"
-msgstr "Ne pas répertorier les logiciels intallés sur la machine"
+msgid "Do not inventory the software installed on the machine"
+msgstr "Ne pas répertorier les logiciels installés sur la machine"
 
 #: /home/cedric/DEV/Nas4Free/opennas/trunk/www/disks_mount_fsck.php:106
 msgid "Unmount disk/partition"
@@ -2795,7 +2794,7 @@ msgid "Do you really want to format this disk? All data will be lost!"
 msgstr "Voulez-vous vraiment formater ce disque ? Toutes les données seront perdues !"
 
 #: /home/cedric/DEV/Nas4Free/opennas/trunk/www/disks_init.php:260
-#, fuzzy, php-format
+#, php-format
 msgid "Command output"
 msgstr "Résultat de la commande:"
 
