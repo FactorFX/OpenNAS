@@ -17,6 +17,7 @@
     SUBDIR += gzip
     SUBDIR += host
     SUBDIR += iperf
+    SUBDIR += ipmitool
     SUBDIR += iscontrol
     SUBDIR += istgt
     SUBDIR += lighttpd
@@ -24,15 +25,18 @@
     SUBDIR += mDNSResponder
     SUBDIR += msmtp
     SUBDIR += nano
+    SUBDIR += ncdu
     SUBDIR += netatalk
     SUBDIR += nss_ldap
     SUBDIR += ntfsprogs
     SUBDIR += nut
+    SUBDIR += ocsinventory-agent
     SUBDIR += open-vm-tools
     SUBDIR += openssh-portable
-    SUBDIR += ocsinventory-agent
     SUBDIR += pam_ldap
     SUBDIR += pam_mkhomedir
+    SUBDIR += pciutils
+    SUBDIR += pdksh        
     SUBDIR += php55
     SUBDIR += proftpd
     SUBDIR += rconf
