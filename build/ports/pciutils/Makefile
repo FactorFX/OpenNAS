@@ -26,7 +26,14 @@ post-patch:
 	@${REINPLACE_CMD} -e '/^CC=/d; /^CFLAGS=/ s|=|+=|; /^IDSDIR=/ s|$$|/pciids|; /^OPT=/d; /^PREFIX=/d; s| lib/$$(PCILIB)||' ${WRKSRC}/Makefile
 
 do-install:
+	# Binaries
 	cd ${WRKSRC}/ && ${INSTALL_PROGRAM} lspci setpci ${NAS4FREE_ROOTFS}/usr/local/bin/
+	
+	# Pci database
+	${MKDIR} ${NAS4FREE_ROOTFS}/usr/local/share/pciids/
+	${INSTALL_SCRIPT} /usr/local/share/pciids/pci.ids ${NAS4FREE_ROOTFS}/usr/local/share/pciids/
+	
+	# Manpages
 	for I in lspci.8 setpci.8; \
 		do (rm -f ${WRKSRC}/$$I.gz; gzip -c ${WRKSRC}/$$I >${WRKSRC}/$$I.gz; \
 			$(INSTALL_DATA) ${WRKSRC}/$$I.gz ${NAS4FREE_ROOTFS}/usr/share/man/man8/$$I.gz; \
