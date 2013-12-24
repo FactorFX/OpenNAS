@@ -69,3 +69,6 @@ usr/bin/cap_mkdb
 
 ## sftp
 usr/bin/sftp
+
+## swapctl
+sbin/swapctl

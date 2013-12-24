@@ -14,13 +14,13 @@ COMMENT=	Keep track of the computers configuration and software
 LICENSE=	GPLv2
 
 BUILD_DEPENDS=	p5-libwww>=0:${PORTSDIR}/www/p5-libwww \
-		p5-XML-Simple>=0:${PORTSDIR}/textproc/p5-XML-Simple \
-		p5-Net-IP>=0:${PORTSDIR}/net-mgmt/p5-Net-IP \
-		p5-Proc-Daemon>=0:${PORTSDIR}/devel/p5-Proc-Daemon \
-		p5-Proc-PID-File>=0:${PORTSDIR}/devel/p5-Proc-PID-File \
-		p5-Net-SNMP>=0:${PORTSDIR}/net-mgmt/p5-Net-SNMP \
-		p5-Net-Netmask>=0:${PORTSDIR}/net-mgmt/p5-Net-Netmask \
-		p5-Net-Ping>=0:${PORTSDIR}/net/p5-Net-Ping
+				p5-XML-Simple>=0:${PORTSDIR}/textproc/p5-XML-Simple \
+				p5-Proc-Daemon>=0:${PORTSDIR}/devel/p5-Proc-Daemon \
+				p5-Proc-PID-File>=0:${PORTSDIR}/devel/p5-Proc-PID-File \
+				p5-Net-IP>=0:${PORTSDIR}/net-mgmt/p5-Net-IP \
+				p5-Net-SNMP>=0:${PORTSDIR}/net-mgmt/p5-Net-SNMP \
+				p5-Net-Netmask>=0:${PORTSDIR}/net-mgmt/p5-Net-Netmask \
+				p5-Nmap-Parser>=0:${PORTSDIR}/security/p5-Nmap-Parser
 RUN_DEPENDS+=			${BUILD_DEPENDS}
 
 USES=		perl5
@@ -50,6 +50,7 @@ do-install:
 	${CP} -R ${WRKSRC}/lib/Ocsinventory/* ${NAS4FREE_ROOTFS}/usr/local/lib/perl5/site_perl/${PERL_VER}/Ocsinventory/
 	${INSTALL_SCRIPT} ${WRKSRC}/ocsinventory-agent ${NAS4FREE_ROOTFS}/usr/local/bin
 	@${MKDIR} -p ${NAS4FREE_ROOTFS}/usr/local/etc/ocsinventory/
+	${CP} ${FILESDIR}/modules.conf ${NAS4FREE_ROOTFS}/usr/local/etc/ocsinventory/
 
 	# Manpages
 	for I in ${MAN1}; \

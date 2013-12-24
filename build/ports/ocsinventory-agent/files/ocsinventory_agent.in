@@ -47,6 +47,7 @@ ocsinventory_agent_start()
 		echo "${name} is already running... with PID `cat ${pidfile}`"
 	else
 		echo "Starting ${name}..."
+		${command} -f
 		${command} ${rc_flags}
 	fi
 }
