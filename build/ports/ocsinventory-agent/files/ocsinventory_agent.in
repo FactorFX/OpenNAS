@@ -9,6 +9,7 @@
 # REQUIRE: DAEMON
 # KEYWORD: shutdown
 # XQUERY: -i "count(//ocsinventory_agent/enable) > 0" -o "0" -b
+# RCVAR: ocsinventory_agent
 #
 
 
@@ -110,7 +111,6 @@ ocsinventory_agent_mkconf()
 		-b \
 		${configxml_file} | /usr/local/bin/xml unesc > ${ocsinventory_agent_config}
 
-		#return 0
 }
 
 ocsinventory_agent_running() 
