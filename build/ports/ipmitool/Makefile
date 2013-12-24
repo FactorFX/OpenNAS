@@ -65,7 +65,8 @@ post-install:
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/src/ipmitool ${NAS4FREE_ROOTFS}/usr/local/bin
 	${INSTALL_PROGRAM} ${WRKSRC}/src/ipmievd ${NAS4FREE_ROOTFS}/usr/local/sbin
-	${INSTALL_SCRIPT} ${WRKSRC}/contrib/oem_ibm_sel_map ${NAS4FREE_ROOTFS}/usr/local/share
+	${MKDIR} ${NAS4FREE_ROOTFS}/usr/local/share/ipmitool/
+	${INSTALL_SCRIPT} ${WRKSRC}/contrib/oem_ibm_sel_map ${NAS4FREE_ROOTFS}/usr/local/share/ipmitool/
 	
 	# Manpages
 	for I in ${MAN1}; \
