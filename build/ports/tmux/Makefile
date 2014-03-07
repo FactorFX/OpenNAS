@@ -57,4 +57,14 @@ do-install:
 	@$(INSTALL_DATA) ${WRKSRC}/tmux.1.gz ${NAS4FREE_ROOTFS}/usr/share/man/man1
 	rm -f ${WRKSRC}/tmux.1.gz
 
+post-configure:
+.if defined(WITH_LIBEVENT_STATIC)
+	${REINPLACE_CMD} -e '/LIBS/s|-levent[^[:blank:]]*|${LESTATIC}|' \
+		${WRKSRC}/${MAKEFILE}
+.endif
+
+post-install:
+	${MKDIR} ${NAS4FREE_ROOTFS}/etc/bash_completion.d
+	@${INSTALL_DATA} ${WRKSRC}/examples/bash_completion_tmux.sh ${NAS4FREE_ROOTFS}/etc/bash_completion.d/tmux
+
 .include <bsd.port.mk>

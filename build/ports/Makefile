@@ -48,6 +48,7 @@
     SUBDIR += sysinfo
     SUBDIR += tftp-hpa
     SUBDIR += tmux
+    SUBDIR += tw_cli
     SUBDIR += unison
     SUBDIR += vbox-additions
     SUBDIR += vim-lite
