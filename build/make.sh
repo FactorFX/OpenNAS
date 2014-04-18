@@ -9,6 +9,18 @@
 # Debug script
 # set -x
 #
+# Example command line
+# make.sh make_all build_number force_build_kernel (full|usb|tiny|iso|image|all)
+#
+# Options:
+# make_all is optional
+# if make_all is specify => this will make all in one command
+# else your will have the menu to compile one by one
+#
+# build_number is required in any case
+# force_build_kernel is optional, this will force to compile the kernel
+#
+
 
 ################################################################################
 # Settings
@@ -1173,7 +1185,7 @@ Press # "
 	return 0
 }
 
-if [ -z $MAKE_ALL ]; then
+if [ -z "$MAKE_ALL" ]; then
 	while true; do
 		main
 	done

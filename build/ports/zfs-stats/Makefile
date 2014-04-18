@@ -13,9 +13,9 @@ MASTER_SITES=	http://cloud.github.com/downloads/mmatuska/zfs-stats/
 MAINTAINER=	mm@FreeBSD.org
 COMMENT=	Display human-readable ZFS statistics
 
-LICENSE=	BSD
+LICENSE=	BSD2CLAUSE
 
-USE_PERL5=	yes
+USES=       perl5
 
 NO_BUILD=	yes
 
