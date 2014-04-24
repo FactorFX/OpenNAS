@@ -175,6 +175,12 @@ OPT_SERIALCONSOLE=0
 # Dialog command
 DIALOG="dialog"
 
+# Delete Checksum file
+NAS4FREE_CHECKSUMFILENAME="${NAS4FREE_PRODUCTNAME}-${NAS4FREE_XARCH}-${NAS4FREE_VERSION}.${NAS4FREE_REVISION}.checksum"
+if [ -f ${NAS4FREE_ROOTDIR}/${NAS4FREE_CHECKSUMFILENAME} ]; then
+	rm ${NAS4FREE_ROOTDIR}/${NAS4FREE_CHECKSUMFILENAME}
+fi
+
 ################################################################################
 # Functions
 ################################################################################
@@ -619,15 +625,10 @@ create_iso () {
 	[ -d $NAS4FREE_TMPDIR ] && rm -rf $NAS4FREE_TMPDIR
 	[ -f $NAS4FREE_WORKINGDIR/mfsroot.gz ] && rm -f $NAS4FREE_WORKINGDIR/mfsroot.gz
 
-	if [ ! $TINY_ISO ]; then
-		LABEL="${NAS4FREE_PRODUCTNAME}-${NAS4FREE_XARCH}-LiveCD-${NAS4FREE_VERSION}.${NAS4FREE_REVISION}"
-		VOLUMEID="${NAS4FREE_PRODUCTNAME}-${NAS4FREE_XARCH}-LiveCD-${NAS4FREE_VERSION}"
-		echo "ISO: Generating the $NAS4FREE_PRODUCTNAME Image file:"
-		create_image;
-	else
-		LABEL="${NAS4FREE_PRODUCTNAME}-${NAS4FREE_XARCH}-LiveCD-Tiny-${NAS4FREE_VERSION}.${NAS4FREE_REVISION}"
-		VOLUMEID="${NAS4FREE_PRODUCTNAME}-${NAS4FREE_XARCH}-LiveCD-Tiny-${NAS4FREE_VERSION}"
-	fi
+	LABEL="${NAS4FREE_PRODUCTNAME}-${NAS4FREE_XARCH}-LiveCD-${NAS4FREE_VERSION}.${NAS4FREE_REVISION}"
+	VOLUMEID="${NAS4FREE_PRODUCTNAME}-${NAS4FREE_XARCH}-LiveCD-${NAS4FREE_VERSION}"
+	echo "ISO: Generating the $NAS4FREE_PRODUCTNAME Image file:"
+	create_image;
 
 	# Set Platform Informations.
 	PLATFORM="${NAS4FREE_XARCH}-liveCD"
@@ -696,21 +697,15 @@ create_iso () {
 	mkisofs -b "boot/cdboot" -no-emul-boot -r -J -A "${NAS4FREE_PRODUCTNAME} CD-ROM image" -publisher "${NAS4FREE_URL}" -V "${VOLUMEID}" -o "${NAS4FREE_ROOTDIR}/${LABEL}.iso" ${NAS4FREE_TMPDIR}
 	[ 0 != $? ] && return 1 # successful?
 
-	echo "Generating SHA256 CHECKSUM File"
-	NAS4FREE_CHECKSUMFILENAME="${NAS4FREE_PRODUCTNAME}-${NAS4FREE_XARCH}-${NAS4FREE_VERSION}.${NAS4FREE_REVISION}.checksum"
-	cd ${NAS4FREE_ROOTDIR} && sha256 *.img *.iso > ${NAS4FREE_ROOTDIR}/${NAS4FREE_CHECKSUMFILENAME}
+	echo "Generating CHECKSUM File"
+	cd ${NAS4FREE_ROOTDIR} && md5 ${LABEL}.iso >> ${NAS4FREE_ROOTDIR}/${NAS4FREE_CHECKSUMFILENAME}
+	cd ${NAS4FREE_ROOTDIR} && sha1 ${LABEL}.iso >> ${NAS4FREE_ROOTDIR}/${NAS4FREE_CHECKSUMFILENAME}
+	cd ${NAS4FREE_ROOTDIR} && sha256 ${LABEL}.iso >> ${NAS4FREE_ROOTDIR}/${NAS4FREE_CHECKSUMFILENAME}
 
 	# Cleanup.
 	[ -d $NAS4FREE_TMPDIR ] && rm -rf $NAS4FREE_TMPDIR
 	[ -f $NAS4FREE_WORKINGDIR/mfsroot.gz ] && rm -f $NAS4FREE_WORKINGDIR/mfsroot.gz
 
-	return 0
-}
-
-create_iso_tiny() {
-	TINY_ISO=1
-	create_iso;
-	unset TINY_ISO
 	return 0
 }
 
@@ -832,9 +827,10 @@ create_usb () {
 	#cp $NAS4FREE_WORKINGDIR/usb-image.bin.gz $NAS4FREE_ROOTDIR/$IMGFILENAME
 	cp $NAS4FREE_WORKINGDIR/usb-image.bin $NAS4FREE_ROOTDIR/$IMGFILENAME
 
-	echo "Generating SHA256 CHECKSUM File"
-	NAS4FREE_CHECKSUMFILENAME="${NAS4FREE_PRODUCTNAME}-${NAS4FREE_XARCH}-${NAS4FREE_VERSION}.${NAS4FREE_REVISION}.checksum"
-	cd ${NAS4FREE_ROOTDIR} && sha256 *.img *.iso > ${NAS4FREE_ROOTDIR}/${NAS4FREE_CHECKSUMFILENAME}
+	echo "Generating CHECKSUM File"
+	cd ${NAS4FREE_ROOTDIR} && md5 ${IMGFILENAME} >> ${NAS4FREE_ROOTDIR}/${NAS4FREE_CHECKSUMFILENAME}
+	cd ${NAS4FREE_ROOTDIR} && sha1 ${IMGFILENAME} >> ${NAS4FREE_ROOTDIR}/${NAS4FREE_CHECKSUMFILENAME}
+	cd ${NAS4FREE_ROOTDIR} && sha256 ${IMGFILENAME} >> ${NAS4FREE_ROOTDIR}/${NAS4FREE_CHECKSUMFILENAME}
 
 	# Cleanup.
 	[ -d $NAS4FREE_TMPDIR ] && rm -rf $NAS4FREE_TMPDIR
@@ -1160,10 +1156,8 @@ echo -n "
 
 1  - Update OPENNAS Source Files to LATEST STABLE.
 2  - Compile OPENNAS from Scratch.
-10 - Create 'Embedded' (IMG) File (rawrite to CF/USB/DD).
 11 - Create 'LiveUSB' (IMG) File.
 12 - Create 'LiveCD' (ISO) File.
-13 - Create 'LiveCD-Tiny' (ISO) File without 'Embedded' File.
 14 - Create 'Full' (TGZ) Update File.
 *  - Exit.
 Press # "
@@ -1171,10 +1165,8 @@ Press # "
 	case $choice in
 		1)	update_git;;
 		2)	build_system;;
-		10)	create_image;;
 		11)	create_usb;;
 		12)	create_iso;;
-		13)	create_iso_tiny;;
 		14)	create_full;;
 		*)	exit 0;;
 	esac
@@ -1210,17 +1202,12 @@ else
 				create_full;;
 			"usb")
 				create_usb;;
-			"tiny")
-				create_iso_tiny;;
 			"iso")
 				create_iso;;
-			"image")
-				create_image;;
 			"all")
 				create_full
 				create_usb
-				create_iso
-				create_image;;
+				create_iso;;
 			*)
 				echo "Bad Parameter";;	
 		esac
