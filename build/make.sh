@@ -48,7 +48,6 @@ elif [ $# -lt 1 ]; then
 fi		
 
 # Global variables
-NAS4FREE_NEW_STABLE_VERSION=$(curl -s http://www.nas4free.org/downloads.html | sed -nr 's/NAS4Free.*\.([0-9]+)+.*Download Now.*/\1/p' | tr -d '/')
 NAS4FREE_WORKINGDIR="$NAS4FREE_ROOTDIR/work"
 NAS4FREE_ROOTFS="$NAS4FREE_ROOTDIR/rootfs"
 OPENNAS_BRANCH=$(git --work-tree=$NAS4FREE_SVNDIR --git-dir=$NAS4FREE_SVNDIR/.git status | grep 'On branch'| awk '{print $4}')
@@ -191,8 +190,6 @@ update_sources() {
 
 	# Choose what to do.
 	$DIALOG --title "$NAS4FREE_PRODUCTNAME - Update Sources" --checklist "Please select what to update." 12 60 5 \
-		"svnco" "Fetch source tree" OFF \
-		"svnup" "Update source tree" OFF \
 		"freebsd-update" "Fetch and install binary updates" OFF \
 		"portsnap" "Update ports collection" OFF \
 		"portupgrade" "Upgrade ports on host" OFF 2> $tempfile
@@ -210,10 +207,6 @@ update_sources() {
 				freebsd-update fetch install;;
 			portsnap)
 				portsnap fetch update;;
-			svnco)
-				rm -rf /usr/src; svn co ${NAS4FREE_SVN_SRCTREE} /usr/src;;
-			svnup)
-				svn up /usr/src;;
 			portupgrade)
 				portupgrade -aFP;;
   	esac
@@ -948,27 +941,12 @@ update_git() {
 	# Update sources from repository.
 	cd $NAS4FREE_SVNDIR
 	#git checkout master
-	#svn update -r ${NAS4FREE_NEW_STABLE_VERSION}
 	#git add .
 	#git commit -m "revision ${NAS4FREE_NEW_STABLE_VERSION}"
 	#git status
 
 	# Update Revision Number.
 	#NAS4FREE_REVISION=$(svn info ${NAS4FREE_SVNDIR} | grep Revision | awk '{print $2}')
-
-	return 0
-}
-
-use_svn() {
-	echo "===> Replacing old code with SVN code"
-
-	cd ${NAS4FREE_SVNDIR}/build && cp -pv CHANGES ${NAS4FREE_ROOTFS}/usr/local/www
-	cd ${NAS4FREE_SVNDIR}/build/scripts && cp -pv carp-hast-switch ${NAS4FREE_ROOTFS}/usr/local/sbin
-	cd ${NAS4FREE_SVNDIR}/build/scripts && cp -pv hastswitch ${NAS4FREE_ROOTFS}/usr/local/sbin
-	cd ${NAS4FREE_SVNDIR}/root && find . \! -iregex ".*/\.svn.*" -print | cpio -pdumv ${NAS4FREE_ROOTFS}/root
-	cd ${NAS4FREE_SVNDIR}/etc && find . \! -iregex ".*/\.svn.*" -print | cpio -pdumv ${NAS4FREE_ROOTFS}/etc
-	cd ${NAS4FREE_SVNDIR}/www && find . \! -iregex ".*/\.svn.*" -print | cpio -pdumv ${NAS4FREE_ROOTFS}/usr/local/www
-	cd ${NAS4FREE_SVNDIR}/conf && find . \! -iregex ".*/\.svn.*" -print | cpio -pdumv ${NAS4FREE_ROOTFS}/conf.default
 
 	return 0
 }
@@ -1151,7 +1129,6 @@ ${NAS4FREE_PRODUCTNAME} Build Environment
 Menu Options:
 "
 echo "You are on branch ${OPENNAS_BRANCH} with Nas4free revision ${NAS4FREE_REVISION}"
-echo "The last Stable version of Nas4Free is revision ${NAS4FREE_NEW_STABLE_VERSION}"
 echo -n "
 
 1  - Update OPENNAS Source Files to LATEST STABLE.
