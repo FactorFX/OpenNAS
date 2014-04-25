@@ -15,6 +15,8 @@ ALWAYS_BUILD_DEPENDS= yes
 DEPENDS_TARGET=	clean build
 NO_STAGE=       yes
 
+DISABLE_VULNERABILITIES = yes
+
 BUILD_DEPENDS=	pam_ldap:${PORTSDIR}/security/pam_ldap
 
 do-install:

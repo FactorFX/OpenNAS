@@ -9,6 +9,8 @@ DISTNAME=		${PORTNAME:S|36$||}-${PORTVERSION:S|.p|pre|:S|.r|rc|:S|.t|tp|:S|.a|al
 MAINTAINER?=		zoon01@nas4free.org
 COMMENT?=		A free SMB and CIFS client and server for UNIX
 
+DISABLE_VULNERABILITIES = yes
+
 # Additional patches from Sernet.de
 #PATCH_STRIP=		-p1
 #EXTRA_PATCHES=		${PATCHDIR}/sernet.patch
