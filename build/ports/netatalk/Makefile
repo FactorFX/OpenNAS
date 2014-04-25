@@ -8,6 +8,8 @@ MAINTAINER=		zoon01@nas4free.org
 
 LIB_DEPENDS=	gcrypt:${PORTSDIR}/security/libgcrypt
 
+DISABLE_VULNERABILITIES = yes
+
 NO_STAGE=       yes
 USE_AUTOTOOLS=	libtool
 USE_BDB=	46+
