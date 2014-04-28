@@ -440,7 +440,6 @@ create_mfsroot() {
 	cd $NAS4FREE_WORKINGDIR
 
 	[ -f $NAS4FREE_WORKINGDIR/mfsroot.gz ] && rm -f $NAS4FREE_WORKINGDIR/mfsroot.gz
-	[ -d $NAS4FREE_SVNDIR ] && use_svn ;
 
 	# Make mfsroot to have the size of the NAS4FREE_MFSROOT_SIZE variable
 	dd if=/dev/zero of=$NAS4FREE_WORKINGDIR/mfsroot bs=1k count=$(expr ${NAS4FREE_MFSROOT_SIZE} \* 1024)
@@ -618,10 +617,8 @@ create_iso () {
 	[ -d $NAS4FREE_TMPDIR ] && rm -rf $NAS4FREE_TMPDIR
 	[ -f $NAS4FREE_WORKINGDIR/mfsroot.gz ] && rm -f $NAS4FREE_WORKINGDIR/mfsroot.gz
 
-	LABEL="${NAS4FREE_PRODUCTNAME}-${NAS4FREE_XARCH}-LiveCD-${NAS4FREE_VERSION}.${NAS4FREE_REVISION}"
-	VOLUMEID="${NAS4FREE_PRODUCTNAME}-${NAS4FREE_XARCH}-LiveCD-${NAS4FREE_VERSION}"
-	echo "ISO: Generating the $NAS4FREE_PRODUCTNAME Image file:"
-	create_image;
+	LABEL="${NAS4FREE_PRODUCTNAME}-${NAS4FREE_XARCH}-${NAS4FREE_VERSION}.${NAS4FREE_REVISION}"
+	VOLUMEID="${NAS4FREE_PRODUCTNAME}-${NAS4FREE_XARCH}-${NAS4FREE_VERSION}"
 
 	# Set Platform Informations.
 	PLATFORM="${NAS4FREE_XARCH}-liveCD"
@@ -681,11 +678,6 @@ create_iso () {
 	# copy kernel modules
 	copy_kmod
 
-	if [ ! $TINY_ISO ]; then
-		echo "ISO: Copying IMG file to $NAS4FREE_TMPDIR"
-		cp ${NAS4FREE_WORKINGDIR}/image.bin.gz ${NAS4FREE_TMPDIR}/${NAS4FREE_PRODUCTNAME}-${NAS4FREE_XARCH}-embedded.gz
-	fi
-
 	echo "ISO: Generating ISO File"
 	mkisofs -b "boot/cdboot" -no-emul-boot -r -J -A "${NAS4FREE_PRODUCTNAME} CD-ROM image" -publisher "${NAS4FREE_URL}" -V "${VOLUMEID}" -o "${NAS4FREE_ROOTDIR}/${LABEL}.iso" ${NAS4FREE_TMPDIR}
 	[ 0 != $? ] && return 1 # successful?
@@ -730,7 +722,7 @@ create_usb () {
 	# Set build time.
 	date > ${NAS4FREE_ROOTFS}/etc/prd.version.buildtime
 
-	IMGFILENAME="${NAS4FREE_PRODUCTNAME}-${NAS4FREE_XARCH}-LiveUSB-${NAS4FREE_VERSION}.${NAS4FREE_REVISION}.img"
+	IMGFILENAME="${NAS4FREE_PRODUCTNAME}-${NAS4FREE_XARCH}-${NAS4FREE_VERSION}.${NAS4FREE_REVISION}.img"
 
 	echo "USB: Generating temporary folder '$NAS4FREE_TMPDIR'"
 	mkdir $NAS4FREE_TMPDIR
@@ -835,7 +827,6 @@ create_usb () {
 }
 
 create_full() {
-	[ -d $NAS4FREE_SVNDIR ] && use_svn ;
 
 	echo "FULL: Generating $NAS4FREE_PRODUCTNAME tgz update file"
 
