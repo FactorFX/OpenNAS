@@ -63,8 +63,8 @@ post-install:
 	@${INSTALL_SCRIPT} ${WRKDIR}/status-ipmi.sh ${NAS4FREE_ROOTFS}/usr/local/${PERIODIC_DIR}/400.status-ipmi
 
 do-install:
-	${INSTALL_PROGRAM} ${WRKSRC}/src/ipmitool ${NAS4FREE_ROOTFS}/usr/local/bin
-	${INSTALL_PROGRAM} ${WRKSRC}/src/ipmievd ${NAS4FREE_ROOTFS}/usr/local/sbin
+	${INSTALL_PROGRAM} ${WRKSRC}/src/.libs/ipmitool ${NAS4FREE_ROOTFS}/usr/local/bin
+	${INSTALL_PROGRAM} ${WRKSRC}/src/.libs/ipmievd ${NAS4FREE_ROOTFS}/usr/local/sbin
 	${MKDIR} ${NAS4FREE_ROOTFS}/usr/local/share/ipmitool/
 	${INSTALL_SCRIPT} ${WRKSRC}/contrib/oem_ibm_sel_map ${NAS4FREE_ROOTFS}/usr/local/share/ipmitool/
 	
