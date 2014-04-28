@@ -1,7 +1,7 @@
 10
 
 dir
-943
+972
 svn://svn.code.sf.net/p/nas4free/code/trunk/build/ports/sipcalc
 svn://svn.code.sf.net/p/nas4free/code
 
@@ -25,6 +25,40 @@ zoon01
 
 
 beaaabd7-781f-4c1e-bc4d-5cfe25df7511
+
+Makefile
+file
+
+
+
+
+2014-03-07T12:05:59.014873Z
+3c60dbd53b1fa33bbe18e512e77aa62c
+2014-01-10T01:03:03.170342Z
+911
+zoon01
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+405
 
 distinfo
 file
@@ -127,38 +161,4 @@ zoon01
 
 
 3
-
-Makefile
-file
-
-
-
-
-2014-03-07T11:32:02.486797Z
-3c60dbd53b1fa33bbe18e512e77aa62c
-2014-01-10T01:03:03.170342Z
-911
-zoon01
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-405
 

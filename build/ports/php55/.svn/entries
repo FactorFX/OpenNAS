@@ -1,15 +1,15 @@
 10
 
 dir
-943
+972
 svn://svn.code.sf.net/p/nas4free/code/trunk/build/ports/php55
 svn://svn.code.sf.net/p/nas4free/code
 
 
 
-2014-01-15T02:22:38.752828Z
-929
-zoon01
+2014-04-06T00:20:42.478788Z
+955
+redantz
 
 
 
@@ -26,51 +26,17 @@ zoon01
 
 beaaabd7-781f-4c1e-bc4d-5cfe25df7511
 
-Makefile
-file
-
-
-
-
-2014-03-07T11:33:23.626800Z
-16bb03b3a60ff04ebb814464c0a4abee
-2014-01-15T02:22:38.752828Z
-929
-zoon01
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-3221
-
 distinfo
 file
 
 
 
 
-2014-03-07T11:33:23.622800Z
-c7a59f41cc1bbcf8d899180dc8c823cc
-2014-01-15T02:22:38.752828Z
-929
-zoon01
+2014-04-28T09:06:50.143698Z
+7b13b57154ddbc88fc0d400f7dbee7ee
+2014-04-06T00:20:42.478788Z
+955
+redantz
 
 
 
@@ -92,7 +58,7 @@ zoon01
 
 
 
-275
+277
 
 pkg-descr
 file
@@ -164,4 +130,38 @@ zoon01
 
 files
 dir
+
+Makefile
+file
+
+
+
+
+2014-04-28T09:06:50.143698Z
+6baf16a540ae13cabff4852e921e8011
+2014-04-06T00:20:42.478788Z
+955
+redantz
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+3222
 
