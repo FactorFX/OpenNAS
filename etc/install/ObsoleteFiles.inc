@@ -138,3 +138,10 @@ etc/rc.initial.embupgfromcdrom
 etc/rc.initial.fullupfromcdrom
 etc/rc.initial.installfull
 
+#Clean up wrong perl version
+usr/local/lib/perl5/5.14/
+usr/local/lib/perl5/site_perl/5.14/
+usr/local/lib/perl5/5.14.2/
+usr/local/lib/perl5/site_perl/5.14.2/
+usr/local/lib/perl5/5.18/
+usr/local/lib/perl5/site_perl/5.18/

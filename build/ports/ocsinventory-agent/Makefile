@@ -35,13 +35,6 @@ SUB_LIST=	SITE_PERL=${SITE_PERL}
 NO_STAGE=	yes
 
 do-install:
-	# Perl
-	${INSTALL_PROGRAM} /usr/bin/perl ${NAS4FREE_ROOTFS}/usr/bin
-	${MKDIR} -p ${NAS4FREE_ROOTFS}/usr/local/lib/perl5/${PERL_VER}
-	${MKDIR} -p ${NAS4FREE_ROOTFS}/usr/local/lib/perl5/site_perl/${PERL_VER}
-	${CP} -R /usr/local/lib/perl5/${PERL_VER}/* ${NAS4FREE_ROOTFS}/usr/local/lib/perl5/${PERL_VER}/
-	${CP} -R /usr/local/lib/perl5/site_perl/${PERL_VER}/* ${NAS4FREE_ROOTFS}/usr/local/lib/perl5/site_perl/${PERL_VER}/
-
 	#Ocs inventory
 	${MKDIR} -p ${NAS4FREE_ROOTFS}/usr/local/lib/perl5/site_perl/${PERL_VER}/Ocsinventory/
 	${CP} -R ${WRKSRC}/lib/Ocsinventory/* ${NAS4FREE_ROOTFS}/usr/local/lib/perl5/site_perl/${PERL_VER}/Ocsinventory/

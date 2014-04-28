@@ -72,3 +72,9 @@ usr/bin/sftp
 
 ## swapctl
 sbin/swapctl
+
+## perl 5.16
+usr/local/etc/perl5_version
+usr/bin/perl
+usr/local/lib/perl5/5.16/
+usr/local/lib/perl5/site_perl/5.16/
