@@ -565,10 +565,12 @@ function install_upgrade_config($disk)
 	$config_file = "{$config_path}/config.xml";
 	$config_file_bak = "{$config_path}/config_upd";
 	$revision_file = "{$etc_path}/prd.revision";
+	$name_file = "{$etc_path}/prd.name";
 	$error_with_file = false;
 	
 	$config = parse_xml_config($config_file, $g['xml_rootobj']);	
 	$prev_revision = chop(file_get_contents("{$revision_file}"));
+	$prev_name = chop(file_get_contents("{$name_file}"));
 	
 	if (false === $prev_revision || false === $config) {
 		return 1;
@@ -589,9 +591,16 @@ function install_upgrade_config($disk)
 	 * @todo Could be remove in future version
 	 * 
 	 */
-	if (false !== strpos($prev_revision, 'BETA')) {
+	if (false !== strpos($prev_revision, 'BETA') || $prev_name == 'NAS4Free') {
 		
-		write_console("The previous version is a BETA.\n");
+		if (false !== strpos($prev_revision, 'BETA')) {
+			write_console("The previous version is a BETA version.\n");
+		}
+		else if ($prev_name == 'NAS4Free') {
+			write_console("The previous version is NAS4Free.\n");				
+		}
+		
+		write_console("We are going to clean config file and crypt password.\n");		
 
 		/* transmission */
 		searchAndRemoveInConfig("60c4bfb1-7c3c-4535-800c-2b17eeae9369", $config['system']['usermanagement']['user'], "uuid");
