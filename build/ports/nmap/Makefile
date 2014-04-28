@@ -1,9 +1,8 @@
 # Created by: David O'Brien (obrien@NUXI.com)
-# $FreeBSD: security/nmap/Makefile 334897 2013-11-25 20:49:58Z ohauer $
+# $FreeBSD: head/security/nmap/Makefile 351520 2014-04-18 08:05:14Z ohauer $
 
 PORTNAME=	nmap
-DISTVERSION=	6.40
-PORTREVISION=	2
+DISTVERSION=	6.46
 CATEGORIES=	security ipv6
 MASTER_SITES=	http://nmap.org/dist/ \
 		LOCAL/ohauer
@@ -11,6 +10,7 @@ MASTER_SITES=	http://nmap.org/dist/ \
 MAINTAINER=	ohauer@FreeBSD.org
 COMMENT=	Port scanning utility for large networks
 
+# nmap-6.46 => r32840
 # http://nmap.org/book/man-legal.html
 # Install the nmap modified license because of
 # http://insecure.org/news/download-com-fiasco.html
@@ -19,8 +19,9 @@ LICENSE_FILE=	${WRKSRC}/COPYING
 
 LIB_DEPENDS=	libpcre.so:${PORTSDIR}/devel/pcre
 
-USES=		gmake
-USE_BZIP2=	yes
+NO_STAGE = yes
+
+USES=		gmake tar:bzip2
 GNU_CONFIGURE=	yes
 
 OPTIONS_SUB=	yes
@@ -41,14 +42,19 @@ IPV6_CONFIGURE_OFF=	--with-libpcap=${LOCALBASE}/IPv6
 LIB_DEPENDS+=		libpcap.so:${PORTSDIR}/net/libpcap
 .endif
 
+PORTDOCS=	CHANGELOG HACKING
+STRIP_FILES=	nmap nping
+
+.if ${PORT_OPTIONS:MSSL}
+STRIP_FILES+=	ncat
+.endif
+
 CONFIGURE_ARGS+=--without-localdirs \
 		--without-zenmap \
 		--without-ndiff \
 		--with-libpcre=${LOCALBASE} \
 		--with-liblua=included \
 		--without-nmap-update
-
-CONFIGURE_ENV=	LUA_INCDIR="${LUA_INCDIR}" LUA_LIBDIR="${LUA_LIBDIR}"
 
 # fix for gcc from ports
 .if ${CC} != "cc" && ${CC} !="clang"
@@ -57,20 +63,20 @@ CONFIGURE_ARGS+=LDFLAGS="-L$$(${GCCLIBDIR_CMDS})"
 NDCC=	true
 .endif
 
-PORTDOCS=	CHANGELOG HACKING
-
 # XXX limit results if we do a grep in the sources!
 post-extract:
 	@${RM} -rf ${WRKSRC}/mswin32
 
-# reflect new mailing addreses
-pre-patch:
-	${SED} -i '' -e 's|nmap-dev@insecure.org|dev@nmap.org|g' \
-	    ${WRKSRC}/nsock/src/nsock_core.c \
-	    ${WRKSRC}/zenmap/share/zenmap/locale/hr/LC_MESSAGES/zenmap.mo
-
 post-configure:
 	@${REINPLACE_CMD} -e "s|^DESTDIR *=|& ${DESTDIR}|" ${WRKSRC}/Makefile
+
+pre-install:
+	${FIND} ${WRKSRC} -type f \( -name \*.orig -o -name \*.bak \) -delete
+
+post-install:
+	${STRIP_CMD} ${STRIP_FILES:S|^|${STAGEDIR}${PREFIX}/bin/|}
+	@${MKDIR} ${STAGEDIR}${DOCSDIR}
+	${INSTALL_DATA} ${PORTDOCS:S|^|${WRKSRC}/|} ${STAGEDIR}${DOCSDIR}
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/nmap ${NAS4FREE_ROOTFS}/usr/local/bin
