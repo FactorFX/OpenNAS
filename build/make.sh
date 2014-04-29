@@ -1142,6 +1142,7 @@ echo -n "
 2  - Compile OPENNAS from Scratch.
 11 - Create 'LiveUSB' (IMG) File.
 12 - Create 'LiveCD' (ISO) File.
+13 - Create Image.
 14 - Create 'Full' (TGZ) Update File.
 *  - Exit.
 Press # "
@@ -1151,6 +1152,7 @@ Press # "
 		2)	build_system;;
 		11)	create_usb;;
 		12)	create_iso;;
+		13) create_image;;
 		14)	create_full;;
 		*)	exit 0;;
 	esac
