@@ -75,6 +75,6 @@ sbin/swapctl
 
 ## perl 5.16
 usr/local/etc/perl5_version
-usr/bin/perl
+usr/local/bin/perl5.16.3:usr/bin/perl
 usr/local/lib/perl5/5.16/
 usr/local/lib/perl5/site_perl/5.16/
