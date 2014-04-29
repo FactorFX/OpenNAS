@@ -440,6 +440,7 @@ create_mfsroot() {
 	cd $NAS4FREE_WORKINGDIR
 
 	[ -f $NAS4FREE_WORKINGDIR/mfsroot.gz ] && rm -f $NAS4FREE_WORKINGDIR/mfsroot.gz
+	[ -d $NAS4FREE_SVNDIR ] && use_svn ;
 
 	# Make mfsroot to have the size of the NAS4FREE_MFSROOT_SIZE variable
 	dd if=/dev/zero of=$NAS4FREE_WORKINGDIR/mfsroot bs=1k count=$(expr ${NAS4FREE_MFSROOT_SIZE} \* 1024)
@@ -827,6 +828,7 @@ create_usb () {
 }
 
 create_full() {
+	[ -d $NAS4FREE_SVNDIR ] && use_svn ;
 
 	echo "FULL: Generating $NAS4FREE_PRODUCTNAME tgz update file"
 
@@ -938,6 +940,20 @@ update_git() {
 
 	# Update Revision Number.
 	#NAS4FREE_REVISION=$(svn info ${NAS4FREE_SVNDIR} | grep Revision | awk '{print $2}')
+
+	return 0
+}
+
+use_svn() {
+	echo "===> Replacing old code with SVN code"
+
+	cd ${NAS4FREE_SVNDIR}/build && cp -pv CHANGES ${NAS4FREE_ROOTFS}/usr/local/www
+	cd ${NAS4FREE_SVNDIR}/build/scripts && cp -pv carp-hast-switch ${NAS4FREE_ROOTFS}/usr/local/sbin
+	cd ${NAS4FREE_SVNDIR}/build/scripts && cp -pv hastswitch ${NAS4FREE_ROOTFS}/usr/local/sbin
+	cd ${NAS4FREE_SVNDIR}/root && find . \! -iregex ".*/\.svn.*" -print | cpio -pdumv ${NAS4FREE_ROOTFS}/root
+	cd ${NAS4FREE_SVNDIR}/etc && find . \! -iregex ".*/\.svn.*" -print | cpio -pdumv ${NAS4FREE_ROOTFS}/etc
+	cd ${NAS4FREE_SVNDIR}/www && find . \! -iregex ".*/\.svn.*" -print | cpio -pdumv ${NAS4FREE_ROOTFS}/usr/local/www
+	cd ${NAS4FREE_SVNDIR}/conf && find . \! -iregex ".*/\.svn.*" -print | cpio -pdumv ${NAS4FREE_ROOTFS}/conf.default
 
 	return 0
 }
