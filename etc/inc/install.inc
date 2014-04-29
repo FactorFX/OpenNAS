@@ -568,9 +568,17 @@ function install_upgrade_config($disk)
 	$name_file = "{$etc_path}/prd.name";
 	$error_with_file = false;
 	
-	$config = parse_xml_config($config_file, $g['xml_rootobj']);	
 	$prev_revision = chop(file_get_contents("{$revision_file}"));
 	$prev_name = chop(file_get_contents("{$name_file}"));
+	
+	// Get nas4free config if previous version is Nas4Free
+	if ($prev_name == 'NAS4Free') {
+		$config = parse_xml_config($config_file, 'nas4free');
+	}
+	// else if is opennas config
+	else {
+		$config = parse_xml_config($config_file, $g['xml_rootobj']);
+	}	
 	
 	if (false === $prev_revision || false === $config) {
 		return 1;
