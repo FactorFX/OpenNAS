@@ -18,11 +18,6 @@ kerberos_config="/var/etc/krb5.conf"
 ldap_config=${ldap_config:-"/var/etc/ldap.conf"}
 nsswitch_config="/var/etc/nsswitch.conf"
 
-# clearing existing files
-/bin/cat /dev/null > ${kerberos_config}
-/bin/cat /dev/null > ${ldap_config}
-/bin/cat /dev/null > ${nsswitch_config}
-
 if configxml_isset //kerberos/enable; then
 	echo "Generating krb5.conf."	
 	/usr/local/bin/xml sel -t -m "//kerberos" \

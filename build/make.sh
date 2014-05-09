@@ -510,8 +510,12 @@ create_image() {
 	fi
 
 	# Cleanup.
+	chflags -R noschg $NAS4FREE_TMPDIR
+	[ -d $NAS4FREE_TMPDIR ] && rm -rf $NAS4FREE_TMPDIR
 	[ -f ${NAS4FREE_WORKINGDIR}/image.bin ] && rm -f ${NAS4FREE_WORKINGDIR}/image.bin
 	[ -f ${NAS4FREE_WORKINGDIR}/image.bin.gz ] && rm -f ${NAS4FREE_WORKINGDIR}/image.bin.gz
+	
+	[ -d $NAS4FREE_SVNDIR ] && use_svn ;
 
 	# Set platform information.
 	PLATFORM="${NAS4FREE_XARCH}-embedded"
@@ -600,6 +604,7 @@ create_image() {
 	cp $NAS4FREE_WORKINGDIR/image.bin.gz $NAS4FREE_ROOTDIR/$IMGFILENAME
 
 	# Cleanup.
+	chflags -R noschg $NAS4FREE_TMPDIR
 	[ -d $NAS4FREE_TMPDIR ] && rm -rf $NAS4FREE_TMPDIR
 	[ -f $NAS4FREE_WORKINGDIR/mfsroot.gz ] && rm -f $NAS4FREE_WORKINGDIR/mfsroot.gz
 	[ -f $NAS4FREE_WORKINGDIR/image.bin ] && rm -f $NAS4FREE_WORKINGDIR/image.bin
@@ -615,8 +620,11 @@ create_iso () {
 	fi
 
 	# Cleanup.
+	chflags -R noschg $NAS4FREE_TMPDIR
 	[ -d $NAS4FREE_TMPDIR ] && rm -rf $NAS4FREE_TMPDIR
 	[ -f $NAS4FREE_WORKINGDIR/mfsroot.gz ] && rm -f $NAS4FREE_WORKINGDIR/mfsroot.gz
+	
+	[ -d $NAS4FREE_SVNDIR ] && use_svn ;
 
 	LABEL="${NAS4FREE_PRODUCTNAME}-${NAS4FREE_XARCH}-${NAS4FREE_VERSION}.${NAS4FREE_REVISION}"
 	VOLUMEID="${NAS4FREE_PRODUCTNAME}-${NAS4FREE_XARCH}-${NAS4FREE_VERSION}"
@@ -701,8 +709,11 @@ create_usb () {
 		echo "==> Error: ${NAS4FREE_ROOTFS} does not exist!."
 		return 1
 	fi
+	
+	[ -d $NAS4FREE_SVNDIR ] && use_svn ;
 
 	# Cleanup.
+	chflags -R noschg $NAS4FREE_TMPDIR
 	[ -d $NAS4FREE_TMPDIR ] && rm -rf $NAS4FREE_TMPDIR
 	[ -f ${NAS4FREE_WORKINGDIR}/image.bin ] && rm -f ${NAS4FREE_WORKINGDIR}/image.bin
 	[ -f ${NAS4FREE_WORKINGDIR}/image.bin.gz ] && rm -f ${NAS4FREE_WORKINGDIR}/image.bin.gz
@@ -819,6 +830,7 @@ create_usb () {
 	cd ${NAS4FREE_ROOTDIR} && sha256 ${IMGFILENAME} >> ${NAS4FREE_ROOTDIR}/${NAS4FREE_CHECKSUMFILENAME}
 
 	# Cleanup.
+	chflags -R noschg $NAS4FREE_TMPDIR
 	[ -d $NAS4FREE_TMPDIR ] && rm -rf $NAS4FREE_TMPDIR
 	[ -f $NAS4FREE_WORKINGDIR/mfsroot.gz ] && rm -f $NAS4FREE_WORKINGDIR/mfsroot.gz
 	[ -f $NAS4FREE_WORKINGDIR/image.bin ] && rm -f $NAS4FREE_WORKINGDIR/image.bin
@@ -846,6 +858,7 @@ create_full() {
 
 	echo "FULL: Generating tempory $NAS4FREE_TMPDIR folder"
 	#Clean TMP dir:
+	chflags -R noschg $NAS4FREE_TMPDIR
 	[ -d $NAS4FREE_TMPDIR ] && rm -rf $NAS4FREE_TMPDIR
 	mkdir $NAS4FREE_TMPDIR
 
@@ -924,6 +937,7 @@ create_full() {
 
 	# Cleanup.
 	echo "Cleaning tempo file"
+	chflags -R noschg $NAS4FREE_TMPDIR
 	[ -d $NAS4FREE_TMPDIR ] && rm -rf $NAS4FREE_TMPDIR
 
 	return 0

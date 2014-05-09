@@ -258,8 +258,8 @@ EOD;
 function install_system($mntpath)
 {
 	global $g;
-	
-	mwexec("/usr/bin/tar --exclude etc/inc/install.inc --exclude etc/rc.initial.install* --exclude mnt/ --exclude dev/ --exclude var/ --exclude tmp/ --exclude {$g['cf_path']}/ -c -f - -C / . | tar -xvpf - -C {$mntpath}");
+		
+	mwexec("/usr/local/bin/rsync -a --exclude=etc/inc/install.inc --exclude=etc/rc.initial.install* --exclude=mnt/ --exclude=dev/ --exclude=var/ --exclude=tmp/ --exclude={$g['cf_path']}/ / {$mntpath}");
 	// Remove autologin in /etc/ttys
 	mwexec("sed -i '' -e '/^ttyv0/ s|autologin|Pc|' {$mntpath}/etc/ttys");
 	mwexec("/bin/mkdir -p {$mntpath}/var");
