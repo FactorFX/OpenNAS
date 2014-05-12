@@ -19,9 +19,6 @@ USES=       perl5
 
 NO_BUILD=	yes
 
-post-patch:
-	@${REINPLACE_CMD} -e "s|/usr/bin/env -iS perl|${PERL}|g" ${WRKSRC}/zfs-stats
-
 do-install:
 	${INSTALL_SCRIPT} ${WRKSRC}/zfs-stats ${NAS4FREE_ROOTFS}/${PREFIX}/bin/zfs-stats
 	${INSTALL_SCRIPT} ${WRKSRC}/zfs-mon ${NAS4FREE_ROOTFS}/${PREFIX}/bin/zfs-mon
