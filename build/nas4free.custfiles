@@ -86,5 +86,4 @@ usr/local/bin/python-shared2.7:usr/local/bin/python-shared2
 usr/local/bin/idle2.7:usr/local/bin/idle2
 usr/local/bin/smtpd2.7.py:usr/local/bin/smtpd2.py
 usr/local/bin/pyhton2.7-config:usr/local/bin/pyhton2-config
-usr/local/libdata/pkgconfig/python-2.7.pc:usr/local/libdata/pkgconfig/python-2
 usr/local/lib/python2.7/

@@ -137,10 +137,6 @@ do-install:
 		${CP} -v ${WRKSRC}/$$FILE ${NAS4FREE_ROOTFS}/libexec/sssd/
 	done
 	
-	${MKDIR} -p ${NAS4FREE_ROOTFS}/usr/local/libdata/pkgconfig/
-	${CP} -v ${WRKSRC}/src/providers/ipa/ipa_hbac.pc ${NAS4FREE_ROOTFS}/usr/local/libdata/pkgconfig/
-	${CP} -v ${WRKSRC}/src/providers/ipa/sss_idmap.pc ${NAS4FREE_ROOTFS}/usr/local/libdata/pkgconfig/
-	
 	### ManPages
 	${MKDIR} -p ${NAS4FREE_ROOTFS}/usr/share/man/man1
 	for I in ${MAN.1}; \
