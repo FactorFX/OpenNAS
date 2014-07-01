@@ -29,7 +29,7 @@ MAKE_ARGS+=				LDFLAGS='${LDFLAGS} -L${LOCALBASE}/lib'
 
 USE_GETTEXT=	yes
 
-post-patch::
+post-patch:
 	@${REINPLACE_CMD} -E -e \
 		's:\$$\(libdir\)/pkgconfig:${PREFIX}/libdata/pkgconfig:' \
 		${WRKSRC}/lib/*/Makefile.in
