@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: NAS4Free\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-28 11:46+0100\n"
-"PO-Revision-Date: 2014-04-28 12:07+0100\n"
+"POT-Creation-Date: 2014-07-01 18:10+0100\n"
+"PO-Revision-Date: 2014-07-01 18:13+0100\n"
 "Last-Translator: Cédric Denis <cedric@factorfx.com>\n"
 "Language-Team: NAS4Free\n"
 "Language: \n"
@@ -854,9 +854,8 @@ msgstr "Bacula"
 
 #: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_file_daemon.php:40
 #: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_file_daemon.php:92
-#, fuzzy
 msgid "File daemon"
-msgstr "Editeur de fichiers"
+msgstr ""
 
 #: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_file_daemon.php:56
 msgid "The number of maximum concurent jobs must be between 1 and 50."
@@ -872,7 +871,7 @@ msgstr "Storage daemon"
 #: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_file_daemon.php:112
 #, php-format
 msgid "Default is %s."
-msgstr "%s par défault."
+msgstr "%s par défaut."
 
 #: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_file_daemon.php:107
 #: /home/cedric/DEV/Nas4Free/opennas/trunk/www/access_users_edit.php:211
@@ -2828,7 +2827,7 @@ msgstr "Voulez-vous vraiment formater ce disque ? Toutes les données seront pe
 #: /home/cedric/DEV/Nas4Free/opennas/trunk/www/disks_init.php:260
 #, fuzzy, php-format
 msgid "Command output"
-msgstr "Résultat de la commande:"
+msgstr "Résultat de la commande"
 
 #: /home/cedric/DEV/Nas4Free/opennas/trunk/www/diag_infos_rsync_client.php:74
 msgid "RSYNC Client informations"
@@ -5346,9 +5345,8 @@ msgid "Storage Daemon"
 msgstr "Storage Daemon"
 
 #: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_storage_daemon.php:120
-#, fuzzy
 msgid "Media type"
-msgstr "Media"
+msgstr "Type de média"
 
 #: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_storage_daemon.php:121
 msgid "Archive device"
@@ -7911,6 +7909,10 @@ msgstr "Vous pouvez spécifier la taille du bloc logique (%d par défaut)."
 msgid "The recommended length for compatibility is %d."
 msgstr "La taille recommandée pour la compatibilité est %d."
 
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_sssd.php:40
+msgid "SSSD"
+msgstr ""
+
 #: /home/cedric/DEV/Nas4Free/opennas/trunk/www/diag_infos_iscsi.php:79
 msgid "List of available target name on all configured iSCSI targets"
 msgstr "Liste des cibles disponibles sur toutes les cibles iSCSI configurées."
@@ -8460,27 +8462,27 @@ msgstr "Déconnexion"
 msgid "Static Routes"
 msgstr "Routes statiques"
 
-#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/quixplorer/_include/header.php:134
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/quixplorer/_include/header.php:135
 msgid "Users and Groups"
 msgstr "Utilisateurs et groupes"
 
-#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/quixplorer/_include/header.php:138
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/quixplorer/_include/header.php:139
 msgid "NIS"
 msgstr "NIS"
 
-#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/quixplorer/_include/header.php:146
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/quixplorer/_include/header.php:147
 msgid "Process"
 msgstr "Processus"
 
-#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/quixplorer/_include/header.php:173
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/quixplorer/_include/header.php:174
 msgid "Ping/Traceroute"
 msgstr "Ping/Traceroute"
 
-#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/quixplorer/_include/header.php:174
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/quixplorer/_include/header.php:175
 msgid "ARP Tables"
 msgstr "Tables ARP"
 
-#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/quixplorer/_include/header.php:175
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/quixplorer/_include/header.php:176
 msgid "Routes"
 msgstr "Routes"
 

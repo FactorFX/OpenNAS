@@ -125,6 +125,7 @@ $menu['services']['menuitem'][] = array("desc" => gettext("SNMP"), "link" => "..
 $menu['services']['menuitem'][] = array("desc" => gettext("UPS"), "link" => "../services_ups.php", "visible" => TRUE);
 $menu['services']['menuitem'][] = array("desc" => gettext("Bacula"), "link" => "../services_bacula_file_daemon.php", "visible" => true);
 $menu['services']['menuitem'][] = array("desc" => gettext("Ocs Inventory"), "link" => "../services_ocs_inventory_agent.php", "visible" => true);
+$menu['services']['menuitem'][] = array("desc" => gettext("SSSD"), "link" => "../services_sssd.php", "visible" => true);
 
 // Access
 $menu['access']['desc'] = gettext("Access");
@@ -207,7 +208,7 @@ function display_menu($menuid) {
 	echo "	</div>\n";
 	echo "</li>\n";
 }
-	
+
 /* QUIXPLORER CODE */
 function show_header($title) {			// header for html-page
 	header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
@@ -229,7 +230,7 @@ function show_header($title) {			// header for html-page
 	echo "<link href=\"./_style/style.css\" rel=\"stylesheet\"	type=\"text/css\">\n";
 	echo "<link href=\"../gui.css\" rel=\"stylesheet\" type=\"text/css\">\n";
 	echo "<link href=\"../navbar.css\" rel=\"stylesheet\" type=\"text/css\">\n";
-	echo "<link href=\"../tabs.css\" rel=\"stylesheet\" type=\"text/css\">\n";	
+	echo "<link href=\"../tabs.css\" rel=\"stylesheet\" type=\"text/css\">\n";
 	echo "<script type=\"text/javascript\" src=\"../js/jquery.min.js\"></script>\n";
 	echo "<script type=\"text/javascript\" src=\"../js/gui.js\"></script>\n";
 	if (isset($pglocalheader) && !empty($pglocalheader)) {
@@ -289,7 +290,7 @@ function show_header($title) {			// header for html-page
 	echo "<div style=\"clear:both\"></div>\n";
 	echo "</div>\n";
 	echo "<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />\n";
-	
+
 	// QuiXplorer Header
 	$pgtitle = array(gettext("Advanced"), gettext("File Manager"));
 	if (!isset($pgtitle_omit) || !$pgtitle_omit):
@@ -300,7 +301,7 @@ function show_header($title) {			// header for html-page
 	echo "<tbody>\n";
 	echo "<tr>\n";
 	echo "<td class=\"title\" aligh=\"left\">\n";
-	if($GLOBALS["require_login"] && isset($GLOBALS['__SESSION']["s_user"])) 
+	if($GLOBALS["require_login"] && isset($GLOBALS['__SESSION']["s_user"]))
 	echo "[".$GLOBALS['__SESSION']["s_user"]."] "; echo $title;
 	echo "</td>\n";
 	echo "<td class=\"title_version\" align=\"right\">\n";

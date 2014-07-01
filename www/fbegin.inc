@@ -115,6 +115,7 @@ $menu['services']['menuitem'][] = array("desc" => gettext("SNMP"), "link" => "se
 $menu['services']['menuitem'][] = array("desc" => gettext("UPS"), "link" => "services_ups.php", "visible" => TRUE);
 $menu['services']['menuitem'][] = array("desc" => gettext("Bacula"), "link" => "services_bacula_file_daemon.php", "visible" => true);
 $menu['services']['menuitem'][] = array("desc" => gettext("Ocs Inventory"), "link" => "services_ocs_inventory_agent.php", "visible" => true);
+$menu['services']['menuitem'][] = array("desc" => gettext("SSSD"), "link" => "services_sssd.php", "visible" => true);
 
 // Access
 $menu['access']['desc'] = gettext("Access");
@@ -219,7 +220,7 @@ function display_menu($menuid) {
 	<?php endif;?>
 	<link href="gui.css" rel="stylesheet" type="text/css" />
 	<link href="navbar.css" rel="stylesheet" type="text/css" />
-	<link href="tabs.css" rel="stylesheet" type="text/css" />	
+	<link href="tabs.css" rel="stylesheet" type="text/css" />
 	<script type="text/javascript" src="js/jquery.min.js"></script>
 	<script type="text/javascript" src="js/gui.js"></script>
 <?php

@@ -1,0 +1,54 @@
+#!/bin/sh
+#
+# $FreeBSD: head/security/sssd/files/sssd.in 354743 2014-05-21 11:46:16Z feld $
+#
+
+# PROVIDE: sssd
+# REQUIRE: DAEMON
+# BEFORE: LOGIN
+# XQUERY: -i "count(//sssd/enable) > 0" -o "0" -b
+# KEYWORD: shutdown
+# RCVAR: sssd
+
+# Add the following lines to /etc/rc.conf to enable `sssd':
+#
+# sssd_enable="YES"
+#
+# See sssd(8) for sssd_flags
+#
+
+. /etc/rc.subr
+. /etc/configxml.subr
+
+name="sssd"
+rcvar="sssd_enable"
+
+# read configuration and set defaults
+load_rc_config "$name"
+
+sssd_enable=${sssd_enable:=NO}
+sssd_conf=${sssd_conf="/var/etc/sssd/sssd.conf"}
+sssd_flags=${sssd_flags="-f -D"}
+
+command="/usr/local/sbin/$name"
+pidfile="/var/run/$name.pid"
+required_files="${sssd_conf}"
+start_precmd="sshd_mkconf"
+
+sshd_mkconf()
+{
+	for i in db/sss db/sss_mc log/sssd run/sss/krb5.include.d run/sss/private run/sss; do
+		if [ ! -d var/${i} ]; then mkdir -p /var/${i}; fi
+	done
+	
+	# Create sssd_config file
+	/usr/local/bin/xml sel -t \
+		-m "//sssd" \
+			-m "config" \
+				-v "." -n \
+			-b \
+		-b \
+		${configxml_file} | /usr/local/bin/xml unesc > ${sssd_config}
+}
+
+run_rc_command "$1"
