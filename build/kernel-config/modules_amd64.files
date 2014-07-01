@@ -2,3 +2,6 @@
 
 # ARECA SATA/SAS HBA Controller ARC1320, ARC1300
 arcsas/amd64/arcsas.ko
+
+# igb
+igb/amd64/if_igb.ko
