@@ -117,11 +117,11 @@ post-patch:
 
 do-install:
 	for FILE in ${FILES_TO_COPY}
-		${INSTALL_PROGRAM} -v ${WRKSRC}/$$FILE ${NAS4FREE_ROOTFS}/sbin/
+		${INSTALL_PROGRAM} -v ${WRKSRC}/$$FILE ${NAS4FREE_ROOTFS}/usr/local/sbin/
 	done
 	
-	${INSTALL_PROGRAM} -v ${WRKSRC}/sss_ssh_authorizedkeys ${NAS4FREE_ROOTFS}/bin/
-	${INSTALL_PROGRAM} -v ${WRKSRC}/sss_ssh_knownhostsproxy ${NAS4FREE_ROOTFS}/bin/
+	${INSTALL_PROGRAM} -v ${WRKSRC}/sss_ssh_authorizedkeys ${NAS4FREE_ROOTFS}/usr/local/bin/
+	${INSTALL_PROGRAM} -v ${WRKSRC}/sss_ssh_knownhostsproxy ${NAS4FREE_ROOTFS}/usr/local/bin/
 	
 	## Copy python package
 	${MKDIR} -p ${NAS4FREE_ROOTFS}/usr/local/lib/python${PYTHON_VER}/SSSDConfig/
@@ -132,9 +132,9 @@ do-install:
 	${CP} ${WRKSRC}/.libs/pysss.so ${NAS4FREE_ROOTFS}/usr/local/lib/python${PYTHON_VER}/
 	${CP} ${WRKSRC}/.libs/pysss_murmur.so ${NAS4FREE_ROOTFS}/usr/local/lib/python${PYTHON_VER}/
 	
-	${MKDIR} -p ${NAS4FREE_ROOTFS}/libexec/sssd/
+	${MKDIR} -p ${NAS4FREE_ROOTFS}/usr/local/libexec/sssd/
 	for FILE in ${LIBEXEC_FILES}
-		${CP} -v ${WRKSRC}/$$FILE ${NAS4FREE_ROOTFS}/libexec/sssd/
+		${CP} -v ${WRKSRC}/$$FILE ${NAS4FREE_ROOTFS}/usr/local/libexec/sssd/
 	done
 	
 	### ManPages
