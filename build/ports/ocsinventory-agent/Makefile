@@ -1,7 +1,7 @@
 # $FreeBSD: net-mgmt/ocsinventory-agent/Makefile 327757 2013-09-20 22:24:43Z bapt $
 
 PORTNAME=	Ocsinventory
-PORTVERSION=	2.1
+PORTVERSION=	2.1.1
 CATEGORIES=	net-mgmt
 MASTER_SITES=	http://launchpad.net/ocsinventory-unix-agent/stable-2.1/${PORTVERSION}/+download/
 PKGNAMESUFFIX=	-Unix-Agent
