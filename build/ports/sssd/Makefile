@@ -75,8 +75,6 @@ PORTDATA=	*
 BROKEN=		Does not link on ia64, powerpc, or sparc64
 .endif
 
-
-
 SBIN_FILES= sss_cache sss_debuglevel sss_groupadd sss_groupdel sss_groupmod sss_groupshow sss_obfuscate	\
 	sss_seed sss_useradd sss_userdel sss_usermod sssd
 
