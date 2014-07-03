@@ -19,10 +19,9 @@ MAN1=		cmdwatch.1
 do-install:
 	${INSTALL_PROGRAM} -v ${WRKSRC}/cmdwatch ${NAS4FREE_ROOTFS}/${PREFIX}/bin/
 	
-	${MKDIR} -p ${NAS4FREE_ROOTFS}/usr/share/man/man1
 	for I in ${MAN1}; \
 		do (rm -f ${WRKSRC}/$$I.gz; gzip -c ${WRKSRC}/$$I >${WRKSRC}/$$I.gz; \
-			$(INSTALL_DATA) ${WRKSRC}/$$I.gz ${NAS4FREE_ROOTFS}/usr/share/man/man1/$$I.gz; \
+			$(INSTALL_DATA) -d ${WRKSRC}/$$I.gz ${NAS4FREE_ROOTFS}/usr/share/man/man1/$$I.gz; \
 			rm -f ${WRKSRC}/$$I.gz); \
 	done
 
