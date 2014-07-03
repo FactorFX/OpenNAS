@@ -117,7 +117,8 @@ post-patch:
 	@${CP} ${FILESDIR}/sss_bsd_errno.h ${WRKSRC}/src/util/sss_bsd_errno.h
 
 do-install:
-
+	@${INSTALL_SCRIPT} -v ${FILESDIR}/sssd.in ${NAS4FREE_ROOTFS}/etc/rc.d/sssd
+	
 .for FILE in ${SBIN_FILES}
 	${INSTALL_PROGRAM} -v ${WRKSRC}/${FILE} ${NAS4FREE_ROOTFS}/usr/local/sbin/
 .endfor

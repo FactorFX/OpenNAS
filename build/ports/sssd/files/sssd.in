@@ -6,7 +6,9 @@
 # PROVIDE: sssd
 # REQUIRE: DAEMON
 # BEFORE: LOGIN
+# XQUERY: -i "count(//sssd/enable) > 0" -o "0" -b
 # KEYWORD: shutdown
+# RCVAR: sssd
 
 # Add the following lines to /etc/rc.conf to enable `sssd':
 #
@@ -16,27 +18,37 @@
 #
 
 . /etc/rc.subr
+. /etc/configxml.subr
 
-name=sssd
-rcvar=sssd_enable
+name="sssd"
+rcvar="sssd_enable"
 
 # read configuration and set defaults
 load_rc_config "$name"
 
-: ${sssd_enable:=NO}
-: ${sssd_conf="%%PREFIX%%/etc/sssd/sssd.conf"}
-: ${sssd_flags="-f -D"}
+sssd_enable=${sssd_enable:=NO}
+sssd_conf=${sssd_conf="/var/etc/sssd/sssd.conf"}
+sssd_flags=${sssd_flags="-f -D"}
 
-command="%%PREFIX%%/sbin/$name"
+command="/usr/local/sbin/$name"
 pidfile="/var/run/$name.pid"
 required_files="${sssd_conf}"
-start_precmd=sssd_prestart
+start_precmd="sshd_mkconf"
 
-sssd_prestart()
+sshd_mkconf()
 {
 	for i in db/sss db/sss_mc log/sssd run/sss/krb5.include.d run/sss/private run/sss; do
 		if [ ! -d var/${i} ]; then mkdir -p /var/${i}; fi
 	done
+	
+	# Create sssd_config file
+	/usr/local/bin/xml sel -t \
+		-m "//sssd" \
+			-m "config" \
+				-v "." -n \
+			-b \
+		-b \
+		${configxml_file} | /usr/local/bin/xml unesc > ${sssd_config}
 }
 
 run_rc_command "$1"
