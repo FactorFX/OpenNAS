@@ -6,9 +6,8 @@ MAINTAINER=		zoon01@nas4free.org
 
 MASTER_SITES=	ftp://ftp.kernel.org/pub/software/network/tftp/tftp-hpa/
 
-USE_BZIP2=		yes
 GNU_CONFIGURE=	yes
-USE_GMAKE=		yes
+USES=           gmake tar:xz
 NO_STAGE=       yes
 
 CONFIGURE_ARGS+=	--enable-largefile
@@ -23,6 +22,6 @@ post-patch:
 
 do-install:
 	@${INSTALL_SCRIPT} -v ${FILESDIR}/tftpd.in ${NAS4FREE_ROOTFS}/etc/rc.d/tftpd
-	@${INSTALL_PROGRAM} -v ${WRKSRC}/tftpd ${NAS4FREE_ROOTFS}/usr/local/libexec/in.tftpd
+	@${INSTALL_PROGRAM} -v ${WRKSRC}/tftpd/tftpd ${NAS4FREE_ROOTFS}/usr/local/libexec/in.tftpd
 
 .include <bsd.port.mk>
