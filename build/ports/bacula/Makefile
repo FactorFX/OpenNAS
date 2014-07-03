@@ -123,15 +123,16 @@ post-patch:
 
 do-install:
 	# manpages
+	$(MKDIR) ${NAS4FREE_ROOTFS}/usr/share/man/man8
 	for I in ${MAN8}; \
 		do (rm -f ${WRKSRC}/manpages/$$I.gz; gzip -c ${WRKSRC}/manpages/$$I >${WRKSRC}/manpages/$$I.gz; \
-			$(INSTALL_DATA) -d ${WRKSRC}/manpages/$$I.gz ${NAS4FREE_ROOTFS}/usr/share/man/man8/$$I.gz; \
+			$(INSTALL_DATA) ${WRKSRC}/manpages/$$I.gz ${NAS4FREE_ROOTFS}/usr/share/man/man8/$$I.gz; \
 			rm -f ${WRKSRC}/manpages/$$I.gz); \
 	done
-
+	$(MKDIR) ${NAS4FREE_ROOTFS}/usr/share/man/man1
 	for I in ${MAN1}; \
 		do (rm -f ${WRKSRC}/manpages/$$I.gz; gzip -c ${WRKSRC}/manpages/$$I >${WRKSRC}/manpages/$$I.gz; \
-			$(INSTALL_DATA) -d ${WRKSRC}/manpages/$$I.gz ${NAS4FREE_ROOTFS}/usr/share/man/man1/$$I.gz; \
+			$(INSTALL_DATA) ${WRKSRC}/manpages/$$I.gz ${NAS4FREE_ROOTFS}/usr/share/man/man1/$$I.gz; \
 			rm -f ${WRKSRC}/manpages/$$I.gz); \
 	done
 	

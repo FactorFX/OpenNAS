@@ -134,9 +134,10 @@ do-install:
 	${WRKSRC}/Config/installfns.sh || exit 1;
 
 	##manpages
+	${MKDIR} -p ${NAS4FREE_ROOTFS}/usr/share/man/man1
 	for I in ${MANPAGES}; \
 		do (rm -f ${WRKSRC}/Doc/$$I.gz; gzip -c ${WRKSRC}/Doc/$$I >${WRKSRC}/Doc/$$I.gz; \
-			$(INSTALL_DATA) -d ${WRKSRC}/Doc/$$I.gz ${NAS4FREE_ROOTFS}/usr/share/man/man1/$$I.gz; \
+			$(INSTALL_DATA) ${WRKSRC}/Doc/$$I.gz ${NAS4FREE_ROOTFS}/usr/share/man/man1/$$I.gz; \
 			rm -f ${WRKSRC}/Doc/$$I.gz); \
 	done
 	

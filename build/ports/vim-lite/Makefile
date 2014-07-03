@@ -213,9 +213,10 @@ do-install:
 	(cd ${WRKSRC}/../runtime/ && ${COPYTREE_SHARE} . ${NAS4FREE_ROOTFS}/${PREFIX}/share/vim/${_DATADIR})
 	
 	## Manpage
+	$(MKDIR) ${NAS4FREE_ROOTFS}/usr/share/man/man1
 	for I in ${MAN1}; \
 		do (rm -f ${WRKSRC}/../runtime/doc/$$I.gz; gzip -c ${WRKSRC}/../runtime/doc/$$I >${WRKSRC}/../runtime/doc/$$I.gz; \
-			$(INSTALL_DATA) -d ${WRKSRC}/../runtime/doc/$$I.gz ${NAS4FREE_ROOTFS}/usr/share/man/man1/$$I.gz; \
+			$(INSTALL_DATA) ${WRKSRC}/../runtime/doc/$$I.gz ${NAS4FREE_ROOTFS}/usr/share/man/man1/$$I.gz; \
 			rm -f ${WRKSRC}/../runtime/doc/$$I.gz); \
 	done
 

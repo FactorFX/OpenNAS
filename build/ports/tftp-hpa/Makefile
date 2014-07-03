@@ -22,6 +22,6 @@ post-patch:
 
 do-install:
 	@${INSTALL_SCRIPT} -v ${FILESDIR}/tftpd.in ${NAS4FREE_ROOTFS}/etc/rc.d/tftpd
-	@${INSTALL_PROGRAM} -dv ${WRKSRC}/tftpd/tftpd ${NAS4FREE_ROOTFS}/usr/local/libexec/in.tftpd
+	@${INSTALL_PROGRAM} -v ${WRKSRC}/tftpd/tftpd ${NAS4FREE_ROOTFS}/usr/local/libexec/in.tftpd
 
 .include <bsd.port.mk>
