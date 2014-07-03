@@ -39,6 +39,7 @@ do-install:
 	${INSTALL_PROGRAM} -v ${WRKSRC}/ksh ${NAS4FREE_ROOTFS}/bin/
 
 	#manpages
+	${MKDIR} -v ${NAS4FREE_ROOTFS}/usr/share/man/man1
 	for I in ${MAN1}; \
 		do (rm -f ${WRKSRC}/$$I.gz; gzip -c ${WRKSRC}/$$I >${WRKSRC}/$$I.gz; \
 			$(INSTALL_DATA) ${WRKSRC}/$$I.gz ${NAS4FREE_ROOTFS}/usr/share/man/man1/$$I.gz; \
