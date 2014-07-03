@@ -11,13 +11,13 @@
 	All rights reserved.
 
 	Redistribution and use in source and binary forms, with or without
-	modification, are permitted provided that the following conditions are met: 
+	modification, are permitted provided that the following conditions are met:
 
 	1. Redistributions of source code must retain the above copyright notice, this
-	   list of conditions and the following disclaimer. 
+	   list of conditions and the following disclaimer.
 	2. Redistributions in binary form must reproduce the above copyright notice,
 	   this list of conditions and the following disclaimer in the documentation
-	   and/or other materials provided with the distribution. 
+	   and/or other materials provided with the distribution.
 
 	THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 	ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -31,7 +31,7 @@
 	SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 	The views and conclusions contained in the software and documentation are those
-	of the authors and should not be interpreted as representing official policies, 
+	of the authors and should not be interpreted as representing official policies,
 	either expressed or implied, of the NAS4Free Project.
 */
 require("auth.inc");
@@ -56,8 +56,8 @@ if ($_POST) {
 		$pconfig['devicerandomaccess'] = isset($pconfig['devicerandomaccess']) ? 'yes' : 'no';
 		$pconfig['deviceremovablemedia'] = isset($pconfig['deviceremovablemedia']) ? 'yes' : 'no';
 		$pconfig['devicealwaysopen'] = isset($pconfig['devicealwaysopen']) ? 'yes' : 'no';
-	}    
-	
+	}
+
 	write_config();
 
 	$retval = 0;
@@ -78,12 +78,13 @@ function enable_change(enable_change) {
 	document.iform.storageport.disabled = endis;
 	document.iform.storagemaxjobs.disabled = endis;
 	document.iform.directorname.disabled = endis;
-	document.iform.directorpassword.disabled = endis;	
+	document.iform.directorpassword.disabled = endis;
 	document.iform.devicename.disabled = endis;
 	document.iform.devicemediatype.disabled = endis;
 	document.iform.devicearchivepath.disabled = endis;
+	document.iform.devicelabelmedia.disabled = endis;
 	document.iform.devicerandomaccess.disabled = endis;
-	document.iform.devicealwaysopen.disabled = endis;	
+	document.iform.devicealwaysopen.disabled = endis;
 }
 //-->
 </script>
@@ -101,22 +102,22 @@ function enable_change(enable_change) {
 			<form action="<?php $_SERVER['PHP_SELF'];?>" method="post" name="iform" id="iform">
 				<?php if (!empty($input_errors)) print_input_errors($input_errors);?>
 				<?php if (!empty($savemsg)) print_info_box($savemsg);?>
-				<table width="100%" border="0" cellpadding="6" cellspacing="0">					
+				<table width="100%" border="0" cellpadding="6" cellspacing="0">
 					<?php html_titleline_checkbox("enable", gettext("Bacula"), !empty($pconfig['enable']) ? true : false, gettext("Enable"), "enable_change(false)");?>
 					<?php html_separator()?>
 					<?php html_titleline("Storage");?>
 					<?php html_inputbox("storagename", gettext("Name"), $pconfig['storagename'], sprintf(gettext("Default is %s."), "OPENNAS-STORAGE-bacula"), true, 40);?>
 					<?php html_combobox("storageport", gettext("Port"), $pconfig['storageport'], array_combine($bacula_port_range, $bacula_port_range), sprintf(gettext("Default is %s."), "9103"), true)?>
 					<?php html_inputbox("storagemaxjobs", gettext("Maximum Concurrent Jobs"), $pconfig['storagemaxjobs'], sprintf(gettext("Default is %s."), "20"), true, 4)?>
-					
+
 					<?php html_separator()?>
 					<?php html_titleline("Director");?>
 					<?php html_inputbox("directorname", gettext("Name"), $pconfig['directorname'], sprintf(gettext("Default is %s."), "OPENNAS-DIRECTOR-bacula"), true, 40);?>
 					<?php html_passwordbox("directorpassword", gettext("Password"), $pconfig['directorpassword'], '', true, 40);?>
-				
+
 					<?php html_separator()?>
 					<?php html_titleline("Device");?>
-					<?php html_inputbox("devicename", gettext("Name"), $pconfig['devicename'], sprintf(gettext("Default is %s."), "OPENNAS-DEVICE-default"), true, 40);?>											
+					<?php html_inputbox("devicename", gettext("Name"), $pconfig['devicename'], sprintf(gettext("Default is %s."), "OPENNAS-DEVICE-default"), true, 40);?>
 					<?php html_combobox("devicemediatype", gettext("Media type"), $pconfig['devicemediatype'], array_combine($bacula_type, $bacula_type), sprintf(gettext("Default is %s."), "File"), true)?>
 					<?php html_filechooser("devicearchivepath", gettext("Archive device"), $pconfig['devicearchivepath'], '', '/mnt', true); ?>
 					<?php html_checkbox("devicelabelmedia", gettext("Label media"), ($pconfig['devicelabelmedia']) == 'yes' ? true : false, gettext("Labeled the media")); ?>
