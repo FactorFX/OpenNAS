@@ -19,6 +19,8 @@ MAN.8= pam_sss.8 sss_cache.8 sss_debuglevel.8 sss_groupadd.8 sss_groupdel.8 sss_
 	sss_groupshow.8 sss_obfuscate.8 sss_seed.8 sss_useradd.8 sss_userdel.8 sss_usermod.8 sssd.8 \
 	sssd_krb5_locator_plugin.8
 
+MANS= ${MAN.1} ${MAN.5} ${MAN.8}
+
 LIB_DEPENDS=	libpopt.so:${PORTSDIR}/devel/popt \
 		libtalloc.so:${PORTSDIR}/devel/talloc \
 		libtevent.so:${PORTSDIR}/devel/tevent \
@@ -75,8 +77,7 @@ PORTDATA=	*
 BROKEN=		Does not link on ia64, powerpc, or sparc64
 .endif
 
-SBIN_FILES= sss_cache sss_debuglevel sss_groupadd sss_groupdel sss_groupmod sss_groupshow sss_obfuscate	\
-	sss_seed sss_useradd sss_userdel sss_usermod sssd
+SBIN_FILES= sss_cache sss_debuglevel sss_groupadd sss_groupdel sss_groupmod sss_groupshow sss_seed sss_useradd sss_userdel sss_usermod sssd
 
 LIBEXEC_FILES= krb5_child ldap_child proxy_child sssd_be sssd_nss sssd_pam sssd_ssh sssd_sudo
 
@@ -116,13 +117,16 @@ post-patch:
 	@${CP} ${FILESDIR}/sss_bsd_errno.h ${WRKSRC}/src/util/sss_bsd_errno.h
 
 do-install:
-	for FILE in ${SBIN_FILES}
-		${INSTALL_PROGRAM} -v ${WRKSRC}/$$FILE ${NAS4FREE_ROOTFS}/usr/local/sbin/
-	done
+
+.for FILE in ${SBIN_FILES}
+	${INSTALL_PROGRAM} -v ${WRKSRC}/${FILE} ${NAS4FREE_ROOTFS}/usr/local/sbin/
+.endfor
 	
+	${INSTALL_SCRIPT} -v ${WRKSRC}/src/tools/sss_obfuscate ${NAS4FREE_ROOTFS}/usr/local/sbin/
+
 	${INSTALL_PROGRAM} -v ${WRKSRC}/sss_ssh_authorizedkeys ${NAS4FREE_ROOTFS}/usr/local/bin/
 	${INSTALL_PROGRAM} -v ${WRKSRC}/sss_ssh_knownhostsproxy ${NAS4FREE_ROOTFS}/usr/local/bin/
-	
+
 	## Copy python package
 	${MKDIR} -p ${NAS4FREE_ROOTFS}/usr/local/lib/python${PYTHON_VER}/SSSDConfig/
 	${CP} ${WRKSRC}/src/config/SSSDConfig/__init__.py ${NAS4FREE_ROOTFS}/usr/local/lib/python${PYTHON_VER}/SSSDConfig/
@@ -132,31 +136,36 @@ do-install:
 	${CP} ${WRKSRC}/.libs/pysss.so ${NAS4FREE_ROOTFS}/usr/local/lib/python${PYTHON_VER}/
 	${CP} ${WRKSRC}/.libs/pysss_murmur.so ${NAS4FREE_ROOTFS}/usr/local/lib/python${PYTHON_VER}/
 	
-	${MKDIR} -p ${NAS4FREE_ROOTFS}/usr/local/libexec/sssd/
-	for FILE in ${LIBEXEC_FILES}
-		${CP} -v ${WRKSRC}/$$FILE ${NAS4FREE_ROOTFS}/usr/local/libexec/sssd/
-	done
+	${MKDIR} ${NAS4FREE_ROOTFS}/usr/local/libexec/sssd/
+	${INSTALL_PROGRAM} -v ${WRKSRC}/sssd ${NAS4FREE_ROOTFS}/usr/local/libexec/sssd/
+	
+.for FILE in ${LIBEXEC_FILES}
+	${CP} -v ${WRKSRC}/${FILE} ${NAS4FREE_ROOTFS}/usr/local/libexec/sssd/
+.endfor
 	
 	### ManPages
-	${MKDIR} -p ${NAS4FREE_ROOTFS}/usr/share/man/man1
+	${MKDIR} ${NAS4FREE_ROOTFS}/usr/share/man/man1
+	${MKDIR} ${NAS4FREE_ROOTFS}/usr/share/man/man5
+	${MKDIR} ${NAS4FREE_ROOTFS}/usr/share/man/man8
+	
+	for I in ${MANS}; \
+		do (rm -f ${WRKSRC}/src/man/$$I.gz; gzip -c ${WRKSRC}/src/man/$$I >${WRKSRC}/src/man/$$I.gz;); \
+	done
+	
 	for I in ${MAN.1}; \
-		do (rm -f ${WRKSRC}/src/man/$$I.gz; gzip -c ${WRKSRC}/src/man/$$I >${WRKSRC}/src/man/$$I.gz; \
-			$(INSTALL_DATA) ${WRKSRC}/Doc/$$I.gz ${NAS4FREE_ROOTFS}/usr/share/man/man1/$$I.gz; \
-			rm -f ${WRKSRC}/Doc/$$I.gz); \
+		do ($(INSTALL_DATA) ${WRKSRC}/src/man/$$I.gz ${NAS4FREE_ROOTFS}/usr/share/man/man1/$$I.gz;); \
 	done
 	
-	${MKDIR} -p ${NAS4FREE_ROOTFS}/usr/share/man/man5
 	for I in ${MAN.5}; \
-		do (rm -f ${WRKSRC}/src/man/$$I.gz; gzip -c ${WRKSRC}/src/man/$$I >${WRKSRC}/src/man/$$I.gz; \
-			$(INSTALL_DATA) ${WRKSRC}/Doc/$$I.gz ${NAS4FREE_ROOTFS}/usr/share/man/man1/$$I.gz; \
-			rm -f ${WRKSRC}/Doc/$$I.gz); \
+		do ($(INSTALL_DATA) ${WRKSRC}/src/man/$$I.gz ${NAS4FREE_ROOTFS}/usr/share/man/man5/$$I.gz;); \
 	done
 	
-	${MKDIR} -p ${NAS4FREE_ROOTFS}/usr/share/man/man8
 	for I in ${MAN.8}; \
-		do (rm -f ${WRKSRC}/src/man/$$I.gz; gzip -c ${WRKSRC}/src/man/$$I >${WRKSRC}/src/man/$$I.gz; \
-			$(INSTALL_DATA) ${WRKSRC}/Doc/$$I.gz ${NAS4FREE_ROOTFS}/usr/share/man/man1/$$I.gz; \
-			rm -f ${WRKSRC}/Doc/$$I.gz); \
+		do ($(INSTALL_DATA) ${WRKSRC}/src/man/$$I.gz ${NAS4FREE_ROOTFS}/usr/share/man/man8/$$I.gz;); \
+	done
+	
+	for I in ${MANS}; \
+		do (rm -f ${WRKSRC}/src/man/$$I.gz;); \
 	done
 
 .include <bsd.port.mk>
