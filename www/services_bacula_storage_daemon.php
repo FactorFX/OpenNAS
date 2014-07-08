@@ -39,52 +39,150 @@ require("guiconfig.inc");
 
 $pgtitle = array(gettext("Services"), gettext("Bacula"), gettext("Storage Daemon"));
 
-$pconfig = &$config['bacula_sd'];
-
-if (!isset($pconfig) || !is_array($pconfig))
-    $pconfig = array();
+if (!isset($config['bacula_sd']) || !is_array($config['bacula_sd']))
+	$config['bacula_sd'] = array();
 
 $bacula_port_range = array( '9101', '9102', '9103');
 $bacula_type = array('File', 'tape', 'Fifo', 'DVD');
 
-if ($_POST) {
-	unset($_POST['Submit'], $_POST['authtoken']);
+$pconfig['storagename'] = !empty($config['bacula_sd']['storagename']) ? $config['bacula_sd']['storagename'] : "OPENNAS-STORAGE-bacula";
+$pconfig['storageport'] = !empty($config['bacula_sd']['storageport']) ? $config['bacula_sd']['storageport'] : $bacula_port_range[1];
+$pconfig['storagemaxjobs'] = !empty($config['bacula_sd']['storagemaxjobs']) ? $config['bacula_sd']['storagemaxjobs'] : "20";
+$pconfig['directorname'] = !empty($config['bacula_sd']['directorname']) ? $config['bacula_sd']['directorname'] : "OPENNAS-DIRECTOR-bacula";
+$pconfig['directorpassword'] = !empty($config['bacula_sd']['directorpassword']) ? $config['bacula_sd']['directorpassword'] : "";
+$pconfig['enable'] = isset($config['bacula_sd']['enable']);
 
+if (!isset($config['bacula_sd']['device'])) {
+	$pconfig['device'][0] = array();
+}
+elseif(!isset($_POST['add_device']) && !isset($_POST['remove_device'])) {
+	$pconfig['device'] = $config['bacula_sd']['device'];
+}elseif (isset($_POST['add_device'])) {echo 'add';
+	$pconfig['device'] = $_POST['device'];
+	$pconfig['device'][] = array();
+}elseif(isset($_POST['remove_device'])){echo 'remove';
+	$pconfig['device'] = $_POST['device'];
+	unset($pconfig['device'][$_POST['remove_device']]);
+}
+
+foreach ($pconfig['device'] as $nb_device => $device) {
+	$pconfig['device'][$nb_device]['name'] = !empty($device['name']) ? $device['name'] : "OPENNAS-DEVICE-default";
+	$pconfig['device'][$nb_device]['mediatype'] = !empty($device['mediatype']) ? $device['mediatype'] : $bacula_type[0];
+	$pconfig['device'][$nb_device]['archivepath'] = !empty($device['archivepath']) ? $device['archivepath'] : "";
+	$pconfig['device'][$nb_device]['labelmedia'] = isset($device['labelmedia']);
+	$pconfig['device'][$nb_device]['randomaccess'] = isset($device['randomaccess']);
+	$pconfig['device'][$nb_device]['removablemedia'] = isset($device['removablemedia']);
+	$pconfig['device'][$nb_device]['alwaysopen'] = isset($device['alwaysopen']);
+}
+
+if (isset($_POST['Submit']) && $_POST['Submit']) {
+	unset($input_errors);
 	$pconfig = $_POST;
+
+	/* input validation */
+	$reqdfields = array();
+	$reqdfieldsn = array();
+
 	if (isset($_POST['enable']) && $_POST['enable']) {
-        $pconfig['devicelabelmedia'] = isset($pconfig['devicealwaysopen']) ? 'yes' : 'no';
-		$pconfig['devicerandomaccess'] = isset($pconfig['devicerandomaccess']) ? 'yes' : 'no';
-		$pconfig['deviceremovablemedia'] = isset($pconfig['deviceremovablemedia']) ? 'yes' : 'no';
-		$pconfig['devicealwaysopen'] = isset($pconfig['devicealwaysopen']) ? 'yes' : 'no';
+
+		$reqdfields = array_merge($reqdfields, explode(" ", "storagename"));
+		$reqdfieldsn = array_merge($reqdfieldsn, array(gettext("Storage Name")));
+		$reqdfieldst = explode(" ", "string");
+
+		$reqdfields = array_merge($reqdfields, array("directorname"));
+		$reqdfieldsn = array_merge($reqdfieldsn, array(gettext("Director Name")));
+		$reqdfieldst = array_merge($reqdfieldst, array("string"));
+
+		$reqdfields = array_merge($reqdfields, array("directorpassword"));
+		$reqdfieldsn = array_merge($reqdfieldsn, array(gettext("Director Password")));
+		$reqdfieldst = array_merge($reqdfieldst, array("password"));
+
+		if (!in_array($_POST['storageport'], $bacula_port_range)) {
+			$input_errors[] = gettext("The port number must be ".implode(', ', $bacula_port_range));
+		}
+
+		foreach ($_POST['device'] as $id => $device) {
+			$sub = gettext("Device") . ' n° ' . ($id+1) . ' : ';
+			if (!in_array($device['mediatype'], $bacula_type)) {
+				$input_errors[] = $sub. gettext("The media type must be ".implode(', ', $bacula_type));
+			}
+			if (empty($device['archivepath'])) {
+				$input_errors[] = $sub . gettext("Archive path cannot be empty");
+			}
+		}
 	}
 
-	write_config();
+	do_input_validation($_POST, $reqdfields, $reqdfieldsn, $input_errors);
+	do_input_validation_type($_POST, $reqdfields, $reqdfieldsn, $reqdfieldst, $input_errors);
 
-	$retval = 0;
-	if (!file_exists($d_sysrebootreqd_path)) {
+	if (empty($input_errors)) {
+		$config['bacula_sd']['storagename'] = $_POST['storagename'];
+		$config['bacula_sd']['storageport'] = $_POST['storageport'];
+		$config['bacula_sd']['storagemaxjobs'] = $_POST['storagemaxjobs'];
+		$config['bacula_sd']['directorname'] = $_POST['directorname'];
+		$config['bacula_sd']['directorpassword'] = $_POST['directorpassword'];
+
+		unset($config['bacula_sd']['device']);
+		foreach ($_POST['device'] as $device_nb => $device) {
+			$config['bacula_sd']['device'][$device_nb]['name'] = $_POST['device'][$device_nb]['name'];
+			$config['bacula_sd']['device'][$device_nb]['mediatype'] = $_POST['device'][$device_nb]['mediatype'];
+			$config['bacula_sd']['device'][$device_nb]['archivepath'] = $_POST['device'][$device_nb]['archivepath'];
+			$config['bacula_sd']['device'][$device_nb]['labelmedia'] = isset($_POST['device'][$device_nb]['labelmedia']) ? true : false;
+			$config['bacula_sd']['device'][$device_nb]['randomaccess'] = isset($_POST['device'][$device_nb]['randomaccess']) ? true : false;
+			$config['bacula_sd']['device'][$device_nb]['removablemedia'] = isset($_POST['device'][$device_nb]['removablemedia']) ? true : false;
+			$config['bacula_sd']['device'][$device_nb]['alwaysopen'] = isset($_POST['device'][$device_nb]['alwaysopen']) ? true : false;
+		}
+
+		$config['bacula_sd']['enable'] = isset($_POST['enable']) ? true : false;
+
+		write_config();
+
+		$retval = 0;
+		if (!file_exists($d_sysrebootreqd_path)) {
 		config_lock();
 		$retval |= rc_update_service("bacula_sd");
 		config_unlock();
+		}
+		$savemsg = get_std_save_message($retval);
 	}
-	$savemsg = get_std_save_message($retval);
 }
 ?>
 <?php include("fbegin.inc");?>
 <script type="text/javascript">
 <!--
 function enable_change(enable_change) {
-	var endis = !(document.iform.enable.checked || enable_change);
+	var endis = !(document.iform.enable.checked || enable_change),
+	device_length = <?= count($pconfig['device'])?>;
 	document.iform.storagename.disabled = endis;
 	document.iform.storageport.disabled = endis;
 	document.iform.storagemaxjobs.disabled = endis;
 	document.iform.directorname.disabled = endis;
 	document.iform.directorpassword.disabled = endis;
-	document.iform.devicename.disabled = endis;
-	document.iform.devicemediatype.disabled = endis;
-	document.iform.devicearchivepath.disabled = endis;
-	document.iform.devicelabelmedia.disabled = endis;
-	document.iform.devicerandomaccess.disabled = endis;
-	document.iform.devicealwaysopen.disabled = endis;
+
+	for (var i = 0; i < device_length; i++) {
+		document.getElementById("device["+i+"][name]").disabled = endis;
+		document.getElementById("device["+i+"][mediatype]").disabled = endis;
+		document.getElementById("device_"+i+"_archivepath").disabled = endis;
+		document.getElementById("device["+i+"][labelmedia]").disabled = endis;
+		document.getElementById("device["+i+"][randomaccess]").disabled = endis;
+		document.getElementById("device["+i+"][alwaysopen]").disabled = endis;
+	}
+
+	$('a#add_device').click(function(){
+		$('#iform').append('<input type="hidden" name="add_device" value="1">').submit();
+	});
+	$('a[id^=remove_device]').click(function(){
+		if (confirm('<?=gettext("Do you really want to delete this device?");?>')) {
+			var id = /_(\d+)+$/.exec(this.id)[1];
+			$('#iform').append('<input type="hidden" name="remove_device" value="'+id+'">').submit();
+		}
+	});
+	$('#iform').submit(function(e){
+		$('input[id$="_archivepath"]').attr('name', function(){
+			console.log(this.name.replace(/device_/, 'device[').replace(/_archivepath/, '][archivepath]'));
+			return this.name.replace(/device_/, 'device[').replace(/_archivepath/, '][archivepath]');
+		});
+	});
 }
 //-->
 </script>
@@ -116,14 +214,28 @@ function enable_change(enable_change) {
 					<?php html_passwordbox("directorpassword", gettext("Password"), $pconfig['directorpassword'], '', true, 40);?>
 
 					<?php html_separator()?>
-					<?php html_titleline("Device");?>
-					<?php html_inputbox("devicename", gettext("Name"), $pconfig['devicename'], sprintf(gettext("Default is %s."), "OPENNAS-DEVICE-default"), true, 40);?>
-					<?php html_combobox("devicemediatype", gettext("Media type"), $pconfig['devicemediatype'], array_combine($bacula_type, $bacula_type), sprintf(gettext("Default is %s."), "File"), true)?>
-					<?php html_filechooser("devicearchivepath", gettext("Archive device"), $pconfig['devicearchivepath'], '', '/mnt', true); ?>
-					<?php html_checkbox("devicelabelmedia", gettext("Label media"), ($pconfig['devicelabelmedia']) == 'yes' ? true : false, gettext("Labeled the media")); ?>
-					<?php html_checkbox("devicerandomaccess", gettext("Random access"), ($pconfig['devicerandomaccess']) == 'yes' ? true : false, gettext("The Storage daemon will submit a Mount Command before attempting to open the device")); ?>
-					<?php html_checkbox("deviceremovablemedia", gettext("Removable media"), ($pconfig['deviceremovablemedia']) == 'yes' ? true : false, gettext("This device supports removable media")); ?>
-					<?php html_checkbox("devicealwaysopen", gettext("Always open"), ($pconfig['devicealwaysopen']) == 'yes' ? true : false, gettext("Keep the device open")); ?>
+					<?php foreach ($pconfig['device'] as $id => $device):?>
+						<?php $device_nb = $id+1;?>
+						<?php html_titleline("Device $device_nb");?>
+						<?php html_inputbox("device[$id][name]", gettext("Name"), $pconfig['device'][$id]['name'], sprintf(gettext("Default is %s."), "OPENNAS-DEVICE-default"), true, 40);?>
+						<?php html_combobox("device[$id][mediatype]", gettext("Media type"), $pconfig['device'][$id]['mediatype'], array_combine($bacula_type, $bacula_type), sprintf(gettext("Default is %s."), "File"), true)?>
+						<?php html_filechooser("device_".$id."_archivepath", gettext("Archive device"), $pconfig['device'][$id]['archivepath'], '', '/mnt', true); ?>
+						<?php html_checkbox("device[$id][labelmedia]", gettext("Label media"), !empty($pconfig['device'][$id]['labelmedia']), gettext("Labeled the media")); ?>
+						<?php html_checkbox("device[$id][randomaccess]", gettext("Random access"), !empty($pconfig['device'][$id]['randomaccess']), gettext("The Storage daemon will submit a Mount Command before attempting to open the device")); ?>
+						<?php html_checkbox("device[$id][removablemedia]", gettext("Removable media"), !empty($pconfig['device'][$id]['removablemedia']), gettext("This device supports removable media")); ?>
+						<?php html_checkbox("device[$id][alwaysopen]", gettext("Always open"), !empty($pconfig['device'][$id]['alwaysopen']), gettext("Keep the device open")); ?>
+						<?php if($id !== 0):?>
+						<tr>
+							<td class="list"><a href="#" id="remove_device_<?=$id?>"><img src="del.gif" title="<?=gettext("Add device");?>" border="0" alt="<?=gettext("Add device");?>" /></a></td>
+						</tr>
+						<?php endif;?>
+						<?php html_separator()?>
+					<?php endforeach;?>
+					<tr>
+						<td class="list" colspan="3"></td>
+						<td class="list"><a href="#" id="add_device"><img src="plus.gif" title="<?=gettext("Add device");?>" border="0" alt="<?=gettext("Add device");?>" /></a></td>
+					</tr>
+
 				</table>
 				<div id="submit">
 					<input name="Submit" type="submit" class="formbtn" value="<?=gettext("Save and Restart");?>" onclick="enable_change(true)" />

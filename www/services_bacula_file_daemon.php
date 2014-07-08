@@ -11,13 +11,13 @@
 	All rights reserved.
 
 	Redistribution and use in source and binary forms, with or without
-	modification, are permitted provided that the following conditions are met: 
+	modification, are permitted provided that the following conditions are met:
 
 	1. Redistributions of source code must retain the above copyright notice, this
-	   list of conditions and the following disclaimer. 
+	   list of conditions and the following disclaimer.
 	2. Redistributions in binary form must reproduce the above copyright notice,
 	   this list of conditions and the following disclaimer in the documentation
-	   and/or other materials provided with the distribution. 
+	   and/or other materials provided with the distribution.
 
 	THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 	ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -31,7 +31,7 @@
 	SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 	The views and conclusions contained in the software and documentation are those
-	of the authors and should not be interpreted as representing official policies, 
+	of the authors and should not be interpreted as representing official policies,
 	either expressed or implied, of the NAS4Free Project.
 */
 require("auth.inc");
@@ -39,37 +39,71 @@ require("guiconfig.inc");
 
 $pgtitle = array(gettext("Services"), gettext("Bacula"), gettext("File daemon"));
 
-$pconfig = &$config['bacula_fd'];
-
-if (!isset($pconfig) || !is_array($pconfig)) {
-    $pconfig = array();
-}
+if (!isset($config['bacula_fd']) || !is_array($config['bacula_fd']))
+	$config['bacula_fd'] = array();
 
 $bacula_port_range = array( '9101', '9102', '9103');
 
+$pconfig['directorname'] = !empty($config['bacula_fd']['directorname']) ? $config['bacula_fd']['directorname'] : "OPENNAS-DIRECTOR-bacula";
+$pconfig['directorpassword'] = !empty($config['bacula_fd']['directorpassword']) ? $config['bacula_fd']['directorpassword'] : "";
+$pconfig['filedaemonname'] = !empty($config['bacula_fd']['filedaemonname']) ? $config['bacula_fd']['filedaemonname'] : "OPENNAS-CLIENT-bacula";
+$pconfig['filedaemonport'] = !empty($config['bacula_fd']['filedaemonport']) ? $config['bacula_fd']['filedaemonport'] : $bacula_port_range[0];
+$pconfig['filedaemonmaxjobs'] = !empty($config['bacula_fd']['filedaemonmaxjobs']) ? $config['bacula_fd']['filedaemonmaxjobs'] : "20";
+$pconfig['enable'] = isset($config['bacula_fd']['enable']);
+
 if ($_POST) {
-	unset($input_errors, $_POST['Submit'], $_POST['authtoken']);
+	unset($input_errors);
+	$pconfig = $_POST;
+
+	/* input validation */
+	$reqdfields = array();
+	$reqdfieldsn = array();
 
 	if (isset($_POST['enable']) && $_POST['enable']) {
+
+		$reqdfields = array_merge($reqdfields, explode(" ", "directorname"));
+		$reqdfieldsn = array_merge($reqdfieldsn, array(gettext("Director Name")));
+		$reqdfieldst = explode(" ", "string");
+
+		$reqdfields = array_merge($reqdfields, array("directorpassword"));
+		$reqdfieldsn = array_merge($reqdfieldsn, array(gettext("Director Password")));
+		$reqdfieldst = array_merge($reqdfieldst, array("password"));
+
+		$reqdfields = array_merge($reqdfields, array("filedaemonname"));
+		$reqdfieldsn = array_merge($reqdfieldsn, array(gettext("File Daemon Name")));
+		$reqdfieldst = array_merge($reqdfieldst, array("string"));
 
 		if ((1 > $_POST['filedaemonmaxjobs']) || (50 < $_POST['filedaemonmaxjobs'])) {
 			$input_errors[] = gettext("The number of maximum concurent jobs must be between 1 and 50.");
 		}
-	}
-	
-    if (empty($input_errors)) {
-    	$pconfig = $_POST;            
-    }
-	
-    write_config();
 
-    $retval = 0;
-    if (!file_exists($d_sysrebootreqd_path)) {
-      	config_lock();
-        $retval |= rc_update_service("bacula_fd");
-        config_unlock();
-    }
-    $savemsg = get_std_save_message($retval);
+		if (!in_array($_POST['filedaemonport'], $bacula_port_range)) {
+			$input_errors[] = gettext("The port number must be ".implode(', ', $bacula_port_range));
+		}
+	}
+
+	do_input_validation($_POST, $reqdfields, $reqdfieldsn, $input_errors);
+	do_input_validation_type($_POST, $reqdfields, $reqdfieldsn, $reqdfieldst, $input_errors);
+
+	if (empty($input_errors)) {
+		$config['bacula_fd']['directorname'] = $_POST['directorname'];
+		$config['bacula_fd']['directorpassword'] = $_POST['directorpassword'];
+		$config['bacula_fd']['filedaemonname'] = $_POST['filedaemonname'];
+		$config['bacula_fd']['filedaemonport'] = $_POST['filedaemonport'];
+		$config['bacula_fd']['filedaemonmaxjobs'] = $_POST['filedaemonmaxjobs'];
+		$config['bacula_fd']['enable'] = isset($_POST['enable']) ? true : false;
+
+		write_config();
+
+		$retval = 0;
+		if (!file_exists($d_sysrebootreqd_path)) {
+			config_lock();
+			$retval |= rc_update_service("bacula_fd");
+			config_unlock();
+		}
+		$savemsg = get_std_save_message($retval);
+	}
+
 }
 ?>
 <?php include("fbegin.inc");?>
@@ -81,7 +115,7 @@ function enable_change(enable_change) {
 	document.iform.directorpassword.disabled = endis;
 	document.iform.filedaemonname.disabled = endis;
 	document.iform.filedaemonport.disabled = endis;
-	document.iform.filedaemonmaxjobs.disabled = endis;	
+	document.iform.filedaemonmaxjobs.disabled = endis;
 }
 //-->
 </script>

@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: NAS4Free\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-01 18:10+0100\n"
-"PO-Revision-Date: 2014-07-01 18:13+0100\n"
+"POT-Creation-Date: 2014-07-08 16:05+0100\n"
+"PO-Revision-Date: 2014-07-08 16:11+0100\n"
 "Last-Translator: Cédric Denis <cedric@factorfx.com>\n"
 "Language-Team: NAS4Free\n"
 "Language: \n"
@@ -69,7 +69,7 @@ msgstr "Cibles"
 #: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_hast_resource.php:95
 #: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_hast_resource.php:144
 #: /home/cedric/DEV/Nas4Free/opennas/trunk/www/disks_manage_edit.php:186
-#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_file_daemon.php:92
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_file_daemon.php:126
 #: /home/cedric/DEV/Nas4Free/opennas/trunk/www/disks_zfs_zpool.php:107
 #: /home/cedric/DEV/Nas4Free/opennas/trunk/www/disks_zfs_zpool.php:119
 #: /home/cedric/DEV/Nas4Free/opennas/trunk/www/disks_raid_graid5_edit.php:141
@@ -249,8 +249,8 @@ msgid "Path"
 msgstr "Chemin d'accès"
 
 #: /home/cedric/DEV/Nas4Free/opennas/trunk/www/disks_zfs_snapshot_auto.php:167
-#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_file_daemon.php:106
-#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_file_daemon.php:110
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_file_daemon.php:140
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_file_daemon.php:144
 #: /home/cedric/DEV/Nas4Free/opennas/trunk/www/disks_zfs_zpool.php:133
 #: /home/cedric/DEV/Nas4Free/opennas/trunk/www/access_users_edit.php:91
 #: /home/cedric/DEV/Nas4Free/opennas/trunk/www/access_users_edit.php:209
@@ -470,7 +470,7 @@ msgid "Scheduled shutdown"
 msgstr "Arrêt programmé"
 
 #: /home/cedric/DEV/Nas4Free/opennas/trunk/www/shutdown_sched.php:144
-#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_file_daemon.php:103
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_file_daemon.php:137
 msgid "Enable"
 msgstr "Activer"
 
@@ -848,45 +848,61 @@ msgid "Leave '%s' for unformated disks and format them using <a href='%s'>format
 msgstr "Laisser '%s' pour les disques non formatés et les formater en utilisant le menu <a href='%s'>format</a>."
 
 #: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_file_daemon.php:40
-#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_file_daemon.php:103
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_file_daemon.php:137
 msgid "Bacula"
 msgstr "Bacula"
 
 #: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_file_daemon.php:40
-#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_file_daemon.php:92
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_file_daemon.php:126
 msgid "File daemon"
 msgstr ""
 
-#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_file_daemon.php:56
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_file_daemon.php:65
+msgid "Director Name"
+msgstr "Nom du Director"
+
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_file_daemon.php:69
+msgid "Director Password"
+msgstr "Mot de passe du Director"
+
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_file_daemon.php:73
+msgid "File Daemon Name"
+msgstr "Nom du File Daemon"
+
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_file_daemon.php:77
 msgid "The number of maximum concurent jobs must be between 1 and 50."
 msgstr "Le nombre de travaux concurents doit être entre 1 et 50."
 
-#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_file_daemon.php:93
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_file_daemon.php:81
+msgid "The port number must be "
+msgstr "Le port doit être"
+
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_file_daemon.php:127
 msgid "Storage daemon"
 msgstr "Storage daemon"
 
-#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_file_daemon.php:106
-#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_file_daemon.php:110
-#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_file_daemon.php:111
-#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_file_daemon.php:112
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_file_daemon.php:140
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_file_daemon.php:144
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_file_daemon.php:145
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_file_daemon.php:146
 #, php-format
 msgid "Default is %s."
 msgstr "%s par défaut."
 
-#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_file_daemon.php:107
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_file_daemon.php:141
 #: /home/cedric/DEV/Nas4Free/opennas/trunk/www/access_users_edit.php:211
 msgid "Password"
 msgstr "Mot de passe"
 
-#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_file_daemon.php:111
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_file_daemon.php:145
 msgid "Port"
 msgstr "Port"
 
-#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_file_daemon.php:112
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_file_daemon.php:146
 msgid "Maximum Concurrent Jobs"
 msgstr "Nombre maximum de travaux simultanés"
 
-#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_file_daemon.php:115
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_file_daemon.php:149
 msgid "Save and Restart"
 msgstr "Enregistrer et redémarrer"
 
@@ -5344,45 +5360,66 @@ msgstr "Pour utiliser Active Directory, le service CIFS/SMB sera automatiquement
 msgid "Storage Daemon"
 msgstr "Storage Daemon"
 
-#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_storage_daemon.php:120
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_storage_daemon.php:89
+msgid "Storage Name"
+msgstr "Nom du Storage"
+
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_storage_daemon.php:107
+msgid "The media type must be "
+msgstr "Le type de média doit être"
+
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_storage_daemon.php:110
+msgid "Archive path cannot be empty"
+msgstr "Le chemin d'archivage ne peut être vide"
+
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_storage_daemon.php:175
+msgid "Do you really want to delete this device?"
+msgstr "Voulez-vous vraiment supprimer ce périphérique?"
+
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_storage_daemon.php:221
 msgid "Media type"
 msgstr "Type de média"
 
-#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_storage_daemon.php:121
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_storage_daemon.php:222
 msgid "Archive device"
 msgstr "Périphérique d'archivage."
 
-#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_storage_daemon.php:122
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_storage_daemon.php:223
 msgid "Label media"
 msgstr "Label du média"
 
-#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_storage_daemon.php:122
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_storage_daemon.php:223
 msgid "Labeled the media"
 msgstr "Labéliser le média"
 
-#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_storage_daemon.php:123
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_storage_daemon.php:224
 msgid "Random access"
 msgstr "Accès aléatoire"
 
-#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_storage_daemon.php:123
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_storage_daemon.php:224
 msgid "The Storage daemon will submit a Mount Command before attempting to open the device"
-msgstr "le storage daemon attend que le périphérique soit monté avant de l'ouvrir"
+msgstr "Le Storage Daemon attend que le périphérique soit monté avant de l'ouvrir"
 
-#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_storage_daemon.php:124
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_storage_daemon.php:225
 msgid "Removable media"
 msgstr "Média amovible"
 
-#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_storage_daemon.php:124
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_storage_daemon.php:225
 msgid "This device supports removable media"
-msgstr "Cette appareil support les média amovibles"
+msgstr "Cet appareil supporte les médias amovibles"
 
-#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_storage_daemon.php:125
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_storage_daemon.php:226
 msgid "Always open"
 msgstr "Toujours ouvert"
 
-#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_storage_daemon.php:125
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_storage_daemon.php:226
 msgid "Keep the device open"
 msgstr "Laisser le périphérique ouvert"
+
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_storage_daemon.php:228
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_storage_daemon.php:234
+msgid "Add device"
+msgstr "Ajouter un périphérique"
 
 #: /home/cedric/DEV/Nas4Free/opennas/trunk/www/system_backup.php:40
 msgid "Backup/Restore"
@@ -6655,16 +6692,8 @@ msgid "Edit device"
 msgstr "Editer périphériqe"
 
 #: /home/cedric/DEV/Nas4Free/opennas/trunk/www/disks_zfs_zpool_vdevice.php:144
-msgid "Do you really want to delete this device?"
-msgstr "Voulez-vous vraiment supprimer ce périphérique?"
-
-#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/disks_zfs_zpool_vdevice.php:144
 msgid "Delete device"
 msgstr "Supprimer périphérique"
-
-#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/disks_zfs_zpool_vdevice.php:156
-msgid "Add device"
-msgstr "Ajouter un périphérique"
 
 #: /home/cedric/DEV/Nas4Free/opennas/trunk/www/status_report.php:42
 #: /home/cedric/DEV/Nas4Free/opennas/trunk/www/status_report.php:190

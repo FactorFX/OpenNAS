@@ -63,7 +63,7 @@ bacula_fd_mkconf()
 		-v "concat('FDport = ', //bacula_fd/filedaemonport)" -n \
 		-o "WorkingDirectory = ${bacula_fd_workingdir}" -n \
 		-o "Pid Directory = /var/run" -n \
-		-v "concat('Maximum Concurrent Jobs = ', //bacula_fd/filedaemonmaxjobs)" -n \
+		-i "string-length(//bacula_fd/filedaemonmaxjobs) > 0" -v "concat('Maximum Concurrent Jobs = ', //bacula_fd/filedaemonmaxjobs)" -n -b \
 		-o "}" -n \
 		-o "Messages {" -n \
 		-o "Name = OPENNAS-MESSAGES-bacula" -n \

@@ -411,7 +411,7 @@ function write_loader_config(){
 	if(!isset($config['system']['loaderconf']['param'])){
 		/* Load configuration file into array. */
 		$config = parse_xml_config("{$g['conf_path']}/config.xml", $g['xml_rootobj']);
-		
+
 		/* read platform */
 		if (file_exists("{$g['etc_path']}/platform")) {
 			$g['fullplatform'] = strtolower(chop(file_get_contents("{$g['etc_path']}/platform")));
@@ -794,6 +794,7 @@ function config_upgrade() {
 		$config['version'] = "1.7";
 	}
 
+	opennas_upgrade();
 
 	/* XXX Convert 9.5 -> 9.7 (must skip 9.6) */
 
@@ -803,6 +804,28 @@ function config_upgrade() {
 		echo "done\n";
 
 	return 0;
+}
+
+function opennas_upgrade()  {
+	global $config, $g;
+
+	if ($config['version'] === "1.7") {
+		$bacula_conf = array(
+				'devicename' => 'name',
+				'devicemediatype' => 'mediatype',
+				'devicearchivepath' => 'archivepath',
+				'devicelabelmedia' => 'labelmedia',
+				'devicerandomaccess' => 'randomaccess',
+				'deviceremovablemedia' => 'removablemedia',
+				'devicealwaysopen' => 'alwaysopen'
+		);
+		foreach($bacula_conf as $old => $new) {
+			if (!empty($config['bacula_sd'][$old])) {
+				$config['bacula_sd']['device'][1][$new] = $config['bacula_sd'][$old];
+				unset($config['bacula_sd'][$old]);
+			}
+		}
+	}
 }
 
 // hook for preinit

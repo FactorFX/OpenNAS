@@ -49,36 +49,46 @@ pidfile="${bacula_sd_pidfile}"
 
 bacula_sd_mkconf()
 {
+
 	/usr/local/bin/xml sel -t \
 		-o "Storage {" -n \
 		-v "concat('Name = ', //bacula_sd/storagename)" -n \
 		-v "concat('SDPort = ', //bacula_sd/storageport)" -n \
 		-o "WorkingDirectory = ${bacula_sd_workingdir} " -n \
 		-o "Pid Directory = /var/run" -n \
-		-v "concat('Maximum Concurrent Jobs = ', //bacula_sd/storagemaxjobs)" -n \
+		-i "string-length(//bacula_sd/storagemaxjobs) > 0" -v "concat('Maximum Concurrent Jobs = ', //bacula_sd/storagemaxjobs)" -n -b \
 		-o "}" -n \
 		-n \
 		-o "Director {" -n \
 		-v "concat('Name = ', //bacula_sd/directorname)" -n \
 		-v "concat('Password = ', //bacula_sd/directorpassword)" -n \
 		-o "}" -n \
+		${configxml_file} | /usr/local/bin/xml unesc > ${bacula_sd_config}
+
+	/usr/local/bin/xml sel -t -m "//bacula_sd/device" \
 		-o "Device {" -n \
-		-v "concat('Name = ', //bacula_sd/devicename)" -n \
-		-v "concat('Media Type = ', //bacula_sd/devicemediatype)" -n \
-		-v "concat('Archive Device = ', //bacula_sd/devicearchivepath)" -n \
-		-v "concat('LabelMedia = ', //bacula_sd/devicelabelmedia, ';')" -n \
-		-v "concat('Random Access = ', //bacula_sd/devicerandomaccess, ';')" -n \
+		-i "string-length(name) > 0" -v "concat('Name = ', name)" -n -b \
+		-v "concat('Media Type = ', mediatype)" -n \
+		-v "concat('Archive Device = ', archivepath)" -n \
+		-i "string-length(labelmedia) > 0" -o "LabelMedia = yes;" -n -b \
+		-i "string-length(labelmedia) = 0" -o "LabelMedia = no;" -n -b \
+		-i "string-length(randomaccess) > 0" -o "Random Access = yes;" -n -b \
+		-i "string-length(randomaccess) = 0" -o "Random Access = no;" -n -b \
 		-o "AutomaticMount = yes;" -n \
-		-v "concat('RemovableMedia = ', //bacula_sd/deviceremovablemedia, ';')" -n \
-		-v "concat('AlwaysOpen = ', //bacula_sd/devicealwaysopen, ';')" -n \
+		-i "string-length(removablemedia) > 0" -o "RemovableMedia = yes;" -n -b \
+		-i "string-length(removablemedia) = 0" -o "RemovableMedia = no;" -n -b \
+		-i "string-length(alwaysopen) > 0" -o "AlwaysOpen = yes;" -n -b \
+		-i "string-length(alwaysopen) = 0" -o "AlwaysOpen = no;" -n -b \
 		-o "}" -n \
+		${configxml_file} | /usr/local/bin/xml unesc >> ${bacula_sd_config}
+		
+	/usr/local/bin/xml sel -t \
 		-o "Messages {" -n\
 		-o "Name     = Standard" -n \
 		-v "concat('director = ', //bacula_sd/directorname, ' = all')" -n \
 		-o "}" -n \
-		${configxml_file} | /usr/local/bin/xml unesc > ${bacula_sd_config}
+		${configxml_file} | /usr/local/bin/xml unesc >> ${bacula_sd_config}
 
 }
-
 
 run_rc_command "$1"
