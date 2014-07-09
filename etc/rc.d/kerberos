@@ -51,5 +51,23 @@ if configxml_isset //kerberos/enable; then
 		-v "concat('base ', ldapbase)" -n \
 		-m "ldapauxparam" -v "." -n -b \
 		${configxml_file} | /usr/local/bin/xml unesc > ${ldap_config}
-		
+else
+	# clearing existing files
+	/bin/cat /dev/null > ${kerberos_config}
+	/bin/cat /dev/null > ${ldap_config}
+
+	echo "Generating nsswitch.conf."	
+	/usr/local/bin/xml sel -t \
+		-o "group: compat" -n \
+		-o "group_compat: nis" -n \
+		-o "hosts: files dns" -n \
+		-o "networks: files" -n \
+		-o "passwd: compat" -n \
+		-o "passwd_compat: nis" -n \
+		-o "shells: files" -n \
+		-o "services: compat" -n \
+		-o "services_compat: nis" -n \
+		-o "protocols: files" -n \
+		-o "rpc: files" -n \
+		${configxml_file} | /usr/local/bin/xml unesc > ${nsswitch_config}	
 fi

@@ -11,13 +11,13 @@
 	All rights reserved.
 
 	Redistribution and use in source and binary forms, with or without
-	modification, are permitted provided that the following conditions are met: 
+	modification, are permitted provided that the following conditions are met:
 
 	1. Redistributions of source code must retain the above copyright notice, this
-	   list of conditions and the following disclaimer. 
+	   list of conditions and the following disclaimer.
 	2. Redistributions in binary form must reproduce the above copyright notice,
 	   this list of conditions and the following disclaimer in the documentation
-	   and/or other materials provided with the distribution. 
+	   and/or other materials provided with the distribution.
 
 	THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 	ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -31,7 +31,7 @@
 	SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 	The views and conclusions contained in the software and documentation are those
-	of the authors and should not be interpreted as representing official policies, 
+	of the authors and should not be interpreted as representing official policies,
 	either expressed or implied, of the NAS4Free Project.
 */
 require("auth.inc");
@@ -39,47 +39,62 @@ require("guiconfig.inc");
 
 $pgtitle = array(gettext("Access"), gettext("Kerberos"));
 
-$pconfig = &$config['kerberos'];
+if (!isset($config['kerberos']) || !is_array($config['kerberos']))
+	$config['kerberos'] = array();
 
-if (!isset($pconfig) || !is_array($pconfig))
-    $pconfig = array();
+$pconfig['kdc'] = !empty($config['kerberos']['kdc']) ? $config['kerberos']['kdc'] : "";
+$pconfig['realms']= !empty($config['kerberos']['realms']) ? $config['kerberos']['realms'] : "";
+$pconfig['ldaphostname']= !empty($config['kerberos']['ldaphostname']) ? $config['kerberos']['ldaphostname'] : "";
+$pconfig['ldapbase']= !empty($config['kerberos']['ldapbase']) ? $config['kerberos']['ldapbase'] : "";
+if (isset($config['kerberos']['ldapauxparam']) && is_array($config['kerberos']['ldapauxparam']))
+	$pconfig['ldapauxparam'] = implode("\n", $config['kerberos']['ldapauxparam']);
+$pconfig['enable'] = isset($config['kerberos']['enable']);
 
 if ($_POST) {
-
-	unset($_POST['authtoken'], $_POST['Submit']);
+	unset($input_errors);
 	$pconfig = $_POST;
 
 	if (isset($_POST['enable']) && $_POST['enable']) {
-		
+
 		if (!empty($_FILES['krb5']['tmp_name'])) {
 			if (is_uploaded_file($_FILES['krb5']['tmp_name'])) {
 				$fn = "/etc/krb5.keytab";
 				move_uploaded_file($_FILES['krb5']['tmp_name'], $fn);
-				chmod ($fn, 0600); 
+				chmod ($fn, 0600);
 			} else {
 				$errormsg = sprintf("%s %s", gettext("Failed to upload file."),
 					$g_file_upload_error[$_FILES['krb5']['error']]);
-			}	
+			}
 		}
-		unset($pconfig['ldapauxparam']);
+	}
+	if (empty($input_errors)) {
+
+		$config['kerberos']['kdc'] = $_POST['kdc'];
+		$config['kerberos']['realms']= $_POST['realms'];
+		$config['kerberos']['ldaphostname']= $_POST['ldaphostname'];
+		$config['kerberos']['ldapbase']= $_POST['ldapbase'];
+
+		unset($config['kerberos']['ldapauxparam']);
 		foreach (explode("\n", $_POST['ldapauxparam']) as $auxparam) {
 			$auxparam = trim($auxparam, "\t\n\r");
 			if (!empty($auxparam))
-				$pconfig['ldapauxparam'][] = $auxparam;
+				$config['kerberos']['ldapauxparam'][] = $auxparam;
 		}
-	 }		
-	 
-	write_config();
 
-	$retval = 0;
-	if (!file_exists($d_sysrebootreqd_path)) {
-		config_lock();
-		rc_exec_service("kerberos");
-		config_unlock();
-	}
-	
-	$savemsg = get_std_save_message($retval);
-	
+		$config['kerberos']['enable'] = isset($_POST['enable']) ? true : false;
+
+		write_config();
+
+		$retval = 0;
+		if (!file_exists($d_sysrebootreqd_path)) {
+			config_lock();
+			rc_exec_service("kerberos");
+			config_unlock();
+		}
+
+		$savemsg = get_std_save_message($retval);
+	 }
+
 }
 
 if (isset($pconfig['ldapauxparam']) && is_array($pconfig['ldapauxparam']))
@@ -116,7 +131,7 @@ function enable_change(enable_change) {
 					</tr>
 				<?php html_inputbox("ldaphostname", gettext("URI"), $pconfig['ldaphostname'], gettext("The space-separated list of URIs for the LDAP server."), true, 60);?>
 				<?php html_inputbox("ldapbase", gettext("Base DN"), $pconfig['ldapbase'], sprintf(gettext("The default base distinguished name (DN) to use for searches, e.g. %s"), "dc=test,dc=org"), true, 40);?>
-				<?php html_textarea("ldapauxparam", gettext("Auxiliary parameters"), $pconfig['ldapauxparam'], sprintf(gettext("These parameters are added to %s."), "ldap.conf"), false, 65, 5, false, false);?>				
+				<?php html_textarea("ldapauxparam", gettext("Auxiliary parameters"), $pconfig['ldapauxparam'], sprintf(gettext("These parameters are added to %s."), "ldap.conf"), false, 65, 5, false, false);?>
 				</table>
 				<div id="submit">
 					<input name="Submit" type="submit" class="formbtn" value="<?=gettext("Save");?>" onclick="enable_change(true)" />
