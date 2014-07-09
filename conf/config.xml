@@ -1332,28 +1332,4 @@
 		<timeout></timeout>
 		<maxblocksize></maxblocksize>
 	</tftpd>
-    <bacula_fd>
-        <directorname>OPENNAS-DIRECTOR-bacula</directorname>
-        <directorpassword>opennas</directorpassword>
-        <filedaemonname>OPENNAS-CLIENT-bacula</filedaemonname>
-        <filedaemonport>9102</filedaemonport>
-        <filedaemonmaxjobs>20</filedaemonmaxjobs>
-    </bacula_fd>
-    <bacula_sd>
-        <storagename>OPENNAS-STORAGE-bacula</storagename>
-        <storageport>9103</storageport>
-        <storagemaxjobs>20</storagemaxjobs>
-        <directorname>OPENNAS-DIRECTOR-bacula</directorname>
-        <directorpassword>opennas</directorpassword>
-        <devicename>OPENNAS-DEVICE-default</devicename>
-        <devicemedia_type>File</devicemedia_type>
-        <devicearchivepath>/mnt/storage/default</devicearchivepath>
-        <devicelabelmedia>yes</devicelabelmedia>
-        <devicerandomaccess>no</devicerandomaccess>
-        <deviceremovablemedia>no</deviceremovablemedia>
-        <devicealwaysopen>yes</devicealwaysopen>
-    </bacula_sd>
-	<ocsinventory_agent>
-		<ssl>1</ssl>
-	</ocsinventory_agent> 
 </opennas>
