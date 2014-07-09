@@ -113,8 +113,8 @@ NAS4FREE_SVN_SRCTREE="svn://svn.FreeBSD.org/base/releng/9.2"
 NAS4FREE_MFSROOT_SIZE=222
 NAS4FREE_IMG_SIZE=125
 if [ "amd64" = ${NAS4FREE_ARCH} ]; then
-	NAS4FREE_MFSROOT_SIZE=400
-	NAS4FREE_IMG_SIZE=300
+	NAS4FREE_MFSROOT_SIZE=450
+	NAS4FREE_IMG_SIZE=350
 fi
 
 # Media geometry, only relevant if bios doesn't understand LBA.
