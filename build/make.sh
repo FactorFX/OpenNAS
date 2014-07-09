@@ -110,10 +110,8 @@ NAS4FREE_SVN_SRCTREE="svn://svn.FreeBSD.org/base/releng/9.2"
 # and NAS4FREE WEbGUI/Scripts. Keep this file very small! This file is unzipped
 # to a RAM disk at NAS4FREE startup.
 # The image must fit on 512MB CF/USB.
-NAS4FREE_MFSROOT_SIZE=222
 NAS4FREE_IMG_SIZE=125
 if [ "amd64" = ${NAS4FREE_ARCH} ]; then
-	NAS4FREE_MFSROOT_SIZE=450
 	NAS4FREE_IMG_SIZE=350
 fi
 
@@ -445,6 +443,10 @@ create_mfsroot() {
 	[ -f $NAS4FREE_WORKINGDIR/mfsroot.gz ] && rm -f $NAS4FREE_WORKINGDIR/mfsroot.gz
 	[ -d $NAS4FREE_SVNDIR ] && use_svn ;
 
+	NAS4FREE_MFSROOT_SIZE=`expr \`du -hs ${NAS4FREE_ROOTFS} | cut -dM -f1\` \+ 50`
+	
+	echo "Mfsroot is ${NAS4FREE_MFSROOT_SIZE}M size"
+
 	# Make mfsroot to have the size of the NAS4FREE_MFSROOT_SIZE variable
 	dd if=/dev/zero of=$NAS4FREE_WORKINGDIR/mfsroot bs=1k count=$(expr ${NAS4FREE_MFSROOT_SIZE} \* 1024)
 	# Configure this file as a memory disk
@@ -616,6 +618,10 @@ create_image() {
 }
 
 create_iso () {
+	echo "**************************************************************"
+	echo ">>> Generating ${NAS4FREE_PRODUCTNAME} ISO"
+	echo "**************************************************************"
+	
 	# Check if rootfs (contining OS image) exists.
 	if [ ! -d "$NAS4FREE_ROOTFS" ]; then
 		echo "==> Error: ${NAS4FREE_ROOTFS} does not exist!."
@@ -707,6 +713,10 @@ create_iso () {
 }
 
 create_usb () {
+	echo "**************************************************************"
+	echo ">>> USB: Generating the $NAS4FREE_PRODUCTNAME Image file:"
+	echo "**************************************************************"
+	
 	# Check if rootfs (contining OS image) exists.
 	if [ ! -d "$NAS4FREE_ROOTFS" ]; then
 		echo "==> Error: ${NAS4FREE_ROOTFS} does not exist!."
@@ -724,7 +734,6 @@ create_usb () {
 	[ -f ${NAS4FREE_WORKINGDIR}/usb-image.bin ] && rm -f ${NAS4FREE_WORKINGDIR}/usb-image.bin
 	[ -f ${NAS4FREE_WORKINGDIR}/usb-image.bin.gz ] && rm -f ${NAS4FREE_WORKINGDIR}/usb-image.bin.gz
 
-	echo "USB: Generating the $NAS4FREE_PRODUCTNAME Image file:"
 	create_image;
 
 	# Set Platform Informations.
@@ -843,9 +852,11 @@ create_usb () {
 }
 
 create_full() {
+	echo "--------------------------------------------------------------"
+	echo ">>> FULL: Generating $NAS4FREE_PRODUCTNAME tgz update file"
+	echo "--------------------------------------------------------------"
+	
 	[ -d $NAS4FREE_SVNDIR ] && use_svn ;
-
-	echo "FULL: Generating $NAS4FREE_PRODUCTNAME tgz update file"
 
 	# Set platform information.
 	PLATFORM="${NAS4FREE_XARCH}-full"
