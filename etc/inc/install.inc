@@ -163,7 +163,7 @@ function install_harddrive_image($harddrive)
 	// Install system files.
 	write_console("Installing system files on device {$harddrive}s1a.\n");
 	install_system($mntpath);
-	
+
 	// Install configuration file
 	mwexec("/bin/mkdir -p {$mntpath}{$g['cf_conf_path']}");
 	mwexec("/bin/cp -v {$g['conf_default_path']}/config.xml {$mntpath}{$g['conf_path']}");
@@ -258,7 +258,7 @@ EOD;
 function install_system($mntpath)
 {
 	global $g;
-		
+
 	mwexec("/usr/local/bin/rsync -a --exclude=etc/inc/install.inc --exclude=etc/rc.initial.install* --exclude=mnt/ --exclude=dev/ --exclude=var/ --exclude=tmp/ --exclude={$g['cf_path']}/ / {$mntpath}");
 	// Remove autologin in /etc/ttys
 	mwexec("sed -i '' -e '/^ttyv0/ s|autologin|Pc|' {$mntpath}/etc/ttys");
@@ -457,7 +457,7 @@ function install_backup_config($disk)
 		write_console("Error: Failed to backup the configuration file!\n");
 		return 1;
 	}
-    
+
     if (file_exists("{$mnt_cf_disk}/boot/loader.conf.local")
 	    && 1 == mwexec("/bin/cp -p {$mnt_cf_disk}/boot/loader.conf.local {$tmp_cf_bak}")) {
 		write_console("Error: Failed to backup the configuration file!\n");
@@ -493,7 +493,7 @@ function install_restore_config($disk)
 		write_console("Error: Failed to restore the configuration file!\n");
 		return 1;
 	}
-	
+
 	if (file_exists("{$tmp_cf_bak}/boot.config")) {
 		if (1 == mwexec("/bin/cp -p {$tmp_cf_bak}/boot.config {$mnt_cf_disk}/")) {
 			write_console("Error: Failed to restore the configuration file!\n");
@@ -527,50 +527,40 @@ function install_restore_config($disk)
 	return 0;
 }
 
-
-function searchAndRemoveInConfig($needle, &$haystack, $key){
-
-	$index = array_search_ex($needle, $haystack, $key);
-	if ($index !== false) {
-		unset($haystack[$index]);
-	}
-}
-
 /**
  * upgrade config.xml in install
- * 
+ *
  */
 function install_upgrade_config($disk)
 {
 	global $g, $g_languages;
 
 	$mnt_cf_disk = "/mnt/conf_{$disk}";
-	
+
 	write_console("Upgrade configuration.\n");
-	
+
 	/* Creating temporary directory for the disk containing the configuration file. */
 	if (1 == mwexec("/bin/mkdir -p {$mnt_cf_disk}")) {
 		write_console("Error: Failed to create '{$mnt_cf_disk}'!\n");
 		return 1;
 	}
-	
+
 	/* Mount the drive to be upgraded */
 	if (1 == mwexec("/sbin/mount /dev/{$disk} {$mnt_cf_disk}")) {
 		write_console("Error: Failed to mount device '{$disk}'!\n");
 		return 1;
 	}
-	
+
 	$config_path = "{$mnt_cf_disk}/{$g['conf_path']}";
 	$etc_path = "{$mnt_cf_disk}/{$g['etc_path']}";
 	$config_file = "{$config_path}/config.xml";
 	$config_file_bak = "{$config_path}/config_upd";
 	$revision_file = "{$etc_path}/prd.revision";
 	$name_file = "{$etc_path}/prd.name";
-	$error_with_file = false;
-	
+
 	$prev_revision = chop(file_get_contents("{$revision_file}"));
 	$prev_name = chop(file_get_contents("{$name_file}"));
-	
+
 	// Get nas4free config if previous version is Nas4Free
 	if ($prev_name == 'NAS4Free') {
 		$config = parse_xml_config($config_file, 'nas4free');
@@ -578,75 +568,46 @@ function install_upgrade_config($disk)
 	// else if is opennas config
 	else {
 		$config = parse_xml_config($config_file, $g['xml_rootobj']);
-	}	
-	
+	}
+
 	if (false === $prev_revision || false === $config) {
 		return 1;
 	}
-	
+
 	$codeset = $g_languages[$config['system']['language']]['codeset'];
 	if (empty($codeset))
 		$codeset = "UTF-8"; // Set default codeset.
-		
+
 	/* Backup the configuration file */
 	if (1 == mwexec("/bin/cp -p {$config_file} {$config_file_bak}")) {
 		write_console("Error: Failed to update the configuration file!\n");
 		return 1;
 	}
-	
-	/* 
+
+	/*
 	 * If Previous version is a BETA
 	 * @todo Could be remove in future version
-	 * 
+	 *
 	 */
 	if (false !== strpos($prev_revision, 'BETA') || $prev_name == 'NAS4Free') {
-		
+
 		if (false !== strpos($prev_revision, 'BETA')) {
 			write_console("The previous version is a BETA version.\n");
 		}
 		else if ($prev_name == 'NAS4Free') {
-			write_console("The previous version is NAS4Free.\n");				
+			write_console("The previous version is NAS4Free.\n");
 		}
-		
-		write_console("We are going to clean config file and crypt password.\n");		
 
-		/* transmission */
-		searchAndRemoveInConfig("60c4bfb1-7c3c-4535-800c-2b17eeae9369", $config['system']['usermanagement']['user'], "uuid");
+		write_console("We are going to crypt password.\n");
 
-		/* transmission */
-		searchAndRemoveInConfig("e8cc78b8-7c3d-46de-a34c-11b1c260a37e", $config['system']['usermanagement']['group'], "uuid");
-		
-		/* bacula user jump to /etc/rc.d/userdb */
-		searchAndRemoveInConfig("bacula", $config['system']['usermanagement']['user'], "name");
-				
-		/* fuppes */
-		searchAndRemoveInConfig("b67e6ffd-169d-493a-9197-155a9ae84582", $config['system']['rcconf']['param'], "uuid");
-		unset($config['upnp']);
-		
-		/* mtdaapd */
-		searchAndRemoveInConfig("0b5cbdf6-0a84-4806-b85c-6605d38c7008", $config['system']['rcconf']['param'], "uuid");
-		unset($config['daap']);
-		
-		/* Dynamics DNS */
-		unset($config['dynamicdns']);
-		
-		/* LCDProc */
-		unset($config['lcdproc']);
-		
-		/* bittorent */
-		unset($config['bittorrent']);
-		
-		/* websrv */
-		unset($config['websrv']);
-		
 		/* Reset password to opennas */
 		$default_passwd = $g['default_passwd'];
 		write_console("\33[1;33mInfo: Password will be reset to $default_passwd \33[0;37m\n");
 		$config['system']['password'] = crypt($default_passwd);
 	}
-	
+
 	$xmlconfig = dump_xml_config($config, $g['xml_rootobj'], $codeset);
-	
+
 	// Write configuration file
 	if (!file_put_contents_safe($config_file, $xmlconfig) && !validate_xml_config($config_file, $g['xml_rootobj'])) {
 		write_console("Error: Failed to write configuration file '{$config_file}'!\n");
@@ -655,16 +616,16 @@ function install_upgrade_config($disk)
 	}
 	// Modify file permissions
 	@chmod($config_file, 0600);
-	
+
 	// Delete Config file backup
 	@unlink($config_file_bak);
-	
+
 	/* Unmount the upgraded drive */
 	if (1 == mwexec("/sbin/umount {$mnt_cf_disk}")) {
 		write_console("Error: Failed to unmount '{$mnt_cf_disk}'!\n");
 		return 1;
 	}
-	
+
 	/* Cleanup */
 	if (1 == mwexec("/bin/rm -fr {$mnt_cf_disk}")) {
 		write_console("Error: Failed to remove upgrade mount point!\n");

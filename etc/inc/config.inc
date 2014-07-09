@@ -806,10 +806,42 @@ function config_upgrade() {
 	return 0;
 }
 
-function opennas_upgrade()  {
-	global $config, $g;
 
-	if ($config['version'] === "1.7") {
+function searchAndRemoveInConfig($needle, &$haystack, $key){
+
+	$index = array_search_ex($needle, $haystack, $key);
+	if ($index !== false) {
+		unset($haystack[$index]);
+	}
+}
+
+function opennas_upgrade()  {
+	global $config;
+
+	if (empty($config['on_version'])) {
+
+		/* Remove transmission user */
+		searchAndRemoveInConfig("60c4bfb1-7c3c-4535-800c-2b17eeae9369", $config['system']['usermanagement']['user'], "uuid");
+		/* Remove transmission group */
+		searchAndRemoveInConfig("e8cc78b8-7c3d-46de-a34c-11b1c260a37e", $config['system']['usermanagement']['group'], "uuid");
+		/* bacula user jump to /etc/rc.d/userdb */
+		searchAndRemoveInConfig("bacula", $config['system']['usermanagement']['user'], "name");
+		/* fuppes */
+		searchAndRemoveInConfig("b67e6ffd-169d-493a-9197-155a9ae84582", $config['system']['rcconf']['param'], "uuid");
+		unset($config['upnp']);
+		/* mtdaapd */
+		searchAndRemoveInConfig("0b5cbdf6-0a84-4806-b85c-6605d38c7008", $config['system']['rcconf']['param'], "uuid");
+		unset($config['daap']);
+		/* Dynamics DNS */
+		unset($config['dynamicdns']);
+		/* LCDProc */
+		unset($config['lcdproc']);
+		/* bittorent */
+		unset($config['bittorrent']);
+		/* websrv */
+		unset($config['websrv']);
+
+		// Move bacula config device
 		$bacula_conf = array(
 				'devicename' => 'name',
 				'devicemediatype' => 'mediatype',
@@ -821,10 +853,11 @@ function opennas_upgrade()  {
 		);
 		foreach($bacula_conf as $old => $new) {
 			if (!empty($config['bacula_sd'][$old])) {
-				$config['bacula_sd']['device'][1][$new] = $config['bacula_sd'][$old];
+				$config['bacula_sd']['device'][0][$new] = $config['bacula_sd'][$old];
 				unset($config['bacula_sd'][$old]);
 			}
 		}
+		$config['on_version'] === "0.1";
 	}
 }
 

@@ -2,6 +2,7 @@
 <!-- OpenNas default system configuration -->
 <opennas>
 	<version>1.7</version>
+	<on_version>0.1</on_version>
 	<lastchange></lastchange>
 	<system>
 		<hostname>opennas</hostname>
