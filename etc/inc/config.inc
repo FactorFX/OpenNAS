@@ -818,6 +818,9 @@ function searchAndRemoveInConfig($needle, &$haystack, $key){
 function opennas_upgrade()  {
 	global $config;
 
+	if (!is_booting())
+		return 0;
+
 	if (empty($config['on_version'])) {
 
 		echo "Upgrade Opennas config\n";
@@ -865,8 +868,7 @@ function opennas_upgrade()  {
 
 	write_config();
 
-	if (is_booting())
-		echo "done\n";
+	echo "done\n";
 
 	return 0;
 }
