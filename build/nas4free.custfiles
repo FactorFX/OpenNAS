@@ -73,6 +73,9 @@ usr/bin/sftp
 ## swapctl
 sbin/swapctl
 
+## file
+usr/bin/file
+
 ## perl 5.16
 usr/local/etc/perl5_version
 usr/local/bin/perl5.16.3:usr/bin/perl
@@ -80,10 +83,10 @@ usr/local/lib/perl5/5.16/
 usr/local/lib/perl5/site_perl/5.16/
 
 ## Install python2.7
-usr/local/bin/pyhton2.7:usr/local/bin/pyhton2
+usr/local/bin/python2.7:usr/local/bin/python2
 usr/local/bin/2to3-2.7:usr/local/bin/2to3-2
 usr/local/bin/python-shared2.7:usr/local/bin/python-shared2
 usr/local/bin/idle2.7:usr/local/bin/idle2
 usr/local/bin/smtpd2.7.py:usr/local/bin/smtpd2.py
-usr/local/bin/pyhton2.7-config:usr/local/bin/pyhton2-config
+usr/local/bin/python2.7-config:usr/local/bin/python2-config
 usr/local/lib/python2.7/
