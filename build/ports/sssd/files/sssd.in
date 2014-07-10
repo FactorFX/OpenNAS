@@ -27,13 +27,18 @@ rcvar="sssd_enable"
 load_rc_config "$name"
 
 sssd_enable=${sssd_enable:=NO}
-sssd_conf=${sssd_conf="/var/etc/sssd/sssd.conf"}
+sssd_conf=${sssd_conf="/usr/local/etc/sssd/sssd.conf"}
 sssd_flags=${sssd_flags="-f -D"}
 
 command="/usr/local/sbin/$name"
 pidfile="/var/run/$name.pid"
 required_files="${sssd_conf}"
 start_precmd="sshd_mkconf"
+
+# Check if required directories exists.
+[ ! -d "/var/db/sss" ] && mkdir "/var/db/sss"
+[ ! -d "/var/run/sss" ] && mkdir "/var/run/sss"
+[ ! -d "/var/db/sss_mc" ] && mkdir "/var/db/sss_mc"
 
 sshd_mkconf()
 {

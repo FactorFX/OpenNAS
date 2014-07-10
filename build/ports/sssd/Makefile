@@ -137,8 +137,15 @@ do-install:
 	${CP} ${WRKSRC}/.libs/pysss.so ${NAS4FREE_ROOTFS}/usr/local/lib/python${PYTHON_VER}/
 	${CP} ${WRKSRC}/.libs/pysss_murmur.so ${NAS4FREE_ROOTFS}/usr/local/lib/python${PYTHON_VER}/
 	
-	${MKDIR} ${NAS4FREE_ROOTFS}/usr/local/libexec/sssd/
+	${MKDIR} -p ${NAS4FREE_ROOTFS}/usr/local/libexec/sssd/
 	${INSTALL_PROGRAM} -v ${WRKSRC}/sssd ${NAS4FREE_ROOTFS}/usr/local/libexec/sssd/
+	
+	${MKDIR} -p /usr/local/share/sssd/
+	
+.for DIR in /usr/local/lib/shared-modules/ldb/ /usr/local/share/xml/ /usr/local/share/xsl/
+	${MKDIR} -p ${NAS4FREE_ROOTFS}$$DIR
+	${CP} -R $$DIR ${NAS4FREE_ROOTFS}$$DIR
+.endfor
 	
 .for FILE in ${LIBEXEC_FILES}
 	${CP} -v ${WRKSRC}/${FILE} ${NAS4FREE_ROOTFS}/usr/local/libexec/sssd/
