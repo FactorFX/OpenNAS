@@ -143,12 +143,19 @@ do-install:
 	${MKDIR} -p /usr/local/share/sssd/
 	
 .for DIR in /usr/local/lib/shared-modules/ldb/ /usr/local/share/xml/ /usr/local/share/xsl/
-	${MKDIR} -p ${NAS4FREE_ROOTFS}$$DIR
-	${CP} -R $$DIR ${NAS4FREE_ROOTFS}$$DIR
+	${MKDIR} -p ${NAS4FREE_ROOTFS}${DIR}
+	${CP} -R ${DIR} ${NAS4FREE_ROOTFS}${DIR}
 .endfor
 	
 .for FILE in ${LIBEXEC_FILES}
 	${CP} -v ${WRKSRC}/${FILE} ${NAS4FREE_ROOTFS}/usr/local/libexec/sssd/
+.endfor
+
+	${MKDIR} -p ${NAS4FREE_ROOTFS}/usr/local/etc/sssd/
+	@touch ${NAS4FREE_ROOTFS}/usr/local/etc/sssd/sssd.conf
+	
+.for FILE in ldbadd ldbdel ldbedit ldbmodify ldbrename ldbsearch
+	${CP} -v /usr/local/bin/${FILE} ${NAS4FREE_ROOTFS}/usr/local/bin/
 .endfor
 	
 	### ManPages

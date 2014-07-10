@@ -6,7 +6,7 @@
 # PROVIDE: sssd
 # REQUIRE: DAEMON
 # BEFORE: LOGIN
-# XQUERY: -i "count(//sssd/enable) > 0" -o "0" -b
+
 # KEYWORD: shutdown
 # RCVAR: sssd
 
@@ -29,31 +29,23 @@ load_rc_config "$name"
 sssd_enable=${sssd_enable:=NO}
 sssd_conf=${sssd_conf="/usr/local/etc/sssd/sssd.conf"}
 sssd_flags=${sssd_flags="-f -D"}
+sssd_config_file="/usr/local/etc/sssd/sssd.conf"
 
 command="/usr/local/sbin/$name"
 pidfile="/var/run/$name.pid"
 required_files="${sssd_conf}"
-start_precmd="sshd_mkconf"
+start_precmd="sssd_mkconf"
 
-# Check if required directories exists.
-[ ! -d "/var/db/sss" ] && mkdir "/var/db/sss"
-[ ! -d "/var/run/sss" ] && mkdir "/var/run/sss"
-[ ! -d "/var/db/sss_mc" ] && mkdir "/var/db/sss_mc"
+for i in db/sss db/sss_mc log/sssd run/sss/krb5.include.d run/sss/private run/sss; do
+	if [ ! -d var/${i} ]; then mkdir -p /var/${i}; fi
+done
 
-sshd_mkconf()
+sssd_mkconf()
 {
-	for i in db/sss db/sss_mc log/sssd run/sss/krb5.include.d run/sss/private run/sss; do
-		if [ ! -d var/${i} ]; then mkdir -p /var/${i}; fi
-	done
-	
 	# Create sssd_config file
-	/usr/local/bin/xml sel -t \
-		-m "//sssd" \
-			-m "config" \
-				-v "." -n \
-			-b \
-		-b \
-		${configxml_file} | /usr/local/bin/xml unesc > ${sssd_config}
+	/usr/local/bin/xml sel -t -m "//kerberos" \
+		-m "sssdauxparam" -v "." -n -b \
+		${configxml_file} | /usr/local/bin/xml unesc > ${sssd_config_file}
 }
 
 run_rc_command "$1"

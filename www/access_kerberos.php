@@ -42,12 +42,17 @@ $pgtitle = array(gettext("Access"), gettext("Kerberos"));
 if (!isset($config['kerberos']) || !is_array($config['kerberos']))
 	$config['kerberos'] = array();
 
+$type = array('ldap' => 'ldap', 'sssd' => 'sssd');
+
 $pconfig['kdc'] = !empty($config['kerberos']['kdc']) ? $config['kerberos']['kdc'] : "";
 $pconfig['realms']= !empty($config['kerberos']['realms']) ? $config['kerberos']['realms'] : "";
 $pconfig['ldaphostname']= !empty($config['kerberos']['ldaphostname']) ? $config['kerberos']['ldaphostname'] : "";
 $pconfig['ldapbase']= !empty($config['kerberos']['ldapbase']) ? $config['kerberos']['ldapbase'] : "";
 if (isset($config['kerberos']['ldapauxparam']) && is_array($config['kerberos']['ldapauxparam']))
 	$pconfig['ldapauxparam'] = implode("\n", $config['kerberos']['ldapauxparam']);
+if (isset($config['kerberos']['sssdauxparam']) && is_array($config['kerberos']['sssdauxparam']))
+	$pconfig['sssdauxparam'] = implode("\n", $config['kerberos']['sssdauxparam']);
+$pconfig['type']= !empty($config['kerberos']['type']) ? $config['kerberos']['type'] : $type[0];
 $pconfig['enable'] = isset($config['kerberos']['enable']);
 
 if ($_POST) {
@@ -55,6 +60,10 @@ if ($_POST) {
 	$pconfig = $_POST;
 
 	if (isset($_POST['enable']) && $_POST['enable']) {
+
+		if (!in_array($_POST['type'], array_values($type))) {
+			$input_errors[] = gettext('Type must be') . ' ' . implode(', ', $type);
+		}
 
 		if (!empty($_FILES['krb5']['tmp_name'])) {
 			if (is_uploaded_file($_FILES['krb5']['tmp_name'])) {
@@ -73,12 +82,20 @@ if ($_POST) {
 		$config['kerberos']['realms']= $_POST['realms'];
 		$config['kerberos']['ldaphostname']= $_POST['ldaphostname'];
 		$config['kerberos']['ldapbase']= $_POST['ldapbase'];
+		$config['kerberos']['type']= $_POST['type'];
 
 		unset($config['kerberos']['ldapauxparam']);
 		foreach (explode("\n", $_POST['ldapauxparam']) as $auxparam) {
 			$auxparam = trim($auxparam, "\t\n\r");
 			if (!empty($auxparam))
 				$config['kerberos']['ldapauxparam'][] = $auxparam;
+		}
+
+		unset($config['kerberos']['sssdauxparam']);
+		foreach (explode("\n", $_POST['sssdauxparam']) as $auxparam) {
+			$auxparam = trim($auxparam, "\t\n\r");
+			if (!empty($auxparam))
+				$config['kerberos']['sssdauxparam'][] = $auxparam;
 		}
 
 		$config['kerberos']['enable'] = isset($_POST['enable']) ? true : false;
@@ -89,6 +106,7 @@ if ($_POST) {
 		if (!file_exists($d_sysrebootreqd_path)) {
 			config_lock();
 			rc_exec_service("kerberos");
+			rc_exec_service("sssd");
 			config_unlock();
 		}
 
@@ -109,7 +127,22 @@ function enable_change(enable_change) {
 	document.iform.realms.disabled = endis;
 	document.iform.ldaphostname.disabled = endis;
 	document.iform.ldapbase.disabled = endis;
+	document.iform.type.disabled = endis;
 	document.iform.ldapauxparam.disabled = endis;
+	document.iform.sssdauxparam.disabled = endis;
+
+	toggle_ldap_sssd();
+}
+
+function toggle_ldap_sssd() {
+	if ($('#type').val() == 'ldap') {
+		$('[id^="ldap"]').closest('tr').show();
+		$('[id^="sssd"]').closest('tr').hide();
+	}
+	else if($('#type').val() == 'sssd') {
+		$('[id^="ldap"]').closest('tr').hide();
+		$('[id^="sssd"]').closest('tr').show();
+	}
 }
 //-->
 </script>
@@ -129,9 +162,11 @@ function enable_change(enable_change) {
 							<input name="krb5" type="file" class="formfld" size="40" /><br />
 						</td>
 					</tr>
+				<?php html_combobox("type", gettext("Type"), $pconfig['type'], $type, '', true, false, 'toggle_ldap_sssd()');?>
 				<?php html_inputbox("ldaphostname", gettext("URI"), $pconfig['ldaphostname'], gettext("The space-separated list of URIs for the LDAP server."), true, 60);?>
 				<?php html_inputbox("ldapbase", gettext("Base DN"), $pconfig['ldapbase'], sprintf(gettext("The default base distinguished name (DN) to use for searches, e.g. %s"), "dc=test,dc=org"), true, 40);?>
-				<?php html_textarea("ldapauxparam", gettext("Auxiliary parameters"), $pconfig['ldapauxparam'], sprintf(gettext("These parameters are added to %s."), "ldap.conf"), false, 65, 5, false, false);?>
+				<?php html_textarea("ldapauxparam", gettext("Ldap auxiliary parameters"), $pconfig['ldapauxparam'], sprintf(gettext("These parameters are added to %s."), "ldap.conf"), false, 65, 5, false, false);?>
+				<?php html_textarea("sssdauxparam", gettext("Sssd auxiliary parameters"), $pconfig['sssdauxparam'], sprintf(gettext("These parameters are added to %s."), "sssd.conf"), false, 65, 5, false, false);?>
 				</table>
 				<div id="submit">
 					<input name="Submit" type="submit" class="formbtn" value="<?=gettext("Save");?>" onclick="enable_change(true)" />

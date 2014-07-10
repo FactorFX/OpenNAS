@@ -18,7 +18,27 @@ kerberos_config="/var/etc/krb5.conf"
 ldap_config=${ldap_config:-"/var/etc/ldap.conf"}
 nsswitch_config="/var/etc/nsswitch.conf"
 
-if configxml_isset //kerberos/enable; then
+type=`configxml_get "//kerberos/type"`
+
+/usr/local/bin/xml sel -t \
+	-o "group: compat" -n \
+	-o "group_compat: nis" -n \
+	-o "hosts: files dns" -n \
+	-o "networks: files" -n \
+	-o "passwd: compat" -n \
+	-o "passwd_compat: nis" -n \
+	-o "shells: files" -n \
+	-o "services: compat" -n \
+	-o "services_compat: nis" -n \
+	-o "protocols: files" -n \
+	-o "rpc: files" -n \
+	${configxml_file} | /usr/local/bin/xml unesc > ${nsswitch_config}
+
+/bin/cat /dev/null > ${ldap_config}
+/bin/cat /dev/null > ${kerberos_config}
+
+if configxml_isset //kerberos/enable && [ -n "${type}" ]; then
+
 	echo "Generating krb5.conf."	
 	/usr/local/bin/xml sel -t -m "//kerberos" \
 		-o "[libdefaults]" -n \
@@ -30,13 +50,14 @@ if configxml_isset //kerberos/enable; then
 		-o "}" -n \
 		${configxml_file} | /usr/local/bin/xml unesc > ${kerberos_config}
 
+
 	echo "Generating nsswitch.conf."	
 	/usr/local/bin/xml sel -t \
-		-o "group: files ldap" -n \
+		-v "concat('group: files ', //kerberos/type)" -n \
 		-o "group_compat: nis" -n \
 		-o "hosts: files dns" -n \
 		-o "networks: files" -n \
-		-o "passwd: files ldap" -n \
+		-v "concat('passwd: files ', //kerberos/type)" -n \
 		-o "passwd_compat: nis" -n \
 		-o "shells: files" -n \
 		-o "services: compat" -n \
@@ -45,29 +66,12 @@ if configxml_isset //kerberos/enable; then
 		-o "rpc: files" -n \
 		${configxml_file} | /usr/local/bin/xml unesc > ${nsswitch_config}
 
-	echo "Generating ldap.conf."
-	/usr/local/bin/xml sel -t -m "//kerberos" \
-		-v "concat('uri ', ldaphostname)" -n \
-		-v "concat('base ', ldapbase)" -n \
-		-m "ldapauxparam" -v "." -n -b \
-		${configxml_file} | /usr/local/bin/xml unesc > ${ldap_config}
-else
-	# clearing existing files
-	/bin/cat /dev/null > ${kerberos_config}
-	/bin/cat /dev/null > ${ldap_config}
-
-	echo "Generating nsswitch.conf."	
-	/usr/local/bin/xml sel -t \
-		-o "group: compat" -n \
-		-o "group_compat: nis" -n \
-		-o "hosts: files dns" -n \
-		-o "networks: files" -n \
-		-o "passwd: compat" -n \
-		-o "passwd_compat: nis" -n \
-		-o "shells: files" -n \
-		-o "services: compat" -n \
-		-o "services_compat: nis" -n \
-		-o "protocols: files" -n \
-		-o "rpc: files" -n \
-		${configxml_file} | /usr/local/bin/xml unesc > ${nsswitch_config}	
+	if [ "${type}" = "ldap" ]; then
+		echo "Generating ldap.conf."
+		/usr/local/bin/xml sel -t -m "//kerberos" \
+			-v "concat('uri ', ldaphostname)" -n \
+			-v "concat('base ', ldapbase)" -n \
+			-m "ldapauxparam" -v "." -n -b \
+			${configxml_file} | /usr/local/bin/xml unesc > ${ldap_config}
+	fi	
 fi
