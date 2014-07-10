@@ -1219,9 +1219,9 @@ else
 			"iso")
 				create_iso;;
 			"all")
+				create_iso
 				create_full
-				create_usb
-				create_iso;;
+				create_usb;;
 			*)
 				echo "Bad Parameter";;	
 		esac
