@@ -101,6 +101,7 @@ if (isset($_POST['Submit']) && $_POST['Submit']) {
 			$input_errors[] = gettext("The port number must be ".implode(', ', $bacula_port_range));
 		}
 
+		$adevices = array();
 		foreach ($_POST['device'] as $id => $device) {
 			$sub = gettext("Device") . ' n° ' . ($id+1) . ' : ';
 			if (!in_array($device['mediatype'], $bacula_type)) {
@@ -109,6 +110,10 @@ if (isset($_POST['Submit']) && $_POST['Submit']) {
 			if (empty($device['archivepath'])) {
 				$input_errors[] = $sub . gettext("Archive path cannot be empty");
 			}
+			if (!empty($adevices) && in_array($device['name'], $adevices)) {
+				$input_errors[] = $sub . gettext("Device name already exist");
+			}
+			$adevices[] = $device['name'];
 		}
 	}
 
