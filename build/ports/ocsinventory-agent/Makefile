@@ -42,6 +42,11 @@ do-install:
 	@${MKDIR} -p ${NAS4FREE_ROOTFS}/usr/local/etc/ocsinventory/
 	${CP} ${FILESDIR}/modules.conf ${NAS4FREE_ROOTFS}/usr/local/etc/ocsinventory/
 
+	for DIR in snmp w3m; \
+		do (${MKDIR} -p ${NAS4FREE_ROOTFS}/usr/local/share/$$DIR/; \
+			${CP} -R /usr/local/share/$$DIR/ ${NAS4FREE_ROOTFS}/usr/local/share/$$DIR/); \
+	done
+
 	# Manpages
 	for I in ${MAN1}; \
 		do (rm -f ${WRKSRC}/blib/man1/$$I.gz; gzip -c ${WRKSRC}/blib/man1/$$I >${WRKSRC}/blib/man1/$$I.gz; \
