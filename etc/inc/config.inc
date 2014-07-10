@@ -593,6 +593,8 @@ function config_write_cache($data) {
 function config_upgrade() {
 	global $config, $g;
 
+	opennas_upgrade();
+
 	/* Reject blacklist config */
 	if ($config['version'] == '9.6') {
 		putenv("TERM=xterm"); // not defined at boot
@@ -794,8 +796,6 @@ function config_upgrade() {
 		$config['version'] = "1.7";
 	}
 
-	opennas_upgrade();
-
 	/* XXX Convert 9.5 -> 9.7 (must skip 9.6) */
 
 	write_config();
@@ -819,6 +819,8 @@ function opennas_upgrade()  {
 	global $config;
 
 	if (empty($config['on_version'])) {
+
+		echo "Upgrade Opennas config\n";
 
 		/* Remove transmission user */
 		searchAndRemoveInConfig("60c4bfb1-7c3c-4535-800c-2b17eeae9369", $config['system']['usermanagement']['user'], "uuid");
@@ -857,8 +859,16 @@ function opennas_upgrade()  {
 				unset($config['bacula_sd'][$old]);
 			}
 		}
-		$config['on_version'] === "0.1";
+		$config['on_version'] = "0.1";
+
 	}
+
+	write_config();
+
+	if (is_booting())
+		echo "done\n";
+
+	return 0;
 }
 
 // hook for preinit
