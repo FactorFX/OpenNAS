@@ -76,6 +76,9 @@ sbin/swapctl
 ## file
 usr/bin/file
 
+## pkg
+usr/sbin/pkg
+
 ## perl 5.16
 usr/local/etc/perl5_version
 usr/local/bin/perl5.16.3:usr/bin/perl
