@@ -21,6 +21,7 @@ CFLAGS:=		${CFLAGS:S/-O2/-O/} -Wno-write-strings
 
 do-install:
 	@${INSTALL_PROGRAM} -v ${WRKSRC}/smartctl ${NAS4FREE_ROOTFS}/usr/local/sbin
+	@${LN} -fsv /usr/local/sbin/smartctl ${NAS4FREE_ROOTFS}/usr/local/bin/smartctl
 	@${INSTALL_PROGRAM} -v ${WRKSRC}/smartd ${NAS4FREE_ROOTFS}/usr/local/sbin
 	@${CP} -pv ${WRKSRC}/smartd_warning.sh ${NAS4FREE_ROOTFS}/${PREFIX}/etc
 
