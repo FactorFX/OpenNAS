@@ -66,12 +66,10 @@ if configxml_isset //kerberos/enable && [ -n "${type}" ]; then
 		-o "rpc: files" -n \
 		${configxml_file} | /usr/local/bin/xml unesc > ${nsswitch_config}
 
-	if [ "${type}" = "ldap" ]; then
-		echo "Generating ldap.conf."
-		/usr/local/bin/xml sel -t -m "//kerberos" \
-			-v "concat('uri ', ldaphostname)" -n \
-			-v "concat('base ', ldapbase)" -n \
-			-m "ldapauxparam" -v "." -n -b \
-			${configxml_file} | /usr/local/bin/xml unesc > ${ldap_config}
-	fi	
+	echo "Generating ldap.conf."
+	/usr/local/bin/xml sel -t -m "//kerberos" \
+		-v "concat('uri ', ldaphostname)" -n \
+		-v "concat('base ', ldapbase)" -n \
+		-m "ldapauxparam" -v "." -n -b \
+		${configxml_file} | /usr/local/bin/xml unesc > ${ldap_config}
 fi

@@ -142,7 +142,7 @@ do-install:
 	
 	${MKDIR} -p /usr/local/share/sssd/
 	
-.for DIR in /usr/local/lib/shared-modules/ldb/ /usr/local/share/xml/ /usr/local/share/xsl/
+.for DIR in /usr/local/lib/shared-modules/ldb/ /usr/local/share/xml/ /usr/local/share/xsl/ /usr/local/lib/ldb/
 	${MKDIR} -p ${NAS4FREE_ROOTFS}${DIR}
 	${CP} -R ${DIR} ${NAS4FREE_ROOTFS}${DIR}
 .endfor
@@ -153,10 +153,37 @@ do-install:
 
 	${MKDIR} -p ${NAS4FREE_ROOTFS}/usr/local/etc/sssd/
 	@touch ${NAS4FREE_ROOTFS}/usr/local/etc/sssd/sssd.conf
+	@chmod 600 ${NAS4FREE_ROOTFS}/usr/local/etc/sssd/sssd.conf
 	
 .for FILE in ldbadd ldbdel ldbedit ldbmodify ldbrename ldbsearch
 	${CP} -v /usr/local/bin/${FILE} ${NAS4FREE_ROOTFS}/usr/local/bin/
 .endfor
+	
+	${MKDIR} -p ${NAS4FREE_ROOTFS}/usr/local/lib/krb5/plugins/libkrb5/
+	${CP} -v ${WRKSRC}/.libs/sssd_krb5_locator_plugin.so ${NAS4FREE_ROOTFS}/usr/local/lib/krb5/plugins/libkrb5/
+	${CP} -v ${WRKSRC}/.libs/libipa_hbac.so ${NAS4FREE_ROOTFS}/usr/local/lib/
+	${CP} -v ${WRKSRC}/.libs/libipa_hbac.so.0 ${NAS4FREE_ROOTFS}/usr/local/lib/
+	${CP} -v ${WRKSRC}/.libs/libipa_hbac.so.0.0.1 ${NAS4FREE_ROOTFS}/usr/local/lib/
+	${CP} -v ${WRKSRC}/.libs/libsss_idmap.so ${NAS4FREE_ROOTFS}/usr/local/lib/
+	${CP} -v ${WRKSRC}/.libs/libsss_idmap.so.0 ${NAS4FREE_ROOTFS}/usr/local/lib/
+	#${CP} -v ${WRKSRC}/.libs/libsss_idmap.so.0.0 ${NAS4FREE_ROOTFS}/usr/local/lib/
+	${CP} -v ${WRKSRC}/.libs/libsss_sudo.so ${NAS4FREE_ROOTFS}/usr/local/lib/
+	${CP} -v ${WRKSRC}/.libs/nss_sss.so ${NAS4FREE_ROOTFS}/usr/local/lib/
+	#${CP} -v ${WRKSRC}/.libs/nss_sss.so.1 ${NAS4FREE_ROOTFS}/usr/local/lib/
+	${CP} -v ${WRKSRC}/.libs/nss_sss.so.2 ${NAS4FREE_ROOTFS}/usr/local/lib/
+	${CP} -v ${WRKSRC}/.libs/nss_sss.so.2.0.0 ${NAS4FREE_ROOTFS}/usr/local/lib/
+	${CP} -v ${WRKSRC}/.libs/pam_sss.so ${NAS4FREE_ROOTFS}/usr/local/lib/
+	${CP} -v ${WRKSRC}/.libs/memberof.so ${NAS4FREE_ROOTFS}/usr/local/lib/shared-modules/ldb/
+	${MKDIR} -p ${NAS4FREE_ROOTFS}/usr/local/lib/sssd/
+	${CP} -v ${WRKSRC}/.libs/libsss_ad.so ${NAS4FREE_ROOTFS}/usr/local/lib/sssd/
+	${CP} -v ${WRKSRC}/.libs/libsss_ipa.so ${NAS4FREE_ROOTFS}/usr/local/lib/sssd/
+	${CP} -v ${WRKSRC}/.libs/libsss_krb5.so ${NAS4FREE_ROOTFS}/usr/local/lib/sssd/
+	${CP} -v ${WRKSRC}/.libs/libsss_ldap.so ${NAS4FREE_ROOTFS}/usr/local/lib/sssd/
+	${CP} -v ${WRKSRC}/.libs/libsss_proxy.so ${NAS4FREE_ROOTFS}/usr/local/lib/sssd/
+	${CP} -v ${WRKSRC}/.libs/libsss_simple.so ${NAS4FREE_ROOTFS}/usr/local/lib/sssd/
+	
+	${CP} /usr/local/lib/libldb.so.1 ${NAS4FREE_ROOTFS}/usr/local/lib/
+	${LN} -sfv /usr/local/lib/libldb.so.1 ${NAS4FREE_ROOTFS}/usr/local/lib/libldb.so
 	
 	### ManPages
 	${MKDIR} ${NAS4FREE_ROOTFS}/usr/share/man/man1

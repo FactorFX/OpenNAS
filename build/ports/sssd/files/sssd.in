@@ -6,7 +6,7 @@
 # PROVIDE: sssd
 # REQUIRE: DAEMON
 # BEFORE: LOGIN
-
+# XQUERY: -i "matches(//kerberos/type, '^sss$')" -o "0" -b
 # KEYWORD: shutdown
 # RCVAR: sssd
 

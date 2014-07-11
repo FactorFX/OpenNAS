@@ -2,26 +2,7 @@
 include/ipa_hbac.h
 include/sss_idmap.h
 include/sss_sudo.h
-lib/krb5/plugins/libkrb5/sssd_krb5_locator_plugin.so
-lib/libipa_hbac.so
-lib/libipa_hbac.so.0
-lib/libipa_hbac.so.0.0.1
-lib/libsss_idmap.so
-lib/libsss_idmap.so.0
-lib/libsss_idmap.so.0.0
-lib/libsss_sudo.so
-lib/nss_sss.so
-lib/nss_sss.so.1
-lib/nss_sss.so.2
-lib/nss_sss.so.2.0.0
-lib/pam_sss.so
-lib/shared-modules/ldb/memberof.so
-lib/sssd/libsss_ad.so
-lib/sssd/libsss_ipa.so
-lib/sssd/libsss_krb5.so
-lib/sssd/libsss_ldap.so
-lib/sssd/libsss_proxy.so
-lib/sssd/libsss_simple.so
+
 
 
 

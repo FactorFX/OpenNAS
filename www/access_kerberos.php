@@ -42,7 +42,7 @@ $pgtitle = array(gettext("Access"), gettext("Kerberos"));
 if (!isset($config['kerberos']) || !is_array($config['kerberos']))
 	$config['kerberos'] = array();
 
-$type = array('ldap' => 'ldap', 'sssd' => 'sssd');
+$type = array('ldap' => 'ldap', 'sss' => 'sss');
 
 $pconfig['kdc'] = !empty($config['kerberos']['kdc']) ? $config['kerberos']['kdc'] : "";
 $pconfig['realms']= !empty($config['kerberos']['realms']) ? $config['kerberos']['realms'] : "";
@@ -115,8 +115,6 @@ if ($_POST) {
 
 }
 
-if (isset($pconfig['ldapauxparam']) && is_array($pconfig['ldapauxparam']))
-	$pconfig['ldapauxparam'] = implode("\n", $pconfig['ldapauxparam']);
 ?>
 <?php include("fbegin.inc");?>
 <script type="text/javascript">
@@ -137,11 +135,11 @@ function enable_change(enable_change) {
 function toggle_ldap_sssd() {
 	if ($('#type').val() == 'ldap') {
 		$('[id^="ldap"]').closest('tr').show();
-		$('[id^="sssd"]').closest('tr').hide();
+		$('[id^="sss"]').closest('tr').hide();
 	}
-	else if($('#type').val() == 'sssd') {
+	else if($('#type').val() == 'sss') {
 		$('[id^="ldap"]').closest('tr').hide();
-		$('[id^="sssd"]').closest('tr').show();
+		$('[id^="sss"]').closest('tr').show();
 	}
 }
 //-->
@@ -166,7 +164,7 @@ function toggle_ldap_sssd() {
 				<?php html_inputbox("ldaphostname", gettext("URI"), $pconfig['ldaphostname'], gettext("The space-separated list of URIs for the LDAP server."), true, 60);?>
 				<?php html_inputbox("ldapbase", gettext("Base DN"), $pconfig['ldapbase'], sprintf(gettext("The default base distinguished name (DN) to use for searches, e.g. %s"), "dc=test,dc=org"), true, 40);?>
 				<?php html_textarea("ldapauxparam", gettext("Ldap auxiliary parameters"), $pconfig['ldapauxparam'], sprintf(gettext("These parameters are added to %s."), "ldap.conf"), false, 65, 5, false, false);?>
-				<?php html_textarea("sssdauxparam", gettext("Sssd auxiliary parameters"), $pconfig['sssdauxparam'], sprintf(gettext("These parameters are added to %s."), "sssd.conf"), false, 65, 5, false, false);?>
+				<?php html_textarea("sssdauxparam", gettext("Sss auxiliary parameters"), $pconfig['sssdauxparam'], sprintf(gettext("These parameters are added to %s."), "sssd.conf"), false, 65, 5, false, false);?>
 				</table>
 				<div id="submit">
 					<input name="Submit" type="submit" class="formbtn" value="<?=gettext("Save");?>" onclick="enable_change(true)" />
