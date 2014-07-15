@@ -36,6 +36,8 @@ basevardir="/var/lib/ocsinventory-agent"
 logfile="/var/log/ocsinventory-agent.log"
 ocsinventory_agent_config="/usr/local/etc/ocsinventory/ocsinventory-agent.cfg"
 
+required_files="${ocsinventory_agent_config}"
+
 pidfile="/var/run/ocsinventory-agent.pid"
 
 # Check if required directories exists.
@@ -60,7 +62,7 @@ ocsinventory_agent_restart()
 
 ocsinventory_agent_status()
 {
-	if ocsinventory_agent_running; then
+    if ocsinventory_agent_running; then
         echo "${name} is running."
         return 0
     else
@@ -116,7 +118,7 @@ ocsinventory_agent_mkconf()
 
 ocsinventory_agent_running() 
 {
-	if [ `pgrep -f "${command} ${rc_flags}" -F ${pidfile}` ]; then
+	if pgrep -f "${command} ${rc_flags}" -F ${pidfile} > /dev/null ; then
 		return 0
 	else
 		return 1
