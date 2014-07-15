@@ -45,30 +45,43 @@ if (!isset($config['bacula_sd']) || !is_array($config['bacula_sd']))
 $bacula_port_range = array( '9101', '9102', '9103');
 $bacula_type = array('File', 'tape', 'Fifo', 'DVD');
 
-$pconfig['storagename'] = !empty($config['bacula_sd']['storagename']) ? $config['bacula_sd']['storagename'] : "OPENNAS-STORAGE-bacula";
-$pconfig['storageport'] = !empty($config['bacula_sd']['storageport']) ? $config['bacula_sd']['storageport'] : $bacula_port_range[1];
-$pconfig['storagemaxjobs'] = !empty($config['bacula_sd']['storagemaxjobs']) ? $config['bacula_sd']['storagemaxjobs'] : "20";
-$pconfig['directorname'] = !empty($config['bacula_sd']['directorname']) ? $config['bacula_sd']['directorname'] : "OPENNAS-DIRECTOR-bacula";
-$pconfig['directorpassword'] = !empty($config['bacula_sd']['directorpassword']) ? $config['bacula_sd']['directorpassword'] : "";
-$pconfig['enable'] = isset($config['bacula_sd']['enable']);
+if (isset($_POST['add_device']) || isset($_POST['remove_device'])) {
+	$pconfig['storagename'] = $_POST['storagename'];
+	$pconfig['storageport'] = $_POST['storageport'];
+	$pconfig['storagemaxjobs'] = $_POST['storagemaxjobs'];
+	$pconfig['directorname'] = $_POST['directorname'];
+	$pconfig['directorpassword'] = $_POST['directorpassword'];
+	$pconfig['device'] = $_POST['device'];
+	$pconfig['enable'] = $_POST['enable'];
 
-if (!isset($config['bacula_sd']['device'])) {
-	$pconfig['device'][0] = array();
+	if (isset($_POST['add_device'])) {
+		$pconfig['device'][] = array();
+	}
+	elseif (isset($_POST['remove_device'])) {
+		unset($pconfig['device'][$_POST['remove_device']]);
+		$pconfig['device'] = array_combine(range(0, count($pconfig['device'])-1), array_values($pconfig['device']));
+	}
 }
-elseif(!isset($_POST['add_device']) && !isset($_POST['remove_device'])) {
-	$pconfig['device'] = $config['bacula_sd']['device'];
-}elseif (isset($_POST['add_device'])) {echo 'add';
-	$pconfig['device'] = $_POST['device'];
-	$pconfig['device'][] = array();
-}elseif(isset($_POST['remove_device'])){echo 'remove';
-	$pconfig['device'] = $_POST['device'];
-	unset($pconfig['device'][$_POST['remove_device']]);
+else {
+	$pconfig['storagename'] = !empty($config['bacula_sd']['storagename']) ? $config['bacula_sd']['storagename'] : "OPENNAS-STORAGE-bacula";
+	$pconfig['storageport'] = !empty($config['bacula_sd']['storageport']) ? $config['bacula_sd']['storageport'] : $bacula_port_range[2];
+	$pconfig['storagemaxjobs'] = !empty($config['bacula_sd']['storagemaxjobs']) ? $config['bacula_sd']['storagemaxjobs'] : "20";
+	$pconfig['directorname'] = !empty($config['bacula_sd']['directorname']) ? $config['bacula_sd']['directorname'] : "OPENNAS-DIRECTOR-bacula";
+	$pconfig['directorpassword'] = !empty($config['bacula_sd']['directorpassword']) ? $config['bacula_sd']['directorpassword'] : "";
+
+	if (!empty($config['bacula_sd']['device'])){
+		$pconfig['device'] = $config['bacula_sd']['device'];
+	}
+	else {
+		$pconfig['device'][0] = array();
+	}
+	$pconfig['enable'] = isset($config['bacula_sd']['enable']);
 }
 
 foreach ($pconfig['device'] as $nb_device => $device) {
 	$pconfig['device'][$nb_device]['name'] = !empty($device['name']) ? $device['name'] : "OPENNAS-DEVICE-default";
 	$pconfig['device'][$nb_device]['mediatype'] = !empty($device['mediatype']) ? $device['mediatype'] : $bacula_type[0];
-	$pconfig['device'][$nb_device]['archivepath'] = !empty($device['archivepath']) ? $device['archivepath'] : "";
+	$pconfig['device'][$nb_device]['archivepath'] = !empty($device['archivepath']) ? $device['archivepath'] : "1111";
 	$pconfig['device'][$nb_device]['labelmedia'] = isset($device['labelmedia']);
 	$pconfig['device'][$nb_device]['randomaccess'] = isset($device['randomaccess']);
 	$pconfig['device'][$nb_device]['removablemedia'] = isset($device['removablemedia']);
@@ -115,6 +128,7 @@ if (isset($_POST['Submit']) && $_POST['Submit']) {
 			}
 			$adevices[] = $device['name'];
 		}
+
 	}
 
 	do_input_validation($_POST, $reqdfields, $reqdfieldsn, $input_errors);
@@ -163,10 +177,13 @@ function enable_change(enable_change) {
 	document.iform.storagemaxjobs.disabled = endis;
 	document.iform.directorname.disabled = endis;
 	document.iform.directorpassword.disabled = endis;
+	$('#add_device').toggle(!endis);
+	$('a[id^=remove_device]').toggle(!endis);
 
 	for (var i = 0; i < device_length; i++) {
 		document.getElementById("device["+i+"][name]").disabled = endis;
 		document.getElementById("device["+i+"][mediatype]").disabled = endis;
+		document.getElementById("device["+i+"][removablemedia]").disabled = endis;
 		document.getElementById("device_"+i+"_archivepath").disabled = endis;
 		document.getElementById("device["+i+"][labelmedia]").disabled = endis;
 		document.getElementById("device["+i+"][randomaccess]").disabled = endis;
@@ -184,7 +201,7 @@ function enable_change(enable_change) {
 	});
 	$('#iform').submit(function(e){
 		$('input[id$="_archivepath"]').attr('name', function(){
-			console.log(this.name.replace(/device_/, 'device[').replace(/_archivepath/, '][archivepath]'));
+console.log(this.name.replace(/device_/, 'device[').replace(/_archivepath/, '][archivepath]'));
 			return this.name.replace(/device_/, 'device[').replace(/_archivepath/, '][archivepath]');
 		});
 	});
@@ -229,9 +246,9 @@ function enable_change(enable_change) {
 						<?php html_checkbox("device[$id][randomaccess]", gettext("Random access"), !empty($pconfig['device'][$id]['randomaccess']), gettext("The Storage daemon will submit a Mount Command before attempting to open the device")); ?>
 						<?php html_checkbox("device[$id][removablemedia]", gettext("Removable media"), !empty($pconfig['device'][$id]['removablemedia']), gettext("This device supports removable media")); ?>
 						<?php html_checkbox("device[$id][alwaysopen]", gettext("Always open"), !empty($pconfig['device'][$id]['alwaysopen']), gettext("Keep the device open")); ?>
-						<?php if($id !== 0):?>
+						<?php if($id !== 0 || count($pconfig['device']) > 1):?>
 						<tr>
-							<td class="list"><a href="#" id="remove_device_<?=$id?>"><img src="del.gif" title="<?=gettext("Add device");?>" border="0" alt="<?=gettext("Add device");?>" /></a></td>
+							<td class="list"><a href="#" id="remove_device_<?=$id?>"><img src="del.gif" title="<?=gettext("Add device");?>" border="0" alt="<?=gettext("Remove device");?>" /></a></td>
 						</tr>
 						<?php endif;?>
 						<?php html_separator()?>

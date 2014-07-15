@@ -43,6 +43,9 @@ pidfile="/var/run/ocsinventory-agent.pid"
 # Check if required directories exists.
 [ ! -d "${basevardir}" ] && mkdir -p "${basevardir}"
 
+# Check if required config file exist.
+[ ! -f "${ocsinventory_agent_config}" ] && touch "${ocsinventory_agent_config}"
+
 ocsinventory_agent_start()
 {
 	if ocsinventory_agent_running; then
@@ -62,22 +65,22 @@ ocsinventory_agent_restart()
 
 ocsinventory_agent_status()
 {
-    if ocsinventory_agent_running; then
-        echo "${name} is running."
-        return 0
-    else
-        echo "${name} is not running."
-        return 1
-    fi
+	if ocsinventory_agent_running; then
+		echo "${name} is running."
+		return 0
+	else
+		echo "${name} is not running."
+		return 1
+	fi
 }
 
 ocsinventory_agent_stop()
 {
-		if ocsinventory_agent_running; then
-			/bin/kill `cat ${pidfile}`
-		else
-			echo "${name} is not running."
-		fi
+	if ocsinventory_agent_running; then
+		/bin/kill `cat ${pidfile}`
+	else
+		echo "${name} is not running."
+	fi
 }
 
 ocsinventory_agent_mkconf()
@@ -100,8 +103,11 @@ ocsinventory_agent_mkconf()
 		-i "string-length(proxy) > 0" \
 			-v "concat('proxy=', proxy)" -n \
 		-b \
-		-i "string-length(ssl) > 0" \
-			-v "concat('ssl=', ssl)" -n \
+		-i "count(ssl) > 0" \
+			-v "concat('ssl=', '1')" -n \
+		-b \
+		-i "count(ssl) = 0" \
+			-v "concat('ssl=', '0')" -n \
 		-b \
 		-i "string-length(ocs_cacert) > 0" \
 			-v "concat('ca=', ocs_cacert)" -n \
@@ -109,8 +115,11 @@ ocsinventory_agent_mkconf()
 		-i "string-length(tag) > 0" \
 			-v "concat('tag=', tag)" -n \
 		-b \
-		-i "string-length(nosoftware) > 0" \
-			-v "concat('nosoftware=', nosoftware)" -n \
+		-i "count(nosoftware) > 0" \
+			-v "concat('nosoftware=', '1')" -n \
+		-b \
+		-i "count(nosoftware) = 0" \
+			-v "concat('nosoftware=', '0')" -n \
 		-b \
 		${configxml_file} | /usr/local/bin/xml unesc > ${ocsinventory_agent_config}
 

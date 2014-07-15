@@ -70,15 +70,15 @@ bacula_sd_mkconf()
 		-i "string-length(name) > 0" -v "concat('Name = ', name)" -n -b \
 		-v "concat('Media Type = ', mediatype)" -n \
 		-v "concat('Archive Device = ', archivepath)" -n \
-		-i "string-length(labelmedia) > 0" -o "LabelMedia = yes;" -n -b \
-		-i "string-length(labelmedia) = 0" -o "LabelMedia = no;" -n -b \
-		-i "string-length(randomaccess) > 0" -o "Random Access = yes;" -n -b \
-		-i "string-length(randomaccess) = 0" -o "Random Access = no;" -n -b \
+		-i "count(labelmedia) > 0" -o "LabelMedia = yes;" -n -b \
+		-i "count(labelmedia) = 0" -o "LabelMedia = no;" -n -b \
+		-i "count(randomaccess) > 0" -o "Random Access = yes;" -n -b \
+		-i "count(randomaccess) = 0" -o "Random Access = no;" -n -b \
 		-o "AutomaticMount = yes;" -n \
-		-i "string-length(removablemedia) > 0" -o "RemovableMedia = yes;" -n -b \
-		-i "string-length(removablemedia) = 0" -o "RemovableMedia = no;" -n -b \
-		-i "string-length(alwaysopen) > 0" -o "AlwaysOpen = yes;" -n -b \
-		-i "string-length(alwaysopen) = 0" -o "AlwaysOpen = no;" -n -b \
+		-i "count(removablemedia) > 0" -o "RemovableMedia = yes;" -n -b \
+		-i "count(removablemedia) = 0" -o "RemovableMedia = no;" -n -b \
+		-i "count(alwaysopen) > 0" -o "AlwaysOpen = yes;" -n -b \
+		-i "count(alwaysopen) = 0" -o "AlwaysOpen = no;" -n -b \
 		-o "}" -n \
 		${configxml_file} | /usr/local/bin/xml unesc >> ${bacula_sd_config}
 		

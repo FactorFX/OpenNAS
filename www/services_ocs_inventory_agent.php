@@ -64,10 +64,7 @@ if ($_POST) {
 		$reqdfieldsn = array(gettext("Realm"), gettext("User"), gettext("Password"), gettext("Tag"));
 		$reqdfieldst = explode(" ", "string string password string");
 
-		do_input_validation($_POST, $reqdfields, $reqdfieldsn, $input_errors);
-		do_input_validation_type($_POST, $reqdfields, $reqdfieldsn, $reqdfieldst, $input_errors);
-
-		if (!empty($_POST['server']) && !preg_match('#^https?://#', $_POST['server'])) {
+		if (!preg_match('#^https?://#', $_POST['server'])) {
 			$prefix = gettext('must begin with http ot https');
 			$input_errors[] = gettext("Server") . ' ' . $prefix;
 		}
@@ -77,6 +74,8 @@ if ($_POST) {
 			$input_errors[] = gettext("Proxy") . ' ' . $prefix;
 		}
 	}
+
+	do_input_validation_type($_POST, $reqdfields, $reqdfieldsn, $reqdfieldst, $input_errors);
 
 	if (empty($input_errors)) {
 		$config['ocsinventory_agent']['server'] = $_POST['server'];

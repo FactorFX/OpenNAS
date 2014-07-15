@@ -150,10 +150,6 @@ do-install:
 .for FILE in ${LIBEXEC_FILES}
 	${CP} -v ${WRKSRC}/${FILE} ${NAS4FREE_ROOTFS}/usr/local/libexec/sssd/
 .endfor
-
-	${MKDIR} -p ${NAS4FREE_ROOTFS}/usr/local/etc/sssd/
-	@touch ${NAS4FREE_ROOTFS}/usr/local/etc/sssd/sssd.conf
-	@chmod 600 ${NAS4FREE_ROOTFS}/usr/local/etc/sssd/sssd.conf
 	
 .for FILE in ldbadd ldbdel ldbedit ldbmodify ldbrename ldbsearch
 	${CP} -v /usr/local/bin/${FILE} ${NAS4FREE_ROOTFS}/usr/local/bin/

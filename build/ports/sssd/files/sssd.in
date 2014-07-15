@@ -6,16 +6,9 @@
 # PROVIDE: sssd
 # REQUIRE: DAEMON
 # BEFORE: LOGIN
-# XQUERY: -i "matches(//kerberos/type, '^sss$')" -o "0" -b
 # KEYWORD: shutdown
+# XQUERY: -i "count(//kerberos/type[contains(., 'sss')]) and count(//kerberos/enable) > 0" -o "0" -b
 # RCVAR: sssd
-
-# Add the following lines to /etc/rc.conf to enable `sssd':
-#
-# sssd_enable="YES"
-#
-# See sssd(8) for sssd_flags
-#
 
 . /etc/rc.subr
 . /etc/configxml.subr
@@ -33,12 +26,20 @@ sssd_config_file="/usr/local/etc/sssd/sssd.conf"
 
 command="/usr/local/sbin/$name"
 pidfile="/var/run/$name.pid"
-required_files="${sssd_conf}"
+required_files="${sssd_config_file}"
 start_precmd="sssd_mkconf"
 
 for i in db/sss db/sss_mc log/sssd run/sss/krb5.include.d run/sss/private run/sss; do
 	if [ ! -d var/${i} ]; then mkdir -p /var/${i}; fi
 done
+
+# Check if required directories exists.
+[ ! -d "/usr/local/etc/sssd/" ] && mkdir -p "/usr/local/etc/sssd/"
+
+# Check if required config file exist.
+[ ! -f "/usr/local/etc/sssd/sssd.conf" ] && touch "/usr/local/etc/sssd/sssd.conf"
+
+chmod 600 /usr/local/etc/sssd/sssd.conf
 
 sssd_mkconf()
 {

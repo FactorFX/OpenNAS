@@ -47,7 +47,7 @@ $bacula_port_range = array( '9101', '9102', '9103');
 $pconfig['directorname'] = !empty($config['bacula_fd']['directorname']) ? $config['bacula_fd']['directorname'] : "OPENNAS-DIRECTOR-bacula";
 $pconfig['directorpassword'] = !empty($config['bacula_fd']['directorpassword']) ? $config['bacula_fd']['directorpassword'] : "";
 $pconfig['filedaemonname'] = !empty($config['bacula_fd']['filedaemonname']) ? $config['bacula_fd']['filedaemonname'] : "OPENNAS-CLIENT-bacula";
-$pconfig['filedaemonport'] = !empty($config['bacula_fd']['filedaemonport']) ? $config['bacula_fd']['filedaemonport'] : $bacula_port_range[0];
+$pconfig['filedaemonport'] = !empty($config['bacula_fd']['filedaemonport']) ? $config['bacula_fd']['filedaemonport'] : $bacula_port_range[1];
 $pconfig['filedaemonmaxjobs'] = !empty($config['bacula_fd']['filedaemonmaxjobs']) ? $config['bacula_fd']['filedaemonmaxjobs'] : "20";
 $pconfig['enable'] = isset($config['bacula_fd']['enable']);
 
@@ -73,13 +73,15 @@ if ($_POST) {
 		$reqdfieldsn = array_merge($reqdfieldsn, array(gettext("File Daemon Name")));
 		$reqdfieldst = array_merge($reqdfieldst, array("string"));
 
-		if ((1 > $_POST['filedaemonmaxjobs']) || (50 < $_POST['filedaemonmaxjobs'])) {
+		if (!empty($_POST['filedaemonmaxjobs']) && (1 > $_POST['filedaemonmaxjobs']) || (50 < $_POST['filedaemonmaxjobs'])) {
 			$input_errors[] = gettext("The number of maximum concurent jobs must be between 1 and 50.");
 		}
 
 		if (!in_array($_POST['filedaemonport'], $bacula_port_range)) {
 			$input_errors[] = gettext("The port number must be ".implode(', ', $bacula_port_range));
 		}
+
+
 	}
 
 	do_input_validation($_POST, $reqdfields, $reqdfieldsn, $input_errors);

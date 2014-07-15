@@ -75,7 +75,9 @@ if ($_POST) {
 					$g_file_upload_error[$_FILES['krb5']['error']]);
 			}
 		}
+
 	}
+
 	if (empty($input_errors)) {
 
 		$config['kerberos']['kdc'] = $_POST['kdc'];
@@ -151,7 +153,7 @@ function toggle_ldap_sssd() {
 				<?php if (!empty($input_errors)) print_input_errors($input_errors);?>
 				<?php if (!empty($savemsg)) print_info_box($savemsg);?>
 				<table width="100%" border="0" cellpadding="6" cellspacing="0">
-					<?php html_titleline_checkbox("enable", gettext("Kerberos Protocol"), isset($pconfig['enable']) ? true : false, gettext("Enable"), "enable_change(false)");?>
+					<?php html_titleline_checkbox("enable", gettext("Kerberos Protocol"), !empty($pconfig['enable']) ? true : false, gettext("Enable"), "enable_change(false)");?>
 					<?php html_inputbox("kdc", "KDC", $pconfig['kdc'],"", true, 60);?>
 					<?php html_inputbox("realms","Realms", $pconfig['realms'],"",  true, 60);?>
 				<tr id="krb5_keytabid" style="display: visible">
