@@ -106,7 +106,7 @@ if ($_POST) {
 		if (!file_exists($d_sysrebootreqd_path)) {
 			config_lock();
 			rc_exec_service("kerberos");
-			rc_exec_service("sssd");
+			$retval |= rc_update_service("sssd");
 			config_unlock();
 		}
 

@@ -166,10 +166,10 @@ do-install:
 	${CP} -v ${WRKSRC}/.libs/libipa_hbac.so.0.0.1 ${NAS4FREE_ROOTFS}/usr/local/lib/
 	${CP} -v ${WRKSRC}/.libs/libsss_idmap.so ${NAS4FREE_ROOTFS}/usr/local/lib/
 	${CP} -v ${WRKSRC}/.libs/libsss_idmap.so.0 ${NAS4FREE_ROOTFS}/usr/local/lib/
-	#${CP} -v ${WRKSRC}/.libs/libsss_idmap.so.0.0 ${NAS4FREE_ROOTFS}/usr/local/lib/
+	${LN} -sfv /usr/local/lib/libsss_idmap.so ${NAS4FREE_ROOTFS}/usr/local/lib/libsss_idmap.so.0.0
 	${CP} -v ${WRKSRC}/.libs/libsss_sudo.so ${NAS4FREE_ROOTFS}/usr/local/lib/
 	${CP} -v ${WRKSRC}/.libs/nss_sss.so ${NAS4FREE_ROOTFS}/usr/local/lib/
-	#${CP} -v ${WRKSRC}/.libs/nss_sss.so.1 ${NAS4FREE_ROOTFS}/usr/local/lib/
+	${LN} -sfv /usr/local/lib/nss_sss.so ${NAS4FREE_ROOTFS}/usr/local/lib/nss_sss.so.1
 	${CP} -v ${WRKSRC}/.libs/nss_sss.so.2 ${NAS4FREE_ROOTFS}/usr/local/lib/
 	${CP} -v ${WRKSRC}/.libs/nss_sss.so.2.0.0 ${NAS4FREE_ROOTFS}/usr/local/lib/
 	${CP} -v ${WRKSRC}/.libs/pam_sss.so ${NAS4FREE_ROOTFS}/usr/local/lib/

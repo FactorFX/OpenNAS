@@ -18,8 +18,6 @@ kerberos_config="/var/etc/krb5.conf"
 ldap_config=${ldap_config:-"/var/etc/ldap.conf"}
 nsswitch_config="/var/etc/nsswitch.conf"
 
-type=`configxml_get "//kerberos/type"`
-
 /usr/local/bin/xml sel -t \
 	-o "group: compat" -n \
 	-o "group_compat: nis" -n \
@@ -36,6 +34,8 @@ type=`configxml_get "//kerberos/type"`
 
 /bin/cat /dev/null > ${ldap_config}
 /bin/cat /dev/null > ${kerberos_config}
+
+type=`configxml_get "//kerberos/type"`
 
 if configxml_isset //kerberos/enable && [ -n "${type}" ]; then
 
@@ -66,10 +66,13 @@ if configxml_isset //kerberos/enable && [ -n "${type}" ]; then
 		-o "rpc: files" -n \
 		${configxml_file} | /usr/local/bin/xml unesc > ${nsswitch_config}
 
-	echo "Generating ldap.conf."
-	/usr/local/bin/xml sel -t -m "//kerberos" \
-		-v "concat('uri ', ldaphostname)" -n \
-		-v "concat('base ', ldapbase)" -n \
-		-m "ldapauxparam" -v "." -n -b \
-		${configxml_file} | /usr/local/bin/xml unesc > ${ldap_config}
+	if [ "ldap" = "${type}" ] ; then
+
+		echo "Generating ldap.conf."
+		/usr/local/bin/xml sel -t -m "//kerberos" \
+			-v "concat('uri ', ldaphostname)" -n \
+			-v "concat('base ', ldapbase)" -n \
+			-m "ldapauxparam" -v "." -n -b \
+			${configxml_file} | /usr/local/bin/xml unesc > ${ldap_config}
+	fi
 fi

@@ -26,9 +26,9 @@ rcvar="sssd_enable"
 # read configuration and set defaults
 load_rc_config "$name"
 
-sssd_enable=${sssd_enable:=NO}
-sssd_conf=${sssd_conf="/usr/local/etc/sssd/sssd.conf"}
-sssd_flags=${sssd_flags="-f -D"}
+: ${sssd_enable:=NO}
+: ${sssd_conf="/usr/local/etc/sssd/sssd.conf"}
+: ${sssd_flags="-f -D"}
 sssd_config_file="/usr/local/etc/sssd/sssd.conf"
 
 command="/usr/local/sbin/$name"
