@@ -75,6 +75,8 @@ sbin/swapctl
 
 ## file
 usr/bin/file
+usr/share/misc/magic
+usr/share/misc/magic.mgc
 
 ## pkg
 usr/sbin/pkg

@@ -126,3 +126,7 @@ ln -s /var/etc/pam.d/system etc/pam.d/system
 ln -s /var/etc/nsswitch.conf etc/nsswitch.conf
 ln -s /var/etc/krb5.conf etc/krb5.conf
 ln -s /var/tmp tmp
+
+## Add pkg config file
+mkdir -p usr/local/etc/pkg/repos
+cp ${NAS4FREE_BUILDIR}/pkg.conf usr/local/etc/pkg/repos/
