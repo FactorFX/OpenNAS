@@ -179,7 +179,7 @@ hw.hptrr.attach_generic="0"
 kern.maxfiles="65536"
 kern.maxfilesperproc="50000"
 kern.cam.boot_delay="8000"
-autoboot_delay="5"
+autoboot_delay="2"
 isboot_load="YES"
 zfs_load="YES"
 
