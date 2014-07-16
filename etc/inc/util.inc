@@ -896,7 +896,7 @@ function parse_camcontrol_info($devtype){
 	$devlist = array();
 	$device = '';
 	$controller = '';
-	$controller_id = ''; 
+	$controller_id = '';
 	$target_id = '';
 	$lun_id = '';
 
@@ -907,7 +907,7 @@ function parse_camcontrol_info($devtype){
 		if( preg_match("/(?<= on )[-A-z0-9]*(?= bus )+/", $line, $matches)){
 			$controller = preg_split( '/([0-9]+\z)/i', $matches[0], -1, PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY);
 			$controller_desc = '';
-			$controller_id = ''; 
+			$controller_id = '';
 			$target_id = '';
 			$lun_id = '';
 			$device = '';
@@ -946,7 +946,7 @@ function parse_camcontrol_info($devtype){
 					$devlist["$device[0]$device[1]"]['devicespecialfile'] = '/dev/'.$device[0].$device[1];
 
 					init_device_attributes($devlist["$device[0]$device[1]"]);
-					
+
 					// Get diskinfo to get disk size
 					$diskinfo = disks_get_diskinfo($devlist["$device[0]$device[1]"]['devicespecialfile']);
 					$devlist["$device[0]$device[1]"]['size'] = $diskinfo['mediasize_mbytes'] . "MB";
@@ -964,7 +964,7 @@ function parse_camcontrol_info($devtype){
 					case 'iscsi':
 							$devlist["$device[0]$device[1]"]['type'] = "iSCSI";
 							break;
-					// scsi-controller list from /etc/devd.conf		
+					// scsi-controller list from /etc/devd.conf
 					case 'aac' || 'adv' || 'adw' || 'aha' || 'ahb' || 'ahc' || 'ahd' || 'aic' || 'amd' || 'amr' || 'asr' || 'bt' || 'ciss' || 'ct' || 'dpt' || 'esp' || 'ida' || 'iir' || 'ips' || 'isp'|| 'mlx' || 'mly' || 'mpt' || 'ncr' ||'ncv' || 'nsp' || 'stg' || 'sym' || 'trm' || 'wds':
 					case "mpt": // LSI Fusion-MPT SCSI/Fibre Channel driver
 							$devlist["$device[0]$device[1]"]['type'] = "SCSI";
@@ -985,7 +985,7 @@ function parse_camcontrol_info($devtype){
 
 					// Get diskinfo to get disk size
 					$diskinfo = disks_get_diskinfo($devlist["$device[0]$device[1]"]['devicespecialfile']);
-					$devlist["$device[0]$device[1]"]['size'] = $diskinfo['mediasize_mbytes'] . "MB";					
+					$devlist["$device[0]$device[1]"]['size'] = $diskinfo['mediasize_mbytes'] . "MB";
 
 					$devlist["$device[0]$device[1]"]['controller'] = $controller[0];
 					$devlist["$device[0]$device[1]"]['controller_id'] = $controller[1];
@@ -2168,7 +2168,9 @@ function get_product_version() {
 /* Get the product revision */
 function get_product_revision() {
 	global $g;
-	return chop(file_get_contents("{$g['etc_path']}/prd.revision"));
+	$ret = chop(file_get_contents("{$g['etc_path']}/prd.revision"));
+	$ret .= file_exists("{$g['etc_path']}/prd.stage") ? chop(file_get_contents("{$g['etc_path']}/prd.stage")): '';
+	return $ret;
 }
 
 /* Get the product version */
