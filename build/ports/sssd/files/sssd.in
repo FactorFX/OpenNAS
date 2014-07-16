@@ -22,7 +22,6 @@ load_rc_config "$name"
 : ${sssd_enable:=NO}
 : ${sssd_conf="/usr/local/etc/sssd/sssd.conf"}
 : ${sssd_flags="-f -D"}
-sssd_config_file="/usr/local/etc/sssd/sssd.conf"
 
 command="/usr/local/sbin/$name"
 pidfile="/var/run/$name.pid"
@@ -33,20 +32,25 @@ for i in db/sss db/sss_mc log/sssd run/sss/krb5.include.d run/sss/private run/ss
 	if [ ! -d var/${i} ]; then mkdir -p /var/${i}; fi
 done
 
-# Check if required directories exists.
-[ ! -d "/usr/local/etc/sssd/" ] && mkdir -p "/usr/local/etc/sssd/"
-
-# Check if required config file exist.
-[ ! -f "/usr/local/etc/sssd/sssd.conf" ] && touch "/usr/local/etc/sssd/sssd.conf"
-
-chmod 600 /usr/local/etc/sssd/sssd.conf
 
 sssd_mkconf()
 {
+
+	# Check if required config file & directory exist.
+	if test ! -d $(dirname ${sssd_conf}); then mkdir -p $(dirname ${sssd_conf}); fi
+	[ ! -f "${sssd_conf}" ] && touch "${sssd_conf}"
+
+	chmod 600 "${sssd_conf}"
+
+	#Clear cache
+	if `configxml_get "count(//kerberos/sssclearcache) > 0"` ; then
+		if [ -d /var/db/sss ]; then rm -rf /var/db/sss/*; fi
+	fi
+
 	# Create sssd_config file
 	/usr/local/bin/xml sel -t -m "//kerberos" \
 		-m "sssdauxparam" -v "." -n -b \
-		${configxml_file} | /usr/local/bin/xml unesc > ${sssd_config_file}
+		${configxml_file} | /usr/local/bin/xml unesc > ${sssd_conf}
 }
 
 run_rc_command "$1"

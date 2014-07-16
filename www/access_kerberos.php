@@ -52,7 +52,9 @@ if (isset($config['kerberos']['ldapauxparam']) && is_array($config['kerberos']['
 	$pconfig['ldapauxparam'] = implode("\n", $config['kerberos']['ldapauxparam']);
 if (isset($config['kerberos']['sssdauxparam']) && is_array($config['kerberos']['sssdauxparam']))
 	$pconfig['sssdauxparam'] = implode("\n", $config['kerberos']['sssdauxparam']);
+$pconfig['sssclearcache'] = isset($config['kerberos']['sssclearcache']);
 $pconfig['type']= !empty($config['kerberos']['type']) ? $config['kerberos']['type'] : $type[0];
+
 $pconfig['enable'] = isset($config['kerberos']['enable']);
 
 if ($_POST) {
@@ -78,42 +80,43 @@ if ($_POST) {
 
 	}
 
-	if (empty($input_errors)) {
+		if (empty($input_errors)) {
 
-		$config['kerberos']['kdc'] = $_POST['kdc'];
-		$config['kerberos']['realms']= $_POST['realms'];
-		$config['kerberos']['ldaphostname']= $_POST['ldaphostname'];
-		$config['kerberos']['ldapbase']= $_POST['ldapbase'];
-		$config['kerberos']['type']= $_POST['type'];
+			$config['kerberos']['kdc'] = $_POST['kdc'];
+			$config['kerberos']['realms']= $_POST['realms'];
+			$config['kerberos']['ldaphostname']= $_POST['ldaphostname'];
+			$config['kerberos']['ldapbase']= $_POST['ldapbase'];
+			$config['kerberos']['type']= $_POST['type'];
+			$config['kerberos']['sssclearcache'] = isset($_POST['sssclearcache']) ? true : false;
 
-		unset($config['kerberos']['ldapauxparam']);
-		foreach (explode("\n", $_POST['ldapauxparam']) as $auxparam) {
-			$auxparam = trim($auxparam, "\t\n\r");
-			if (!empty($auxparam))
-				$config['kerberos']['ldapauxparam'][] = $auxparam;
-		}
+			unset($config['kerberos']['ldapauxparam']);
+			foreach (explode("\n", $_POST['ldapauxparam']) as $auxparam) {
+				$auxparam = trim($auxparam, "\t\n\r");
+				if (!empty($auxparam))
+					$config['kerberos']['ldapauxparam'][] = $auxparam;
+			}
 
-		unset($config['kerberos']['sssdauxparam']);
-		foreach (explode("\n", $_POST['sssdauxparam']) as $auxparam) {
-			$auxparam = trim($auxparam, "\t\n\r");
-			if (!empty($auxparam))
-				$config['kerberos']['sssdauxparam'][] = $auxparam;
-		}
+			unset($config['kerberos']['sssdauxparam']);
+			foreach (explode("\n", $_POST['sssdauxparam']) as $auxparam) {
+				$auxparam = trim($auxparam, "\t\n\r");
+				if (!empty($auxparam))
+					$config['kerberos']['sssdauxparam'][] = $auxparam;
+			}
 
-		$config['kerberos']['enable'] = isset($_POST['enable']) ? true : false;
+			$config['kerberos']['enable'] = isset($_POST['enable']) ? true : false;
 
-		write_config();
+			write_config();
 
-		$retval = 0;
-		if (!file_exists($d_sysrebootreqd_path)) {
-			config_lock();
-			rc_exec_service("kerberos");
-			$retval |= rc_update_service("sssd");
-			config_unlock();
-		}
+			$retval = 0;
+			if (!file_exists($d_sysrebootreqd_path)) {
+				config_lock();
+				rc_exec_service("kerberos");
+				$retval |= rc_update_service("sssd");
+				config_unlock();
+			}
 
-		$savemsg = get_std_save_message($retval);
-	 }
+			$savemsg = get_std_save_message($retval);
+		 }
 
 }
 
@@ -121,6 +124,8 @@ if ($_POST) {
 <?php include("fbegin.inc");?>
 <script type="text/javascript">
 <!--
+var types = [ 'sss', 'ldap' ];
+
 function enable_change(enable_change) {
 	var endis = !(document.iform.enable.checked || enable_change);
 	document.iform.kdc.disabled = endis;
@@ -130,19 +135,16 @@ function enable_change(enable_change) {
 	document.iform.type.disabled = endis;
 	document.iform.ldapauxparam.disabled = endis;
 	document.iform.sssdauxparam.disabled = endis;
+	document.iform.sssclearcache.disabled = endis;
 
-	toggle_ldap_sssd();
+	toggle_type($('#type').val());
 }
 
-function toggle_ldap_sssd() {
-	if ($('#type').val() == 'ldap') {
-		$('[id^="ldap"]').closest('tr').show();
-		$('[id^="sss"]').closest('tr').hide();
-	}
-	else if($('#type').val() == 'sss') {
-		$('[id^="ldap"]').closest('tr').hide();
-		$('[id^="sss"]').closest('tr').show();
-	}
+function toggle_type(type) {
+	types.forEach(function(element, index, array){
+		$('[id^="'+element+'"]').hide();
+	});
+	$('[id^="'+type+'"]').show();
 }
 //-->
 </script>
@@ -162,11 +164,12 @@ function toggle_ldap_sssd() {
 							<input name="krb5" type="file" class="formfld" size="40" /><br />
 						</td>
 					</tr>
-				<?php html_combobox("type", gettext("Type"), $pconfig['type'], $type, '', true, false, 'toggle_ldap_sssd()');?>
+				<?php html_combobox("type", gettext("Type"), $pconfig['type'], $type, '', true, false, 'toggle_type($(this).val())');?>
 				<?php html_inputbox("ldaphostname", gettext("URI"), $pconfig['ldaphostname'], gettext("The space-separated list of URIs for the LDAP server."), true, 60);?>
 				<?php html_inputbox("ldapbase", gettext("Base DN"), $pconfig['ldapbase'], sprintf(gettext("The default base distinguished name (DN) to use for searches, e.g. %s"), "dc=test,dc=org"), true, 40);?>
 				<?php html_textarea("ldapauxparam", gettext("Ldap auxiliary parameters"), $pconfig['ldapauxparam'], sprintf(gettext("These parameters are added to %s."), "ldap.conf"), false, 65, 5, false, false);?>
 				<?php html_textarea("sssdauxparam", gettext("Sss auxiliary parameters"), $pconfig['sssdauxparam'], sprintf(gettext("These parameters are added to %s."), "sssd.conf"), false, 65, 5, false, false);?>
+				<?php html_checkbox("sssclearcache", gettext("Clear sss cache"), !empty($pconfig['sssclearcache']) ? true : false, gettext("Clear sss cache on each restart"));?>
 				</table>
 				<div id="submit">
 					<input name="Submit" type="submit" class="formbtn" value="<?=gettext("Save");?>" onclick="enable_change(true)" />
