@@ -121,11 +121,11 @@ variable vmguest
 	clear
 	77 20 2 2 box
 	45 3 display-logo
-	5 7 at-xy ." Welcome to OpenNas!"
-	printmenuitem ."  Boot OpenNas in Normal Mode" bootkey !
+	5 7 at-xy ." Welcome to OpenNAS!"
+	printmenuitem ."  Boot OpenNAS in Normal Mode" bootkey !
 	s" arch-i386" environment? if
 		drop
-		printmenuitem ."  Boot OpenNas with ACPI " bootacpikey !
+		printmenuitem ."  Boot OpenNAS with ACPI " bootacpikey !
 		acpienabled? if
 			." disabled"
 		else
@@ -134,8 +134,8 @@ variable vmguest
 	else
 		-2 bootacpikey !
 	then
-	printmenuitem ."  Boot OpenNas in Safe Mode" bootsafekey !
-	printmenuitem ."  Boot OpenNas with verbose logging" bootverbosekey !
+	printmenuitem ."  Boot OpenNAS in Safe Mode" bootsafekey !
+	printmenuitem ."  Boot OpenNAS with verbose logging" bootverbosekey !
 	printmenuitem ."  Escape to loader prompt" escapekey !
 	printmenuitem ."  Reboot system" rebootkey !
 	menuX @ 20 at-xy
