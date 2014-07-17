@@ -81,7 +81,7 @@ else {
 foreach ($pconfig['device'] as $nb_device => $device) {
 	$pconfig['device'][$nb_device]['name'] = !empty($device['name']) ? $device['name'] : "OPENNAS-DEVICE-default";
 	$pconfig['device'][$nb_device]['mediatype'] = !empty($device['mediatype']) ? $device['mediatype'] : $bacula_type[0];
-	$pconfig['device'][$nb_device]['archivepath'] = !empty($device['archivepath']) ? $device['archivepath'] : "1111";
+	$pconfig['device'][$nb_device]['archivepath'] = !empty($device['archivepath']) ? $device['archivepath'] : "";
 	$pconfig['device'][$nb_device]['labelmedia'] = isset($device['labelmedia']);
 	$pconfig['device'][$nb_device]['randomaccess'] = isset($device['randomaccess']);
 	$pconfig['device'][$nb_device]['removablemedia'] = isset($device['removablemedia']);
