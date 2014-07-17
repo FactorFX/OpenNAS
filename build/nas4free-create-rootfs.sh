@@ -128,5 +128,5 @@ ln -s /var/etc/krb5.conf etc/krb5.conf
 ln -s /var/tmp tmp
 
 ## Add pkg config file
-mkdir -p usr/local/etc/pkg/repos
-cp ${NAS4FREE_BUILDIR}/pkg.conf usr/local/etc/pkg/repos/
+mkdir -p usr/local/etc/pkg/repos ;
+cp ${NAS4FREE_BUILDIR}/pkg.conf usr/local/etc/pkg/repos/ ;
