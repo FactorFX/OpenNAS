@@ -124,6 +124,20 @@
 				<comment>Default log file</comment>
 				<enable/>
 			</param>
+			<param>
+				<uuid>b5df95ad-7e4b-4938-8123-b585932ef4e4</uuid>
+				<name>keymap</name>
+				<value>us.iso.kbd</value>
+				<comment>Default keymap</comment>
+				<enable/>
+			</param>
+			<param>
+				<uuid>6c87b52f-6f1b-4fa7-ba58-8d9264630afe</uuid>
+				<name>varmfs</name>
+				<value>NO</value>
+				<comment>/var in memory</comment>
+				<enable/>
+			</param>
 		</rcconf>
 		<sysctl>
 			<!--
