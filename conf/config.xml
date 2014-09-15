@@ -153,8 +153,8 @@
 				<enable/>
 				<uuid>2f71d182-095e-11de-8303-0011951cd231</uuid>
 				<name>kern.coredump</name>
-				<value>0</value>
-				<comment>Disable core dump</comment>
+				<value>1</value>
+				<comment>Enable core dump</comment>
 			</param>
 			<param>
 				<uuid>2a44ee73-23b7-4aed-be91-11e8230bc1e1</uuid>
