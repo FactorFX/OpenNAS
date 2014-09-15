@@ -18,20 +18,6 @@ kerberos_config="/var/etc/krb5.conf"
 ldap_config=${ldap_config:-"/var/etc/ldap.conf"}
 nsswitch_config="/var/etc/nsswitch.conf"
 
-/usr/local/bin/xml sel -t \
-	-o "group: compat" -n \
-	-o "group_compat: nis" -n \
-	-o "hosts: files dns" -n \
-	-o "networks: files" -n \
-	-o "passwd: compat" -n \
-	-o "passwd_compat: nis" -n \
-	-o "shells: files" -n \
-	-o "services: compat" -n \
-	-o "services_compat: nis" -n \
-	-o "protocols: files" -n \
-	-o "rpc: files" -n \
-	${configxml_file} | /usr/local/bin/xml unesc > ${nsswitch_config}
-
 /bin/cat /dev/null > ${ldap_config}
 /bin/cat /dev/null > ${kerberos_config}
 
