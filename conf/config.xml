@@ -106,7 +106,7 @@
 			<param>
 				<uuid>1c2a4807-9969-42bc-8500-ba234e33a3f5</uuid>
 				<name>varsize</name>
-				<value>64m</value>
+				<value>120m</value>
 				<comment>Default /var size</comment>
 				<enable/>
 			</param>
@@ -138,6 +138,14 @@
 				<comment>/var in memory</comment>
 				<enable/>
 			</param>
+			<param>
+				<enable/>
+					<uuid>e04052f3-e132-43c0-8597-994ec4641a9a</uuid>
+					<name>populate_var</name>
+					<value>NO</value>
+					<comment>Populate /var</comment>
+			</param>
+			
 		</rcconf>
 		<sysctl>
 			<!--
