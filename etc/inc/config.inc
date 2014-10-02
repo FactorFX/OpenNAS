@@ -866,6 +866,58 @@ function opennas_upgrade()  {
 
 	}
 
+	/* Convert 0.1 -> 0.2 */
+	if ($config['on_version'] === "0.1") {
+		// force varmfs, varmsize and populate to NO
+		if (!empty($config['system']['rcconf']) && !empty($config['system']['rcconf']['param'])) {
+			$index = array_search_ex("varsize", $config['system']['rcconf']['param'], "name");
+			if ($index !== false) {
+				unset($config['system']['rcconf']['param'][$index]);
+			}
+			$index = array_search_ex("varmfs", $config['system']['rcconf']['param'], "name");
+			if ($index !== false) {
+				$config['system']['rcconf']['param'][$index]['value'] = "NO";
+				$config['system']['rcconf']['param'][$index]['enable'] = true;
+			}
+			else {
+				$config['system']['rcconf']['param'][] = array(
+					"uuid" => uuid(),
+					"name" => "varmfs",
+					"value" => "NO",
+					"comment" => "/var in memory",
+					"enable" => true );
+			}
+			$index = array_search_ex("populate_var", $config['system']['rcconf']['param'], "name");
+			if ($index !== false) {
+				$config['system']['rcconf']['param'][$index]['value'] = "NO";
+				$config['system']['rcconf']['param'][$index]['enable'] = true;
+			}
+			else {
+				$config['system']['rcconf']['param'][] = array(
+					"uuid" => uuid(),
+					"name" => "populate_var",
+					"value" => "NO",
+					"comment" => "Populate /var",
+					"enable" => true );
+			}
+		}
+		if (!empty($config['system']['sysctl']) && !empty($config['system']['sysctl']['param'])) {
+			$index = array_search_ex("kern.coredump", $config['system']['sysctl']['param'], "name");
+			if ($index !== false) {
+				$config['system']['sysctl']['param'][$index]['value'] = "1";
+			}
+			else {
+				$config['system']['sysctl']['param'][] = array(
+						"uuid" => uuid(),
+						"name" => "kern.coredump",
+						"value" => "1",
+						"comment" => "Enable core dump",
+						"enable" => true );
+			}
+		}
+		$config['version'] = "0.2";
+	}
+
 	write_config();
 
 	echo "done\n";

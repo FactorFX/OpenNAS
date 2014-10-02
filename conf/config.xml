@@ -2,7 +2,7 @@
 <!-- OpenNas default system configuration -->
 <opennas>
 	<version>1.7</version>
-	<on_version>0.1</on_version>
+	<on_version>0.2</on_version>
 	<lastchange></lastchange>
 	<system>
 		<hostname>opennas</hostname>
@@ -104,13 +104,6 @@
 				<enable/>
 			</param>
 			<param>
-				<uuid>1c2a4807-9969-42bc-8500-ba234e33a3f5</uuid>
-				<name>varsize</name>
-				<value>120m</value>
-				<comment>Default /var size</comment>
-				<enable/>
-			</param>
-			<param>
 				<uuid>40fe3290-51ac-4a70-b03e-a5613b981be4</uuid>
 				<name>rsync_client_logfile</name>
 				<value>/var/log/rsync_client.log</value>
@@ -139,11 +132,11 @@
 				<enable/>
 			</param>
 			<param>
+				<uuid>e04052f3-e132-43c0-8597-994ec4641a9a</uuid>
+				<name>populate_var</name>
+				<value>NO</value>
+				<comment>Populate /var</comment>
 				<enable/>
-					<uuid>e04052f3-e132-43c0-8597-994ec4641a9a</uuid>
-					<name>populate_var</name>
-					<value>NO</value>
-					<comment>Populate /var</comment>
 			</param>
 			
 		</rcconf>
