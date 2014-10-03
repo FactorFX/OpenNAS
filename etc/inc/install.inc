@@ -637,6 +637,123 @@ function install_upgrade_config($disk)
 // $disk - Disk name (e.g. ad0)
 // $partlayout - The layout description of the disk, e.g.
 // array(
+//		array("geom" => 1, "fstype" => "freebsd-boot", "size" => "0.0625", "volname" => ""),
+//		array("geom" => 2, "fstype" => "freebsd-ufs", "size" => $minpart1size, "volname" => "root"),
+//		array("geom" => 3, "fstype" => "freebsd-ufs", "size" => "*", "volname" => "data"),
+//		array("geom" => 4, "fstype" => "freebsd-swap", "size" => $swapsize, "volname" => "")
+// )
+// Return 0 if successful, otherwise 1
+function install_init_disk_gpt($disk, $partlayout)
+{
+	set_kern_geom_debugflags(0x10);
+	// Initialize the destination using gpart.
+	write_console("Create partition table on device {$disk}.\n");
+
+	// Get disk informations
+	$diskinfo = disks_get_diskinfo($disk);
+
+	// Get valid CHS information. 'diskinfo' gets values from harddisk firmware that
+	// are maybe unusable by 'fdisk' (e.g. sectors = 255, fdisk requires <= 63).
+	disk_sanitize_bios_geom($diskinfo);
+
+	// Calculate the size of the slices
+	$usedsectors = $diskinfo['sectors']; // MBR start here
+	$align = $diskinfo['heads'] * $diskinfo['sectors'];
+	$slicetable = array();
+	foreach ($partlayout as $index => $geom) {
+		$geomsize = $geom['size'];
+		if (is_numeric($geomsize)) {
+			$bytes = $geomsize * 1024 * 1024;
+			$slicetable[$index]['length'] = $bytes / $diskinfo['sectorsize'];
+			$slicetable[$index]['length'] = floor($slicetable[$index]['length'] / $align) * $align;
+			if ($index == 0) {
+				$slicetable[$index]['length'] -= $diskinfo['sectors'];
+			}
+
+			// Sum total used sectors
+			$usedsectors += $slicetable[$index]['length'];
+		}
+	}
+	foreach ($partlayout as $index => $geom) {
+		if ("*" === $geom['size']) { // Use the rest of the disk space for this slice.
+			$slicetable[$index]['length'] = $diskinfo['mediasize_sectors'] - $usedsectors;
+			$slicetable[$index]['length'] = floor($slicetable[$index]['length'] / $align) * $align;
+			if ($index == 0) {
+				$slicetable[$index]['length'] -= $diskinfo['sectors'];
+			}
+			// Stop processing here (only one '*' is accepted and processed)
+			break;
+		}
+	}
+
+	// Check if partition layout fit disk size
+	if ($diskinfo['mediasize_sectors'] <= $usedsectors) {
+		write_console("Error: Partition layout does not fit on disk {$diskinfo['name']}.\n");
+		write_console("  Requested sectors: {$usedsectors}\n");
+		write_console("  Available sectors: {$diskinfo['mediasize_sectors']}\n");
+		write_console("  Layout: ");
+		foreach ($partlayout as $geom){
+			$geomsize = $geom['size'];
+			write_console(" {$geomsize}");
+		}
+		write_console("\n");
+		return 1;
+	}
+
+	// Delete MBR and partition table.
+	$count = (1024*1024) / $diskinfo['sectorsize'];
+	if (mwexec("/bin/dd if=/dev/zero of=/dev/{$disk} bs={$diskinfo['sectorsize']} count={$count}")) {
+		write_console("Error: Failed to delete MBR and partition table on disk {$disk}.\n");
+		return 1;
+	}
+
+	// Delete GEOM metadata.
+	$oseek = $diskinfo['mediasize_sectors'] - 1;
+	if (mwexec("/bin/dd if=/dev/zero of=/dev/{$disk} bs={$diskinfo['sectorsize']} oseek={$oseek} count=1")) {
+		write_console("Error: Failed to delete GEOM metadata on disk {$disk}.\n");
+		return 1;
+	}
+
+	if (mwexec("gpart create -s gpt {$disk}")) {
+		write_console("Error: Failed to create GPT TABLE on disk {$disk}.\n");
+		return 1;
+	}
+
+	foreach ($partlayout as $geom) {
+		$geomtype = $geom['fstype'];
+		$geomlabel = $geom['volname'];
+		$geomsize = $geom['size'];
+
+		$gpart_cmd = "gpart add";
+
+		if ("freebsd-boot" === $geomtype) {
+			$gpart_cmd .= " -b 34";
+		}
+
+		$gpart_cmd .= " -t $geomtype";
+		$gpart_cmd .= " -s $geomsize" . "M";
+		if (!empty($geomlabel)) {
+			$gpart_cmd .= " -l $geomlabel";
+		}
+
+		if (mwexec("$gpart_cmd {$disk}")) {
+			write_console("Error: Failed to create GPT PARTITION {$geomtype}:{$geomlabel} on disk {$disk}.\n");
+			return 1;
+		}
+	}
+
+	if (mwexec("gpart bootcode -b /boot/pmbr -p /boot/gptboot -i 1 {$disk}")) {
+		write_console("Error: Failed to create GPT TABLE on disk {$disk}.\n");
+		return 1;
+	}
+
+	set_kern_geom_debugflags(0);
+}
+
+// Create two partitions on the destination hard drive.
+// $disk - Disk name (e.g. ad0)
+// $partlayout - The layout description of the disk, e.g.
+// array(
 //   array("slice" => 1, "fstype" => "4.2BSD", "size" => 64, "volname" => "root"),
 //   array("slice" => 2, "fstype" => "4.2BSD", "size" => "*", "volname" => "data"),
 //   array("slice" => 3, "fstype" => "swap", "size" => 200, "volname" => "")

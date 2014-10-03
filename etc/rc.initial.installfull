@@ -41,13 +41,15 @@ require_once("install.inc");
 require_once("util.inc");
 require_once("tui.inc");
 
-// Minimum size of slice/partition 1 (used for OS)
+// Minimum size of geom/partition 2 (used for OS)
 $minpart1size = $g_install['part1size_full'];
 
 // Default slice/partition layout
+// 64k = 0.0625M
 $partlayout = array(
-	array("slice" => 1, "fstype" => "4.2BSD", "size" => $minpart1size, "volname" => "root"),
-	array("slice" => 2, "fstype" => "4.2BSD", "size" => "*", "volname" => "data")
+	array("geom" => 1, "fstype" => "freebsd-boot", "size" => "0.0625", "volname" => ""),
+	array("geom" => 2, "fstype" => "freebsd-ufs", "size" => $minpart1size, "volname" => "root"),
+	array("geom" => 3, "fstype" => "freebsd-ufs", "size" => "*", "volname" => "data")
 );
 
 // Get product information
@@ -58,9 +60,10 @@ $text = <<<EOD
 
 {$productname} 'Full' installer for Hard Drives & Solid State Drives.
 
-- Create MBR partition 1, using UFS, customizable size for OS
-- Create MBR partition 2, using UFS, for DATA
-- Create MBR partition 3, as SWAP
+- Create GPT partition 1, using UFS, for BOOT
+- Create GPT partition 2, using UFS, customizable size for OS
+- Create GPT partition 3, using UFS, for DATA
+- Create GPT partition 4, as SWAP
 - Easy to customize (e.g. install additional FreeBSD packages)
 
 WARNING: There will be some limitations:
@@ -138,7 +141,7 @@ if (0 == $result) {
 	} while (!is_numeric($swapsize));
 
 	// Add swap slice/partition to the partition layout.
-	$partlayout[] = array("slice" => 3, "fstype" => "swap", "size" => $swapsize, "volname" => "");
+	$partlayout[] = array("geom" => 4, "fstype" => "freebsd-swap", "size" => $swapsize, "volname" => "");
 }
 
 if (install_mount_cd($cdlist[$cdrom])) {
@@ -146,7 +149,7 @@ if (install_mount_cd($cdlist[$cdrom])) {
 	exit(0);
 }
 
-if (install_init_disk($harddrive, $partlayout)) {
+if (install_init_disk_gpt($harddrive, $partlayout)) {
 	install_unmount_cd();
 	tui_wait_keypress("There was a problem during initializing the destination disk.");
 	exit(0);
@@ -170,7 +173,7 @@ To use the DATA partition:
 - Add the disk {$harddrive} on the 'Disks|Management' page.
 - Add the mount point on the 'Disks|Mount Point|Management' page.
   Use the following parameters:
-  Disk {$harddrive}, Partition 2, Partition type MBR, Filesystem UFS
+  Disk {$harddrive}, Partition 2, Partition type GPT, Filesystem UFS
 
 EOD;
 
