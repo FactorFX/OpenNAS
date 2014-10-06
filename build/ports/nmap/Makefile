@@ -7,7 +7,7 @@ COMMENT=	Port scanning utility for large networks
 
 MASTERDIR=	/usr/ports/security/nmap
 
-NO_STAGE=yes
+
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/nmap ${NAS4FREE_ROOTFS}/usr/local/bin

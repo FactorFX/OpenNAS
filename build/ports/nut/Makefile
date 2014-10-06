@@ -9,7 +9,7 @@ MASTER_SITES=	http://www.networkupstools.org/source/${PORTVERSION:R}/
 DISTFILES=		${DISTNAME}${EXTRACT_SUFX}
 EXTRACT_ONLY=	${DISTNAME}${EXTRACT_SUFX}
 
-NO_STAGE=       yes
+
 USE_AUTOTOOLS=  autoconf
 GNU_CONFIGURE=	yes
 USES=		gmake

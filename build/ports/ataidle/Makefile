@@ -6,7 +6,7 @@ MAINTAINER=		zoon01@nas4free.org
 
 MASTER_SITES=		http://www.cran.org.uk/bruce/software/
 
-NO_STAGE=      yes
+
 
 
 do-install:

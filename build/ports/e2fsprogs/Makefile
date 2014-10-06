@@ -9,7 +9,7 @@ MAINTAINER=		zoon01@nas4free.org
 MASTER_SITES=		KERNEL_ORG/linux/kernel/people/tytso/${PORTNAME}/v${PORTVERSION}
 
 PATCH_STRIP=	  -p1
-NO_STAGE=       yes
+
 USES=           gmake pkgconfig tar:xz
 USE_CSTD=	  gnu99
 USE_LDCONFIG=	  yes

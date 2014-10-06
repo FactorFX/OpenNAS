@@ -14,7 +14,7 @@ MASTERDIR=	/usr/ports/sysutils/bacula-server
 OPTIONS_DEFINE=	NLS OPENSSL PYTHON
 OPTIONS_DEFAULT=NLS OPENSSL
 
-NO_STAGE=yes
+
 
 do-install:
 	# manpages

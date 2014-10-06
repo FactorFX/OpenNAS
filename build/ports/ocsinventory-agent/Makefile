@@ -6,7 +6,7 @@ COMMENT=	 Keep track of the computers configuration and software
 
 MASTERDIR=	/usr/ports/net-mgmt/ocsinventory-agent
 
-NO_STAGE=	yes
+
 
 BUILD_DEPENDS+=${RUN_DEPENDS}
 

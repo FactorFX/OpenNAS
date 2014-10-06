@@ -5,7 +5,7 @@ CATEGORIES=		sysutils
 COMMENT=		Auto Snapshot tool
 MAINTAINER=		aoyama@peach.ne.jp
 
-NO_STAGE=       yes
+
 
 DISTFILES=
 NO_BUILD=	yes

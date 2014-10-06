@@ -6,7 +6,7 @@ COMMENT=	The Z shell
 
 MASTERDIR=	/usr/ports/shells/zsh
 
-NO_STAGE=yes
+
 
 do-install:
 	

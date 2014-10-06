@@ -10,7 +10,7 @@ USE_RC_SUBR=	bacula-sd
 PLIST=		${PKGDIR}/pkg-plist.client
 MASTERDIR=	/usr/ports/sysutils/bacula-server
 
-NO_STAGE=yes
+
 
 do-install:
 	# manpages

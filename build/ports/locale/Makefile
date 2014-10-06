@@ -8,7 +8,7 @@ DISTFILES?=
 
 .include <../nas4free.mk>
 
-NO_STAGE=       yes
+
 
 do-build:
 # Translate *po files to *.mo.

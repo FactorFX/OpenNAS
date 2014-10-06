@@ -10,7 +10,7 @@ LIB_DEPENDS=	gcrypt:${PORTSDIR}/security/libgcrypt
 
 DISABLE_VULNERABILITIES = yes
 
-NO_STAGE=       yes
+
 USE_AUTOTOOLS=	libtool
 USE_BDB=	46+
 USE_BZIP2=	yes

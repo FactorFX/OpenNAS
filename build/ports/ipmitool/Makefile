@@ -7,7 +7,7 @@ COMMENT=	CLI to manage IPMI systems
 
 MASTERDIR=	/usr/ports/sysutils/ipmitool
 
-NO_STAGE=yes
+
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/src/ipmitool ${NAS4FREE_ROOTFS}/usr/local/bin

@@ -32,7 +32,7 @@ COLONBREAKSWORDS_EXTRA_PATCHES= ${PATCHDIR}/extrapatch-colonbreakswords
 
 GNU_CONFIGURE=  yes
 USES=		  bison
-NO_STAGE=       yes
+
 USE_GETTEXT=	  yes
 CONFIGURE_ARGS=	--without-bash-malloc \
 								--disable-rpath \

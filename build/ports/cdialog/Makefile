@@ -9,7 +9,7 @@ MASTER_SITES=	ftp://invisible-island.net/${PORTNAME:S|^c||}/
 DISTNAME=			${PORTNAME:S|^c||}-${PORTVERSION:R}-${PORTVERSION:E}
 
 EXTRACT_SUFX=	.tgz
-NO_STAGE=       yes
+
 USE_AUTOTOOLS=		libtool
 GNU_CONFIGURE=		yes
 USE_LDCONFIG=			yes

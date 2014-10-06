@@ -8,7 +8,7 @@ COMMENT=		GEOM RAID5 filesystem
 MAINTAINER=		zoon01@nas4free.org
 
 DISTFILES?=
-NO_STAGE=       yes
+
 
 do-build:
 	@${TAR} -zxvf ${FILESDIR}/geom_raid5.tbz -C /usr/src
