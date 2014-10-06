@@ -1,38 +1,14 @@
-# $FreeBSD: net-mgmt/ocsinventory-agent/Makefile 327757 2013-09-20 22:24:43Z bapt $
+# $FreeBSD: head/net-mgmt/ocsinventory-agent/Makefile 366151 2014-08-25 20:58:30Z marino $
 
 PORTNAME=	Ocsinventory
-PORTVERSION=	2.1.1
-CATEGORIES=	net-mgmt
-MASTER_SITES=	http://launchpad.net/ocsinventory-unix-agent/stable-2.1/${PORTVERSION}/+download/
-PKGNAMESUFFIX=	-Unix-Agent
-DISTNAME=	${PORTNAME}${PKGNAMESUFFIX}-${PORTVERSION}
 
-MAINTAINER=	cedric@factorfx.com
-COMMENT=	Keep track of the computers configuration and software
+COMMENT=	 Keep track of the computers configuration and software
 
-LICENSE=	GPLv2
-
-BUILD_DEPENDS=	p5-libwww>=0:${PORTSDIR}/www/p5-libwww \
-				p5-XML-Simple>=0:${PORTSDIR}/textproc/p5-XML-Simple \
-				p5-Proc-Daemon>=0:${PORTSDIR}/devel/p5-Proc-Daemon \
-				p5-Proc-PID-File>=0:${PORTSDIR}/devel/p5-Proc-PID-File \
-				p5-Net-IP>=0:${PORTSDIR}/net-mgmt/p5-Net-IP \
-				p5-Net-SNMP>=0:${PORTSDIR}/net-mgmt/p5-Net-SNMP \
-				p5-Net-Netmask>=0:${PORTSDIR}/net-mgmt/p5-Net-Netmask \
-				p5-Nmap-Parser>=0:${PORTSDIR}/security/p5-Nmap-Parser
-RUN_DEPENDS+=			${BUILD_DEPENDS}
-
-USES=		perl5
-FETCH_ARGS=
-USE_PERL5=	configure
-WRKSRC=		${WRKDIR}/${PORTNAME}${PKGNAMESUFFIX}-${PORTVERSION}
-MAN1=		ocsinventory-agent.1
-MAN3=		Ocsinventory::Agent::XML::Inventory.3 \
-			Ocsinventory::Agent::Common.3
-
-SUB_LIST=	SITE_PERL=${SITE_PERL}
+MASTERDIR=	/usr/ports/net-mgmt/ocsinventory-agent
 
 NO_STAGE=	yes
+
+BUILD_DEPENDS+=${RUN_DEPENDS}
 
 do-install:
 	#Ocs inventory
@@ -61,4 +37,5 @@ do-install:
 	
 	# Install service script
 	@${INSTALL_SCRIPT} -v ${FILESDIR}/ocsinventory_agent.in ${NAS4FREE_ROOTFS}/etc/rc.d/ocsinventory_agent
-.include <bsd.port.mk>
+	
+.include "${MASTERDIR}/Makefile"

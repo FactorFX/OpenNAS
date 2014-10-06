@@ -1,12 +1,12 @@
 #! /usr/bin/env sh
 
-PAC="bacula cmdwatch ipmitool ncdu nmap ocsinventory-agent pciutils pdksh sssd sysinfo vm-lite zsh"
+PAC="bacula-server cmdwatch ipmitool ncdu nmap ocsinventory-agent pciutils pdksh sssd sysinfo vim-lite zsh zfs-stats sysinfo"
 
 for P in $PAC; do
-	OLD_VERSION=$(make -f $P/Makefile -V DISTVERSION)
-	CAT=$(make -f $P/Makefile -V CATEGORIES)
-	PORT="/usr/ports/$CAT/$P"
-	NEW_VERSION=$(make -f $PORT/Makefile -V DISTVERSION)
+        OLD_VERSION=$(make -f $P/Makefile -V DISTVERSION)
+        CAT=$(make -f $P/Makefile -V CATEGORIES | awk 'FS=" " {print $1}')
+        PORT="/usr/ports/$CAT/$P"
+        NEW_VERSION=$(make -f $PORT/Makefile -V DISTVERSION)
 
-	echo "$P $OLD_VERSION -> $NEW_VERSION ($PORT)"
+        echo "$P $OLD_VERSION -> $NEW_VERSION ($PORT)"
 done
