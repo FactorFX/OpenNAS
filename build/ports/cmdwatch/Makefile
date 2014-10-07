@@ -7,14 +7,12 @@
 
 PORTNAME=	cmdwatch
 PORTVERSION=	0.2.0
-PORTREVISION=	2
-CATEGORIES=	sysutils
-MASTER_SITES=	http://www.chruetertee.ch/files/download/
 
-MAINTAINER=	beat@FreeBSD.org
 COMMENT=	Watches the output from a command at specified intervals
 
 MAN1=		cmdwatch.1
+
+MASTERDIR=	/usr/ports/sysutils/cmdwatch
 
 do-install:
 	${INSTALL_PROGRAM} -v ${WRKSRC}/cmdwatch ${NAS4FREE_ROOTFS}/${PREFIX}/bin/
@@ -26,4 +24,4 @@ do-install:
 			rm -f ${WRKSRC}/$$I.gz); \
 	done
 
-.include <bsd.port.mk>
+.include "${MASTERDIR}/Makefile"

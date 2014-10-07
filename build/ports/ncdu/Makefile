@@ -1,19 +1,14 @@
 # Created by: Andrew Pantyukhin <infofarmer@FreeBSD.org>
 # $FreeBSD: sysutils/ncdu/Makefile 317888 2013-05-11 15:31:46Z pawel $
 
-PORTNAME=	ncdu
+PORTNAME=		ncdu
 PORTVERSION=	1.10
-CATEGORIES=	sysutils
-MASTER_SITES=	http://dev.yorhel.nl/download/
 
-MAINTAINER=	pawel@FreeBSD.org
 COMMENT=	Ncurses du(1)
 
-LICENSE=	MIT
-
-GNU_CONFIGURE=	yes
-
 MAN1=		${PORTNAME}.1
+
+MASTERDIR=	/usr/ports/sysutils/ncdu
 
 do-install:
 	@${INSTALL_PROGRAM} ${WRKSRC}/ncdu ${NAS4FREE_ROOTFS}/${PREFIX}/bin
@@ -22,4 +17,5 @@ do-install:
 	@$(INSTALL_DATA) ${WRKSRC}/${PORTNAME}.1.gz ${NAS4FREE_ROOTFS}/usr/share/man/man1
 	rm -f ${WRKSRC}/${PORTNAME}.1.gz
 
-.include <bsd.port.mk>
+.include "${MASTERDIR}/Makefile"
+

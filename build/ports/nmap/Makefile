@@ -1,13 +1,12 @@
 # Created by: David O'Brien (obrien@NUXI.com)
 # $FreeBSD: head/security/nmap/Makefile 368003 2014-09-12 04:38:32Z ohauer $
 
-PORTNAME=	nmap
+PORTNAME=		nmap
+DISTVERSION=	6.47
 
 COMMENT=	Port scanning utility for large networks
 
 MASTERDIR=	/usr/ports/security/nmap
-
-
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/nmap ${NAS4FREE_ROOTFS}/usr/local/bin

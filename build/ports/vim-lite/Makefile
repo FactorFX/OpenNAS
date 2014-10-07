@@ -1,6 +1,7 @@
 # Created by: David O'Brien (obrien@NUXI.com)
 # $FreeBSD: head/editors/vim-lite/Makefile 346419 2014-02-28 01:30:02Z sunpoet $
 
+PORTVERSION=	7.4.${PATCHLEVEL}
 PORTREVISION=	0
 
 MAINTAINER=	sunpoet@FreeBSD.org

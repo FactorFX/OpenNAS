@@ -5,19 +5,12 @@
 # $FreeBSD: ports/sysutils/zfs-stats/Makefile,v 1.9 2012/11/17 06:01:51 svnexp Exp $
 #
 
-PORTNAME=	zfs-stats
+PORTNAME=		zfs-stats
 PORTVERSION=	1.2.2
-CATEGORIES=	sysutils
-MASTER_SITES=	http://cloud.github.com/downloads/mmatuska/zfs-stats/
 
-MAINTAINER=	mm@FreeBSD.org
-COMMENT=	Display human-readable ZFS statistics
+COMMENT=		Display human-readable ZFS statistics
 
-LICENSE=	BSD2CLAUSE
-
-USES=       perl5
-
-NO_BUILD=	yes
+MASTERDIR=		/usr/ports/sysutils/zfs-stats
 
 do-install:
 	${INSTALL_SCRIPT} ${WRKSRC}/zfs-stats ${NAS4FREE_ROOTFS}/${PREFIX}/bin/zfs-stats
@@ -27,4 +20,5 @@ do-install:
 	${INSTALL_PROGRAM} /usr/bin/sed ${NAS4FREE_ROOTFS}/usr/bin
 	${INSTALL_PROGRAM} /sbin/sysctl ${NAS4FREE_ROOTFS}/sbin
 	${INSTALL_PROGRAM} /usr/bin/vmstat ${NAS4FREE_ROOTFS}/usr/bin
-.include <bsd.port.mk>
+
+.include "${MASTERDIR}/Makefile"

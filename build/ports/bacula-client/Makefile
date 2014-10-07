@@ -2,6 +2,7 @@
 
 PORTNAME=	bacula
 PKGNAMESUFFIX=	-client
+DISTVERSION=	7.0.5
 
 COMMENT=	Network backup solution (client)
 
@@ -13,8 +14,6 @@ MASTERDIR=	/usr/ports/sysutils/bacula-server
 
 OPTIONS_DEFINE=	NLS OPENSSL PYTHON
 OPTIONS_DEFAULT=NLS OPENSSL
-
-
 
 do-install:
 	# manpages

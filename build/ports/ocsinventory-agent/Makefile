@@ -1,12 +1,11 @@
 # $FreeBSD: head/net-mgmt/ocsinventory-agent/Makefile 366151 2014-08-25 20:58:30Z marino $
 
-PORTNAME=	Ocsinventory
+PORTNAME=		Ocsinventory
+PORTVERSION=	2.1.1
 
 COMMENT=	 Keep track of the computers configuration and software
 
 MASTERDIR=	/usr/ports/net-mgmt/ocsinventory-agent
-
-
 
 BUILD_DEPENDS+=${RUN_DEPENDS}
 

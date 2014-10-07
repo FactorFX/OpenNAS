@@ -1,13 +1,12 @@
 # Created by: Dmitry Frolov <frol@nov.net>
 # $FreeBSD: head/sysutils/ipmitool/Makefile 363340 2014-07-29 15:29:59Z sunpoet $
 
-PORTNAME=	ipmitool
+PORTNAME=		ipmitool
+PORTVERSION=	1.8.14
 
 COMMENT=	CLI to manage IPMI systems
 
 MASTERDIR=	/usr/ports/sysutils/ipmitool
-
-
 
 do-install:
 	${INSTALL_PROGRAM} ${WRKSRC}/src/ipmitool ${NAS4FREE_ROOTFS}/usr/local/bin

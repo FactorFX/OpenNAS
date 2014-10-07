@@ -2,6 +2,7 @@
 
 PORTNAME=	bacula
 PKGNAMESUFFIX=	-server
+DISTVERSION=	7.0.5
 
 COMMENT=	Network backup solution (server)
 
@@ -9,8 +10,6 @@ USE_RC_SUBR=	bacula-sd
 
 PLIST=		${PKGDIR}/pkg-plist.client
 MASTERDIR=	/usr/ports/sysutils/bacula-server
-
-
 
 do-install:
 	# manpages
