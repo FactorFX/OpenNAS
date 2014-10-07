@@ -113,7 +113,7 @@ NAS4FREE_SVN_SRCTREE="svn://svn.FreeBSD.org/base/releng/9.2"
 # The image must fit on 512MB CF/USB.
 NAS4FREE_IMG_SIZE=125
 if [ "amd64" = ${NAS4FREE_ARCH} ]; then
-	NAS4FREE_IMG_SIZE=350
+	NAS4FREE_IMG_SIZE=380
 fi
 
 # Media geometry, only relevant if bios doesn't understand LBA.
