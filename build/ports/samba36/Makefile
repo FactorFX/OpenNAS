@@ -67,7 +67,7 @@ PKGCONFIGDIR?=		${PREFIX}/libdata/pkgconfig
 PKGCONFIGDIR_REL?=	${PKGCONFIGDIR:S|^${PREFIX}/||}
 
 USE_PKGCONFIG=          yes
-LIB_DEPENDS+=		execinfo.1:${PORTSDIR}/devel/libexecinfo
+LIB_DEPENDS+=		libexecinfo.so:${PORTSDIR}/devel/libexecinfo
 BUILD_DEPENDS+=		talloc>=2.0.8:${PORTSDIR}/devel/talloc
 RUN_DEPENDS+=		talloc>=2.0.8:${PORTSDIR}/devel/talloc
 CONFIGURE_ARGS+=	--enable-external-libtalloc
@@ -125,7 +125,7 @@ CONFIGURE_ARGS+=	--with-krb5="${HEIMDAL_HOME}"
 .elif exists(/usr/lib/libkrb5.so) && exists(/usr/bin/krb5-config)
 CONFIGURE_ARGS+=	--with-krb5="/usr"
 .else
-LIB_DEPENDS+=		krb5:${PORTSDIR}/security/heimdal
+LIB_DEPENDS+=		libkrb5.so:${PORTSDIR}/security/heimdal
 CONFIGURE_ARGS+=	--with-krb5="${LOCALBASE}"
 .endif
 
@@ -136,7 +136,7 @@ CONFIGURE_ARGS+=	--with-ldap
 
 #CONFIGURE_ARGS+=	--with-shared-modules="idmap_tdb2,idmap_ad,idmap_adex,idmap_hash,idmap_rid,charset_weird"
 .if ${OSVERSION} > 800000
-LIB_DEPENDS+=		sunacl.1:${PORTSDIR}/sysutils/libsunacl
+LIB_DEPENDS+=		libsunacl.so:${PORTSDIR}/sysutils/libsunacl
 CONFIGURE_ARGS+=	--with-shared-modules="idmap_tdb2,idmap_ad,idmap_adex,idmap_hash,idmap_rid,charset_weird,vfs_cacheprime,vfs_commit,vfs_dirsort,vfs_syncops,vfs_zfsacl"
 .else
 CONFIGURE_ARGS+=	--with-shared-modules="idmap_tdb2,idmap_ad,idmap_adex,idmap_hash,idmap_rid,charset_weird,vfs_cacheprime,vfs_commit,vfs_dirsort,vfs_syncops"
