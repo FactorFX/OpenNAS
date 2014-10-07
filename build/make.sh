@@ -1208,6 +1208,7 @@ else
 	build_world || exit 1;
 	build_ports build || exit 1;
 	build_ports install || exit 1;
+	build_world || exit 1;
 	build_bootloader || exit 1;
 	add_libs || exit 1;
 	modify_permissions || exit 1;

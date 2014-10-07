@@ -6,11 +6,9 @@ COMMENT=			An enhanced version of 'dialog' to work with ncurses
 MAINTAINER=		zoon01@nas4free.org
 
 MASTER_SITES=	ftp://invisible-island.net/${PORTNAME:S|^c||}/
-DISTNAME=			${PORTNAME:S|^c||}-${PORTVERSION:R}-${PORTVERSION:E}
+DISTNAME=		${PORTNAME:S|^c||}-${PORTVERSION:R}-${PORTVERSION:E}
 
-EXTRACT_SUFX=	.tgz
-
-USE_AUTOTOOLS=		libtool
+USES=		libtool:build tar:tgz
 GNU_CONFIGURE=		yes
 USE_LDCONFIG=			yes
 CONFIGURE_ARGS=		--enable-widec \

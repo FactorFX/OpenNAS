@@ -45,4 +45,7 @@ do-install:
 	rm -f ${WRKSRC}/ncat/docs/ncat.1.gz
 	rm -f ${WRKSRC}/nping/docs/nping.1.gz
 
+post-install:
+	${ECHO} "Do nothing"
+
 .include "${MASTERDIR}/Makefile"

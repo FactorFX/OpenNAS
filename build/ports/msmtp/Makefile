@@ -42,7 +42,7 @@ RUN_DEPENDS+=	${LOCALBASE}/share/certs/ca-root-nss.crt:${PORTSDIR}/security/ca_r
 .endif
 
 .if ${PORT_OPTIONS:MGSASL}
- LIB_DEPENDS+=   gsasl:${PORTSDIR}/security/gsasl
+ LIB_DEPENDS+=   libgsasl.so:${PORTSDIR}/security/gsasl
 CONFIGURE_ARGS+=	--with-libgsasl
 .else
 CONFIGURE_ARGS+=	--without-libgsasl

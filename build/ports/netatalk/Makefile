@@ -6,12 +6,11 @@ MASTER_SITES=	SF
 COMMENT=		File server for Mac OS X
 MAINTAINER=		zoon01@nas4free.org
 
-LIB_DEPENDS=	gcrypt:${PORTSDIR}/security/libgcrypt
+LIB_DEPENDS=	libgcrypt.so:${PORTSDIR}/security/libgcrypt
 
 DISABLE_VULNERABILITIES = yes
 
-
-USE_AUTOTOOLS=	libtool
+USES=	libtool
 USE_BDB=	46+
 USE_BZIP2=	yes
 GNU_CONFIGURE=	yes

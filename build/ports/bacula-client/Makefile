@@ -31,26 +31,29 @@ do-install:
 	done
 	
 	# bconsole
-	${INSTALL_PROGRAM} ${WRKSRC}/src/console/.libs/bconsole ${NAS4FREE_ROOTFS}/usr/local/sbin/
+	${INSTALL_PROGRAM} ${WRKSRC}/src/console/bconsole ${NAS4FREE_ROOTFS}/usr/local/sbin/
 	@${CP} -pv ${WRKSRC}/src/console/bconsole.conf ${NAS4FREE_ROOTFS}/usr/local/etc/
 	${CHGRP} -f ${BACULA_GROUP} ${NAS4FREE_ROOTFS}/usr/local/etc/bconsole.conf
 	#	ensure that users in the bacula group can run bconsole
 	${CHGRP} -f ${BACULA_GROUP} ${NAS4FREE_ROOTFS}/usr/local/sbin/bconsole
 
 	# fd
-	${INSTALL_PROGRAM} ${WRKSRC}/src/filed/.libs/bacula-fd ${NAS4FREE_ROOTFS}/usr/local/sbin/
+	${INSTALL_PROGRAM} ${WRKSRC}/src/filed/bacula-fd ${NAS4FREE_ROOTFS}/usr/local/sbin/
 	@${CP} -pv ${WRKSRC}/src/filed/bacula-fd.conf ${NAS4FREE_ROOTFS}/usr/local/etc/
 	${CHGRP} -f ${BACULA_GROUP} ${WRKSRC}/src/filed/bacula-fd.conf
 
 	#libs
-	@${CP} -pv ${WRKSRC}/src/findlib/.libs/lib*.so.* ${NAS4FREE_ROOTFS}/usr/local/lib/
-	@${CP} -pv ${WRKSRC}/src/lib/.libs/lib*.so.* ${NAS4FREE_ROOTFS}/usr/local/lib/
+	@${CP} -pv ${WRKSRC}/src/findlib/.libs/lib*.so* ${NAS4FREE_ROOTFS}/usr/local/lib/
+	@${CP} -pv ${WRKSRC}/src/lib/.libs/lib*.so* ${NAS4FREE_ROOTFS}/usr/local/lib/
 
 	# 	Install config files and preserve existing ones
 	${INSTALL_SCRIPT} ${FILESDIR}/chio-bacula ${NAS4FREE_ROOTFS}/usr/local/bin/
 	${INSTALL_DATA} ${FILESDIR}/bacula-barcodes ${NAS4FREE_ROOTFS}/usr/local/bin/
 
 	# Install service script
-	@${INSTALL_SCRIPT} -v ${FILESDIR}/bacula-fd.in ${NAS4FREE_ROOTFS}/etc/rc.d/bacula_fd
+	${INSTALL_SCRIPT} -v ${.CURDIR}/files/bacula-fd.in ${NAS4FREE_ROOTFS}/etc/rc.d/bacula_fd
+
+post-install:
+	${ECHO} "Do nothing"
 
 .include "${MASTERDIR}/Makefile"

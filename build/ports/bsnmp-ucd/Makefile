@@ -1,18 +1,14 @@
-# Created by: Mikolaj Golub <to.my.trociny@gmail.com>
-# $FreeBSD: head/net-mgmt/bsnmp-ucd/Makefile 369944 2014-10-04 06:42:04Z trociny $
-
 PORTNAME=		bsnmp-ucd
-PORTVERSION=	0.4.1
+PORTVERSION=	0.4.0
 CATEGORIES=		net-mgmt
-MASTER_SITES=	http://people.freebsd.org/~trociny/${PORTNAME}/
+COMMENT=			A bsnmpd module that implements parts of UCD-SNMP-MIB
+MAINTAINER=		zoon01@nas4free.org
 
-MAINTAINER=		trociny@FreeBSD.org
-COMMENT=		bsnmpd module that implements parts of UCD-SNMP-MIB
+MASTER_SITES=	${MASTER_SITE_GOOGLE_CODE}
 
-LICENSE=		BSD2CLAUSE
+USE_MAKE=		yes
+USES=	libtool:env
 
-USES=			uidfix
-MAKE_ENV+=		NO_OBJ=yes
 
 post-patch:
 	@${REINPLACE_CMD} -e '32,32 s/^.*/#include <sys\/queue.h>/' ${WRKSRC}/snmp_ucd.h

@@ -16,8 +16,6 @@ NO_PKG_REGISTER?=	yes
 ALWAYS_BUILD_DEPENDS=	yes
 DEPENDS_TARGET=	clean build
 
-
-
 BUILD_DEPENDS=	fusefs-ntfs:${PORTSDIR}/sysutils/fusefs-ntfs \
 								fusefs-kmod:${PORTSDIR}/sysutils/fusefs-kmod \
 								fusefs-libs:${PORTSDIR}/sysutils/fusefs-libs
@@ -25,10 +23,10 @@ BUILD_DEPENDS=	fusefs-ntfs:${PORTSDIR}/sysutils/fusefs-ntfs \
 do-install:
 	@${INSTALL_SCRIPT} -v ${FILESDIR}/fusefs.in ${NAS4FREE_ROOTFS}/etc/rc.d/fusefs
 
-	@${INSTALL_PROGRAM} -v ${PORTSDIR}/sysutils/fusefs-kmod/work/fuse4bsd*/mount_fusefs/mount_fusefs ${NAS4FREE_ROOTFS}/usr/local/sbin
+	@${INSTALL_PROGRAM} -v ${PORTSDIR}/sysutils/fusefs-kmod/work/mount_fusefs/mount_fusefs ${NAS4FREE_ROOTFS}/usr/local/sbin
 	@${INSTALL_PROGRAM} -v ${PORTSDIR}/sysutils/fusefs-ntfs/work/ntfs-3g*/src/.libs/ntfs-3g ${NAS4FREE_ROOTFS}/usr/local/bin
 
-	@${INSTALL_KLD} -v ${PORTSDIR}/sysutils/fusefs-kmod/work/fuse4bsd*/fuse_module/fuse.ko ${NAS4FREE_ROOTFS}/boot/kernel
+	@${INSTALL_KLD} -v ${PORTSDIR}/sysutils/fusefs-kmod/work/modules/fuse/fuse.ko ${NAS4FREE_ROOTFS}/boot/kernel
 	@${INSTALL_PROGRAM} -v ${PORTSDIR}/sysutils/fusefs-ntfs/work/ntfs-3g*/libntfs-3g/.libs/libntfs-3g.so.* ${NAS4FREE_ROOTFS}/usr/local/lib
 	@${INSTALL_PROGRAM} -v ${PORTSDIR}/sysutils/fusefs-libs/work/fuse-*/lib/.libs/libfuse.so.* ${NAS4FREE_ROOTFS}/usr/local/lib
 

@@ -8,9 +8,9 @@ MAINTAINER=		zoon01@nas4free.org
 MASTER_SITES=	http://download.lighttpd.net/lighttpd/releases-1.4.x/ \
 							http://mirrors.cat.pdx.edu/lighttpd/
 
-LIB_DEPENDS+=		uuid.1:${PORTSDIR}/misc/e2fsprogs-libuuid \
-							sqlite3.8:${PORTSDIR}/databases/sqlite3 \
-							pcre:${PORTSDIR}/devel/pcre
+LIB_DEPENDS+=		libuuid.so:${PORTSDIR}/misc/e2fsprogs-libuuid \
+					libsqlite3.so:${PORTSDIR}/databases/sqlite3 \
+					libpcre.so:${PORTSDIR}/devel/pcre
 
 DISABLE_VULNERABILITIES = yes
 
@@ -22,7 +22,8 @@ USE_GNOME+=	  libxml2
 MAKE_JOBS_SAFE= yes
 
 
-USE_AUTOTOOLS=	autoconf autoheader aclocal automake libtool
+USE_AUTOTOOLS=	autoconf autoheader aclocal automake
+USES= libtool
 ACLOCAL_ARGS=	-I m4
 AUTOMAKE_ARGS=	--add-missing
 

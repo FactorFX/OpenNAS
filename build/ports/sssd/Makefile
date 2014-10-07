@@ -21,7 +21,7 @@ SBIN_FILES= sss_cache sss_debuglevel sss_groupadd sss_groupdel sss_groupmod sss_
 LIBEXEC_FILES= krb5_child ldap_child proxy_child sssd_be sssd_nss sssd_pam sssd_ssh sssd_sudo
 
 do-install:
-	@${INSTALL_SCRIPT} -v ${FILESDIR}/sssd.in ${NAS4FREE_ROOTFS}/etc/rc.d/sssd
+	@${INSTALL_SCRIPT} -v ${.CURDIR}/files/sssd.in ${NAS4FREE_ROOTFS}/etc/rc.d/sssd
 	
 .for FILE in ${SBIN_FILES}
 	${INSTALL_PROGRAM} -v ${WRKSRC}/${FILE} ${NAS4FREE_ROOTFS}/usr/local/sbin/
@@ -109,5 +109,8 @@ do-install:
 	for I in ${MANS}; \
 		do (rm -f ${WRKSRC}/src/man/$$I.gz;); \
 	done
+
+post-install:
+	${ECHO} "Do nothing"
 
 .include "${MASTERDIR}/Makefile"

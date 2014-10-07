@@ -13,9 +13,9 @@ USE_BZIP2=		yes
 
 BUILD_DEPENDS=	sqlite3>=3.0:${PORTSDIR}/databases/sqlite3
 LIB_DEPENDS=	libpcre.so:${PORTSDIR}/devel/pcre
-LIB_DEPENDS+=	curl.7:${PORTSDIR}/ftp/curl
-LIB_DEPENDS+=	mcrypt.8:${PORTSDIR}/security/libmcrypt
-LIB_DEPENDS+=	onig.1:${PORTSDIR}/devel/oniguruma4
+LIB_DEPENDS+=	libcurl.so:${PORTSDIR}/ftp/curl
+LIB_DEPENDS+=	libmcrypt.so:${PORTSDIR}/security/libmcrypt
+LIB_DEPENDS+=	libonig.so:${PORTSDIR}/devel/oniguruma4
 LIB_DEPENDS+=	libfreetype.so:${PORTSDIR}/print/freetype2
 LIB_DEPENDS+=	libpng15.so:${PORTSDIR}/graphics/png
 LIB_DEPENDS+=	libjpeg.so:${PORTSDIR}/graphics/jpeg

@@ -49,6 +49,9 @@ do-install:
 	${INSTALL_DATA} ${FILESDIR}/bacula-barcodes ${NAS4FREE_ROOTFS}/usr/local/bin/
 
 	# Install service script
-	@${INSTALL_SCRIPT} -v ${FILESDIR}/bacula-sd.in ${NAS4FREE_ROOTFS}/etc/rc.d/bacula_sd
+	${INSTALL_SCRIPT} -v ${.CURDIR}/files/bacula-sd.in ${NAS4FREE_ROOTFS}/etc/rc.d/bacula_sd
+
+post-install:
+	${ECHO} "Do nothing"
 
 .include "${MASTERDIR}/Makefile"

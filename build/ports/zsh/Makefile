@@ -32,5 +32,8 @@ do-install:
 			$(INSTALL_DATA) ${WRKSRC}/Doc/$$I.gz ${NAS4FREE_ROOTFS}/usr/share/man/man1/$$I.gz; \
 			rm -f ${WRKSRC}/Doc/$$I.gz); \
 	done
-	
+
+post-install:
+	${ECHO} "Do nothing"
+
 .include "${MASTERDIR}/Makefile"

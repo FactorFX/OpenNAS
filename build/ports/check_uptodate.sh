@@ -1,6 +1,6 @@
 #! /usr/bin/env sh
 
-PAC="bacula-server cmdwatch ipmitool ncdu nmap ocsinventory-agent pciutils pdksh sssd sysinfo vim-lite zsh zfs-stats"
+PAC="bacula-server cmdwatch ipmitool ncdu nmap ocsinventory-agent pciutils pdksh sssd sysinfo vim-lite zsh zfs-stats tmux"
 
 for P in $PAC; do
 	OLD_VERSION=$(make -f $P/Makefile -V DISTVERSION)
