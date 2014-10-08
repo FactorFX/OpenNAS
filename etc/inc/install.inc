@@ -155,13 +155,13 @@ function install_harddrive_image($harddrive)
 
 	// Mount disk used to install OS.
 	mwexec("/bin/mkdir -p {$mntpath}");
-	if (1 == mwexec("/sbin/mount /dev/{$harddrive}s1a {$mntpath}")) {
-		write_console("Error: Failed to mount '/dev/{$harddrive}s1a'!\n");
+	if (1 == mwexec("/sbin/mount /dev/{$harddrive}p2 {$mntpath}")) {
+		write_console("Error: Failed to mount '/dev/{$harddrive}p2'!\n");
 		return 1;
 	}
 
 	// Install system files.
-	write_console("Installing system files on device {$harddrive}s1a.\n");
+	write_console("Installing system files on device {$harddrive}p2.\n");
 	install_system($mntpath);
 
 	// Install configuration file
@@ -207,7 +207,7 @@ EOD;
 	mwexec("(cd {$mntpath}/boot/kernel; for f in *.gz; do /usr/bin/gzip -d -f \$f; done)");
 
 	// Generate /etc/fstab.
-	$ufsid = disks_get_ufsid("/dev/{$harddrive}s1a");
+	$ufsid = disks_get_ufsid("/dev/{$harddrive}p2");
 	if (empty($ufsid)) {
 		write_console("Error: Failed to get UFS ID.\n");
 		return 1;
@@ -228,7 +228,7 @@ EOD;
 	// generated with 'liveCD' and 'embedded' during startup, but need to be
 	// created during install of 'full'.
 	$cfdevice .= <<<EOD
-{$harddrive}s1a
+{$harddrive}p2
 
 EOD;
 
@@ -284,8 +284,9 @@ function install_upgrade_full($harddrive)
 
 	// Mount disk used to install OS
 	mwexec("/bin/mkdir -p {$mntpath}");
-	if (1 == mwexec("/sbin/mount /dev/{$harddrive}s1a {$mntpath}")) {
-		write_console("Error: Failed to mount '/dev/{$harddrive}s1a'!\n");
+	$part_install = find_part_install($harddrive);
+	if (1 == mwexec("/sbin/mount /dev/{$harddrive}{$part_install} {$mntpath}")) {
+		write_console("Error: Failed to mount '/dev/{$harddrive}{$part_install}'!\n");
 		return 1;
 	}
 
@@ -310,7 +311,7 @@ function install_upgrade_full($harddrive)
 	mwexec("/etc/install/upgrade.sh clean {$mntpath}");
 
 	// Install system files
-	write_console("Installing system files on device {$harddrive}s1a.\n");
+	write_console("Installing system files on device {$harddrive}{$part_install}.\n");
 	install_system($mntpath);
 
 	// Decompress kernel
@@ -656,33 +657,18 @@ function install_init_disk_gpt($disk, $partlayout)
 	// are maybe unusable by 'fdisk' (e.g. sectors = 255, fdisk requires <= 63).
 	disk_sanitize_bios_geom($diskinfo);
 
-	// Calculate the size of the slices
+	// Calculate the size of the geoms
 	$usedsectors = $diskinfo['sectors']; // MBR start here
 	$align = $diskinfo['heads'] * $diskinfo['sectors'];
-	$slicetable = array();
+	$geomtable = array();
 	foreach ($partlayout as $index => $geom) {
 		$geomsize = $geom['size'];
 		if (is_numeric($geomsize)) {
 			$bytes = $geomsize * 1024 * 1024;
-			$slicetable[$index]['length'] = $bytes / $diskinfo['sectorsize'];
-			$slicetable[$index]['length'] = floor($slicetable[$index]['length'] / $align) * $align;
-			if ($index == 0) {
-				$slicetable[$index]['length'] -= $diskinfo['sectors'];
-			}
-
+			$geomtable[$index]['length'] = $bytes / $diskinfo['sectorsize'];
+			$geomtable[$index]['length'] = floor($geomtable[$index]['length'] / $align) * $align;
 			// Sum total used sectors
-			$usedsectors += $slicetable[$index]['length'];
-		}
-	}
-	foreach ($partlayout as $index => $geom) {
-		if ("*" === $geom['size']) { // Use the rest of the disk space for this slice.
-			$slicetable[$index]['length'] = $diskinfo['mediasize_sectors'] - $usedsectors;
-			$slicetable[$index]['length'] = floor($slicetable[$index]['length'] / $align) * $align;
-			if ($index == 0) {
-				$slicetable[$index]['length'] -= $diskinfo['sectors'];
-			}
-			// Stop processing here (only one '*' is accepted and processed)
-			break;
+			$usedsectors += $geomtable[$index]['length'];
 		}
 	}
 
@@ -719,21 +705,31 @@ function install_init_disk_gpt($disk, $partlayout)
 		return 1;
 	}
 
-	foreach ($partlayout as $geom) {
+	foreach ($partlayout as $index => $geom) {
 		$geomtype = $geom['fstype'];
 		$geomlabel = $geom['volname'];
 		$geomsize = $geom['size'];
+		$geomindex = $index+1;
 
 		$gpart_cmd = "gpart add";
 
 		if ("freebsd-boot" === $geomtype) {
 			$gpart_cmd .= " -b 34";
+			$gpart_cmd .= " -s 64k";
+		}
+		else if("*" !== $geomsize){
+			$gpart_cmd .= " -s $geomsize" . "M";
 		}
 
-		$gpart_cmd .= " -t $geomtype";
-		$gpart_cmd .= " -s $geomsize" . "M";
+		$gpart_cmd .= " -t $geomtype -i $geomindex";
+
 		if (!empty($geomlabel)) {
 			$gpart_cmd .= " -l $geomlabel";
+		}
+
+		if ("*" === $geomsize) {
+			$gpart_cmd_supp = $gpart_cmd;
+			continue;
 		}
 
 		if (mwexec("$gpart_cmd {$disk}")) {
@@ -741,10 +737,29 @@ function install_init_disk_gpt($disk, $partlayout)
 			return 1;
 		}
 	}
+	if (isset($gpart_cmd_supp)) {
+		@mwexec("$gpart_cmd_supp {$disk}");
+	}
 
 	if (mwexec("gpart bootcode -b /boot/pmbr -p /boot/gptboot -i 1 {$disk}")) {
 		write_console("Error: Failed to create GPT TABLE on disk {$disk}.\n");
 		return 1;
+	}
+
+	foreach ($partlayout as $index => $partlayoutv) {
+		$geomindex = $index+1;
+		// Do not create a file system for swap/unused partitions.
+		if ("swap" === $partlayoutv['fstype'] || "unused" === $partlayoutv['fstype'] || "freebsd-boot" === $partlayoutv['fstype'])
+			continue;
+
+		$diskdevicename = "{$disk}p{$geomindex}";
+
+		write_console("  {$diskdevicename}\n");
+		if (install_newfs_gpt($diskdevicename, $partlayoutv['volname'])) {
+					set_kern_geom_debugflags(0);
+					write_console("\nError: Failed to create file system on {$diskdevicename}!\n");
+					return 1;
+				}
 	}
 
 	set_kern_geom_debugflags(0);
@@ -1036,6 +1051,23 @@ function install_bsdlabel($disk, $fstype, $startsector, $slicesize, $alignsector
 // Create new file system on disk.
 // $disk - Disk name (e.g. ad0s1)
 // $volname - The new volume label (e.g. 'data')
+// Return 0 if successful, otherwise 1
+function install_newfs_gpt($disk, $volname) {
+	//$param = "-U";
+	$param = "-U";
+	if (!empty($volname))
+		$param .= " -L \"{$volname}\"";
+
+	if (mwexec("/sbin/newfs {$param} /dev/{$disk}")) {
+		return 1;
+	}
+
+	return 0;
+}
+
+// Create new file system on disk.
+// $disk - Disk name (e.g. ad0s1)
+// $volname - The new volume label (e.g. 'data')
 // $sector - The size of a sector in bytes.
 // $fsize - The fragment size of the file system in bytes.
 // $bsize - The block size of the file system, in bytes.
@@ -1132,6 +1164,42 @@ function install_detect_installation($mode, &$devinfo) {
 					case 'embedded':
 						if (file_exists("{$mnt_cf_disk}/mfsroot.gz")
 						   && !file_exists("{$mnt_cf_disk}/{$imgfile}")) {
+							$result = 0;
+						}
+						break;
+
+					case 'full':
+						$platform = chop(@file_get_contents("{$mnt_cf_disk}{$g['etc_path']}/platform"));
+						if (FALSE !== ereg("^.*-full", $platform)) {
+							$result = 0;
+						}
+						break;
+				}
+			}
+
+			// Unmount device
+			mwexec("/sbin/umount {$mnt_cf_disk}");
+
+			if (0 == $result)
+				break;
+		}
+
+		// Search on partition 'p2' for OS IMG image written on disk
+		if (mwexec("/sbin/mount -r /dev/{$diskv}p2 {$mnt_cf_disk}") == 0) {
+			// Check if configuration file exists
+			if (file_exists("{$mnt_cf_disk}/conf/config.xml")) {
+				$devinfo['device'] = $diskv;
+				$devinfo['partition'] = "p2";
+
+				// Get disk information
+				$diskinfo = disks_get_diskinfo($diskv);
+				$devinfo['size'] = $diskinfo['mediasize_sectors'];
+
+				// Check install mode
+				switch ($mode) {
+					case 'embedded':
+						if (file_exists("{$mnt_cf_disk}/mfsroot.gz")
+						&& !file_exists("{$mnt_cf_disk}/{$imgfile}")) {
 							$result = 0;
 						}
 						break;

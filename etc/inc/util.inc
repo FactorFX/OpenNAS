@@ -80,6 +80,17 @@ function gen_subnet($ipaddr, $bits) {
 
 }
 
+function find_part_install($harddrive)
+{
+	$plist = array("s1a", "p2");
+
+	foreach ($plist as $part) {
+		if (file_exists("/dev/{$harddrive}{$part}")){
+			return $part;
+		}
+	}
+}
+
 function ip2long6($ip)   {
     if (substr_count($ip, '::'))     {
         $ip = str_replace('::', str_repeat(':0000', 8 - substr_count($ip, ':')) . ':', $ip) ;

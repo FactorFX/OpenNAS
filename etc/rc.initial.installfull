@@ -125,7 +125,7 @@ do {
 } while (($minpart1size > $part1size) || !is_numeric($part1size));
 
 // Update the root slice/partition size.
-$partlayout[0]['size'] = $part1size;
+$partlayout[1]['size'] = $part1size;
 
 // Add swap partition?
 $result = tui_display_yesno("Do you want to add a swap partition?", 40, 5, false);
@@ -166,14 +166,14 @@ install_unmount_cd();
 // Display final message
 $text = <<<EOD
 
-{$productname} has been installed on {$harddrive}s1.
+{$productname} has been installed on {$harddrive}p2.
 You can now safely remove the LiveCD/USB and reboot the server.
 
 To use the DATA partition:
 - Add the disk {$harddrive} on the 'Disks|Management' page.
 - Add the mount point on the 'Disks|Mount Point|Management' page.
   Use the following parameters:
-  Disk {$harddrive}, Partition 2, Partition type GPT, Filesystem UFS
+  Disk {$harddrive}, Partition 3, Partition type GPT, Filesystem UFS
 
 EOD;
 
@@ -183,7 +183,7 @@ if (0 < $swapsize) {
 To use the SWAP partition:
 - Enable swap space usage on the 'System|Advanced|Swap' page.
   Use the following parameters:
-  Type: Device, Device: /dev/{$harddrive}s3
+  Type: Device, Device: /dev/{$harddrive}p4
 
 EOD;
 }
