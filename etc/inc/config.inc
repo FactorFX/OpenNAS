@@ -142,14 +142,6 @@ if (is_booting()) {
 					}
 					// Unmount device
 					mwexec("/sbin/umount -f {$g['cf_path']}");
-				} else if (0 == mwexec("/sbin/mount -r /dev/{$disk}p2 {$g['cf_path']}")) { // Search on partition 'a'
-					if (file_exists("{$g['cf_conf_path']}/config.xml")) {
-						$cfgdevice = $disk;
-						$cfgpartition = "{$cfgdevice}p2";
-						$cfgfstype = "ufs";
-					}
-					// Unmount device
-					mwexec("/sbin/umount -f {$g['cf_path']}");
 				}
 
 				// Device found, exit
@@ -908,6 +900,15 @@ function opennas_upgrade()  {
 					"comment" => "Populate /var",
 					"enable" => true );
 			}
+			$index = array_search_ex("keymap", $config['system']['rcconf']['param'], "name");
+			if ($index === false) {
+				$config['system']['rcconf']['param'][] = array(
+					"uuid" => "b5df95ad-7e4b-4938-8123-b585932ef4e4",
+					"name" => "keymap",
+					"value" => "us.iso.kbd",
+					"comment" => "Default keymap",
+					"enable" => true );
+			}
 		}
 		if (!empty($config['system']['sysctl']) && !empty($config['system']['sysctl']['param'])) {
 			$index = array_search_ex("kern.coredump", $config['system']['sysctl']['param'], "name");
@@ -923,7 +924,7 @@ function opennas_upgrade()  {
 						"enable" => true );
 			}
 		}
-		$config['version'] = "0.2";
+		$config['on_version'] = "0.2";
 	}
 
 	write_config();
