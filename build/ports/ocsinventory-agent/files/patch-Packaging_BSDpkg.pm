@@ -1,5 +1,5 @@
---- Agent/Backend/OS/Generic/Packaging/BSDpkg.pm.orig	2014-10-09 09:24:47.000000000 +0000
-+++ Agent/Backend/OS/Generic/Packaging/BSDpkg.pm	2014-10-09 09:25:11.000000000 +0000
+--- lib/Ocsinventory/Agent/Backend/OS/Generic/Packaging/BSDpkg.pm.orig	2014-10-09 09:24:47.000000000 +0000
++++ lib/Ocsinventory/Agent/Backend/OS/Generic/Packaging/BSDpkg.pm	2014-10-09 09:25:11.000000000 +0000
 @@ -1,12 +1,12 @@
  package Ocsinventory::Agent::Backend::OS::Generic::Packaging::BSDpkg;
  
