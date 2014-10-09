@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: NAS4Free\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-16 11:10+0100\n"
-"PO-Revision-Date: 2014-07-16 11:13+0100\n"
+"POT-Creation-Date: 2014-10-09 11:10+0100\n"
+"PO-Revision-Date: 2014-10-09 11:10+0100\n"
 "Last-Translator: Cédric Denis <cedric@factorfx.com>\n"
 "Language-Team: NAS4Free\n"
 "Language: fr_FR\n"
@@ -4070,8 +4070,8 @@ msgid "Select the FreeBSD package to be installed."
 msgstr "Sélectionner le paquet FreeBSD à installer"
 
 #: /home/cedric/DEV/Nas4Free/opennas/trunk/www/system_packages_edit.php:118
-msgid "You can also install a package via SSH or console using the the pkg_add command.<br />Example: pkg_add -r packagename"
-msgstr "Vous pouvez aussi installer un paquetage par SSH ou depuis la console en utilisant la commande pkg_add.<br />Exemple: pkg_add -r nomdupaquetage"
+msgid "You can also install a package via SSH or console using the the pkg install command.<br />Example: pkg install packagename"
+msgstr "Vous pouvez aussi installer un paquetage par SSH ou depuis la console en utilisant la commande pkg install.<br />Exemple: pkg install nomdupaquetage"
 
 #: /home/cedric/DEV/Nas4Free/opennas/trunk/www/diag_routes.php:44
 msgid "Routing tables"
