@@ -12,9 +12,15 @@ do-install:
 	# Binaries
 	cd ${WRKSRC}/ && ${INSTALL_PROGRAM} lspci setpci ${NAS4FREE_ROOTFS}/usr/local/bin/
 	
+	${INSTALL_SCRIPT} ${WRKSRC}/update-pciids.sh ${NAS4FREE_ROOTFS}/usr/local/sbin/
+	
 	# Pci database
 	${MKDIR} ${NAS4FREE_ROOTFS}/usr/local/share/pciids/
-	${INSTALL_SCRIPT} /usr/local/share/pciids/pci.ids ${NAS4FREE_ROOTFS}/usr/local/share/pciids/
+	gzip -9n ${WRKSRC}/pci.ids ${WRKSRC}/pci.ids.gz
+	${INSTALL_DATA} ${WRKSRC}/pci.ids ${NAS4FREE_ROOTFS}/usr/local/share/pciids/
+	${INSTALL_DATA} ${WRKSRC}/pci.ids.gz ${NAS4FREE_ROOTFS}/usr/local/share/pciids/
+	
+	rm -f ${WRKSRC}/pci.ids.gz
 	
 	# Manpages
 	for I in lspci.8 setpci.8; \
