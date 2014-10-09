@@ -16,7 +16,7 @@ do-install:
 	
 	# Pci database
 	${MKDIR} ${NAS4FREE_ROOTFS}/usr/local/share/pciids/
-	gzip -9n ${WRKSRC}/pci.ids ${WRKSRC}/pci.ids.gz
+	gzip -9nc ${WRKSRC}/pci.ids > ${WRKSRC}/pci.ids.gz
 	${INSTALL_DATA} ${WRKSRC}/pci.ids ${NAS4FREE_ROOTFS}/usr/local/share/pciids/
 	${INSTALL_DATA} ${WRKSRC}/pci.ids.gz ${NAS4FREE_ROOTFS}/usr/local/share/pciids/
 	
