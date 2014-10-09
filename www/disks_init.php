@@ -108,16 +108,16 @@ if ($_POST) {
 		$reqdfieldst = explode(" ", "alias");
 		do_input_validation_type(array('volumelabel' => $volumelabel), $reqdfields, $reqdfieldsn, $reqdfieldst, $input_errors);
 	}
-	
+
 	if (count($volumelabels) > 1 && count($volumelabels) > count($disks)) {
 		$input_errors[] = gettext("Wrong number of argument for Volume label");
 	}
 
 	if (empty($input_errors)) {
 		$do_format = array();
-	
+
 		if (count($disks)>0) {
-			
+
 			foreach ($disks as $key => $disk) {
 				$do_format[$key] = true;
 				// Check whether disk is mounted.
@@ -131,23 +131,23 @@ if ($_POST) {
 					$input_errors[] = gettext("Can't format the OS origin disk!");
 					$do_format[$key] = false;
 				}
-				
+
 				if ($do_format[$key]) {
 					// Set new file system type attribute ('fstype') in configuration.
 					set_conf_disk_fstype($disk, $type);
-					
+
 					if (count($volumelabels) == 1 && count($disks) > 1) {
 						for ($i=0; $i < count($disks); $i++) {
 							$_volumelabels[$i] = "${volumelabels[0]}${i}";
 						}
-					} 
+					}
 					elseif(count($volumelabels) == 1 && count($disks) == 1) {
 						$_volumelabels[0] = $volumelabels[0];
 					}
 					else {
 						$_volumelabels = $volumelabels;
 					}
-					print_r($volumelabels);
+
 					write_config();
 
 					// Update list of configured disks.
@@ -184,7 +184,7 @@ $(document).ready(function(){
 			$('#volumelabel_tr').hide();
 			$('#aft4k_tr').hide();
 			break;
-		}  
+		}
 	});
 	$('#type').change();
 });
