@@ -9,6 +9,12 @@ MASTERDIR=	/usr/ports/net-mgmt/ocsinventory-agent
 
 BUILD_DEPENDS+=${RUN_DEPENDS}
 
+PATCHDIR+=${.CURDIR}/files
+
+pre-install:
+	#Clean Up
+	${FIND} ${WRKSRC}/lib/Ocsinventory/ -type f -name '*.orig' -exec rm {} \;
+
 do-install:
 	#Ocs inventory
 	${MKDIR} -p ${NAS4FREE_ROOTFS}/usr/local/lib/perl5/site_perl/${PERL_VER}/Ocsinventory/
