@@ -89,6 +89,7 @@ usr/local/lib/perl5/site_perl/5.16/
 
 ## Install python2.7
 usr/local/bin/python2.7:usr/local/bin/python2
+usr/local/bin/python2:usr/local/bin/python
 usr/local/bin/2to3-2.7:usr/local/bin/2to3-2
 usr/local/bin/python-shared2.7:usr/local/bin/python-shared2
 usr/local/bin/idle2.7:usr/local/bin/idle2
