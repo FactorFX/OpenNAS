@@ -153,7 +153,7 @@ pre-configure:
 	@${FIND} ${WRKDIR}/${DISTNAME} -type d | ${XARGS} ${CHMOD} u+w,a+rx
 	@${FIND} ${WRKDIR}/${DISTNAME} -type f | ${XARGS} ${CHMOD} u+w,a+r
 
-do-install:
+do-install: smb-client-install
 	@${INSTALL_SCRIPT} -v ${FILESDIR}/samba.in ${NAS4FREE_ROOTFS}/etc/rc.d/samba
 	@${INSTALL_PROGRAM} -v ${WRKSRC}/bin/libwbclient.so.0 ${NAS4FREE_ROOTFS}/${SAMBA_LIBDIR}
 	@${LN} -f -v -s libwbclient.so.0 ${NAS4FREE_ROOTFS}/${SAMBA_LIBDIR}/libwbclient.so
@@ -254,5 +254,12 @@ do-install:
 	@${INSTALL_PROGRAM} -v ${WRKDIR}/${DISTNAME}/nsswitch/nss_wins.so ${NAS4FREE_ROOTFS}${SAMBA_LIBDIR}/nss_wins.so.1
 	@${LN} -f -v -s nss_winbind.so.1 ${NAS4FREE_ROOTFS}${SAMBA_LIBDIR}/nss_winbind.so
 	@${LN} -f -v -s nss_wins.so.1 ${NAS4FREE_ROOTFS}${SAMBA_LIBDIR}/nss_wins.so
+
+smb-client-install:
+	@${INSTALL_PROGRAM} ${WRKSRC}/bin/smbclient ${NAS4FREE_ROOTFS}/usr/local/bin
+	@${MKDIR} ${NAS4FREE_ROOTFS}/usr/share/man/man1
+	gzip -c ${WRKDIR}/${DISTNAME}/docs/manpages/smbclient.1 > ${WRKDIR}/${DISTNAME}/docs/manpages/smbclient.1.gz
+	@$(INSTALL_DATA) ${WRKDIR}/${DISTNAME}/docs/manpages/smbclient.1.gz ${NAS4FREE_ROOTFS}/usr/share/man/man1
+	rm -f ${WRKDIR}/${DISTNAME}/docs/manpages/smbclient.1.gz
 
 .include <bsd.port.post.mk>
