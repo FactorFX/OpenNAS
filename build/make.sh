@@ -50,7 +50,6 @@ fi
 # Global variables
 NAS4FREE_WORKINGDIR="$NAS4FREE_ROOTDIR/work"
 NAS4FREE_ROOTFS="$NAS4FREE_ROOTDIR/rootfs"
-OPENNAS_BRANCH=$(git --work-tree=$NAS4FREE_SVNDIR --git-dir=$NAS4FREE_SVNDIR/.git status | grep 'On branch'| awk '{print $4}')
 NAS4FREE_WORLD=""
 NAS4FREE_PRODUCTNAME=$(cat $NAS4FREE_SVNDIR/etc/prd.name)
 NAS4FREE_VERSION=$(cat $NAS4FREE_SVNDIR/etc/prd.version)
@@ -286,6 +285,15 @@ create_rootfs() {
 	return 0
 }
 
+update_source_svn() {
+	cd /usr/src
+	svn revert -R .
+	rm -rf ` svn status | awk 'F="?" {print $2}'`
+	svn up
+	
+	return 0
+}
+
 # Actions before building kernel (e.g. install special/additional kernel patches).
 pre_build_kernel() {
 	tempfile=$NAS4FREE_WORKINGDIR/tmp$$
@@ -317,6 +325,12 @@ $DIALOG --title \"$NAS4FREE_PRODUCTNAME - Kernel Patches\" \\
 		rm -rv ${file}
 	done
 
+	echo "Update /usr/src ..."
+	update_source_svn
+	if [ 0 != $? ]; then # successful?
+		return 1
+	fi
+	
 	for patch in $(cat $patches | tr -d '"'); do
     echo
 		echo "--------------------------------------------------------------"
@@ -962,13 +976,10 @@ create_full() {
 update_git() {
 	# Update sources from repository.
 	cd $NAS4FREE_SVNDIR
-	#git checkout master
-	#git add .
-	#git commit -m "revision ${NAS4FREE_NEW_STABLE_VERSION}"
-	#git status
-
-	# Update Revision Number.
-	#NAS4FREE_REVISION=$(svn info ${NAS4FREE_SVNDIR} | grep Revision | awk '{print $2}')
+	
+	git fetch origin
+	git checkout -f opennas
+	git pull --rebase
 
 	return 0
 }
@@ -1014,7 +1025,6 @@ echo -n "
 Compile ${NAS4FREE_PRODUCTNAME} from Scratch
 -----------------------------
 Menu Options:
-
 
 1 - Update FreeBSD Source Tree and Ports Collections.
 2 - Create Filesystem Structure.
@@ -1163,9 +1173,6 @@ main() {
 ${NAS4FREE_PRODUCTNAME} Build Environment
 --------------------------
 Menu Options:
-"
-echo "You are on branch ${OPENNAS_BRANCH} with Nas4free revision ${NAS4FREE_REVISION}"
-echo -n "
 
 1  - Update OPENNAS Source Files to LATEST STABLE.
 2  - Compile OPENNAS from Scratch.
