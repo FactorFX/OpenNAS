@@ -1,5 +1,13 @@
 ** CHANGELOG **
 
+	1.0.278
+
+- Kernel updated to 9.2-RELEASE-p14
+- Add mfiutil command
+- Add smbclient command
+- Add wget 1.15
+- Add curl 7.38.0
+
 	1.0.274RC5
 
 - Kernel updated to 9.2-RELEASE-p12
