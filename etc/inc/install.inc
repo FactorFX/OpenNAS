@@ -310,6 +310,11 @@ function install_upgrade_full($harddrive)
 	write_console("Remove obsolete files.\n");
 	mwexec("/etc/install/upgrade.sh clean {$mntpath}");
 
+	// Correct bad link for /tmp directory with RC2
+	if (!is_link("/tmp")) {
+		mwexec("/bin/rm -rf {$mntpath}/tmp");
+	}
+
 	// Install system files
 	write_console("Installing system files on device {$harddrive}{$part_install}.\n");
 	install_system($mntpath);
