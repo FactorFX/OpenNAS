@@ -141,7 +141,7 @@ function enable_change(enable_change) {
 	<tr>
 		<td class="tabnavtbl">
 			<ul id="tabnav">
-				<li class="tabact"><a href="service_ocs_inventory.php" title="<?=gettext("Reload page");?>"><span><?=gettext("Ocs Inventory");?></span></a></li>
+				<li class="tabact"><a href="services_ocs_inventory_agent.php" title="<?=gettext("Reload page");?>"><span><?=gettext("Ocs Inventory");?></span></a></li>
 			</ul>
 		</td>
 	</tr>
