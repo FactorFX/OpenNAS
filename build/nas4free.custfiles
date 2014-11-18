@@ -99,3 +99,6 @@ usr/local/lib/python2.7/
 
 ## mfiutil
 usr/sbin/mfiutil
+
+## tcpdump
+usr/sbin/tcpdump
