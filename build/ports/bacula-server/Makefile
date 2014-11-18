@@ -2,7 +2,7 @@
 
 PORTNAME=	bacula
 PKGNAMESUFFIX=	-server
-DISTVERSION=	7.0.5
+DISTVERSION=	5.2.12
 
 COMMENT=	Network backup solution (server)
 
@@ -11,18 +11,15 @@ USE_RC_SUBR=	bacula-sd
 PLIST=		${PKGDIR}/pkg-plist.client
 MASTERDIR=	/usr/ports/sysutils/bacula-server
 
+MAN8+=	bbacula.8 bacula-sd.8 bcopy.8 bextract.8 bls.8 bscan.8 \
+		btape.8 btraceback.8 dbcheck.8 bwild.8 bregex.8
+
 do-install:
 	# manpages
-	$(MKDIR) ${NAS4FREE_ROOTFS}/usr/share/man/man8
-	for I in ${MP8}; \
+	$(MKDIR) ${NAS4FREE_ROOTFS}/usr/local/man/man8
+	for I in ${MAN8}; \
 		do (rm -f ${WRKSRC}/manpages/$$I.gz; gzip -c ${WRKSRC}/manpages/$$I >${WRKSRC}/manpages/$$I.gz; \
-			$(INSTALL_DATA) ${WRKSRC}/manpages/$$I.gz ${NAS4FREE_ROOTFS}/usr/share/man/man8/$$I.gz; \
-			rm -f ${WRKSRC}/manpages/$$I.gz); \
-	done
-	$(MKDIR) ${NAS4FREE_ROOTFS}/usr/share/man/man1
-	for I in ${MP1}; \
-		do (rm -f ${WRKSRC}/manpages/$$I.gz; gzip -c ${WRKSRC}/manpages/$$I >${WRKSRC}/manpages/$$I.gz; \
-			$(INSTALL_DATA) ${WRKSRC}/manpages/$$I.gz ${NAS4FREE_ROOTFS}/usr/share/man/man1/$$I.gz; \
+			$(INSTALL_DATA) ${WRKSRC}/manpages/$$I.gz ${NAS4FREE_ROOTFS}/usr/local/man/man8/$$I.gz; \
 			rm -f ${WRKSRC}/manpages/$$I.gz); \
 	done
 	

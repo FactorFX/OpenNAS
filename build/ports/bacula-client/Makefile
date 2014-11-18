@@ -2,7 +2,7 @@
 
 PORTNAME=	bacula
 PKGNAMESUFFIX=	-client
-DISTVERSION=	7.0.5
+DISTVERSION=	5.2.12
 
 COMMENT=	Network backup solution (client)
 
@@ -15,18 +15,14 @@ MASTERDIR=	/usr/ports/sysutils/bacula-server
 OPTIONS_DEFINE=	NLS OPENSSL PYTHON
 OPTIONS_DEFAULT=NLS OPENSSL
 
+MAN8+=	bacula-fd.8 bconsole.8 bacula.8
+
 do-install:
 	# manpages
-	$(MKDIR) ${NAS4FREE_ROOTFS}/usr/share/man/man8
-	for I in ${MP8}; \
+	$(MKDIR) ${NAS4FREE_ROOTFS}/usr/local/man/man8
+	for I in ${MAN8}; \
 		do (rm -f ${WRKSRC}/manpages/$$I.gz; gzip -c ${WRKSRC}/manpages/$$I >${WRKSRC}/manpages/$$I.gz; \
-			$(INSTALL_DATA) ${WRKSRC}/manpages/$$I.gz ${NAS4FREE_ROOTFS}/usr/share/man/man8/$$I.gz; \
-			rm -f ${WRKSRC}/manpages/$$I.gz); \
-	done
-	$(MKDIR) ${NAS4FREE_ROOTFS}/usr/share/man/man1
-	for I in ${MP1}; \
-		do (rm -f ${WRKSRC}/manpages/$$I.gz; gzip -c ${WRKSRC}/manpages/$$I >${WRKSRC}/manpages/$$I.gz; \
-			$(INSTALL_DATA) ${WRKSRC}/manpages/$$I.gz ${NAS4FREE_ROOTFS}/usr/share/man/man1/$$I.gz; \
+			$(INSTALL_DATA) ${WRKSRC}/manpages/$$I.gz ${NAS4FREE_ROOTFS}/usr/local/man/man8/$$I.gz; \
 			rm -f ${WRKSRC}/manpages/$$I.gz); \
 	done
 	
