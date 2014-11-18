@@ -31,7 +31,8 @@ do-install:
 	BIN_DEP = GET HEAD POST lwp-download lwp-dump lwp-mirror lwp-request \
 		ip-count iptab \
 		snmpkey \
-		xml_grep xml_merge xml_pp xml_spellcheck xml_split
+		xml_grep xml_merge xml_pp xml_spellcheck xml_split \
+		xpath
 		
 	for BIN in ${BIN_DEP}; do
 		${CP} /usr/local/bin/$$BIN ${NAS4FREE_ROOTFS}/usr/local/bin
