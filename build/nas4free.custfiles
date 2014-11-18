@@ -11,7 +11,7 @@ usr/bin/dialog
 usr/share/syscons/keymaps/
 usr/share/syscons/fonts/
 
-### man pages
+### Manpages
 usr/bin/tbl
 usr/bin/groff
 usr/bin/man
@@ -22,6 +22,9 @@ usr/bin/grotty
 usr/share/man/
 usr/share/groff_font/
 usr/share/tmac/
+
+## Local Manpages
+usr/local/man/
 
 ## network
 usr/bin/nslookup
@@ -44,7 +47,6 @@ usr/bin/kadmin
 usr/bin/klist
 usr/bin/kdestroy
 usr/bin/kinit
-
 
 ### nscd
 usr/sbin/nscd

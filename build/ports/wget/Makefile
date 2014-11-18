@@ -13,10 +13,10 @@ MAN1=		wget.1
 do-install:
 	${INSTALL_PROGRAM} -v ${WRKSRC}/src/wget ${NAS4FREE_ROOTFS}/${PREFIX}/bin/
 
-	${MKDIR} -p ${NAS4FREE_ROOTFS}/usr/share/man/man1
+	${MKDIR} -p ${NAS4FREE_ROOTFS}/usr/local/man/man1
 	for I in ${MAN1}; \
 		do (rm -f ${WRKSRC}/doc/$$I.gz; gzip -c ${WRKSRC}/doc/$$I >${WRKSRC}/doc/$$I.gz; \
-			$(INSTALL_DATA) ${WRKSRC}/doc/$$I.gz ${NAS4FREE_ROOTFS}/usr/share/man/man1/$$I.gz; \
+			$(INSTALL_DATA) ${WRKSRC}/doc/$$I.gz ${NAS4FREE_ROOTFS}/usr/local/man/man1/$$I.gz; \
 			rm -f ${WRKSRC}/doc/$$I.gz); \
 	done
 

@@ -257,9 +257,9 @@ do-install: smb-client-install
 
 smb-client-install:
 	@${INSTALL_PROGRAM} ${WRKSRC}/bin/smbclient ${NAS4FREE_ROOTFS}/usr/local/bin
-	@${MKDIR} ${NAS4FREE_ROOTFS}/usr/share/man/man1
+	@${MKDIR} ${NAS4FREE_ROOTFS}/usr/local/man/man1
 	gzip -c ${WRKDIR}/${DISTNAME}/docs/manpages/smbclient.1 > ${WRKDIR}/${DISTNAME}/docs/manpages/smbclient.1.gz
-	@$(INSTALL_DATA) ${WRKDIR}/${DISTNAME}/docs/manpages/smbclient.1.gz ${NAS4FREE_ROOTFS}/usr/share/man/man1
+	@$(INSTALL_DATA) ${WRKDIR}/${DISTNAME}/docs/manpages/smbclient.1.gz ${NAS4FREE_ROOTFS}/usr/local/man/man1
 	rm -f ${WRKDIR}/${DISTNAME}/docs/manpages/smbclient.1.gz
 
 .include <bsd.port.post.mk>

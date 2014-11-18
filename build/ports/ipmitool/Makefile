@@ -15,14 +15,16 @@ do-install:
 	${INSTALL_SCRIPT} ${WRKSRC}/contrib/oem_ibm_sel_map ${NAS4FREE_ROOTFS}/usr/local/share/ipmitool/
 	
 	# Manpages
+	${MKDIR} ${NAS4FREE_ROOTFS}/usr/local/man/man1/
+	${MKDIR} ${NAS4FREE_ROOTFS}/usr/local/man/man8/
 	rm -f ${WRKDIR}/${DISTNAME}/doc/ipmitool.1.gz
 	gzip -c ${WRKDIR}/${DISTNAME}/doc/ipmitool.1 >${WRKDIR}/${DISTNAME}/doc/ipmitool.1.gz
-	$(INSTALL_DATA) ${WRKDIR}/${DISTNAME}/doc/ipmitool.1.gz ${NAS4FREE_ROOTFS}/usr/share/man/man1/ipmitool.1.gz
+	$(INSTALL_DATA) ${WRKDIR}/${DISTNAME}/doc/ipmitool.1.gz ${NAS4FREE_ROOTFS}/usr/local/man/man1/ipmitool.1.gz
 	rm -f ${WRKDIR}/${DISTNAME}/doc/ipmitool.1.gz 
 	
 	rm -f ${WRKDIR}/${DISTNAME}/doc/ipmievd.8.gz
 	gzip -c ${WRKDIR}/${DISTNAME}/doc/ipmievd.8 >${WRKDIR}/${DISTNAME}/doc/ipmievd.8.gz
-	$(INSTALL_DATA) ${WRKDIR}/${DISTNAME}/doc/ipmievd.8.gz ${NAS4FREE_ROOTFS}/usr/share/man/man8/ipmievd.8.gz
+	$(INSTALL_DATA) ${WRKDIR}/${DISTNAME}/doc/ipmievd.8.gz ${NAS4FREE_ROOTFS}/usr/local/man/man8/ipmievd.8.gz
 	rm -f ${WRKDIR}/${DISTNAME}/doc/ipmievd.8.gz
 
 .include "${MASTERDIR}/Makefile"

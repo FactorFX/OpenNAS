@@ -14,8 +14,8 @@ do-install:
 	@${INSTALL_PROGRAM} ${WRKSRC}/tmux ${NAS4FREE_ROOTFS}/bin
 	${CP} ${.CURDIR}/files/tmux.conf ${NAS4FREE_ROOTFS}/usr/local/etc/tmux.conf
 	gzip -c ${WRKSRC}/tmux.1 >${WRKSRC}/tmux.1.gz
-	${MKDIR} -v ${NAS4FREE_ROOTFS}/usr/share/man/man1
-	@$(INSTALL_DATA) ${WRKSRC}/tmux.1.gz ${NAS4FREE_ROOTFS}/usr/share/man/man1
+	${MKDIR} -v ${NAS4FREE_ROOTFS}/usr/local/man/man1
+	@$(INSTALL_DATA) ${WRKSRC}/tmux.1.gz ${NAS4FREE_ROOTFS}/usr/local/man/man1
 	rm -f ${WRKSRC}/tmux.1.gz
 
 .include "${MASTERDIR}/Makefile"

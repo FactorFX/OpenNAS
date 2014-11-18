@@ -23,9 +23,10 @@ do-install:
 	rm -f ${WRKSRC}/pci.ids.gz
 	
 	# Manpages
+	${MKDIR} ${NAS4FREE_ROOTFS}/usr/local/man/man8
 	for I in lspci.8 setpci.8; \
 		do (rm -f ${WRKSRC}/$$I.gz; gzip -c ${WRKSRC}/$$I >${WRKSRC}/$$I.gz; \
-			$(INSTALL_DATA) ${WRKSRC}/$$I.gz ${NAS4FREE_ROOTFS}/usr/share/man/man8/$$I.gz; \
+			$(INSTALL_DATA) ${WRKSRC}/$$I.gz ${NAS4FREE_ROOTFS}/usr/local/man/man8/$$I.gz; \
 			rm -f ${WRKSRC}/$$I.gz); \
 	done
 

@@ -38,9 +38,11 @@ do-install:
 	gzip -c ${WRKSRC}/docs/nmap.1 > ${WRKSRC}/docs/nmap.1.gz
 	gzip -c ${WRKSRC}/ncat/docs/ncat.1 > ${WRKSRC}/ncat/docs/ncat.1.gz
 	gzip -c ${WRKSRC}/nping/docs/nping.1 > ${WRKSRC}/nping/docs/nping.1.gz
-	$(INSTALL_DATA) ${WRKSRC}/docs/nmap.1.gz ${NAS4FREE_ROOTFS}/usr/share/man/man1/
-	$(INSTALL_DATA) ${WRKSRC}/ncat/docs/ncat.1.gz ${NAS4FREE_ROOTFS}/usr/share/man/man1/
-	$(INSTALL_DATA) ${WRKSRC}/nping/docs/nping.1.gz ${NAS4FREE_ROOTFS}/usr/share/man/man1/
+	
+	${MKDIR} ${NAS4FREE_ROOTFS}/usr/local/man/man1/
+	$(INSTALL_DATA) ${WRKSRC}/docs/nmap.1.gz ${NAS4FREE_ROOTFS}/usr/local/man/man1/
+	$(INSTALL_DATA) ${WRKSRC}/ncat/docs/ncat.1.gz ${NAS4FREE_ROOTFS}/usr/local/man/man1/
+	$(INSTALL_DATA) ${WRKSRC}/nping/docs/nping.1.gz ${NAS4FREE_ROOTFS}/usr/local/man/man1/
 	rm -f ${WRKSRC}/docs/nmap.1.gz
 	rm -f ${WRKSRC}/ncat/docs/ncat.1.gz
 	rm -f ${WRKSRC}/nping/docs/nping.1.gz

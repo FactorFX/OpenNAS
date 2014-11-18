@@ -86,24 +86,24 @@ do-install:
 	${LN} -sfv /usr/local/lib/libldb.so.1 ${NAS4FREE_ROOTFS}/usr/local/lib/libldb.so
 	
 	### ManPages
-	${MKDIR} ${NAS4FREE_ROOTFS}/usr/share/man/man1
-	${MKDIR} ${NAS4FREE_ROOTFS}/usr/share/man/man5
-	${MKDIR} ${NAS4FREE_ROOTFS}/usr/share/man/man8
+	${MKDIR} ${NAS4FREE_ROOTFS}/usr/local/man/man1
+	${MKDIR} ${NAS4FREE_ROOTFS}/usr/local/man/man5
+	${MKDIR} ${NAS4FREE_ROOTFS}/usr/local/man/man8
 	
 	for I in ${MANS}; \
 		do (rm -f ${WRKSRC}/src/man/$$I.gz; gzip -c ${WRKSRC}/src/man/$$I >${WRKSRC}/src/man/$$I.gz;); \
 	done
 	
 	for I in ${MAN.1}; \
-		do ($(INSTALL_DATA) ${WRKSRC}/src/man/$$I.gz ${NAS4FREE_ROOTFS}/usr/share/man/man1/$$I.gz;); \
+		do ($(INSTALL_DATA) ${WRKSRC}/src/man/$$I.gz ${NAS4FREE_ROOTFS}/usr/local/man/man1/$$I.gz;); \
 	done
 	
 	for I in ${MAN.5}; \
-		do ($(INSTALL_DATA) ${WRKSRC}/src/man/$$I.gz ${NAS4FREE_ROOTFS}/usr/share/man/man5/$$I.gz;); \
+		do ($(INSTALL_DATA) ${WRKSRC}/src/man/$$I.gz ${NAS4FREE_ROOTFS}/usr/local/man/man5/$$I.gz;); \
 	done
 	
 	for I in ${MAN.8}; \
-		do ($(INSTALL_DATA) ${WRKSRC}/src/man/$$I.gz ${NAS4FREE_ROOTFS}/usr/share/man/man8/$$I.gz;); \
+		do ($(INSTALL_DATA) ${WRKSRC}/src/man/$$I.gz ${NAS4FREE_ROOTFS}/usr/local/man/man8/$$I.gz;); \
 	done
 	
 	for I in ${MANS}; \

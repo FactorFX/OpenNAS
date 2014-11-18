@@ -15,10 +15,10 @@ do-install:
 	${MKDIR} ${NAS4FREE_ROOTFS}/${PREFIX}/share/certs
 	${CP} /usr/local/share/certs/ca-root-nss.crt ${NAS4FREE_ROOTFS}/${PREFIX}/share/certs
 
-	${MKDIR} -p ${NAS4FREE_ROOTFS}/usr/share/man/man1
+	${MKDIR} -p ${NAS4FREE_ROOTFS}/usr/local/man/man1
 	for I in ${MAN1}; \
 		do (rm -f ${WRKSRC}/docs/$$I.gz; gzip -c ${WRKSRC}/docs/$$I >${WRKSRC}/docs/$$I.gz; \
-			$(INSTALL_DATA) ${WRKSRC}/docs/$$I.gz ${NAS4FREE_ROOTFS}/usr/share/man/man1/$$I.gz; \
+			$(INSTALL_DATA) ${WRKSRC}/docs/$$I.gz ${NAS4FREE_ROOTFS}/usr/local/man/man1/$$I.gz; \
 			rm -f ${WRKSRC}/docs/$$I.gz); \
 	done
 

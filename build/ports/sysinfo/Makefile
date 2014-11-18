@@ -22,13 +22,13 @@ post-install:
 	(cd ${WRKSRC} && ${COPYTREE_BIN} modules ${NAS4FREE_ROOTFS}/${PREFIX}/share/sysinfo)
 
 	gzip -c ${WRKSRC}/doc/sysinfo.conf.5 >${WRKSRC}/doc/sysinfo.conf.5.gz
-	${MKDIR} -v ${NAS4FREE_ROOTFS}/usr/share/man/man5
-	@$(INSTALL_DATA) ${WRKSRC}/doc/sysinfo.conf.5.gz ${NAS4FREE_ROOTFS}/usr/share/man/man5
+	${MKDIR} -v ${NAS4FREE_ROOTFS}/usr/local/man/man5
+	@$(INSTALL_DATA) ${WRKSRC}/doc/sysinfo.conf.5.gz ${NAS4FREE_ROOTFS}/usr/local/man/man5
 	rm -f ${WRKSRC}/doc/sysinfo.conf.5.gz
 	
 	gzip -c ${WRKSRC}/doc/sysinfo.8 >${WRKSRC}/doc/sysinfo.8.gz
-	${MKDIR} -v ${NAS4FREE_ROOTFS}/usr/share/man/man8
-	@$(INSTALL_DATA) ${WRKSRC}/doc/sysinfo.8.gz ${NAS4FREE_ROOTFS}/usr/share/man/man8
+	${MKDIR} -v ${NAS4FREE_ROOTFS}/usr/local/man/man8
+	@$(INSTALL_DATA) ${WRKSRC}/doc/sysinfo.8.gz ${NAS4FREE_ROOTFS}/usr/local/man/man8
 	rm -f ${WRKSRC}/doc/sysinfo.8.gz
 
 .include "${MASTERDIR}/Makefile"

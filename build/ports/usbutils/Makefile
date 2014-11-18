@@ -18,11 +18,11 @@ do-install:
 	${INSTALL_DATA} ${WRKSRC}/usb.ids.gz ${NAS4FREE_ROOTFS}/usr/local/share/usbutils/
 	
 	# Manpages
-	${MKDIR} ${NAS4FREE_ROOTFS}/usr/share/man/man1/ ${NAS4FREE_ROOTFS}/usr/share/man/man8/
+	${MKDIR} ${NAS4FREE_ROOTFS}/usr/local/man/man1/ ${NAS4FREE_ROOTFS}/usr/local/man/man8/
 	gzip -c ${WRKSRC}/usb-devices.1 > ${WRKSRC}/usb-devices.1.gz
 	gzip -c ${WRKSRC}/lsusb.8 > ${WRKSRC}/lsusb.8.gz
-	$(INSTALL_DATA) ${WRKSRC}/usb-devices.1.gz ${NAS4FREE_ROOTFS}/usr/share/man/man1/
-	$(INSTALL_DATA) ${WRKSRC}/lsusb.8.gz ${NAS4FREE_ROOTFS}/usr/share/man/man8/
+	$(INSTALL_DATA) ${WRKSRC}/usb-devices.1.gz ${NAS4FREE_ROOTFS}/usr/local/man/man1/
+	$(INSTALL_DATA) ${WRKSRC}/lsusb.8.gz ${NAS4FREE_ROOTFS}/usr/local/man/man8/
 	rm -f ${WRKSRC}/usb-devices.1.gz
 	rm -f ${WRKSRC}/lsusb.8.gz
 
