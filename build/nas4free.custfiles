@@ -83,16 +83,6 @@ usr/share/misc/magic.mgc
 ## pkg
 usr/sbin/pkg
 
-## Install python2.7
-usr/local/bin/python2.7:usr/local/bin/python2
-usr/local/bin/python2:usr/local/bin/python
-usr/local/bin/2to3-2.7:usr/local/bin/2to3-2
-usr/local/bin/python-shared2.7:usr/local/bin/python-shared2
-usr/local/bin/idle2.7:usr/local/bin/idle2
-usr/local/bin/smtpd2.7.py:usr/local/bin/smtpd2.py
-usr/local/bin/python2.7-config:usr/local/bin/python2-config
-usr/local/lib/python2.7/
-
 ## mfiutil
 usr/sbin/mfiutil
 
