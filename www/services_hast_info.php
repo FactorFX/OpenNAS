@@ -47,7 +47,7 @@ function hast_get_status() {
 		return gettext("HAST disabled");
 	}
 
-	$cmd = "/sbin/hastctl status";
+	$cmd = "/sbin/hastctl list";
 	if (isset($_GET['name'])) {
 		$cmd .= " {$_GET['name']}";
 	}
