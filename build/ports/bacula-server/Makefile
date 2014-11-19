@@ -1,15 +1,16 @@
-# $FreeBSD: head/sysutils/bacula-client/Makefile 360216 2014-07-02 16:14:10Z bapt $
+# Created by: Dmitry Sivachenko <demon@FreeBSD.org>
+# $FreeBSD: head/sysutils/bacula5-server/Makefile 368446 2014-09-18 12:31:24Z mat $
+
 
 PORTNAME=	bacula
-PKGNAMESUFFIX=	-server
+PKGNAMESUFFIX=	5-server
 DISTVERSION=	5.2.12
 
 COMMENT=	Network backup solution (server)
 
 USE_RC_SUBR=	bacula-sd
 
-PLIST=		${PKGDIR}/pkg-plist.client
-MASTERDIR=	/usr/ports/sysutils/bacula-server
+MASTERDIR=	/usr/ports/sysutils/bacula5-server
 
 MAN8+=	bbacula.8 bacula-sd.8 bcopy.8 bextract.8 bls.8 bscan.8 \
 		btape.8 btraceback.8 dbcheck.8 bwild.8 bregex.8

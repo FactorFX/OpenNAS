@@ -1,7 +1,7 @@
 # $FreeBSD: head/sysutils/bacula-client/Makefile 360216 2014-07-02 16:14:10Z bapt $
 
 PORTNAME=	bacula
-PKGNAMESUFFIX=	-client
+PKGNAMESUFFIX=	5-client
 DISTVERSION=	5.2.12
 
 COMMENT=	Network backup solution (client)
@@ -10,7 +10,7 @@ WITH_CLIENT_ONLY=yes
 USE_RC_SUBR=	bacula-fd
 
 PLIST=		${PKGDIR}/pkg-plist.client
-MASTERDIR=	/usr/ports/sysutils/bacula-server
+MASTERDIR=	/usr/ports/sysutils/bacula5-server
 
 OPTIONS_DEFINE=	NLS OPENSSL PYTHON
 OPTIONS_DEFAULT=NLS OPENSSL
