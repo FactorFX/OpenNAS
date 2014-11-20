@@ -11,20 +11,11 @@ BUILD_DEPENDS+=${RUN_DEPENDS}
 
 PATCHDIR+=${.CURDIR}/files
 
-MAN1=		ocsinventory-agent.1
-MAN3=		Ocsinventory::Agent::XML::Inventory.3 \
-			Ocsinventory::Agent::Common.3
-
-pre-install:
-	#Clean Up
-	${FIND} ${WRKSRC}/lib/Ocsinventory/ -type f -name '*.orig' -exec rm {} \;
+STAGEDIR=	${NAS4FREE_ROOTFS}
 
 do-install:
-	#Ocs inventory
-	${MKDIR} -p ${NAS4FREE_ROOTFS}/usr/local/lib/perl5/site_perl/${PERL_VER}/Ocsinventory/
-	${CP} -R ${WRKSRC}/lib/Ocsinventory/* ${NAS4FREE_ROOTFS}/usr/local/lib/perl5/site_perl/${PERL_VER}/Ocsinventory/
-	${INSTALL_SCRIPT} ${WRKSRC}/ocsinventory-agent ${NAS4FREE_ROOTFS}/usr/local/bin
-	@${MKDIR} -p ${NAS4FREE_ROOTFS}/usr/local/etc/ocsinventory/
+	$(MAKE) -C  ${WRKSRC} install DESTDIR=${NAS4FREE_ROOTFS}
+	
 	${CP} ${.CURDIR}/files/modules.conf ${NAS4FREE_ROOTFS}/usr/local/etc/ocsinventory/
 	
 	#Copy dependencies

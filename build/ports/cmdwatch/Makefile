@@ -10,18 +10,11 @@ PORTVERSION=	0.2.0
 
 COMMENT=	Watches the output from a command at specified intervals
 
-MAN1=		cmdwatch.1
-
 MASTERDIR=	/usr/ports/sysutils/cmdwatch
 
+STAGEDIR=	${NAS4FREE_ROOTFS}
+
 do-install:
-	${INSTALL_PROGRAM} -v ${WRKSRC}/cmdwatch ${NAS4FREE_ROOTFS}/${PREFIX}/bin/
-	
-	${MKDIR} -p ${NAS4FREE_ROOTFS}/usr/local/man/man1
-	for I in ${MAN1}; \
-		do (rm -f ${WRKSRC}/$$I.gz; gzip -c ${WRKSRC}/$$I >${WRKSRC}/$$I.gz; \
-			$(INSTALL_DATA) ${WRKSRC}/$$I.gz ${NAS4FREE_ROOTFS}/usr/local/man/man1/$$I.gz; \
-			rm -f ${WRKSRC}/$$I.gz); \
-	done
+	$(MAKE) -C  ${WRKSRC} install DESTDIR=${NAS4FREE_ROOTFS}
 
 .include "${MASTERDIR}/Makefile"

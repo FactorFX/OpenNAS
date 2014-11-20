@@ -8,18 +8,9 @@ COMMENT=	Console application which monitors network traffic in real time
 
 MASTERDIR=	/usr/ports/net/nload
 
-MAN1=	nload.1
+STAGEDIR=	${NAS4FREE_ROOTFS}
 
 do-install:
-	${CP} ${WRKSRC}/src/nload ${NAS4FREE_ROOTFS}/usr/local/bin/
-	
-	for I in ${MAN1}; \
-		do (rm -f ${WRKSRC}/docs/$$I.gz; gzip -c ${WRKSRC}/docs/$$I >${WRKSRC}/docs/$$I.gz; \
-			$(INSTALL_DATA) ${WRKSRC}/docs/$$I.gz ${NAS4FREE_ROOTFS}/usr/local/man/man1/$$I.gz; \
-			rm -f ${WRKSRC}/docs/$$I.gz); \
-	done
-
-post-install:
-	${ECHO} "Do nothing"
+	$(MAKE) -C  ${WRKSRC} install DESTDIR=${NAS4FREE_ROOTFS}
 
 .include "${MASTERDIR}/Makefile"

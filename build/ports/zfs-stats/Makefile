@@ -12,13 +12,9 @@ COMMENT=		Display human-readable ZFS statistics
 
 MASTERDIR=		/usr/ports/sysutils/zfs-stats
 
+STAGEDIR=	${NAS4FREE_ROOTFS}
+
 do-install:
-	${INSTALL_SCRIPT} ${WRKSRC}/zfs-stats ${NAS4FREE_ROOTFS}/${PREFIX}/bin/zfs-stats
-	${INSTALL_SCRIPT} ${WRKSRC}/zfs-mon ${NAS4FREE_ROOTFS}/${PREFIX}/bin/zfs-mon
-	${INSTALL_PROGRAM} /usr/bin/dc ${NAS4FREE_ROOTFS}/usr/bin
-	${INSTALL_PROGRAM} /sbin/kldstat ${NAS4FREE_ROOTFS}/sbin
-	${INSTALL_PROGRAM} /usr/bin/sed ${NAS4FREE_ROOTFS}/usr/bin
-	${INSTALL_PROGRAM} /sbin/sysctl ${NAS4FREE_ROOTFS}/sbin
-	${INSTALL_PROGRAM} /usr/bin/vmstat ${NAS4FREE_ROOTFS}/usr/bin
+	$(MAKE) -C  ${WRKSRC} install DESTDIR=${NAS4FREE_ROOTFS}
 
 .include "${MASTERDIR}/Makefile"

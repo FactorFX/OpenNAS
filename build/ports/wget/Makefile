@@ -8,19 +8,9 @@ COMMENT=	Retrieve files from the Net via HTTP(S) and FTP
 
 MASTERDIR=	/usr/ports/ftp/wget
 
-MAN1=		wget.1
+STAGEDIR=	${NAS4FREE_ROOTFS}
 
 do-install:
-	${INSTALL_PROGRAM} -v ${WRKSRC}/src/wget ${NAS4FREE_ROOTFS}/${PREFIX}/bin/
-
-	${MKDIR} -p ${NAS4FREE_ROOTFS}/usr/local/man/man1
-	for I in ${MAN1}; \
-		do (rm -f ${WRKSRC}/doc/$$I.gz; gzip -c ${WRKSRC}/doc/$$I >${WRKSRC}/doc/$$I.gz; \
-			$(INSTALL_DATA) ${WRKSRC}/doc/$$I.gz ${NAS4FREE_ROOTFS}/usr/local/man/man1/$$I.gz; \
-			rm -f ${WRKSRC}/doc/$$I.gz); \
-	done
-
-post-install:
-	${ECHO} "Do nothing"
+	$(MAKE) -C  ${WRKSRC} install DESTDIR=${NAS4FREE_ROOTFS}
 
 .include "${MASTERDIR}/Makefile"

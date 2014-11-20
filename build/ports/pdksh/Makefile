@@ -12,17 +12,9 @@ COMMENT=	The Public Domain Korn Shell
 
 MASTERDIR=	/usr/ports/shells/pdksh
 
-MAN1=		ksh.1
+STAGEDIR=	${NAS4FREE_ROOTFS}
 
 do-install:
-	${INSTALL_PROGRAM} -v ${WRKSRC}/ksh ${NAS4FREE_ROOTFS}/bin/
-
-	#manpages
-	${MKDIR} -v ${NAS4FREE_ROOTFS}/usr/local/man/man1
-	for I in ${MAN1}; \
-		do (rm -f ${WRKSRC}/$$I.gz; gzip -c ${WRKSRC}/$$I >${WRKSRC}/$$I.gz; \
-			$(INSTALL_DATA) ${WRKSRC}/$$I.gz ${NAS4FREE_ROOTFS}/usr/local/man/man1/$$I.gz; \
-			rm -f ${WRKSRC}/$$I.gz); \
-	done
+	$(MAKE) -C  ${WRKSRC} install DESTDIR=${NAS4FREE_ROOTFS}
 
 .include "${MASTERDIR}/Makefile"

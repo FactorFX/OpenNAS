@@ -9,10 +9,9 @@ MASTERDIR=	/usr/ports/net/openldap24-server
 
 COMMENT=	Allow others to run commands as root
 
-STAGEDIR = ${NAS4FREE_ROOTFS}
+STAGEDIR=	${NAS4FREE_ROOTFS}
 
 do-install:
-	${CD} ${WRKSRC}
-	$(MAKE) install DESTDIR=${NAS4FREE_ROOTFS}
+	$(MAKE) -C  ${WRKSRC} install DESTDIR=${NAS4FREE_ROOTFS}
 
 .include "${MASTERDIR}/Makefile"
