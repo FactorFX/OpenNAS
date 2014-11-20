@@ -17,7 +17,7 @@ ALWAYS_BUILD_DEPENDS=	yes
 DEPENDS_TARGET=	clean build
 
 
-BUILD_DEPENDS=	openssh-portable:${PORTSDIR}/security/openssh-portable
+BUILD_DEPENDS=	openssh-portable:${PORTSDIR}/security/openssh-portable66
 
 do-install:
 	@${INSTALL_PROGRAM} -v ${PORTSDIR}/security/openssh-portable/work/openssh-*/sshd ${NAS4FREE_ROOTFS}/usr/sbin
