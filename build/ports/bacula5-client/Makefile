@@ -12,9 +12,6 @@ USE_RC_SUBR=	bacula-fd
 PLIST=		${PKGDIR}/pkg-plist.client
 MASTERDIR=	/usr/ports/sysutils/bacula5-server
 
-OPTIONS_DEFINE=	NLS OPENSSL PYTHON
-OPTIONS_DEFAULT=NLS OPENSSL
-
 STAGEDIR=	${NAS4FREE_ROOTFS}
 
 do-install:
