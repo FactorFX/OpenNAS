@@ -20,10 +20,10 @@ DEPENDS_TARGET=	clean build
 BUILD_DEPENDS=	openssh-portable:${PORTSDIR}/security/openssh-portable66
 
 do-install:
-	@${INSTALL_PROGRAM} -v ${PORTSDIR}/security/openssh-portable/work/openssh-*/sshd ${NAS4FREE_ROOTFS}/usr/sbin
-	@${INSTALL_PROGRAM} -v ${PORTSDIR}/security/openssh-portable/work/openssh-*/ssh ${NAS4FREE_ROOTFS}/usr/bin
-	@${INSTALL_PROGRAM} -v ${PORTSDIR}/security/openssh-portable/work/openssh-*/sftp-server ${NAS4FREE_ROOTFS}/usr/libexec
-	@${CP} -pv ${PORTSDIR}/security/openssh-portable/work/openssh-*/moduli ${NAS4FREE_ROOTFS}/etc/ssh
+	@${INSTALL_PROGRAM} -v ${PORTSDIR}/security/openssh-portable66/work/openssh-*/sshd ${NAS4FREE_ROOTFS}/usr/sbin
+	@${INSTALL_PROGRAM} -v ${PORTSDIR}/security/openssh-portable66/work/openssh-*/ssh ${NAS4FREE_ROOTFS}/usr/bin
+	@${INSTALL_PROGRAM} -v ${PORTSDIR}/security/openssh-portable66/work/openssh-*/sftp-server ${NAS4FREE_ROOTFS}/usr/libexec
+	@${CP} -pv ${PORTSDIR}/security/openssh-portable66/work/openssh-*/moduli ${NAS4FREE_ROOTFS}/etc/ssh
 
 # Create link to moduli file to prevent log entry:
 # WARNING: /usr/local/etc/ssh/moduli does not exist, using fixed modulus
