@@ -1005,6 +1005,10 @@ finalization()
 	#Copy manpage of perl dependencies
 	cp -R /usr/local/lib/perl5/${PERL_VER}/man/man3/ ${NAS4FREE_ROOTFS}/usr/local/lib/perl5/${PERL_VER}/man/man3/
 	cp -R /usr/local/lib/perl5/${PERL_VER}/perl/man/man3/ ${NAS4FREE_ROOTFS}/usr/local/lib/perl5/${PERL_VER}/perl/man/man3/
+	
+	# bootstrap pkgng
+	chroot ${NAS4FREE_ROOTFS} pkg update
+	
 }
 
 build_bootloader()
