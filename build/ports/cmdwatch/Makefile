@@ -15,6 +15,6 @@ MASTERDIR=	/usr/ports/sysutils/cmdwatch
 STAGEDIR=	${NAS4FREE_ROOTFS}
 
 do-install:
-	$(MAKE) -C  ${WRKSRC} install DESTDIR=${NAS4FREE_ROOTFS}
+	$(MAKE) -C  ${WRKSRC} install DESTDIR=${NAS4FREE_ROOTFS} PREFIX=/usr/local
 
 .include "${MASTERDIR}/Makefile"
