@@ -25,10 +25,9 @@ do-install:
 	${MKDIR} ${NAS4FREE_ROOTFS}/usr/local/etc/ocsinventory/
 	${CP} ${.CURDIR}/files/modules.conf ${NAS4FREE_ROOTFS}/usr/local/etc/ocsinventory/
 	
-	#Copy dependencies
-		
-	for BIN in ${BIN_DEP}; do
-		${CP} /usr/local/bin/$$BIN ${NAS4FREE_ROOTFS}/usr/local/bin
+	#Copy binaries dependencies
+	for BIN in ${BIN_DEP}; \
+		do (${CP} /usr/local/bin/$$BIN ${NAS4FREE_ROOTFS}/usr/local/bin); \
 	done
 
 	for DIR in snmp w3m; \
