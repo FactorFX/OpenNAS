@@ -998,6 +998,15 @@ use_svn() {
 	return 0
 }
 
+finalization()
+{
+	# Add missing manpages for perl
+	PERL_VER=$(make -f /usr/ports/Mk/Uses/perl5.mk -V PERL_VER PORTSDIR=/usr/ports)
+	#Copy manpage of perl dependencies
+	cp -R /usr/local/lib/perl5/${PERL_VER}/man/man3/ ${NAS4FREE_ROOTFS}/usr/local/lib/perl5/${PERL_VER}/man/man3/
+	cp -R /usr/local/lib/perl5/${PERL_VER}/perl/man/man3/ ${NAS4FREE_ROOTFS}/usr/local/lib/perl5/${PERL_VER}/perl/man/man3/
+}
+
 build_bootloader()
 {
 	opt="-f";
@@ -1033,7 +1042,8 @@ Menu Options:
 5 - Build Ports.
 6 - Build Bootloader.
 7 - Add Necessary Libraries.
-8 - Modify File Permissions.
+8 - Add Missing files
+9 - Modify File Permissions.
 * - Exit.
 Press # "
 		read choice
@@ -1045,7 +1055,8 @@ Press # "
 			5)	build_ports;;
 			6)	build_bootloader;;
 			7)	add_libs;;
-			8)	modify_permissions;;
+			8)	finalization;;
+			9)	modify_permissions;;
 			*)	main; return $?;;
 		esac
 		[ 0 == $? ] && echo "=> Successfully done <=" || echo "=> Failed!"
@@ -1218,6 +1229,7 @@ else
 	build_world || exit 1;
 	build_bootloader || exit 1;
 	add_libs || exit 1;
+	finalization || exit1;
 	modify_permissions || exit 1;
 	for make in $MAKE_ALL; do
 		case $make in
