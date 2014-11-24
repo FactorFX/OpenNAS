@@ -7,7 +7,7 @@ CLIENT_ONLY=	yes
 
 MASTERDIR=	/usr/ports/net/openldap24-server
 
-COMMENT=	Allow others to run commands as root
+COMMENT=	 Open source LDAP client implementation with SASL2 support
 
 STAGEDIR=	${NAS4FREE_ROOTFS}
 

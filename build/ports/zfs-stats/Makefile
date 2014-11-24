@@ -15,6 +15,8 @@ MASTERDIR=		/usr/ports/sysutils/zfs-stats
 STAGEDIR=	${NAS4FREE_ROOTFS}
 
 do-install:
-	$(MAKE) -C  ${WRKSRC} install DESTDIR=${NAS4FREE_ROOTFS}
+	${INSTALL_SCRIPT} ${WRKSRC}/zfs-stats ${STAGEDIR}${PREFIX}/bin/zfs-stats
+	${INSTALL_SCRIPT} ${WRKSRC}/zfs-mon ${STAGEDIR}${PREFIX}/bin/zfs-mon
+
 
 .include "${MASTERDIR}/Makefile"
