@@ -13,7 +13,6 @@ MASTERDIR=	/usr/ports/editors/vim
 STAGEDIR=	${NAS4FREE_ROOTFS}
 
 do-install:
-	${REINPLACE_CMD} "/@sample/d" ${TMPPLIST}
 	$(MAKE) -C  ${WRKSRC} install DESTDIR=${NAS4FREE_ROOTFS}
 
 .include "${MASTERDIR}/Makefile"
