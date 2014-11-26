@@ -14,9 +14,11 @@ MASTERDIR=	/usr/ports/sysutils/bacula5-server
 
 STAGEDIR=	${NAS4FREE_ROOTFS}
 
-do-install:
-	$(MAKE) -C  ${WRKSRC} install DESTDIR=${NAS4FREE_ROOTFS}
+post-install:
 	# Install service script
 	${INSTALL_SCRIPT} -v ${.CURDIR}/files/bacula-fd.in ${NAS4FREE_ROOTFS}/etc/rc.d/bacula_fd
+
+do-install:
+	$(MAKE) -C  ${WRKSRC} install DESTDIR=${NAS4FREE_ROOTFS}
 
 .include "${MASTERDIR}/Makefile"
