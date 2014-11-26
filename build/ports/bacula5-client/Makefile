@@ -7,7 +7,8 @@ DISTVERSION=	5.2.12
 COMMENT=	Network backup solution (client)
 
 WITH_CLIENT_ONLY=yes
-USE_RC_SUBR=	bacula-fd
+USE_RC_SUBR=
+CONFFILES=
 
 PLIST=		${PKGDIR}/pkg-plist.client
 MASTERDIR=	/usr/ports/sysutils/bacula5-server

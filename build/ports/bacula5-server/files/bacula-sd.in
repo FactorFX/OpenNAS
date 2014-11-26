@@ -34,13 +34,13 @@ extra_commands="mkconf"
 mkconf_cmd="bacula_sd_mkconf"
 start_precmd="bacula_sd_mkconf"
 
-bacula_sd_config="/usr/local/etc/bacula-sd.conf"
+bacula_sd_config="/usr/local/etc/bacula/bacula-sd.conf"
 bacula_sd_workingdir="/var/db/bacula"
 
 load_rc_config $name
 
 : ${bacula_sd_enable="NO"}
-: ${bacula_sd_flags=" -u bacula -g bacula -v -c /usr/local/etc/bacula-sd.conf"}
+: ${bacula_sd_flags=" -u bacula -g bacula -v -c /usr/local/etc/bacula/bacula-sd.conf"}
 
 pidfile="${bacula_sd_pidfile}"
 

@@ -8,8 +8,8 @@ DISTVERSION=	5.2.12
 
 COMMENT=	Network backup solution (server)
 
-CONFFILES= sd
-USE_RC_SUBR=  bacula-sd
+CONFFILES=
+USE_RC_SUBR=
 
 CONFIGURE_ARGS+= --disable-build-dird
 
@@ -18,9 +18,8 @@ MASTERDIR=	/usr/ports/sysutils/bacula5-server
 STAGEDIR=	${NAS4FREE_ROOTFS}
 
 post-install:
-	${REINPLACE_CMD} "/@sample/d" ${TMPPLIST}
 	${INSTALL_SCRIPT} ${FILESDIR}/chio-bacula ${STAGEDIR}${PREFIX}/sbin
-	${INSTALL_DATA} ${FILESDIR}/bacula-barcodes ${STAGEDIR}${ETCDIR}/bacula-barcodes.sample
+	${INSTALL_DATA} ${FILESDIR}/bacula-barcodes ${STAGEDIR}${ETCDIR}
 	${CHMOD} o+x ${STAGEDIR}${PREFIX}/sbin/bsmtp
 	# Install service script
 	${INSTALL_SCRIPT} -v ${.CURDIR}/files/bacula-sd.in ${NAS4FREE_ROOTFS}/etc/rc.d/bacula_sd

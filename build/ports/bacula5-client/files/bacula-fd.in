@@ -34,7 +34,7 @@ extra_commands="mkconf"
 mkconf_cmd="bacula_fd_mkconf"
 start_precmd="bacula_fd_mkconf"
 
-bacula_fd_config="/usr/local/etc/bacula-fd.conf"
+bacula_fd_config="/usr/local/etc/bacula/bacula-fd.conf"
 bacula_fd_workingdir="/var/db/bacula"
 
 # Requirements
@@ -43,7 +43,7 @@ required_files="${bacula_fd_config}"
 load_rc_config $name
 
 : ${bacula_fd_enable="NO"}
-: ${bacula_fd_flags=" -u root -g wheel -v -c /usr/local/etc/bacula-fd.conf"}
+: ${bacula_fd_flags=" -u root -g wheel -v -c /usr/local/etc/bacula/bacula-fd.conf"}
 
 pidfile="${bacula_fd_pidfile}"
 
