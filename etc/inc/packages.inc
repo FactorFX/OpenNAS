@@ -41,9 +41,6 @@
 require_once("functions.inc");
 require_once("util.inc");
 
-// Install pkgng and update and convert olg pkg to pkgng
-exec("ASSUME_ALWAYS_YES=yes pkg update && pkg2ng");
-
 // Get list of installed packages.
 // Result is in the form:
 // [1] => Array
