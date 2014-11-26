@@ -1007,6 +1007,7 @@ finalization()
 	cp -R /usr/local/lib/perl5/${PERL_VER}/perl/man/man3/ ${NAS4FREE_ROOTFS}/usr/local/lib/perl5/${PERL_VER}/perl/man/man3/
 	
 	# Add missing perl library
+	cp -R /usr/local/lib/perl5/site_perl/${PERL_VER}/ ${NAS4FREE_ROOTFS}/usr/local/lib/perl5/site_perl/${PERL_VER}/
 	
 	# bootstrap pkgng
 	chroot ${NAS4FREE_ROOTFS} env ASSUME_ALWAYS_YES=yes pkg update
