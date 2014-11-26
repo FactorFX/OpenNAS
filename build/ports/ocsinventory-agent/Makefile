@@ -14,7 +14,7 @@ PATCHDIR+=${.CURDIR}/files
 STAGEDIR=	${NAS4FREE_ROOTFS}
 
 BIN_DEP=GET HEAD POST lwp-download lwp-dump lwp-mirror lwp-request \
-	iptab \
+	iptab ipcount\
 	snmpkey \
 	xml_grep xml_merge xml_pp xml_spellcheck xml_split \
 	xpath
