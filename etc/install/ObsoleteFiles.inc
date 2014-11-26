@@ -154,3 +154,8 @@ usr/share/man/
 
 # Clean pkg conf sample
 usr/local/pkg.conf.sample
+
+# Old bacula confs emplacement
+usr/local/etc/bacula-sd.conf
+usr/local/etc/bacula-fd.conf
+usr/local/etc/bconsole.conf
