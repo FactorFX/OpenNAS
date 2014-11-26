@@ -151,3 +151,6 @@ usr/local/share/bacula
 
 # Clean share manpages
 usr/share/man/
+
+# Clean pkg conf sample
+usr/local/pkg.conf.sample
