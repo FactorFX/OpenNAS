@@ -10,6 +10,9 @@ MASTERDIR=	/usr/ports/ftp/curl
 
 STAGEDIR=	${NAS4FREE_ROOTFS}
 
+post-install:
+	${ECHO} "Do nothing"
+
 do-install:
 	$(MAKE) -C  ${WRKSRC} install DESTDIR=${NAS4FREE_ROOTFS}
 	${CP} /usr/local/share/certs/ca-root-nss.crt ${NAS4FREE_ROOTFS}/${PREFIX}/share/certs

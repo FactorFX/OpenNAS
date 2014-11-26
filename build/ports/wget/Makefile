@@ -10,6 +10,10 @@ MASTERDIR=	/usr/ports/ftp/wget
 
 STAGEDIR=	${NAS4FREE_ROOTFS}
 
+post-install:
+	${REINPLACE_CMD} "/wgetrc.sample/d" ${TMPPLIST}
+	${REINPLACE_CMD} "/licenses/d" ${TMPPLIST}
+
 do-install:
 	$(MAKE) -C  ${WRKSRC} install DESTDIR=${NAS4FREE_ROOTFS}
 
