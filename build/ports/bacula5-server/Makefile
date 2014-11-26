@@ -18,14 +18,12 @@ MASTERDIR=	/usr/ports/sysutils/bacula5-server
 STAGEDIR=	${NAS4FREE_ROOTFS}
 
 post-install:
+	${REINPLACE_CMD} "/@sample/d" ${TMPPLIST}
 	${INSTALL_SCRIPT} ${FILESDIR}/chio-bacula ${STAGEDIR}${PREFIX}/sbin
 	${INSTALL_DATA} ${FILESDIR}/bacula-barcodes ${STAGEDIR}${ETCDIR}/bacula-barcodes.sample
 	${CHMOD} o+x ${STAGEDIR}${PREFIX}/sbin/bsmtp
 	# Install service script
 	${INSTALL_SCRIPT} -v ${.CURDIR}/files/bacula-sd.in ${NAS4FREE_ROOTFS}/etc/rc.d/bacula_sd
-
-post-install:
-	${REINPLACE_CMD} "/@sample/d" ${TMPPLIST}
 
 do-install:
 	env LOCALBASE=/usr/local $(MAKE) -C  ${WRKSRC} install DESTDIR=${NAS4FREE_ROOTFS}
