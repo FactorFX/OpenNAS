@@ -26,12 +26,11 @@
 . /etc/configxml.subr
 
 name="bacula_sd"
-rcvar=`set_rcvar`
+rcvar=${name}_enable
 command=/usr/local/sbin/bacula-sd
 
 # Custom commands
 extra_commands="mkconf"
-mkconf_cmd="bacula_sd_mkconf"
 start_precmd="bacula_sd_mkconf"
 
 bacula_sd_config="/usr/local/etc/bacula/bacula-sd.conf"
@@ -41,8 +40,6 @@ load_rc_config $name
 
 : ${bacula_sd_enable="NO"}
 : ${bacula_sd_flags=" -u bacula -g bacula -v -c /usr/local/etc/bacula/bacula-sd.conf"}
-
-pidfile="${bacula_sd_pidfile}"
 
 # Check if required directories exists.
 [ ! -d "${bacula_sd_workingdir}" ] && mkdir "${bacula_sd_workingdir}"

@@ -26,12 +26,11 @@
 . /etc/configxml.subr
 
 name="bacula_fd"
-rcvar=`set_rcvar`
+rcvar=${name}_enable
 command=/usr/local/sbin/bacula-fd
 
 # Custom commands
 extra_commands="mkconf"
-mkconf_cmd="bacula_fd_mkconf"
 start_precmd="bacula_fd_mkconf"
 
 bacula_fd_config="/usr/local/etc/bacula/bacula-fd.conf"
@@ -44,8 +43,6 @@ load_rc_config $name
 
 : ${bacula_fd_enable="NO"}
 : ${bacula_fd_flags=" -u root -g wheel -v -c /usr/local/etc/bacula/bacula-fd.conf"}
-
-pidfile="${bacula_fd_pidfile}"
 
 # Check if required directories exists.
 [ ! -d "${bacula_fd_workingdir}" ] && mkdir "${bacula_fd_workingdir}"
