@@ -13,5 +13,8 @@ STAGEDIR=	${NAS4FREE_ROOTFS}
 
 do-install:
 	$(MAKE) -C  ${WRKSRC} install DESTDIR=${NAS4FREE_ROOTFS}
+	@${RM} ${NAS4FREE_ROOTFS}/usr/local/etc/rsnapshot.conf.default
+	@${TOUCH} ${NAS4FREE_ROOTFS}/var/etc/rsnapshot.conf
+	@${LN} -fsv /var/etc/rsnapshot.conf ${NAS4FREE_ROOTFS}/usr/local/etc/rsnapshot.conf
 
 .include "${MASTERDIR}/Makefile"

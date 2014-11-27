@@ -22,5 +22,7 @@ post-install:
 
 do-install:
 	$(MAKE) -C  ${WRKSRC} install DESTDIR=${NAS4FREE_ROOTFS}
+	@${LN} -fsv /var/etc/sudoers ${NAS4FREE_ROOTFS}/usr/local/etc/sudoers
+	@${LN} -fsv /var/etc/sudoers.d/ ${NAS4FREE_ROOTFS}/usr/local/etc/sudoers.d/
 
 .include "${MASTERDIR}/Makefile"
