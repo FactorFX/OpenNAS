@@ -11,7 +11,8 @@ COMMENT=	Network backup solution (server)
 CONFFILES=
 USE_RC_SUBR=
 
-CONFIGURE_ARGS+= --disable-build-dird
+CONFIGURE_ARGS+= --disable-build-dird \
+				--sysconfdir=/var/etc/${PORTNAME}
 
 MASTERDIR=	/usr/ports/sysutils/bacula5-server
 
@@ -23,6 +24,7 @@ post-install:
 	${CHMOD} o+x ${STAGEDIR}${PREFIX}/sbin/bsmtp
 	# Install service script
 	${INSTALL_SCRIPT} -v ${.CURDIR}/files/bacula-sd.in ${NAS4FREE_ROOTFS}/etc/rc.d/bacula_sd
+	@${RM} -rf ${NAS4FREE_ROOTFS}/var/etc/${PORTNAME}
 
 do-install:
 	env LOCALBASE=/usr/local $(MAKE) -C  ${WRKSRC} install DESTDIR=${NAS4FREE_ROOTFS}

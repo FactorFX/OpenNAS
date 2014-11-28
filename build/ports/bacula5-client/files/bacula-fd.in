@@ -33,7 +33,7 @@ command=/usr/local/sbin/bacula-fd
 extra_commands="mkconf"
 start_precmd="bacula_fd_mkconf"
 
-bacula_fd_config="/usr/local/etc/bacula/bacula-fd.conf"
+bacula_fd_config="/var/etc/bacula/bacula-fd.conf"
 bacula_fd_workingdir="/var/db/bacula"
 
 # Requirements
@@ -42,7 +42,7 @@ required_files="${bacula_fd_config}"
 load_rc_config $name
 
 : ${bacula_fd_enable="NO"}
-: ${bacula_fd_flags=" -u root -g wheel -v -c /usr/local/etc/bacula/bacula-fd.conf"}
+: ${bacula_fd_flags=" -u root -g wheel -v -c /var/etc/bacula/bacula-fd.conf"}
 
 # Check if required directories exists.
 [ ! -d "${bacula_fd_workingdir}" ] && mkdir "${bacula_fd_workingdir}"
