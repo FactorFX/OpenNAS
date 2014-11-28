@@ -28,5 +28,4 @@ do-install:
 
 .include "${MASTERDIR}/Makefile"
 
-CONFIGURE_ARGS+= --disable-build-dird \
-				--sysconfdir=/var/etc/${PORTNAME}
+CONFIGURE_ARGS+= --disable-build-dird

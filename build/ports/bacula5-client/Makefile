@@ -24,5 +24,3 @@ do-install:
 	$(MAKE) -C  ${WRKSRC} install DESTDIR=${NAS4FREE_ROOTFS}
 
 .include "${MASTERDIR}/Makefile"
-
-CONFIGURE_ARGS+= --sysconfdir=/var/etc/${PORTNAME}

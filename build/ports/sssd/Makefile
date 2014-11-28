@@ -10,8 +10,6 @@ MASTERDIR=	/usr/ports/security/sssd
 
 STAGEDIR=	${NAS4FREE_ROOTFS}
 
-CONFIGURE_ARGS+= --sysconfdir=/var/etc/${PORTNAME}
-
 MAN.1=	sss_ssh_authorizedkeys.1 sss_ssh_knownhostsproxy.1
 MAN.5= sssd-ad.5 sssd-ipa.5 sssd-krb5.5 sssd-ldap.5 sssd-simple.5 sssd-sudo.5 sssd.conf.5
 MAN.8= pam_sss.8 sss_cache.8 sss_debuglevel.8 sss_groupadd.8 sss_groupdel.8 sss_groupmod.8 \
