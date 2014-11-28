@@ -11,9 +11,6 @@ COMMENT=	Network backup solution (server)
 CONFFILES=
 USE_RC_SUBR=
 
-CONFIGURE_ARGS+= --disable-build-dird \
-				--sysconfdir=/var/etc/${PORTNAME}
-
 MASTERDIR=	/usr/ports/sysutils/bacula5-server
 
 STAGEDIR=	${NAS4FREE_ROOTFS}
@@ -31,3 +28,5 @@ do-install:
 
 .include "${MASTERDIR}/Makefile"
 
+CONFIGURE_ARGS+= --disable-build-dird \
+				--sysconfdir=/var/etc/${PORTNAME}

@@ -13,8 +13,6 @@ CONFFILES=
 PLIST=		${PKGDIR}/pkg-plist.client
 MASTERDIR=	/usr/ports/sysutils/bacula5-server
 
-CONFIGURE_ARGS+= --sysconfdir=/var/etc/${PORTNAME}
-
 STAGEDIR=	${NAS4FREE_ROOTFS}
 
 post-install:
@@ -26,3 +24,5 @@ do-install:
 	$(MAKE) -C  ${WRKSRC} install DESTDIR=${NAS4FREE_ROOTFS}
 
 .include "${MASTERDIR}/Makefile"
+
+CONFIGURE_ARGS+= --sysconfdir=/var/etc/${PORTNAME}
