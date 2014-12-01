@@ -1001,7 +1001,7 @@ use_svn() {
 finalization()
 {
 	# Add missing manpages for perl
-	PERL_VER=$(make -f /usr/ports/Mk/Uses/perl5.mk -V PERL_VER PORTSDIR=/usr/ports)
+	PERL_VER=$(make -f /usr/ports/Mk/Uses/perl5.mk -V PERL_VER PORTSDIR=/usr/ports USES=perl5 LOCALBASE=/usr/local)
 	#Copy manpage of perl dependencies
 	cp -R /usr/local/lib/perl5/${PERL_VER}/man/man3/ ${NAS4FREE_ROOTFS}/usr/local/lib/perl5/${PERL_VER}/man/man3/
 	cp -R /usr/local/lib/perl5/${PERL_VER}/perl/man/man3/ ${NAS4FREE_ROOTFS}/usr/local/lib/perl5/${PERL_VER}/perl/man/man3/
