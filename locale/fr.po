@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: NAS4Free\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-09 11:10+0100\n"
-"PO-Revision-Date: 2014-10-09 11:10+0100\n"
+"POT-Creation-Date: 2014-12-01 11:39+0100\n"
+"PO-Revision-Date: 2014-12-01 11:39+0100\n"
 "Last-Translator: Cédric Denis <cedric@factorfx.com>\n"
 "Language-Team: NAS4Free\n"
 "Language: fr_FR\n"
@@ -1973,60 +1973,65 @@ msgstr "%s est utilisé pour créer les volumes %s."
 msgid "There must be a minimum of 2 disks in a JBOD."
 msgstr "Il doit y avoir au moins 2 disques dans un JBOD."
 
-#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/interfaces_carp_edit.php:91
-#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/interfaces_carp_edit.php:173
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/interfaces_carp_edit.php:93
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/interfaces_carp_edit.php:181
 msgid "Virtual IP address"
 msgstr "Adresse IP virtuelle"
 
-#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/interfaces_carp_edit.php:91
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/interfaces_carp_edit.php:93
 msgid "Subnet bit count"
 msgstr "Subnet bit count"
 
-#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/interfaces_carp_edit.php:95
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/interfaces_carp_edit.php:97
 msgid "A valid IPv4 address must be specified."
 msgstr "Une adresse valide IPv4 doit être spécifiée."
 
-#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/interfaces_carp_edit.php:97
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/interfaces_carp_edit.php:99
 msgid "A valid network bit count (1-32) must be specified."
 msgstr "Un nombre de bits réseau valide (1-32) doit être spécifié."
 
-#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/interfaces_carp_edit.php:100
-#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/interfaces_carp_edit.php:172
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/interfaces_carp_edit.php:102
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/interfaces_carp_edit.php:180
 msgid "Virtual Host ID"
 msgstr "ID de l'hôte virtuel"
 
-#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/interfaces_carp_edit.php:100
-#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/interfaces_carp_edit.php:174
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/interfaces_carp_edit.php:102
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/interfaces_carp_edit.php:182
 msgid "Advertisement skew"
-msgstr "mauvais avertissement"
+msgstr "Mauvais avertissement"
 
-#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/interfaces_carp_edit.php:171
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/interfaces_carp_edit.php:109
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/interfaces_carp_edit.php:184
+msgid "Advertisement base"
+msgstr "Avertissement de base"
+
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/interfaces_carp_edit.php:179
 msgid "Interface"
 msgstr "Interface"
 
-#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/interfaces_carp_edit.php:176
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/interfaces_carp_edit.php:185
 msgid "Link up action"
 msgstr "Démarrer le Lien"
 
-#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/interfaces_carp_edit.php:176
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/interfaces_carp_edit.php:185
 #, php-format
 msgid "Command for LINK_UP event (e.g. %s)."
 msgstr "Commande pour l'&eacute;v&egrave;nement LINK_UP (par ex. %s)."
 
-#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/interfaces_carp_edit.php:177
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/interfaces_carp_edit.php:186
 msgid "Link down action"
 msgstr "Stopper le lien"
 
-#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/interfaces_carp_edit.php:177
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/interfaces_carp_edit.php:186
 #, php-format
 msgid "Command for LINK_DOWN event (e.g. %s)."
 msgstr "Commande pour l'&eacute;v&egrave;nement LINK_DOWN (par ex. %s)."
 
-#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/interfaces_carp_edit.php:178
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/interfaces_carp_edit.php:187
 msgid "Extra options"
 msgstr "Options supplémentaires"
 
-#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/interfaces_carp_edit.php:178
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/interfaces_carp_edit.php:187
 msgid "Extra options to ifconfig (usually empty)."
 msgstr "Options supplémentaires pour ifconfig (souvent vide)."
 

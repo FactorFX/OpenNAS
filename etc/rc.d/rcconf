@@ -266,6 +266,7 @@ setifconfig()
 		-m "//vinterfaces/carp" \
 			-v if \
 			-v "concat(' vhid ',vhid,' advskew ',advskew,' pass ',password)" \
+			-i "string-length(advbase) > 0" -v "concat(' advbase ',advbase)" -b \
 			-v "concat(' ',vipaddr,'/',vsubnet)" \
 			-v "concat(' \"', extraoptions,'\"')" \
 			-n \
