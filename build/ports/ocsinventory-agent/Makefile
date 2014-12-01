@@ -22,7 +22,7 @@ BIN_DEP=GET HEAD POST lwp-download lwp-dump lwp-mirror lwp-request \
 do-install:
 	$(MAKE) -C  ${WRKSRC} install DESTDIR=${NAS4FREE_ROOTFS}
 	
-	${REINPLACE_CMD:S/.bak/ ""/} -e "s|${NAS4FREE_ROOTFS}|/|g" ${NAS4FREE_ROOTFS}/${SITE_PERL}/${PERL_VER}/mach/auto/Ocsinventory/Unix/Agent/.packlist 
+	${REINPLACE_CMD:S/.bak/ ""/} -e "s|${NAS4FREE_ROOTFS}|/|g" ${NAS4FREE_ROOTFS}/${SITE_PERL}/mach/auto/Ocsinventory/Unix/Agent/.packlist 
 
 	${MKDIR} ${NAS4FREE_ROOTFS}/usr/local/etc/ocsinventory/
 	${CP} ${.CURDIR}/files/modules.conf ${NAS4FREE_ROOTFS}/usr/local/etc/ocsinventory/
