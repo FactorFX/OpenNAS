@@ -172,7 +172,7 @@ EOF
 	# Set IP address and TCP port
 	if [ -n "${_ipaddr}" ]; then
 		cat <<EOF >> ${lighttpd_conf}
-server.bind = "${_ipaddr}"
+server.bind = "0.0.0.0"
 server.port = "${_port}"
 EOF
 		if [ -n "${_ipv6addr}" ]; then
