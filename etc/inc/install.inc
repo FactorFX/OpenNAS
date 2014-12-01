@@ -311,7 +311,7 @@ function install_upgrade_full($harddrive)
 	mwexec("/etc/install/upgrade.sh clean {$mntpath}");
 
 	// Correct bad link for /tmp directory with RC2
-	if (!is_link("/tmp")) {
+	if (!is_link("{$mntpath}/tmp")) {
 		mwexec("/bin/rm -rf {$mntpath}/tmp");
 	}
 
