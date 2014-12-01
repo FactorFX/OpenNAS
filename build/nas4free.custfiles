@@ -85,3 +85,6 @@ usr/sbin/mfiutil
 
 ## tcpdump
 usr/sbin/tcpdump
+
+## dc
+usr/bin/dc
