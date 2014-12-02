@@ -6,6 +6,7 @@ compinit
 promptinit
 prompt walters
 
+zstyle ':completion:*' rehash true
 zstyle ':completion:*' menu select
 zstyle ':completion:*' list-colors ''
 zstyle ':completion:*:descriptions' format '%U%B%d%b%u'

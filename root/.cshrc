@@ -41,6 +41,7 @@ if ($?prompt) then
 	set autolist
 	set history = 100
 	set savehist = 100
+	set	autorehash
 	if ( $?tcsh ) then
 		bindkey "^W" backward-delete-word
 		bindkey -k up history-search-backward
