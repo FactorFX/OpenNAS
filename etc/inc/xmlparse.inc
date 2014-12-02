@@ -53,7 +53,7 @@ $listtags = explode(" ", "dnsserver winsserver disk vdisk diskr sharetosync " .
 	"bridge bridgeif carp hastresource " .
 	"snapshot autosnapshot rule " .
 	"portalgroup portal initiatorgroup iginitiatorname ignetmask authgroup " .
-	"agauth pgigmap agmap lunmap ldapauxparam sssdauxparam");
+	"agauth pgigmap agmap lunmap ldapauxparam sssdauxparam network");
 
 function startElement($parser, $name, $attrs) {
 	global $depth, $curpath, $config, $havedata, $listtags;

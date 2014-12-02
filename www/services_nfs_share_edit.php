@@ -71,7 +71,9 @@ if (isset($uuid) && (FALSE !== ($cnid = array_search_ex($uuid, $a_share, "uuid")
 	$pconfig['uuid'] = $a_share[$cnid]['uuid'];
 	$pconfig['path'] = $a_share[$cnid]['path'];
 	$pconfig['mapall'] = $a_share[$cnid]['mapall'];
-	list($pconfig['network'], $pconfig['mask']) = explode('/', $a_share[$cnid]['network']);
+	foreach($a_share[$cnid]['network'] as $network){
+		list($pconfig['network'][], $pconfig['mask'][]) = explode('/', $network);
+	}
 	$pconfig['comment'] = $a_share[$cnid]['comment'];
 	$pconfig['alldirs'] = isset($a_share[$cnid]['options']['alldirs']);
 	$pconfig['readonly'] = isset($a_share[$cnid]['options']['ro']);
@@ -80,14 +82,14 @@ if (isset($uuid) && (FALSE !== ($cnid = array_search_ex($uuid, $a_share, "uuid")
 	$pconfig['uuid'] = uuid();
 	$pconfig['path'] = "";
 	$pconfig['mapall'] = "yes";
-	$pconfig['network'] = "";
-	$pconfig['mask'] = "24";
+	$pconfig['network'][] = "";
+	$pconfig['mask'][] = "24";
 	$pconfig['comment'] = "";
 	$pconfig['alldirs'] = false;
 	$pconfig['readonly'] = false;
 	$pconfig['quiet'] = false;
 }
-
+$nb_network = count($pconfig['network']);
 if ($_POST) {
 	unset($input_errors);
 	$pconfig = $_POST;
@@ -98,9 +100,16 @@ if ($_POST) {
 	}
 
 	// Input validation.
-	$reqdfields = explode(" ", "path network mask");
-	$reqdfieldsn = array(gettext("Path"), gettext("Authorised network"), gettext("Network mask"));
+	$reqdfields = explode(" ", "path");
+	$reqdfieldsn = array(gettext("Path"));
 	do_input_validation($_POST, $reqdfields, $reqdfieldsn, $input_errors);
+
+	foreach ($_POST['network'] as $id => $network) {
+		$post_en = array('network' => $network, 'mask' => $_POST['mask'][$id]);
+		$reqdfields = explode(" ", "network mask");
+		$reqdfieldsn = array(gettext("Authorised network"), gettext("Network mask"));
+		do_input_validation($post_en, $reqdfields, $reqdfieldsn, $input_errors);
+	}
 
 	// remove last slash and check alldirs option
 	$path = $_POST['path'];
@@ -120,7 +129,9 @@ if ($_POST) {
 		$share['uuid'] = $_POST['uuid'];
 		$share['path'] = $path;
 		$share['mapall'] = $_POST['mapall'];
-		$share['network'] = gen_subnet($_POST['network'], $_POST['mask']) . "/" . $_POST['mask'];
+		foreach ($_POST['network'] as $id => $network) {
+			$share['network'][$id] = gen_subnet($network, $_POST['mask'][$id]) . "/" . $_POST['mask'][$id];
+		}
 		$share['comment'] = $_POST['comment'];
 		$share['options']['alldirs'] = isset($_POST['alldirs']) ? true : false;
 		$share['options']['ro'] = isset($_POST['readonly']) ? true : false;
@@ -143,6 +154,28 @@ if ($_POST) {
 }
 ?>
 <?php include("fbegin.inc");?>
+<script type="text/javascript">
+<!--
+$(function() {
+	$("a#add_network").click(function(){
+		$("#list_network_0").clone().insertAfter(".list_network:last").each(function(){
+			var network = $(this).find("input#network");
+			var mask = $(this).find("select#mask");
+			var remove = $(this).find("a#remove_network");
+			network.val('');
+			mask.val('24');
+			remove.show().on('click', aClickFunction);
+		});
+	});
+	$("a#remove_network").click(aClickFunction);
+
+	function aClickFunction(){
+		$(this).closest("div.list_network").remove();
+	};
+});
+//-->
+</script>
+
 <table width="100%" border="0" cellpadding="0" cellspacing="0">
 	<tr>
 		<td class="tabnavtbl">
@@ -183,13 +216,23 @@ if ($_POST) {
 			    <tr>
 			      <td width="22%" valign="top" class="vncellreq"><?=gettext("Authorised network");?></td>
 			      <td width="78%" class="vtable">
-			        <input name="network" type="text" class="formfld" id="network" size="20" value="<?=htmlspecialchars($pconfig['network']);?>" /> /
-			        <select name="mask" class="formfld" id="mask">
-			          <?php for ($i = 32; $i >= 1; $i--):?>
-			          <option value="<?=$i;?>" <?php if ($i == $pconfig['mask']) echo "selected=\"selected\"";?>><?=$i;?></option>
-			          <?php endfor;?>
-			        </select><br />
-			        <span class="vexpl"><?=gettext("Network that is authorised to access the NFS share.");?></span>
+					<?php foreach($pconfig['network'] as $d => $network) : ?>
+						<div class="list_network" id="list_network_<?php echo $d; ?>">
+							<input name="network[]" type="text" class="formfld" id="network" size="20" value="<?=htmlspecialchars($pconfig['network'][$d]);?>" /> /
+							<select name="mask[]" class="formfld" id="mask">
+							  <?php for ($i = 32; $i >= 1; $i--):?>
+							  <option value="<?=$i;?>" <?php if ($i == $pconfig['mask'][$d]) echo "selected=\"selected\"";?>><?=$i;?></option>
+							  <?php endfor;?>
+							</select>
+							<a href="#" id="remove_network" <?php echo ($d == 0) ? 'style="display:none"': "" ?>>
+								<img src="del.gif" title="<?=gettext("Add network");?>" border="0" alt="<?=gettext("Remove network");?>" />
+							</a><br />
+						</div>
+			        <?php endforeach; ?>
+			        <a href="#" id="add_network">
+						<img src="plus.gif" title="<?=gettext("Add network");?>" border="0" alt="<?=gettext("Add network");?>" />
+					</a><br />
+			        <span class="vexpl"><?=gettext("Network that is authorised to access the NFS share.");?></span><br/>
 			      </td>
 			    </tr>
 			    <tr>

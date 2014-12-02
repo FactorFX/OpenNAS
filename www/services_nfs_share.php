@@ -121,7 +121,7 @@ function nfsshare_process_updatenotification($mode, $data) {
   			  <?php $notificationmode = updatenotify_get_mode("nfsshare", $sharev['uuid']);?>
           <tr>
 						<td class="listlr"><?=htmlspecialchars($sharev['path']);?>&nbsp;</td>
-						<td class="listr"><?=htmlspecialchars($sharev['network']);?>&nbsp;</td>
+						<td class="listr"><?=htmlspecialchars(implode(',',$sharev['network']));?>&nbsp;</td>
 						<td class="listr"><?=htmlspecialchars($sharev['comment']);?>&nbsp;</td>
 						<?php if (UPDATENOTIFY_MODE_DIRTY != $notificationmode):?>
             <td valign="middle" nowrap="nowrap" class="list">

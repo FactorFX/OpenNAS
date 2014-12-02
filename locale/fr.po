@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: NAS4Free\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-01 11:39+0100\n"
-"PO-Revision-Date: 2014-12-01 11:39+0100\n"
+"POT-Creation-Date: 2014-12-02 12:55+0100\n"
+"PO-Revision-Date: 2014-12-02 12:55+0100\n"
 "Last-Translator: Cédric Denis <cedric@factorfx.com>\n"
 "Language-Team: NAS4Free\n"
 "Language: fr_FR\n"
@@ -5405,52 +5405,52 @@ msgstr "Le nom du périphérique existe déjà."
 msgid "Do you really want to delete this device?"
 msgstr "Voulez-vous vraiment supprimer ce périphérique?"
 
-#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_storage_daemon.php:243
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_storage_daemon.php:242
 msgid "Media type"
 msgstr "Type de média"
 
-#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_storage_daemon.php:244
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_storage_daemon.php:243
 msgid "Archive device"
 msgstr "Périphérique d'archivage."
 
-#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_storage_daemon.php:245
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_storage_daemon.php:244
 msgid "Label media"
 msgstr "Label du média"
 
-#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_storage_daemon.php:245
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_storage_daemon.php:244
 msgid "Labeled the media"
 msgstr "Labéliser le média"
 
-#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_storage_daemon.php:246
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_storage_daemon.php:245
 msgid "Random access"
 msgstr "Accès aléatoire"
 
-#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_storage_daemon.php:246
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_storage_daemon.php:245
 msgid "The Storage daemon will submit a Mount Command before attempting to open the device"
 msgstr "Le Storage Daemon attend que le périphérique soit monté avant de l'ouvrir"
 
-#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_storage_daemon.php:247
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_storage_daemon.php:246
 msgid "Removable media"
 msgstr "Média amovible"
 
-#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_storage_daemon.php:247
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_storage_daemon.php:246
 msgid "This device supports removable media"
 msgstr "Cet appareil supporte les médias amovibles"
 
-#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_storage_daemon.php:248
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_storage_daemon.php:247
 msgid "Always open"
 msgstr "Toujours ouvert"
 
-#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_storage_daemon.php:248
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_storage_daemon.php:247
 msgid "Keep the device open"
 msgstr "Laisser le périphérique ouvert"
 
-#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_storage_daemon.php:251
-#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_storage_daemon.php:258
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_storage_daemon.php:250
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_storage_daemon.php:257
 msgid "Add device"
 msgstr "Ajouter un périphérique"
 
-#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_storage_daemon.php:251
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_bacula_storage_daemon.php:250
 #, fuzzy
 msgid "Remove device"
 msgstr "Supprimer périphérique"
@@ -8082,49 +8082,58 @@ msgstr "Cette option est une collection délimitée par une virgule, espace ou t
 msgid "These parameters will be added to the module configuration in rsyncd.conf."
 msgstr "Ces paramètres seront ajoutés à la configuration du module dans rsyncd.conf."
 
-#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_nfs_share_edit.php:102
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_nfs_share_edit.php:110
 msgid "Network mask"
 msgstr "Masque de sous-réseau"
 
-#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_nfs_share_edit.php:115
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_nfs_share_edit.php:124
 #, php-format
 msgid "All dirs requires mounted path, but Path %s is not mounted."
 msgstr "Tous les répertoires doivent disposer d'un chemin de montage, mais le chemin %s n'est pas monté."
 
-#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_nfs_share_edit.php:165
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_nfs_share_edit.php:198
 msgid "Please note that blanks in path names are not allowed."
 msgstr "Veuillez noter que les espaces dans les noms des chemins d'accès ne sont pas autorisés."
 
-#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_nfs_share_edit.php:169
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_nfs_share_edit.php:202
 msgid "Map all users to root"
 msgstr "Associer tous les utilisateurs à root"
 
-#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_nfs_share_edit.php:180
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_nfs_share_edit.php:213
 msgid "All users will have the root privilege."
 msgstr "Tous les utilisateurs auront les privilèges root."
 
-#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_nfs_share_edit.php:192
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_nfs_share_edit.php:228
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_nfs_share_edit.php:233
+msgid "Add network"
+msgstr "Ajouter un réseau"
+
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_nfs_share_edit.php:228
+msgid "Remove network"
+msgstr "Supprimer le réseau"
+
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_nfs_share_edit.php:235
 msgid "Network that is authorised to access the NFS share."
 msgstr "Réseau autorisé à accéder au partage NFS"
 
-#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_nfs_share_edit.php:202
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_nfs_share_edit.php:245
 msgid "All dirs"
 msgstr "Tous les répertoires"
 
-#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_nfs_share_edit.php:205
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_nfs_share_edit.php:248
 msgid "Export all the directories in the specified path."
 msgstr "Exporter tous les répertoires dans le chemin spécifié."
 
-#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_nfs_share_edit.php:206
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_nfs_share_edit.php:249
 #, php-format
 msgid "To use subdirectories, you must mount each directories. (e.g. %s)"
 msgstr "Pour utiliser les sous-répertoires, vous devez monter chacun des répertoires. (par ex. %s)"
 
-#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_nfs_share_edit.php:213
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_nfs_share_edit.php:256
 msgid "Specifies that the file system should be exported read-only."
 msgstr "Indique que le système de fichiers doit être exporté en lecture seule."
 
-#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_nfs_share_edit.php:220
+#: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_nfs_share_edit.php:263
 msgid "Inhibit some of the syslog diagnostics for bad lines in /etc/exports."
 msgstr "Désactive certains diagnostics du syslog sur des lignes erronées dans /etc/exports."
 
@@ -8548,6 +8557,12 @@ msgstr "Routes"
 #: /home/cedric/DEV/Nas4Free/opennas/trunk/www/quixplorer/_include/login.php:104
 msgid "Detected Language:<br />(Change if needed)"
 msgstr ""
+
+#~ msgid "A valid mask must between 1 and 24."
+#~ msgstr "Le masque doit être compris entre 1 et 24"
+
+#~ msgid "Separate by comma"
+#~ msgstr "Séparer par des virgules"
 
 #~ msgid "You must join a CA Certificate file"
 #~ msgstr "Vous devez joindre un certificat CA"

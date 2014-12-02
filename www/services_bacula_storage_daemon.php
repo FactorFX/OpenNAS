@@ -201,7 +201,6 @@ function enable_change(enable_change) {
 	});
 	$('#iform').submit(function(e){
 		$('input[id$="_archivepath"]').attr('name', function(){
-console.log(this.name.replace(/device_/, 'device[').replace(/_archivepath/, '][archivepath]'));
 			return this.name.replace(/device_/, 'device[').replace(/_archivepath/, '][archivepath]');
 		});
 	});
