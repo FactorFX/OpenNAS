@@ -24,7 +24,7 @@ post-install:
 	@${RM} -rf ${NAS4FREE_ROOTFS}/var/etc/${PORTNAME}
 
 do-install:
-	env LOCALBASE=/usr/local $(MAKE) -C  ${WRKSRC} install DESTDIR=${NAS4FREE_ROOTFS}
+	$(MAKE) -C  ${WRKSRC} install DESTDIR=${NAS4FREE_ROOTFS} LOCALBASE=/usr/local
 
 .include "${MASTERDIR}/Makefile"
 
