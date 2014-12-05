@@ -15,4 +15,4 @@ do-install:
 	
 .include "${MASTERDIR}/Makefile"
 
-MANDIRS=	/usr/local/man /usr/local/lib/perl5/${PERL_VER}/perl
+MANDIRS=
