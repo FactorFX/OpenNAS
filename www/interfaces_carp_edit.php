@@ -72,8 +72,8 @@ if (isset($uuid) && (FALSE !== ($cnid = array_search_ex($uuid, $a_carp, "uuid"))
 	$pconfig['vsubnet'] = "24";
 	$pconfig['advskew'] = "100";
 	$pconfig['password'] = "";
-	$pconfig['linkup'] = "";
-	$pconfig['linkdown'] = "";
+	$pconfig['linkup'] = $default_linkup;
+	$pconfig['linkdown'] = $default_linkdown;
 	$pconfig['extraoptions'] = "";
 	$pconfig['desc'] = "";
 	$pconfig['advbase'] = "";
