@@ -8,8 +8,6 @@ COMMENT=	Retrieve files from the Net via HTTP(S) and FTP
 
 MASTERDIR=	/usr/ports/ftp/wget
 
-STAGEDIR=	${NAS4FREE_ROOTFS}
-
 do-install:
 	$(MAKE) -C  ${WRKSRC} install DESTDIR=${NAS4FREE_ROOTFS}
 	${RM} ${NAS4FREE_ROOTFS}/usr/local/etc/wgetrc.sample

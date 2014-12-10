@@ -8,11 +8,7 @@ COMMENT=		Filesystem snapshot utility based on rsync(1)
 
 MASTERDIR=	/usr/ports/sysutils/rsnapshot
 
-STAGEDIR=	${NAS4FREE_ROOTFS}
-
 do-install:
 	$(MAKE) -C  ${WRKSRC} install DESTDIR=${NAS4FREE_ROOTFS}
 	
 .include "${MASTERDIR}/Makefile"
-
-MANDIRS=

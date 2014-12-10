@@ -8,8 +8,6 @@ COMMENT=	Non-interactive tool to get files from FTP, GOPHER, HTTP(S) servers
 
 MASTERDIR=	/usr/ports/ftp/curl
 
-STAGEDIR=	${NAS4FREE_ROOTFS}
-
 post-install:
 	${ECHO} "Do nothing"
 

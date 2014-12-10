@@ -7,11 +7,7 @@ COMMENT=	 Keep track of the computers configuration and software
 
 MASTERDIR=	/usr/ports/net-mgmt/ocsinventory-agent
 
-BUILD_DEPENDS+=${RUN_DEPENDS}
-
 PATCHDIR+=${.CURDIR}/files
-
-STAGEDIR=	${NAS4FREE_ROOTFS}
 
 BIN_DEP=GET HEAD POST lwp-download lwp-dump lwp-mirror lwp-request \
 	iptab ipcount\
