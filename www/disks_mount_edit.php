@@ -231,10 +231,7 @@ if ($_POST) {
 		if ($_POST['partitiontype'] != 'p') {
 			$input_errors[] = gettext("HAST volume can be use with GPT/UFS only.");
 		}
-		$device = "{$_POST['hvol']}{$_POST['partition']}";
-		if ($device === $cfdevice) {
-			$input_errors[] = gettext("Can't mount the system partition 1, the DATA partition is the 2.");
-		}
+		$device = "{$_POST['hvol']}";
 		//Check if partition exist
 		if (!file_exists($device)) {
 			$input_errors[] = gettext("Wrong partition type or partition number.");
@@ -249,13 +246,7 @@ if ($_POST) {
 
 		// convert to UFSID
 		if ($_POST['fstype'] == "ufs") {
-			$out = array();
-			$ufsid = disks_get_ufsid($device, $out);
-			if (empty($ufsid)) {
-				$input_errors[] = sprintf("%s: %s", $device, gettext("Can't get UFS ID."))."<br />".join('<br />', $out);
-			} else {
-				$device = "/dev/ufsid/$ufsid";
-			}
+			$device = $_POST['hvol'];
 		}
 	}
 
@@ -267,7 +258,7 @@ if ($_POST) {
 	// Check for duplicates.
 	if ("disk" === $_POST['type']) {
 		foreach ($a_mount as $mount) {
-			if (isset($uuid) && (FALSE !== $cnid) && ($mount['uuid'] === $uuid)) 
+			if (isset($uuid) && (FALSE !== $cnid) && ($mount['uuid'] === $uuid))
 				continue;
 			if (($mount['mdisk'] === $_POST['mdisk']) && ($mount['partition'] === $_POST['partition'])) {
 				$input_errors[] = gettext("The disk/partition is already configured.");
@@ -277,7 +268,7 @@ if ($_POST) {
 	}
 	if ("hvol" === $_POST['type']) {
 		foreach ($a_mount as $mount) {
-			if (isset($uuid) && (FALSE !== $cnid) && ($mount['uuid'] === $uuid)) 
+			if (isset($uuid) && (FALSE !== $cnid) && ($mount['uuid'] === $uuid))
 				continue;
 			if (($mount['mdisk'] === $_POST['hvol']) && ($mount['partition'] === $_POST['partition'])) {
 				$input_errors[] = gettext("The disk/partition is already configured.");
