@@ -7,8 +7,6 @@ COMMENT=	 Keep track of the computers configuration and software
 
 MASTERDIR=	/usr/ports/net-mgmt/ocsinventory-agent
 
-PATCHDIR+=${.CURDIR}/files
-
 BIN_DEP=GET HEAD POST lwp-download lwp-dump lwp-mirror lwp-request \
 	iptab ipcount\
 	snmpkey \
@@ -19,6 +17,7 @@ do-install:
 	$(MAKE) -C  ${WRKSRC} install DESTDIR=${NAS4FREE_ROOTFS}
 	
 	${REINPLACE_CMD:S/.bak/ ""/} -e "s|${NAS4FREE_ROOTFS}|/|g" ${NAS4FREE_ROOTFS}/${SITE_PERL}/mach/auto/Ocsinventory/Unix/Agent/.packlist 
+	${REINPLACE_CMD:S/.bak/ ""/} -e "s|pkg_info|pkg info|g" ${NAS4FREE_ROOTFS}/${SITE_PERL}/Ocsinventory/Agent/Backend/OS/Generic/Packaging/BSDpkg.pm
 
 	${MKDIR} ${NAS4FREE_ROOTFS}/usr/local/etc/ocsinventory/
 	${CP} ${.CURDIR}/files/modules.conf ${NAS4FREE_ROOTFS}/usr/local/etc/ocsinventory/
