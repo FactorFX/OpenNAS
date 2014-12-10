@@ -50,7 +50,7 @@ if (!isset($config['zfs']['vdevices']['vdevice']) || !is_array($config['zfs']['v
 array_sort_key($config['zfs']['vdevices']['vdevice'], "name");
 
 $a_vdevice = &$config['zfs']['vdevices']['vdevice'];
-$a_disk = get_conf_disks_filtered_ex("fstype", "zfs");
+$a_disk = array_merge(get_conf_disks_filtered_ex("fstype", "zfs"), get_hast_disks_list());
 
 function strip_dev($device) {
 	if (preg_match("/^\/dev\/(.+)$/", $device, $m)) {
