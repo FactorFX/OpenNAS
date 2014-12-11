@@ -431,7 +431,7 @@ function type_change() {
       showElementById('mdisk_tr','hide');
       showElementById('hvol_tr','show');
       showElementById('partitiontype_tr','show');
-      showElementById('partitionnum_tr','show');
+      showElementById('partitionnum_tr','hide');
       showElementById('fstype_tr','show');
       showElementById('filename_tr','hide');
       showElementById('readonly_tr','show');
@@ -459,7 +459,9 @@ function partitiontype_change() {
 <?php if (!isset($uuid)):?>
 			document.iform.fsck.checked = true;
 <?php endif;?>
-			showElementById('partitionnum_tr','show');
+			if (document.iform.type.selectedIndex != 1) {
+				showElementById('partitionnum_tr','show');
+			}
 			break;
 
 		case 2: /* CD/DVD */
