@@ -10,4 +10,7 @@ MASTERDIR=	/usr/ports/sysutils/pciutils
 
 STAGEDIR=	${NAS4FREE_ROOTFS}
 
+do-install:
+	$(MAKE) -C  ${WRKSRC} install DESTDIR=${NAS4FREE_ROOTFS}
+
 .include "${MASTERDIR}/Makefile"
