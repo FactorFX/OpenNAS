@@ -53,7 +53,7 @@ function packages_get_installed() {
 	$packages = array();
 	$id = 0;
 
-	exec("/usr/sbin/pkg info", $rawdata);
+	exec("/usr/local/sbin/pkg info", $rawdata);
 	foreach($rawdata as $line) {
 		$pos = strpos($line," ");
 		$pkgname = substr($line,0,$pos);
@@ -77,7 +77,7 @@ function packages_uninstall($pkgname) {
 	// Remove '.tbz' if necessary.
 	$pkgname = basename($pkgname, ".tbz");
 
-	$result = mwexec("ASSUME_ALWAYS_YES=yes /usr/sbin/pkg remove {$pkgname}");
+	$result = mwexec("ASSUME_ALWAYS_YES=yes /usr/local/sbin/pkg remove {$pkgname}");
 
 	if (0 == $result) {
 		write_log("Successfully uninstalled package '{$pkgname}'");
@@ -96,7 +96,7 @@ function packages_is_installed($pkgname) {
 	$pkgname = basename($pkgname, ".tbz");
 
 	// Check whether package is already installed.
-	$result = mwexec("/usr/sbin/pkg info -e {$pkgname}");
+	$result = mwexec("/usr/local/sbin/pkg info -e {$pkgname}");
 
 	return $result;
 }
@@ -105,7 +105,7 @@ function packages_is_installed($pkgname) {
 // $pkgname - The package filename to be installed (e.g. xyz.tbz)
 // Return 0 if successful, 1 if error
 function packages_install($pkgname) {
-	system("/usr/sbin/pkg add {$pkgname}", $result);
+	system("ASSUME_ALWAYS_YES=yes /usr/local/sbin/pkg add {$pkgname}", $result);
 	if (0 == $result) {
 		write_log("Successfully installed package '{$pkgname}'");
 	} else {
