@@ -76,7 +76,7 @@ if (isset($uuid) && (FALSE !== ($cnid = array_search_ex($uuid, $a_carp, "uuid"))
 	$pconfig['linkdown'] = $default_linkdown;
 	$pconfig['extraoptions'] = "";
 	$pconfig['desc'] = "";
-	$pconfig['advbase'] = "";
+	$pconfig['advbase'] = "1";
 }
 
 if ($_POST) {
@@ -98,16 +98,11 @@ if ($_POST) {
 	if (!empty($_POST['vsubnet']) && !filter_var($_POST['vsubnet'], FILTER_VALIDATE_INT, array('options' => array('min_range' => 1, 'max_range' => 32))))
 		$input_errors[] = gettext("A valid network bit count (1-32) must be specified.");
 
-	$reqdfields = explode(" ", "vhid advskew password");
-	$reqdfieldsn = array(gettext("Virtual Host ID"), gettext("Advertisement skew"), gettext("Password"));
-	$reqdfieldst = explode(" ", "numericint numericint string");
+	$reqdfields = explode(" ", "vhid advskew password advbase");
+	$reqdfieldsn = array(gettext("Virtual Host ID"), gettext("Advertisement skew"), gettext("Password"), gettext("Advertisement base"));
+	$reqdfieldst = explode(" ", "numericint numericint string numericint");
 
 	do_input_validation($_POST, $reqdfields, $reqdfieldsn, $input_errors);
-	do_input_validation_type($_POST, $reqdfields, $reqdfieldsn, $reqdfieldst, $input_errors);
-
-	$reqdfields = explode(" ", "advbase");
-	$reqdfieldsn = array(gettext("Advertisement base"));
-	$reqdfieldst = explode(" ", "numericint");
 	do_input_validation_type($_POST, $reqdfields, $reqdfieldsn, $reqdfieldst, $input_errors);
 
 	if (!empty($_POST['password']) && preg_match("/\'|\"/", $_POST['password']))
@@ -181,7 +176,7 @@ function get_nextcarp_id() {
 				<?php html_ipv4addrbox("vipaddr", "vsubnet", gettext("Virtual IP address"), $pconfig['vipaddr'], $pconfig['vsubnet'], "", true);?>
 				<?php html_inputbox("advskew", gettext("Advertisement skew"), $pconfig['advskew'], "", true, 5);?>
 				<?php html_inputbox("password", gettext("Password"), $pconfig['password'], "", true, 20);?>
-				<?php html_inputbox("advbase", gettext("Advertisement base"), $pconfig['advbase'], "", false, 5);?>
+				<?php html_inputbox("advbase", gettext("Advertisement base"), $pconfig['advbase'], "", true, 5);?>
 				<?php html_inputbox("linkup", gettext("Link up action"), $pconfig['linkup'], sprintf(gettext("Command for LINK_UP event (e.g. %s)."), $default_linkup), false, 60);?>
 				<?php html_inputbox("linkdown", gettext("Link down action"), $pconfig['linkdown'], sprintf(gettext("Command for LINK_DOWN event (e.g. %s)."), $default_linkdown), false, 60);?>
 				<?php html_inputbox("extraoptions", gettext("Extra options"), $pconfig['extraoptions'], gettext("Extra options to ifconfig (usually empty)."), false, 40);?>
