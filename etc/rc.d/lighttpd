@@ -41,7 +41,7 @@ lighttpd_server_maxwriteidle=${lighttpd_server_maxwriteidle:-"360"}
 lighttpd_pidfile=${lighttpd_pidfile:-"/var/run/${name}.pid"}
 lighttpd_authrequire=${lighttpd_authrequire:-"NO"}
 lighttpd_uploaddir=${lighttpd_uploaddir:-"/var/tmp"}
-lighttpd_maxrequestsize=${lighttpd_maxrequestsize:-"262144"}
+lighttpd_maxrequestsize=${lighttpd_maxrequestsize:-"524288"}
 command=/usr/local/sbin/lighttpd
 command_args="-f ${lighttpd_conf} -m /usr/local/lib/lighttpd"
 pidfile=${lighttpd_pidfile}
@@ -63,19 +63,26 @@ lighttpd_mkconf()
 {
 	local _protocol _certificate _privatekey _tmpfile
 	local _ifn _ipaddr _ipv6addr _port
+	local _subnet _network _ipv6subnet _ipv6network _hostsallow
 
 	# LAN IF/ADDR
 	_ifn=`configxml_get "//interfaces/lan/if"`
 	_ifn=`get_if ${_ifn}`
 	_ipaddr=`configxml_get "//interfaces/lan/ipaddr"`
+	_subnet=`configxml_get "//interfaces/lan/subnet"`
+	_network="$_ipaddr/$_subnet"
 	if [ "${_ipaddr}" = "dhcp" ]; then
 		_ipaddr=`get_ipaddr inet ${_ifn}`
+		_network=`get_network inet ${_ifn}`
 	fi
 	_ipv6addr=""
 	if configxml_isset "//interfaces/*[enable]/ipv6_enable"; then
 		_ipv6addr=`configxml_get "//interfaces/lan/ipv6addr"`
+		_ipv6subnet=`configxml_get "//interfaces/lan/ipv6subnet"`
+		_ipv6network="$_ipv6addr/$_ipv6subnet"
 		if [ "${_ipv6addr}" = "auto" ]; then
 			_ipv6addr=`get_ipaddr inet6 ${_ifn}`
+			_ipv6network=`get_network inet6 ${_ifn}`
 		fi
 	fi
 
@@ -89,18 +96,28 @@ lighttpd_mkconf()
 			_port="80"
 		fi
 	fi
+	# hosts allow
+	_hostsallow=`configxml_get "//system/webgui/hostsallow"`
+	if [ -z "$_hostsallow" ]; then
+		_hostsallow="$_network"
+	fi
+	_hostsallow="${_hostsallow} 127.0.0.1"
 
 	# Create lighttpd.conf file
 	cat <<EOF > ${lighttpd_conf}
 server.modules = (
   "mod_access",
   "mod_auth",
+  "mod_expire",
   "mod_cgi" )
 server.document-root = "${lighttpd_docroot}"
 server.errorlog-use-syslog = "enable"
 server.event-handler = "freebsd-kqueue"
 server.max-write-idle = ${lighttpd_server_maxwriteidle}
 index-file.names = ( "index.php" )
+\$HTTP["url"] =~ "\.(js|css|png|gif|jpg)$" {
+    expire.url = ( "" => "access plus 1 hours" )
+}
 # mimetype mapping
 mimetype.assign             = (
   ".pdf"          =>      "application/pdf",
@@ -163,7 +180,7 @@ mimetype.assign             = (
   # make the default mime type application/octet-stream.
   ""              =>      "application/octet-stream",
  )
-url.access-deny = ( "~", ".inc", ".htpasswd" )
+#url.access-deny = ( "~", ".inc", ".htpasswd" )
 static-file.exclude-extensions = ( ".php", ".pl", ".fcgi" )
 server.pid-file = "${pidfile}"
 cgi.assign = (".php" => "/usr/local/bin/php-cgi")
@@ -188,6 +205,17 @@ server.port = "${_port}"
 EOF
 		fi
 	fi
+	# hosts allow
+	cat <<EOF >> ${lighttpd_conf}
+url.access-deny = ( "" )
+EOF
+	for h in $_hostsallow; do
+		cat <<EOF >> ${lighttpd_conf}
+\$HTTP["remoteip"] == "$h" {
+	url.access-deny = ( "~", ".inc", ".htpasswd" )
+}
+EOF
+	done
 
 	# Set temporary directory
 	cat <<EOF >> ${lighttpd_conf}
@@ -222,6 +250,7 @@ EOF
 		-i "//system/webgui/protocol[. = 'https']" \
 			-o "ssl.engine = \"enable\"" -n \
 			-o "ssl.pemfile = \"${lighttpd_certpem}\"" -n \
+			-o "ssl.use-sslv3 = \"disable\"" -n \
 		-b \
 		${configxml_file} | /usr/local/bin/xml unesc >> ${lighttpd_conf}
 

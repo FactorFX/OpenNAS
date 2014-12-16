@@ -868,7 +868,7 @@ function get_hast_disks_list()
 	$disklist = array();
 
 	/* Send the shell cmd and get the result */
-	exec("/sbin/hastctl list",$rawdata);
+	exec("/sbin/hastctl list 2>/dev/null",$rawdata);
 
 	foreach ($rawdata as $line) {
 		if (preg_match("/^(\S+):$/",$line,$match)) {
@@ -877,6 +877,7 @@ function get_hast_disks_list()
 			$disklist[$diskname]['name'] = $diskname;
 			$disklist[$diskname]['devicespecialfile'] = "/dev/hast/" . $diskname;
 			$disklist[$diskname]['type'] = "HAST";
+			$disklist[$diskname]['model'] = "HAST device";
 			$disklist[$diskname]['desc'] = "HAST device";
 			$disklist[$diskname]['role'] = gettext("Unknown");
 			$disklist[$diskname]['status'] = gettext("Unknown");
@@ -945,9 +946,14 @@ function parse_camcontrol_info($devtype){
 			if (strncmp($device[0],'pass',4) == 0){
 				$device = preg_split( '/([-A-z]+)/', $temp[0], -1, PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY);
 			}
+			// if there is no other device name, use pass[0-9]
+			// example : devices on 'mfi' will show :- <ATA WDC WD40EFRX-68W 0A80> at scbus6 target 1 lun 0 (pass5)
+			else if( empty($device) && count($temp) == 1 && strncmp($temp[0],'pass',4) == 0){
+				$device = preg_split( '/([-A-z]+)/', $temp[0], -1, PREG_SPLIT_DELIM_CAPTURE | PREG_SPLIT_NO_EMPTY);
+			}
 
 			// legacy compatibility: for scsi option, do not include ata drives, for ata option, do not include scsi drives
-			if( ($devtype!="scsi" & $controller[0] == $devtype) | ($devtype=="scsi" & $controller[0]!="ata") ){
+			if( (($devtype!="scsi" & $controller[0] == $devtype) | ($devtype=="scsi" & $controller[0]!="ata") ) && $controller[0] != "mfi" ){
 				// Ignore CD-ROMs and SCSI enclosure devices (ses)
 				if($device[0] != "" & !preg_match("/^(cd|acd|ses)/", $device[0] )){
 					// Add device into devlice list array
@@ -1027,9 +1033,11 @@ function parse_camcontrol_info($devtype){
 
 // Parse controller dependent info
 function parse_controller_config(&$devlist){
+	global $config_disks;
 
 	foreach($devlist as &$device){
 		$devtype = '';
+		$device['desc'] = $config_disks[$device['name']]['desc'];
 		switch( $device['controller']){
 		// Experimental : requires arcmsr to add enclosure support
 		// Areca SATA[/SAS] RAID controller
@@ -1071,6 +1079,18 @@ function parse_controller_config(&$devlist){
 				$device['smart']['devicefilepath'] = '/dev/'.$device['controller'];
 				$device['smart']['devicetype'] = $device['controller'];
 				$device['smart']['devicetypearg'] = "hpt,".$controller_id."/".$disk_id;
+				break;
+			// LSI MegaRAID SAS
+			case 'mfi':
+				$mfi_device = map_mfi_device_name($device['controller'].$device['controller_id'],$device['name']);
+
+				$device['target_id'] = $mfi_device['target_id'];
+				$device['model'] = parse_device_desc($mfi_device['device_name']);
+				$device['controller_desc'] = parse_raid_controller_desc($device['controller'].$device['controller_id']);
+
+				$device['smart']['devicefilepath'] = '/dev/'.$mfi_device['device_name'];
+				$device['smart']['devicetype'] = 'sat';
+				$device['smart']['devicetypearg'] = 'sat';
 				break;
 			// LSI 2008 (IT mode)
 			case 'mps':
@@ -1144,54 +1164,102 @@ function parse_controller_config(&$devlist){
 		}else{
 			$device['smart']['smart_support'] = "Unavailable";
 		}
+
+		// retry empty case
+		if(empty($device['model'])) $device['model'] = system_get_volume_model($device['devicespecialfile']);
+		if(empty($device['desc'])) $device['desc'] = $device['model'];
+		if(empty($device['serial'])) $device['serial'] = system_get_volume_serial($device['devicespecialfile']);
 	}
+	unset($device);
 	return $devlist;
 }
+
+
+function map_mfi_device_name($controller, $mfisyspd){
+	$mfi_device = array();
+	mwexec2("dmesg | grep \"".$device['controller']."\"", $lines);
+
+	// look for deviceid '0' in mfisyspd0: 3815447MB (7814037168 sectors) SYSPD volume (deviceid: 0)
+	foreach($lines as $line){
+		if( preg_match("/^".$mfisyspd.": /", $line, $matches)){
+			if( preg_match("/(?<= \(deviceid: )[0-9]+/", $line, $matches)){
+				$mfi_device['target_id']=$matches[0];
+			}
+		}
+	}
+
+	// 2nd pass to retrieve actual device name
+	foreach($lines as $line){
+		if(preg_match("/[-A-z0-9].*(?= at ".$controller." [-A-z0-9 ].*(?=target ".$mfi_device['target_id']."))+/",$line, $matches)){
+			$mfi_device['device_name'] = $matches[0];
+		}
+	}
+
+	return $mfi_device;
+}
+
 
 // Parse info from S.M.A.R.T.
 function get_smartctl_info($device){
 
 	$smartctl_info = array();
 	$type_arg = '';
+	$vendor = '';
+	$product = '';
+	$revision = '';
 
-	if( !is_null($device['smart']['devicetypearg']) ){
+	if( !empty($device['smart']['devicetypearg']) ){
 		$type_arg = "-d ".$device['smart']['devicetypearg'];
 	}
 
 	mwexec2("smartctl -i ".$type_arg." ".$device['smart']['devicefilepath'],$lines);
 
 	foreach($lines as $line){
-		$str_startswith = substr($line, 0, 18);
+        	// trim and convert token to lowercase
+		$str_startswith = strtolower(trim(substr($line, 0, 18)));
 		$matches = array();
 
 		switch ($str_startswith){
-			case 'Model Family:     ':
-				preg_match("/(?<=Model Family:     ).*/",$line, $matches );
-				$smartctl_info['desc'] = $matches[0];
+        		// compare always to lowercase and trimmed keywords
+			case 'model family:':
+				preg_match("/(?<=Model Family:).*/",$line, $matches );
+				$smartctl_info['desc'] = trim($matches[0]);
 				break;
-			case 'Device Model:     ':
-				preg_match("/(?<=Device Model:     ).*/",$line, $matches );
-				$smartctl_info['model'] = $matches[0];
+			case 'device model:':
+				preg_match("/(?<=Device Model:).*/",$line, $matches );
+				$smartctl_info['model'] = trim($matches[0]);
 				break;
-			case 'Serial Number:    ':
-				preg_match("/(?<=Serial Number:    ).*/",$line, $matches );
-				$smartctl_info['serial'] = $matches[0];
+			case 'vendor:':
+				preg_match("/(?<=Vendor:).*/",$line, $matches );
+				$vendor = trim($matches[0]);
 				break;
-			case 'Rotation Rate:    ':
-				preg_match("/(?<=Rotation Rate:    ).*/",$line, $matches );
-				$smartctl_info['rotation_rate'] = $matches[0];
+			case 'revision:':
+				preg_match("/(?<=Revision:).*/",$line, $matches );
+				$revision = trim($matches[0]);
 				break;
-			case 'SATA Version is:  ':
-				if(preg_match("/(?<= \(current: ).*(?=\))+/", $line, $matches)){
-					$smartctl_info['transfer_rate'] = $matches[0];
+			case 'product:':
+				preg_match("/(?<=Product:).*/",$line, $matches );
+				$product = trim($matches[0]);
+				break;
+			case 'serial number:':
+				preg_match("/(?<=Serial [Nn]umber:).*/",$line, $matches );
+				$smartctl_info['serial'] = trim($matches[0]);
+				break;
+			case 'rotation rate:':
+				preg_match("/(?<=Rotation Rate:).*/",$line, $matches );
+				$smartctl_info['rotation_rate'] = trim($matches[0]);
+				break;
+			case 'sata version is:':
+				if(preg_match("/(?<= \(current:).*(?=\))+/", $line, $matches)){
+					$smartctl_info['transfer_rate'] = trim($matches[0]);
 				}
 				else if(preg_match("/(?<=, ).*?(?>\/s)/", $line, $matches)){
-					$smartctl_info['transfer_rate'] = $matches[0];
+					$smartctl_info['transfer_rate'] = trim($matches[0]);
 				}
 				break;
-			case 'SMART support is: ':
+			case 'smart support is:':
 				if(empty($smartctl_info['smart_support'])){
-					if(preg_match("/(?<=SMART support is: ).*(?=\-)+/", $line, $matches)){
+					if(preg_match("/(?<=SMART support is:).*(?=\-)+/", $line, $matches)){
 						$smartctl_info['smart_support'] = ltrim($matches[0]);
 					}
 				}else if( strncmp($smartctl_info['smart_support'], 'Available', 9) == 0 )  {
@@ -1202,6 +1270,10 @@ function get_smartctl_info($device){
 				break;
 			}
 	}
+	// Set model to vendor,product,revision
+	if(empty($smartctl_info['model'])){
+		$smartctl_info['model'] = trim($vendor.' '.$product.' '.$revision);
+ 	}
 	return $smartctl_info;
 }
 
@@ -1227,7 +1299,8 @@ function init_device_attributes(&$device){
 function parse_device_desc($device){
 	$matches = array();
 
-	mwexec2("dmesg | grep \"^$device: <\"", $lines);
+	// device order may change, so take latest(last) line 
+	mwexec2("dmesg | grep \"^$device: <\" | tail -r", $lines);
 
 	foreach($lines as $line){
 		// example: da2: <Corsair Voyager 1100> Removable Direct Access SCSI-0 device
@@ -1269,7 +1342,6 @@ function parse_raid_controller_desc($controller){
 
 	if (strncmp($line, $controller ,4)){
 		mwexec2("dmesg | grep $controller", $lines);
-		//$output = `dmesg | grep -w $controller`;
 
 		foreach ($lines as $line){
 			if ( strncmp($line, $controller.': <' ,strlen($controller)+3) == 0){
@@ -1447,9 +1519,12 @@ function get_hraid_disks_list()
 			$disklist[$diskname]['devicespecialfile']= "/dev/" . $diskname;
 			$disklist[$diskname]['type'] = "RAID";
 
-			if($device[0] == "twed"){
+			if($device[0] == "twed" || $device[0] == "mfisyspd"){
 
-				$disklist[$diskname]['target_id'] = $disklist[$diskname]['id'];
+				if( $device[0] == "twed") {
+					$disklist[$diskname]['target_id'] = $disklist[$diskname]['id'];
+				}
+
 				$matches = array();
 
 				// look for controller details from dmesg
@@ -1463,7 +1538,8 @@ function get_hraid_disks_list()
 						$disklist[$diskname]['controller_id'] = $controller[1];
 					}
 				}
-			}else{
+			}
+			else{
 				/* Looking for the disk description in the dmesg */
 				foreach ($rawdmesg as $dmesgline) {
 					/* Separe la ligne par les espace */
@@ -2114,7 +2190,7 @@ function get_hvol_info($name)
 	$hvolinfo['error'] = 0;
 	$hvolinfo['status'] = 'unknown';
 
-	exec("/sbin/hastctl list {$name}",$rawdata);
+	exec("/sbin/hastctl list {$name} 2>/dev/null",$rawdata);
 	foreach ($rawdata as $line) {
 		// skip name
 		if (preg_match('/^\S+:/', $line)) continue;
@@ -2179,9 +2255,7 @@ function get_product_version() {
 /* Get the product revision */
 function get_product_revision() {
 	global $g;
-	$ret = chop(file_get_contents("{$g['etc_path']}/prd.revision"));
-	$ret .= file_exists("{$g['etc_path']}/prd.stage") ? chop(file_get_contents("{$g['etc_path']}/prd.stage")): '';
-	return $ret;
+	return chop(file_get_contents("{$g['etc_path']}/prd.revision"));
 }
 
 /* Get the product version */

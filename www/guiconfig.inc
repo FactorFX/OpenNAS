@@ -240,6 +240,14 @@ function print_input_errors($input_errors) {
 	echo "  </div>\n";
 }
 
+function verify_xz_file($fname) {
+	$returnvar = mwexec("/usr/bin/xz -t " . escapeshellarg($fname), true);
+	if ($returnvar != 0)
+		return 0;
+	else
+		return 1;
+}
+
 function verify_gzip_file($fname) {
 	$returnvar = mwexec("/usr/bin/gzip -t " . escapeshellarg($fname), true);
 	if ($returnvar != 0)
@@ -289,7 +297,7 @@ function print_warning_box($msg) {
 function print_config_change_box() {
 	$message = gettext("Apply changes");
 	echo "<div id='applybox'>";
-	print_info_box(gettext("The configuration has been changed.<br />You must apply the changes in order for them to take effect."));
+	print_info_box(sprintf(gettext("The configuration has been changed.<br />You must apply the changes in order for them to take effect.<br /><b>If this message persist take a look at the <a href='%s'>system log</a> for more information.</b>"), "diag_log.php"));
 	echo "<input name=\"apply\" type=\"submit\" class=\"formbtn\" id=\"apply\" value=\"{$message}\" />";
 	echo "</div>";
 }

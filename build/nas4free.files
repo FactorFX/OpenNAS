@@ -175,6 +175,9 @@ sbin/init
 ## iscontrol -- login/negotiator/control for an iSCSI initiator session
 sbin/iscontrol
 
+## kldconfig -- display or modify the kernel module search path
+sbin/kldconfig
+
 ## kldload -- load a file into the kernel
 sbin/kldload
 
@@ -249,9 +252,6 @@ sbin/tunefs
 
 ## umount -- unmount file systems
 sbin/umount
-
-## atacontrol -- manage IDE disk
-sbin/atacontrol
 
 ## camcontrol -- manage SCSI disk
 sbin/camcontrol
@@ -400,6 +400,9 @@ usr/bin/tr
 ## wc -- word, line, character, and byte count
 usr/bin/wc
 
+## who -- display who is on the system
+usr/bin/who
+
 ## head -- display first lines of a file
 usr/bin/head
 
@@ -499,6 +502,9 @@ usr/bin/tty
 ## vi - text editors
 usr/bin/vi
 
+## ee - easy editor
+usr/bin/ee
+
 ## cpuset -- configure processor sets
 usr/bin/cpuset
 
@@ -516,6 +522,15 @@ usr/bin/patch
 
 ## xz,  unxz,  xzcat, lzma, unlzma, lzcat - Compress or decompress .xz and .lzma files
 usr/bin/xz:usr/bin/unxz:usr/bin/xzcat:usr/bin/lzma:usr/bin/unlzma:usr/bin/lzcat
+
+## kinit -- acquire initial tickets
+usr/bin/kinit
+
+## klist -- list Kerberos credentials
+usr/bin/klist
+
+## kdestroy -- remove one credental or destroy the current ticket file
+usr/bin/kdestroy
 
 ####### contents of /usr/sbin
 ## acpiconf -- control ACPI power management
@@ -541,6 +556,9 @@ usr/sbin/cron
 
 ## daemon -- run detached from the controlling terminal
 usr/sbin/daemon
+
+##
+usr/sbin/kldxref
 
 ## pciconf -- diagnostic utility for the PCI bus
 usr/sbin/pciconf
@@ -593,15 +611,6 @@ usr/sbin/rpc.statd
 ## sshd -- OpenSSH SSH daemon
 ## Note: Will be overwritten when openssh-portable package is activated.
 usr/sbin/sshd
-
-## pkg_add -- a utility for installing software package distributions
-usr/sbin/pkg_add
-
-## pkg_info -- dump out information about packages
-usr/sbin/pkg_info
-
-## pkg_delete -- a utility for deleting previously installed software package distributions
-usr/sbin/pkg_delete
 
 ## mtree -- map a directory hierarchy (required by pkg_add)
 usr/sbin/mtree
@@ -675,6 +684,7 @@ usr/libexec/sftp-server
 usr/libexec/getty
 
 ####### contents of /usr/share/misc
+usr/share/misc/init.ee
 usr/share/misc/scsi_modes
 usr/share/misc/termcap:etc/termcap
 usr/share/misc/pci_vendors
@@ -776,6 +786,10 @@ etc/rc.d/devd
 etc/rc.d/dmesg
 etc/rc.d/hostid
 etc/rc.d/jail
+etc/rc.d/netif
+etc/rc.d/netwait
+etc/rc.d/nfscbd
+etc/rc.d/nfsuserd
 
 ####### contents of /usr/share/snmp/defs
 usr/share/snmp/defs/atm_freebsd.def
@@ -814,3 +828,8 @@ libexec/resolvconf/unbound
 usr/share/doc/legal/intel_wpi/LICENSE
 usr/share/doc/legal/intel_iwi/LICENSE
 usr/share/doc/legal/intel_ipw/LICENSE
+
+
+# XXX need move to ports
+# pkg -- a utility for manipulating packages
+usr/local/sbin/pkg

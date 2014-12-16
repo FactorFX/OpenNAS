@@ -55,7 +55,7 @@ $g = array(
 	"www_path" => "/usr/local/www",
 	"xml_rootobj" => "opennas",
 	"debug" => false,
-	"latest_config" => "1.7",
+	"latest_config" => "1.8",
 	"nopccard_platforms" => array("wrap", "net48xx"),
 	"wireless_regex" => "/^(ndis|wi|ath|an|ral|ural|wai|iwi|awi|wlan|ipw|wpi|rum|arl|zyd)/",
 	"default_passwd" => "opennas",
@@ -63,8 +63,9 @@ $g = array(
 );
 
 $g_install = array(
-	"part1size_embedded" => "512",
-	"part1size_full" => "1024"
+	"default_swap" => "1024",
+	"part1size_embedded" => "1800",	/* 2000MB=1907MiB ->  768MB + SWAP1024MB */
+	"part1size_full" => "2600"	/* 4000MB=3814MiB -> 2560MB + SWAP1024MB */
 );
 
 /* Available languages/locales */

@@ -115,7 +115,11 @@ if(!isset($do_action)) {
 				}
 				?>
 				<div id="remarks">
+<<<<<<< HEAD
 					<?php html_remark("note", gettext("Note"), gettext("You can also install a package via SSH or console using the the pkg install command.<br />Example: pkg install packagename"));?>
+=======
+					<?php html_remark("note", gettext("Note"), gettext("You can also install a package via SSH or console using the the pkg add command.<br />Example: pkg add packagename"));?>
+>>>>>>> refs/heads/nas4free
 				</div>
 				<?php include("formend.inc");?>
 			</form>

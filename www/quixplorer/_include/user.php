@@ -70,8 +70,8 @@ function _saveUsers ()
 	$content='<?php $GLOBALS["users"]=array(';
 	for($i=0;$i<$cnt;++$i) {
 		// if($GLOBALS["users"][6]&4==4) $GLOBALS["users"][6]=7;	// If admin, all permissions
-		$content.="\r\n\tarray(\"".$GLOBALS["users"][$i][0].'",\''.
-			$GLOBALS["users"][$i][1].'\',"'.$GLOBALS["users"][$i][2].'","'.$GLOBALS["users"][$i][3].'",'.
+		$content.="\r\n\tarray(\"".$GLOBALS["users"][$i][0].'","'.
+			$GLOBALS["users"][$i][1].'","'.$GLOBALS["users"][$i][2].'","'.$GLOBALS["users"][$i][3].'",'.
 			$GLOBALS["users"][$i][4].',"'.$GLOBALS["users"][$i][5].'",'.$GLOBALS["users"][$i][6].','.
 			$GLOBALS["users"][$i][7].'),';
 	}
@@ -137,16 +137,10 @@ function user_find ($user, $pass = NULL)
 	if ($pass == NULL)
 		return $GLOBALS["users"][$idx];
 
-	if ($idx == 0 || $idx == 1) {
-		// check if the password matches for admin
-		if ($GLOBALS["users"][$idx][_idx('password')] != crypt($pass, $GLOBALS["users"][$idx][_idx('password')]))
-			return;
-	}
-	else {
-		// check if the password matches for others
-		if (md5($pass) != $GLOBALS["users"][$idx][_idx('password')])
-			return;
-	}
+	// check if the password matches
+	$userpw = $GLOBALS["users"][$idx][_idx('password')];
+	if ($pass != $userpw || $userpw != crypt($pass, $userpw))
+		return;
 
 	// check if the user is active
 	if (!$GLOBALS["users"][$idx][_idx('useractive')])
@@ -184,7 +178,7 @@ function user_activate($user, $pass)
 
 	// store the user data in the globals variable
 	$_SESSION["s_user"]	= $data[0];
-	$_SESSION["s_pass"]	= $pass;
+	$_SESSION["s_pass"]	= $data[1];
 	$GLOBALS["home_dir"]	= $data[2];
 	$GLOBALS["home_url"]	= $data[3];
 	$GLOBALS["show_hidden"]	= $data[4];

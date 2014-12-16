@@ -174,7 +174,13 @@ function display_menu($menuid) {
 	$link = $menu[$menuid]['link'];
 	if ($link == '') $link = 'index.php';
 	echo "<li>\n";
-	echo "	<a href=\"{$link}\" onmouseover=\"mopen('{$menuid}')\" onmouseout=\"mclosetime()\">".htmlspecialchars($menu[$menuid]['desc'])."</a>\n";
+	    $agent = $_SERVER['HTTP_USER_AGENT']; // Put browser name into local variable for desktop/mobile detection
+       if ((preg_match("/iPhone/i", $agent)) || (preg_match("/android/i", $agent))) {
+          echo "<a href=\"javascript:mopen('{$menuid}');\" onmouseout=\"mclosetime()\">".htmlspecialchars($menu[$menuid]['desc'])."</a>\n";
+       }
+       else {
+          echo "<a href=\"{$link}\" onmouseover=\"mopen('{$menuid}')\" onmouseout=\"mclosetime()\">".htmlspecialchars($menu[$menuid]['desc'])."</a>\n";
+       }
 	echo "	<div id=\"{$menuid}\" onmouseover=\"mcancelclosetime()\" onmouseout=\"mclosetime()\">\n";
 
 	# Display menu items.
@@ -256,9 +262,17 @@ function display_menu($menuid) {
 		<!-- Begin extension section -->
 		<?php if (Session::isAdmin() && is_dir("{$g['www_path']}/ext")):?>
 		<li>
-			<a href="index.php" onmouseover="mopen('extensions')" onmouseout="mclosetime()"><?=gettext("Extensions");?></a>
+		<?php
+                $agent = $_SERVER['HTTP_USER_AGENT']; // Put browser name into local variable for desktop/mobile detection
+                if ((preg_match("/iPhone/i", $agent)) || (preg_match("/android/i", $agent))) {
+                   echo "<a href=\"javascript:mopen('extensions');\" onmouseout=\"mclosetime()\">".gettext("Extensions")."</a>";
+                }
+                else {
+                    echo "<a href=\"index.php\" onmouseover=\"mopen('extensions')\" onmouseout=\"mclosetime()\">".gettext("Extensions")."</a>";
+                }
+                ?>
 			<div id="extensions" onmouseover="mcancelclosetime()" onmouseout="mclosetime()">
-				<?php
+		  <?php
 				$dh = @opendir("{$g['www_path']}/ext");
 				if ($dh) {
 					while (($extd = readdir($dh)) !== false) {
@@ -285,8 +299,8 @@ function display_menu($menuid) {
 	  <tr valign="top">
 	    <td>
 				<table width="100%" border="0" cellpadding="10" cellspacing="0">
-	        <tr>
-						<td>
-							<?php if (!isset($pgtitle_omit) || !$pgtitle_omit): ?>
-	      			<p class="pgtitle"><?=htmlspecialchars(gentitle($pgtitle));?></p>
-							<?php endif;?>
+	<tr>
+<td>
+<?php if (!isset($pgtitle_omit) || !$pgtitle_omit): ?>
+		<p class="pgtitle"><?=htmlspecialchars(gentitle($pgtitle));?></p>
+<?php endif;?>

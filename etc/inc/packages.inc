@@ -35,7 +35,7 @@
 	SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 	The views and conclusions contained in the software and documentation are those
-	of the authors and should not be interpreted as representing official policies,
+	of the authors and should not be interpreted as representing official policies, 
 	either expressed or implied, of the NAS4Free Project.
 */
 require_once("functions.inc");
@@ -71,14 +71,14 @@ function packages_get_installed() {
 }
 
 // Uninstall package.
-// $pkgname - The package name or filename (e.g. xyz or xyz.tbz)
+// $pkgname - The package name or filename (e.g. xyz or xyz.txz)
 // Return 0 if successful, 1 if error
 function packages_uninstall($pkgname) {
-	// Remove '.tbz' if necessary.
-	$pkgname = basename($pkgname, ".tbz");
+	// Remove '.txz' if necessary.
+	$pkgname = basename($pkgname, ".txz");
 
-	$result = mwexec("ASSUME_ALWAYS_YES=yes /usr/local/sbin/pkg remove {$pkgname}");
-
+	$result = mwexec("/usr/local/sbin/pkg delete -y {$pkgname}");
+			
 	if (0 == $result) {
 		write_log("Successfully uninstalled package '{$pkgname}'");
 	} else {
@@ -92,11 +92,11 @@ function packages_uninstall($pkgname) {
 // $pkgname - The package name or filename (e.g. xyz or xyz.tbz)
 // Return 0 if already installed, otherwise 1
 function packages_is_installed($pkgname) {
-	// Remove '.tbz' if necessary.
-	$pkgname = basename($pkgname, ".tbz");
+	// Remove '.txz' if necessary.
+	$pkgname = basename($pkgname, ".txz");
 
 	// Check whether package is already installed.
-	$result = mwexec("/usr/local/sbin/pkg info -e {$pkgname}");
+	$result = mwexec("/usr/local/sbin/pkg info {$pkgname}");
 
 	return $result;
 }
