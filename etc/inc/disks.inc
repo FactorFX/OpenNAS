@@ -1423,31 +1423,6 @@ EOD;
  * Rescan disks after a Hotswap has been performed
  */ 
 function disks_rescan() {
-	/*
-	mwexec2("atacontrol list", $devicelist, $return_val);
-	if (true == $return_val) {
-		echo gettext("atacontrol list failed, atacontrol not found !!");
-		return $return_val;
-	}
-	$atachannels = array();
-	$channel = 'NONE';
-	foreach ($devicelist as $item) {
-		if (preg_match("/ATA\s+channel\s+(\d+):/i", $item, $matched)) {
-			$channel = 'ata' . $matched[1];
-			$atachannels[$channel] = 0;
-		} else if (preg_match("/no device present/i", $item, $matched)) {
-			$atachannels[$channel]++;
-		}
-	}
-	foreach ($atachannels as $channel => $count) {
-		if ($count == 2) {
-			echo gettext("Resetting channel ") . "$channel\n";
-			mwexec("atacontrol detach $channel");
-			sleep(1);
-			mwexec("atacontrol attach $channel");
-		}
-	}
-	*/
 	mwexec2("camcontrol rescan all");
 }
 
@@ -1472,12 +1447,14 @@ function disks_verify_all_disks($a_phy_disks) {
                 $disk_exists = 1;
                 $disk_error = 0;
 
-				if (($phy_disk['serial'] == "n/a") || ($phy_disk['serial'] == gettext("n/a"))){
-					$phy_disk_serial = "";
-				}
-				else{
-					$phy_disk_serial = $phy_disk['serial'];
-				}
+		if ($phy_disk['type'] === "HAST")
+			continue;
+
+		if (($phy_disk['serial'] == "n/a") || ($phy_disk['serial'] == gettext("n/a"))){
+			$phy_disk_serial = "";
+		} else{
+			$phy_disk_serial = $phy_disk['serial'];
+		}
 
                 if ($phy_disk_serial !== $conf_disk['serial']){
                     // check if conf_disk is moved
@@ -1638,9 +1615,6 @@ function disks_import_try_allfs($dev) {
 			$ntfs = disks_try_ntfs($file);
 			if (!empty($ntfs))
 				return "ntfs";
-			$zfs = disks_try_zfs($file);
-			if (!empty($zfs))
-				return "zfs";
 		}
 	}
 
@@ -1757,6 +1731,7 @@ function disks_import_all_disks($clean_import) {
 	$num = $error = 0;
 
 	$disks = get_all_disks_list();
+	$disks = array_merge((array)$disks, (array)get_hast_disks_list());
 	if (empty($disks))
 		return $num;
 
@@ -1769,7 +1744,7 @@ function disks_import_all_disks($clean_import) {
 	foreach ($disks as $diskv) {
 		$type = $diskv['type'];
 		$dev = $diskv['devicespecialfile'];
-		if ($type == 'SCSI' || $type == 'RAID' || $type == 'IDE') {
+		if ($type == 'SCSI' || $type == 'RAID' || $type == 'HAST' || $type == 'IDE') {
 			// disk exist in config?
 			$index = array_search_ex($dev, $config['disks']['disk'], "devicespecialfile");
 			if (false === $index) {

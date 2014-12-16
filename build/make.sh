@@ -72,17 +72,22 @@ echo "NAS4FREE_TMPDIR=${NAS4FREE_TMPDIR}" >> ${NAS4FREE_MK}
 # Local variables
 NAS4FREE_URL=$(cat $NAS4FREE_SVNDIR/etc/prd.url)
 NAS4FREE_SVNURL="https://svn.code.sf.net/p/nas4free/code/trunk"
-NAS4FREE_SVN_SRCTREE="svn://svn.FreeBSD.org/base/releng/9.2"
+NAS4FREE_SVN_SRCTREE="svn://svn.FreeBSD.org/base/releng/9.3"
 
 # Size in MB of the MFS Root filesystem that will include all FreeBSD binary
 # and NAS4FREE WEbGUI/Scripts. Keep this file very small! This file is unzipped
 # to a RAM disk at NAS4FREE startup.
-# The image must fit on 512MB CF/USB.
-NAS4FREE_MFSROOT_SIZE=222
-NAS4FREE_IMG_SIZE=125
+# The image must fit on 2GB CF/USB.
+# Actual size of MDLOCAL is defined in /etc/rc.
+NAS4FREE_MFSROOT_SIZE=128
+NAS4FREE_MDLOCAL_SIZE=768
+NAS4FREE_MDLOCAL_MINI_SIZE=32
+NAS4FREE_IMG_SIZE=512
 if [ "amd64" = ${NAS4FREE_ARCH} ]; then
-	NAS4FREE_MFSROOT_SIZE=239
-	NAS4FREE_IMG_SIZE=125
+	NAS4FREE_MFSROOT_SIZE=128
+	NAS4FREE_MDLOCAL_SIZE=768
+	NAS4FREE_MDLOCAL_MINI_SIZE=32
+	NAS4FREE_IMG_SIZE=512
 fi
 
 # Media geometry, only relevant if bios doesn't understand LBA.
@@ -247,7 +252,7 @@ create_rootfs() {
 	echo "Factory" > $NAS4FREE_TMPDIR/zoneinfo.exlude
 	echo "posixrules" >> $NAS4FREE_TMPDIR/zoneinfo.exlude
 	echo "zone.tab" >> $NAS4FREE_TMPDIR/zoneinfo.exlude
-	tar -c -v -f - -X $NAS4FREE_TMPDIR/zoneinfo.exlude -C /usr/share/zoneinfo/ . | gzip -cv > $NAS4FREE_ROOTFS/usr/share/zoneinfo.tgz
+	tar -c -v -f - -X $NAS4FREE_TMPDIR/zoneinfo.exlude -C /usr/share/zoneinfo/ . | xz -cv > $NAS4FREE_ROOTFS/usr/share/zoneinfo.txz
 	rm $NAS4FREE_TMPDIR/zoneinfo.exlude
 
 	return 0
@@ -345,19 +350,6 @@ build_kernel() {
 				for module in $(cat ${NAS4FREE_WORKINGDIR}/modules.files | grep -v "^#"); do
 					install -v -o root -g wheel -m 555 ${modulesdir}/${module} ${NAS4FREE_ROOTFS}/boot/kernel
 				done
-
-				echo "--------------------------------------------------------------";
-				echo ">>> Add ${NAS4FREE_ARCH} Specific Kernel Modules";
-				echo "--------------------------------------------------------------";
-
-				[ -f ${NAS4FREE_WORKINGDIR}/modules_${NAS4FREE_ARCH}.files ] && rm -f ${NAS4FREE_WORKINGDIR}/modules_${NAS4FREE_ARCH}.files;
-				cp -f ${NAS4FREE_SVNDIR}/build/kernel-config/modules_${NAS4FREE_ARCH}.files ${NAS4FREE_WORKINGDIR};
-
-				modulesdir=${NAS4FREE_SVNDIR}/build/kernel-modules;
-
-				for module in $(cat ${NAS4FREE_WORKINGDIR}/modules_${NAS4FREE_ARCH}.files | grep -v "^#"); do
-					install -v -o root -g wheel -m 555 ${modulesdir}/${module} ${NAS4FREE_ROOTFS}/boot/modules
-				done
 				;;
   	esac
   done
@@ -396,6 +388,64 @@ add_libs() {
   return 0
 }
 
+# Creating mdlocal-mini
+create_mdlocal_mini() {
+	echo "--------------------------------------------------------------"
+	echo ">>> Generating MDLOCAL mini"
+	echo "--------------------------------------------------------------"
+
+	cd $NAS4FREE_WORKINGDIR
+
+	[ -f $NAS4FREE_WORKINGDIR/mdlocal-mini.xz ] && rm -f $NAS4FREE_WORKINGDIR/mdlocal-mini.xz
+	[ -f $NAS4FREE_WORKINGDIR/mdlocal-mini.files ] && rm -f $NAS4FREE_WORKINGDIR/mdlocal-mini.files
+	cp $NAS4FREE_SVNDIR/build/nas4free-mdlocal-mini.files $NAS4FREE_WORKINGDIR/mdlocal-mini.files
+
+	# Make mfsroot to have the size of the NAS4FREE_MFSROOT_SIZE variable
+	dd if=/dev/zero of=$NAS4FREE_WORKINGDIR/mdlocal-mini bs=1k count=$(expr ${NAS4FREE_MDLOCAL_MINI_SIZE} \* 1024)
+	# Configure this file as a memory disk
+	md=`mdconfig -a -t vnode -f $NAS4FREE_WORKINGDIR/mdlocal-mini`
+	# Format memory disk using UFS
+	newfs -S $NAS4FREE_IMGFMT_SECTOR -b $NAS4FREE_IMGFMT_BSIZE -f $NAS4FREE_IMGFMT_FSIZE -O2 -o space -m 0 -U -t /dev/${md}
+	# Umount memory disk (if already used)
+	umount $NAS4FREE_TMPDIR >/dev/null 2>&1
+	# Mount memory disk
+	mkdir -p ${NAS4FREE_TMPDIR}/usr/local
+	mount /dev/${md} ${NAS4FREE_TMPDIR}/usr/local
+
+	# Create tree
+	cd $NAS4FREE_ROOTFS/usr/local
+	find . -type d | cpio -pmd ${NAS4FREE_TMPDIR}/usr/local
+
+	# Copy selected files
+	cd $NAS4FREE_TMPDIR
+	for i in $(cat $NAS4FREE_WORKINGDIR/mdlocal-mini.files | grep -v "^#"); do
+		d=`dirname $i`
+		b=`basename $i`
+		echo "cp $NAS4FREE_ROOTFS/$d/$b  ->  $NAS4FREE_TMPDIR/$d/$b"
+		cp $NAS4FREE_ROOTFS/$d/$b $NAS4FREE_TMPDIR/$d/$b
+		# Copy required libraries
+		for j in $(ldd $NAS4FREE_ROOTFS/$d/$b | cut -w -f 4 | grep /usr/local | sed -e '/:/d' -e 's/^\///'); do
+			d=`dirname $j`
+			b=`basename $j`
+			if [ ! -e $NAS4FREE_TMPDIR/$d/$b ]; then
+				echo "cp $NAS4FREE_ROOTFS/$d/$b  ->  $NAS4FREE_TMPDIR/$d/$b"
+				cp $NAS4FREE_ROOTFS/$d/$b $NAS4FREE_TMPDIR/$d/$b
+			fi
+		done
+	done
+
+	# Umount memory disk
+	umount $NAS4FREE_TMPDIR/usr/local
+	# Detach memory disk
+	mdconfig -d -u ${md}
+
+	xz -8v $NAS4FREE_WORKINGDIR/mdlocal-mini
+
+	[ -f $NAS4FREE_WORKINGDIR/mdlocal-mini.files ] && rm -f $NAS4FREE_WORKINGDIR/mdlocal-mini.files
+
+	return 0
+}
+
 # Creating msfroot
 create_mfsroot() {
 	echo "--------------------------------------------------------------"
@@ -405,28 +455,42 @@ create_mfsroot() {
 	cd $NAS4FREE_WORKINGDIR
 
 	[ -f $NAS4FREE_WORKINGDIR/mfsroot.gz ] && rm -f $NAS4FREE_WORKINGDIR/mfsroot.gz
+	[ -f $NAS4FREE_WORKINGDIR/mfsroot.uzip ] && rm -f $NAS4FREE_WORKINGDIR/mfsroot.uzip
+	[ -f $NAS4FREE_WORKINGDIR/mdlocal.xz ] && rm -f $NAS4FREE_WORKINGDIR/mdlocal.xz
 	[ -d $NAS4FREE_SVNDIR ] && use_svn ;
 
 	# Make mfsroot to have the size of the NAS4FREE_MFSROOT_SIZE variable
 	dd if=/dev/zero of=$NAS4FREE_WORKINGDIR/mfsroot bs=1k count=$(expr ${NAS4FREE_MFSROOT_SIZE} \* 1024)
+	dd if=/dev/zero of=$NAS4FREE_WORKINGDIR/mdlocal bs=1k count=$(expr ${NAS4FREE_MDLOCAL_SIZE} \* 1024)
 	# Configure this file as a memory disk
 	md=`mdconfig -a -t vnode -f $NAS4FREE_WORKINGDIR/mfsroot`
+	md2=`mdconfig -a -t vnode -f $NAS4FREE_WORKINGDIR/mdlocal`
 	# Format memory disk using UFS
 	newfs -S $NAS4FREE_IMGFMT_SECTOR -b $NAS4FREE_IMGFMT_BSIZE -f $NAS4FREE_IMGFMT_FSIZE -O2 -o space -m 0 /dev/${md}
+	newfs -S $NAS4FREE_IMGFMT_SECTOR -b $NAS4FREE_IMGFMT_BSIZE -f $NAS4FREE_IMGFMT_FSIZE -O2 -o space -m 0 -U -t /dev/${md2}
 	# Umount memory disk (if already used)
 	umount $NAS4FREE_TMPDIR >/dev/null 2>&1
 	# Mount memory disk
 	mount /dev/${md} ${NAS4FREE_TMPDIR}
+	mkdir -p ${NAS4FREE_TMPDIR}/usr/local
+	mount /dev/${md2} ${NAS4FREE_TMPDIR}/usr/local
 	cd $NAS4FREE_TMPDIR
 	tar -cf - -C $NAS4FREE_ROOTFS ./ | tar -xvpf -
 
 	cd $NAS4FREE_WORKINGDIR
 	# Umount memory disk
+	umount $NAS4FREE_TMPDIR/usr/local
 	umount $NAS4FREE_TMPDIR
 	# Detach memory disk
+	mdconfig -d -u ${md2}
 	mdconfig -d -u ${md}
 
+	mkuzip -s 32768 $NAS4FREE_WORKINGDIR/mfsroot
+	chmod 644 $NAS4FREE_WORKINGDIR/mfsroot.uzip
 	gzip -9fnv $NAS4FREE_WORKINGDIR/mfsroot
+	xz -8v $NAS4FREE_WORKINGDIR/mdlocal
+
+	create_mdlocal_mini;
 
 	return 0
 }
@@ -441,25 +505,9 @@ copy_kmod() {
 			continue;
 		fi
 		b=`basename ${f}`
-		(cd ${NAS4FREE_OBJDIRPREFIX}/usr/src/sys/${NAS4FREE_KERNCONF}/modules/usr/src/sys/modules; install -v -o root -g wheel -m 555 ${f} $NAS4FREE_TMPDIR/boot/kernel/${b}; gzip -9 $NAS4FREE_TMPDIR/boot/kernel/${b})
+		#(cd ${NAS4FREE_OBJDIRPREFIX}/usr/src/sys/${NAS4FREE_KERNCONF}/modules/usr/src/sys/modules; install -v -o root -g wheel -m 555 ${f} $NAS4FREE_TMPDIR/boot/kernel/${b}; gzip -9 $NAS4FREE_TMPDIR/boot/kernel/${b})
+		(cd ${NAS4FREE_OBJDIRPREFIX}/usr/src/sys/${NAS4FREE_KERNCONF}/modules/usr/src/sys/modules; install -v -o root -g wheel -m 555 ${f} $NAS4FREE_TMPDIR/boot/kernel/${b})
 	done
-
-	echo "Copy ${NAS4FREE_ARCH} specific kmod to $NAS4FREE_TMPDIR/boot/modules"
-
-	[ -f ${NAS4FREE_WORKINGDIR}/modules_${NAS4FREE_ARCH}.files ] && rm -f ${NAS4FREE_WORKINGDIR}/modules_${NAS4FREE_ARCH}.files;
-	cp -f ${NAS4FREE_SVNDIR}/build/kernel-config/modules_${NAS4FREE_ARCH}.files ${NAS4FREE_WORKINGDIR};
-
-	if [ ! -d $NAS4FREE_TMPDIR/boot/modules ]; then
-		mkdir -pv $NAS4FREE_TMPDIR/boot/modules
-	fi
-
-	modulesdir=${NAS4FREE_SVNDIR}/build/kernel-modules;
-
-	for module in $(cat ${NAS4FREE_WORKINGDIR}/modules_${NAS4FREE_ARCH}.files | grep -v "^#"); do
-		b=`basename ${modulesdir}/${module}`
-		( install -v -o root -g wheel -m 555 ${modulesdir}/${module} $NAS4FREE_TMPDIR/boot/modules/${b}; gzip -9 $NAS4FREE_TMPDIR/boot/modules/${b})
-	done
-
 	return 0;
 }
 
@@ -476,7 +524,7 @@ create_image() {
 
 	# Cleanup.
 	[ -f ${NAS4FREE_WORKINGDIR}/image.bin ] && rm -f ${NAS4FREE_WORKINGDIR}/image.bin
-	[ -f ${NAS4FREE_WORKINGDIR}/image.bin.gz ] && rm -f ${NAS4FREE_WORKINGDIR}/image.bin.gz
+	[ -f ${NAS4FREE_WORKINGDIR}/image.bin.xz ] && rm -f ${NAS4FREE_WORKINGDIR}/image.bin.xz
 
 	# Set platform information.
 	PLATFORM="${NAS4FREE_XARCH}-embedded"
@@ -495,7 +543,7 @@ create_image() {
 	create_mfsroot;
 
 	echo "===> Creating Empty IMG File"
-	dd if=/dev/zero of=${NAS4FREE_WORKINGDIR}/image.bin bs=${NAS4FREE_IMG_SECTS}b count=`expr ${NAS4FREE_IMG_SIZE_SEC} / ${NAS4FREE_IMG_SECTS}`
+	dd if=/dev/zero of=${NAS4FREE_WORKINGDIR}/image.bin bs=${NAS4FREE_IMG_SECTS}b count=`expr ${NAS4FREE_IMG_SIZE_SEC} / ${NAS4FREE_IMG_SECTS} + 64`
 	echo "===> Use IMG as a memory disk"
 	md=`mdconfig -a -t vnode -f ${NAS4FREE_WORKINGDIR}/image.bin -x ${NAS4FREE_IMG_SECTS} -y ${NAS4FREE_IMG_HEADS}`
 	diskinfo -v ${md}
@@ -503,15 +551,18 @@ create_image() {
 	echo "===> Creating BSD partition on this memory disk"
 	gpart create -s bsd ${md}
 	gpart bootcode -b ${NAS4FREE_BOOTDIR}/boot ${md}
-	gpart add -t freebsd-ufs ${md}
+	gpart add -s ${NAS4FREE_IMG_SIZE}m -t freebsd-ufs ${md}
 	mdp=${md}a
 
 	echo "===> Formatting this memory disk using UFS"
-	newfs -S $NAS4FREE_IMGFMT_SECTOR -b $NAS4FREE_IMGFMT_BSIZE -f $NAS4FREE_IMGFMT_FSIZE -O2 -U -o space -m 0 /dev/${md}a
+	newfs -S $NAS4FREE_IMGFMT_SECTOR -b $NAS4FREE_IMGFMT_BSIZE -f $NAS4FREE_IMGFMT_FSIZE -O2 -U -o space -m 0 -L "embboot" /dev/${md}a
 	echo "===> Mount this virtual disk on $NAS4FREE_TMPDIR"
 	mount /dev/${md}a $NAS4FREE_TMPDIR
 	echo "===> Copying previously generated MFSROOT file to memory disk"
 	cp $NAS4FREE_WORKINGDIR/mfsroot.gz $NAS4FREE_TMPDIR
+	cp $NAS4FREE_WORKINGDIR/mfsroot.uzip $NAS4FREE_TMPDIR
+	cp $NAS4FREE_WORKINGDIR/mdlocal.xz $NAS4FREE_TMPDIR
+	echo "${NAS4FREE_PRODUCTNAME}-${PLATFORM}-${NAS4FREE_VERSION}.${NAS4FREE_REVISION}" > $NAS4FREE_TMPDIR/version
 
 	echo "===> Copying Bootloader File(s) to memory disk"
 	mkdir -p $NAS4FREE_TMPDIR/boot
@@ -519,6 +570,7 @@ create_image() {
 	mkdir -p $NAS4FREE_TMPDIR/conf
 	cp $NAS4FREE_ROOTFS/conf.default/config.xml $NAS4FREE_TMPDIR/conf
 	cp $NAS4FREE_BOOTDIR/kernel/kernel.gz $NAS4FREE_TMPDIR/boot/kernel
+	cp $NAS4FREE_BOOTDIR/kernel/*.ko $NAS4FREE_TMPDIR/boot/kernel
 	cp $NAS4FREE_BOOTDIR/boot $NAS4FREE_TMPDIR/boot
 	cp $NAS4FREE_BOOTDIR/loader $NAS4FREE_TMPDIR/boot
 	cp $NAS4FREE_BOOTDIR/loader.conf $NAS4FREE_TMPDIR/boot
@@ -549,7 +601,7 @@ create_image() {
 		cd ${NAS4FREE_OBJDIRPREFIX}/usr/src/sys/${NAS4FREE_KERNCONF}/modules/usr/src/sys/modules && install -v -o root -g wheel -m 555 apm/apm.ko $NAS4FREE_TMPDIR/boot/kernel
 	fi
 	# iSCSI driver
-	cd ${NAS4FREE_OBJDIRPREFIX}/usr/src/sys/${NAS4FREE_KERNCONF}/modules/usr/src/sys/modules && install -v -o root -g wheel -m 555 iscsi/isboot/isboot.ko $NAS4FREE_TMPDIR/boot/kernel
+	install -v -o root -g wheel -m 555 ${NAS4FREE_ROOTFS}/boot/kernel/isboot.ko $NAS4FREE_TMPDIR/boot/kernel
 	# preload kernel drivers
 	cd ${NAS4FREE_OBJDIRPREFIX}/usr/src/sys/${NAS4FREE_KERNCONF}/modules/usr/src/sys/modules && install -v -o root -g wheel -m 555 opensolaris/opensolaris.ko $NAS4FREE_TMPDIR/boot/kernel
 	cd ${NAS4FREE_OBJDIRPREFIX}/usr/src/sys/${NAS4FREE_KERNCONF}/modules/usr/src/sys/modules && install -v -o root -g wheel -m 555 zfs/zfs.ko $NAS4FREE_TMPDIR/boot/kernel
@@ -561,12 +613,14 @@ create_image() {
 	echo "===> Detach memory disk"
 	mdconfig -d -u ${md}
 	echo "===> Compress the IMG file"
-	gzip -9n $NAS4FREE_WORKINGDIR/image.bin
-	cp $NAS4FREE_WORKINGDIR/image.bin.gz $NAS4FREE_ROOTDIR/$IMGFILENAME
+	xz -8v $NAS4FREE_WORKINGDIR/image.bin
+	cp $NAS4FREE_WORKINGDIR/image.bin.xz $NAS4FREE_ROOTDIR/${IMGFILENAME}.xz
 
 	# Cleanup.
 	[ -d $NAS4FREE_TMPDIR ] && rm -rf $NAS4FREE_TMPDIR
 	[ -f $NAS4FREE_WORKINGDIR/mfsroot.gz ] && rm -f $NAS4FREE_WORKINGDIR/mfsroot.gz
+	[ -f $NAS4FREE_WORKINGDIR/mfsroot.uzip ] && rm -f $NAS4FREE_WORKINGDIR/mfsroot.uzip
+	[ -f $NAS4FREE_WORKINGDIR/mdlocal.xz ] && rm -f $NAS4FREE_WORKINGDIR/mdlocal.xz
 	[ -f $NAS4FREE_WORKINGDIR/image.bin ] && rm -f $NAS4FREE_WORKINGDIR/image.bin
 
 	return 0
@@ -582,6 +636,9 @@ create_iso () {
 	# Cleanup.
 	[ -d $NAS4FREE_TMPDIR ] && rm -rf $NAS4FREE_TMPDIR
 	[ -f $NAS4FREE_WORKINGDIR/mfsroot.gz ] && rm -f $NAS4FREE_WORKINGDIR/mfsroot.gz
+	[ -f $NAS4FREE_WORKINGDIR/mfsroot.uzip ] && rm -f $NAS4FREE_WORKINGDIR/mfsroot.uzip
+	[ -f $NAS4FREE_WORKINGDIR/mdlocal.xz ] && rm -f $NAS4FREE_WORKINGDIR/mdlocal.xz
+	[ -f $NAS4FREE_WORKINGDIR/mdlocal-mini.xz ] && rm -f $NAS4FREE_WORKINGDIR/mdlocal-mini.xz
 
 	if [ ! $TINY_ISO ]; then
 		LABEL="${NAS4FREE_PRODUCTNAME}-${NAS4FREE_XARCH}-LiveCD-${NAS4FREE_VERSION}.${NAS4FREE_REVISION}"
@@ -606,11 +663,16 @@ create_iso () {
 
 	echo "ISO: Copying previously generated MFSROOT file to $NAS4FREE_TMPDIR"
 	cp $NAS4FREE_WORKINGDIR/mfsroot.gz $NAS4FREE_TMPDIR
+	cp $NAS4FREE_WORKINGDIR/mfsroot.uzip $NAS4FREE_TMPDIR
+	cp $NAS4FREE_WORKINGDIR/mdlocal.xz $NAS4FREE_TMPDIR
+	cp $NAS4FREE_WORKINGDIR/mdlocal-mini.xz $NAS4FREE_TMPDIR
+	echo "${LABEL}" > $NAS4FREE_TMPDIR/version
 
 	echo "ISO: Copying Bootloader file(s) to $NAS4FREE_TMPDIR"
 	mkdir -p $NAS4FREE_TMPDIR/boot
 	mkdir -p $NAS4FREE_TMPDIR/boot/kernel $NAS4FREE_TMPDIR/boot/defaults $NAS4FREE_TMPDIR/boot/zfs
 	cp $NAS4FREE_BOOTDIR/kernel/kernel.gz $NAS4FREE_TMPDIR/boot/kernel
+	cp $NAS4FREE_BOOTDIR/kernel/*.ko $NAS4FREE_TMPDIR/boot/kernel
 	cp $NAS4FREE_BOOTDIR/cdboot $NAS4FREE_TMPDIR/boot
 	cp $NAS4FREE_BOOTDIR/loader $NAS4FREE_TMPDIR/boot
 	cp $NAS4FREE_BOOTDIR/loader.conf $NAS4FREE_TMPDIR/boot
@@ -641,7 +703,7 @@ create_iso () {
 		cd ${NAS4FREE_OBJDIRPREFIX}/usr/src/sys/${NAS4FREE_KERNCONF}/modules/usr/src/sys/modules && install -v -o root -g wheel -m 555 apm/apm.ko $NAS4FREE_TMPDIR/boot/kernel
 	fi
 	# iSCSI driver
-	cd ${NAS4FREE_OBJDIRPREFIX}/usr/src/sys/${NAS4FREE_KERNCONF}/modules/usr/src/sys/modules && install -v -o root -g wheel -m 555 iscsi/isboot/isboot.ko $NAS4FREE_TMPDIR/boot/kernel
+	install -v -o root -g wheel -m 555 ${NAS4FREE_ROOTFS}/boot/kernel/isboot.ko $NAS4FREE_TMPDIR/boot/kernel
 	# preload kernel drivers
 	cd ${NAS4FREE_OBJDIRPREFIX}/usr/src/sys/${NAS4FREE_KERNCONF}/modules/usr/src/sys/modules && install -v -o root -g wheel -m 555 opensolaris/opensolaris.ko $NAS4FREE_TMPDIR/boot/kernel
 	cd ${NAS4FREE_OBJDIRPREFIX}/usr/src/sys/${NAS4FREE_KERNCONF}/modules/usr/src/sys/modules && install -v -o root -g wheel -m 555 zfs/zfs.ko $NAS4FREE_TMPDIR/boot/kernel
@@ -650,7 +712,7 @@ create_iso () {
 
 	if [ ! $TINY_ISO ]; then
 		echo "ISO: Copying IMG file to $NAS4FREE_TMPDIR"
-		cp ${NAS4FREE_WORKINGDIR}/image.bin.gz ${NAS4FREE_TMPDIR}/${NAS4FREE_PRODUCTNAME}-${NAS4FREE_XARCH}-embedded.gz
+		cp ${NAS4FREE_WORKINGDIR}/image.bin.xz ${NAS4FREE_TMPDIR}/${NAS4FREE_PRODUCTNAME}-${NAS4FREE_XARCH}-embedded.xz
 	fi
 
 	echo "ISO: Generating ISO File"
@@ -659,11 +721,14 @@ create_iso () {
 
 	echo "Generating SHA256 CHECKSUM File"
 	NAS4FREE_CHECKSUMFILENAME="${NAS4FREE_PRODUCTNAME}-${NAS4FREE_XARCH}-${NAS4FREE_VERSION}.${NAS4FREE_REVISION}.checksum"
-	cd ${NAS4FREE_ROOTDIR} && sha256 *.img *.iso > ${NAS4FREE_ROOTDIR}/${NAS4FREE_CHECKSUMFILENAME}
+	cd ${NAS4FREE_ROOTDIR} && sha256 *.img *.xz *.iso > ${NAS4FREE_ROOTDIR}/${NAS4FREE_CHECKSUMFILENAME}
 
 	# Cleanup.
 	[ -d $NAS4FREE_TMPDIR ] && rm -rf $NAS4FREE_TMPDIR
 	[ -f $NAS4FREE_WORKINGDIR/mfsroot.gz ] && rm -f $NAS4FREE_WORKINGDIR/mfsroot.gz
+	[ -f $NAS4FREE_WORKINGDIR/mfsroot.uzip ] && rm -f $NAS4FREE_WORKINGDIR/mfsroot.uzip
+	[ -f $NAS4FREE_WORKINGDIR/mdlocal.xz ] && rm -f $NAS4FREE_WORKINGDIR/mdlocal.xz
+	[ -f $NAS4FREE_WORKINGDIR/mdlocal-mini.xz ] && rm -f $NAS4FREE_WORKINGDIR/mdlocal-mini.xz
 
 	return 0
 }
@@ -685,8 +750,11 @@ create_usb () {
 	# Cleanup.
 	[ -d $NAS4FREE_TMPDIR ] && rm -rf $NAS4FREE_TMPDIR
 	[ -f ${NAS4FREE_WORKINGDIR}/image.bin ] && rm -f ${NAS4FREE_WORKINGDIR}/image.bin
-	[ -f ${NAS4FREE_WORKINGDIR}/image.bin.gz ] && rm -f ${NAS4FREE_WORKINGDIR}/image.bin.gz
+	[ -f ${NAS4FREE_WORKINGDIR}/image.bin.xz ] && rm -f ${NAS4FREE_WORKINGDIR}/image.bin.xz
 	[ -f ${NAS4FREE_WORKINGDIR}/mfsroot.gz ] && rm -f ${NAS4FREE_WORKINGDIR}/mfsroot.gz
+	[ -f ${NAS4FREE_WORKINGDIR}/mfsroot.uzip ] && rm -f ${NAS4FREE_WORKINGDIR}/mfsroot.uzip
+	[ -f ${NAS4FREE_WORKINGDIR}/mdlocal.xz ] && rm -f ${NAS4FREE_WORKINGDIR}/mdlocal.xz
+	[ -f ${NAS4FREE_WORKINGDIR}/mdlocal-mini.xz ] && rm -f ${NAS4FREE_WORKINGDIR}/mdlocal-mini.xz
 	[ -f ${NAS4FREE_WORKINGDIR}/usb-image.bin ] && rm -f ${NAS4FREE_WORKINGDIR}/usb-image.bin
 	[ -f ${NAS4FREE_WORKINGDIR}/usb-image.bin.gz ] && rm -f ${NAS4FREE_WORKINGDIR}/usb-image.bin.gz
 
@@ -706,34 +774,66 @@ create_usb () {
 	mkdir $NAS4FREE_TMPDIR
 	create_mfsroot;
 
-	IMGSIZE=$(stat -f "%z" ${NAS4FREE_WORKINGDIR}/image.bin.gz)
+	# for 2GB USB stick
+	IMGSIZE=$(stat -f "%z" ${NAS4FREE_WORKINGDIR}/image.bin.xz)
 	MFSSIZE=$(stat -f "%z" ${NAS4FREE_WORKINGDIR}/mfsroot.gz)
-	IMGSIZEM=$(expr \( $IMGSIZE + $MFSSIZE - 1 + 1024 \* 1024 \) / 1024 / 1024)
-	USBROOTM=64
-	USBIMGSIZEM=$(expr $USBROOTM + $IMGSIZEM)
+	MFS2SIZE=$(stat -f "%z" ${NAS4FREE_WORKINGDIR}/mfsroot.uzip)
+	MDLSIZE=$(stat -f "%z" ${NAS4FREE_WORKINGDIR}/mdlocal.xz)
+	MDLSIZE2=$(stat -f "%z" ${NAS4FREE_WORKINGDIR}/mdlocal-mini.xz)
+	IMGSIZEM=$(expr \( $IMGSIZE + $MFSSIZE + $MFS2SIZE + $MDLSIZE + $MDLSIZE2 - 1 + 1024 \* 1024 \) / 1024 / 1024)
+	USBROOTM=200
+	USBSWAPM=1024
+	USBDATAM=50
+	USB_SECTS=64
+	USB_HEADS=32
+
+	USBSYSSIZEM=$(expr $USBROOTM + $IMGSIZEM + 0)
+	USBDATSIZEM=$(expr $USBDATAM + 0)
+	USBIMGSIZEM=$(expr $USBSYSSIZEM + $USBSWAPM + $USBDATSIZEM + 2)
 
 	# 1MB aligned USB stick
 	echo "USB: Creating Empty IMG File"
 	dd if=/dev/zero of=${NAS4FREE_WORKINGDIR}/usb-image.bin bs=1m count=${USBIMGSIZEM}
 	echo "USB: Use IMG as a memory disk"
-	md=`mdconfig -a -t vnode -f ${NAS4FREE_WORKINGDIR}/usb-image.bin -x ${NAS4FREE_IMG_SECTS} -y ${NAS4FREE_IMG_HEADS}`
+	md=`mdconfig -a -t vnode -f ${NAS4FREE_WORKINGDIR}/usb-image.bin -x ${USB_SECTS} -y ${USB_HEADS}`
 	diskinfo -v ${md}
 
 	echo "USB: Creating BSD partition on this memory disk"
-	gpart create -s bsd ${md}
-	gpart bootcode -b ${NAS4FREE_BOOTDIR}/boot ${md}
-	gpart add -t freebsd-ufs ${md}
-	mdp=${md}a
+	#gpart create -s bsd ${md}
+	#gpart bootcode -b ${NAS4FREE_BOOTDIR}/boot ${md}
+	#gpart add -s ${USBSYSSIZEM}m -t freebsd-ufs ${md}
+	#gpart add -s ${USBSWAPM}m -t freebsd-swap ${md}
+	#gpart add -s ${USBDATSIZEM}m -t freebsd-ufs ${md}
+	#mdp=${md}a
+	gpart create -s mbr ${md}
+	gpart add -i 4 -t freebsd ${md}
+	gpart set -a active -i 4 ${md}
+	gpart bootcode -b ${NAS4FREE_BOOTDIR}/mbr ${md}
+	mdp=${md}s4
+	gpart create -s bsd ${mdp}
+	gpart bootcode -b ${NAS4FREE_BOOTDIR}/boot ${mdp}
+	gpart add -a 1m -s ${USBSYSSIZEM}m -t freebsd-ufs ${mdp}
+	gpart add -a 1m -s ${USBSWAPM}m -t freebsd-swap ${mdp}
+	gpart add -a 1m -s ${USBDATSIZEM}m -t freebsd-ufs ${mdp}
+	mdp=${mdp}a
 
 	echo "USB: Formatting this memory disk using UFS"
-	#newfs -S 512 -b 32768 -f 4096 -O2 -U -j -o time -m 8 /dev/${mdp}
-	newfs -S $NAS4FREE_IMGFMT_SECTOR -b $NAS4FREE_IMGFMT_BSIZE -f $NAS4FREE_IMGFMT_FSIZE -O2 -U -o space -m 0 /dev/${mdp}
+	#newfs -S 512 -b 32768 -f 4096 -O2 -U -j -o time -m 8 -L "liveboot" /dev/${mdp}
+	#newfs -S $NAS4FREE_IMGFMT_SECTOR -b $NAS4FREE_IMGFMT_BSIZE -f $NAS4FREE_IMGFMT_FSIZE -O2 -U -o space -m 0 -L "liveboot" /dev/${mdp}
+	newfs -S 4096 -b 32768 -f 4096 -O2 -U -j -o space -m 0 -L "liveboot" /dev/${mdp}
 
 	echo "USB: Mount this virtual disk on $NAS4FREE_TMPDIR"
 	mount /dev/${mdp} $NAS4FREE_TMPDIR
 
+	#echo "USB: Creating swap file on the memory disk"
+	#dd if=/dev/zero of=$NAS4FREE_TMPDIR/swap.dat bs=1m count=${USBSWAPM}
+
 	echo "USB: Copying previously generated MFSROOT file to memory disk"
 	cp $NAS4FREE_WORKINGDIR/mfsroot.gz $NAS4FREE_TMPDIR
+	cp $NAS4FREE_WORKINGDIR/mfsroot.uzip $NAS4FREE_TMPDIR
+	cp $NAS4FREE_WORKINGDIR/mdlocal.xz $NAS4FREE_TMPDIR
+	cp $NAS4FREE_WORKINGDIR/mdlocal-mini.xz $NAS4FREE_TMPDIR
+	echo "${NAS4FREE_PRODUCTNAME}-${NAS4FREE_XARCH}-LiveUSB-${NAS4FREE_VERSION}.${NAS4FREE_REVISION}" > $NAS4FREE_TMPDIR/version
 
 	echo "USB: Copying Bootloader File(s) to memory disk"
 	mkdir -p $NAS4FREE_TMPDIR/boot
@@ -741,6 +841,7 @@ create_usb () {
 	mkdir -p $NAS4FREE_TMPDIR/conf
 	cp $NAS4FREE_ROOTFS/conf.default/config.xml $NAS4FREE_TMPDIR/conf
 	cp $NAS4FREE_BOOTDIR/kernel/kernel.gz $NAS4FREE_TMPDIR/boot/kernel
+	cp $NAS4FREE_BOOTDIR/kernel/*.ko $NAS4FREE_TMPDIR/boot/kernel
 	cp $NAS4FREE_BOOTDIR/boot $NAS4FREE_TMPDIR/boot
 	cp $NAS4FREE_BOOTDIR/loader $NAS4FREE_TMPDIR/boot
 	cp $NAS4FREE_BOOTDIR/loader.conf $NAS4FREE_TMPDIR/boot
@@ -771,7 +872,7 @@ create_usb () {
 		cd ${NAS4FREE_OBJDIRPREFIX}/usr/src/sys/${NAS4FREE_KERNCONF}/modules/usr/src/sys/modules && install -v -o root -g wheel -m 555 apm/apm.ko $NAS4FREE_TMPDIR/boot/kernel
 	fi
 	# iSCSI driver
-	cd ${NAS4FREE_OBJDIRPREFIX}/usr/src/sys/${NAS4FREE_KERNCONF}/modules/usr/src/sys/modules && install -v -o root -g wheel -m 555 iscsi/isboot/isboot.ko $NAS4FREE_TMPDIR/boot/kernel
+	install -v -o root -g wheel -m 555 ${NAS4FREE_ROOTFS}/boot/kernel/isboot.ko $NAS4FREE_TMPDIR/boot/kernel
 	# preload kernel drivers
 	cd ${NAS4FREE_OBJDIRPREFIX}/usr/src/sys/${NAS4FREE_KERNCONF}/modules/usr/src/sys/modules && install -v -o root -g wheel -m 555 opensolaris/opensolaris.ko $NAS4FREE_TMPDIR/boot/kernel
 	cd ${NAS4FREE_OBJDIRPREFIX}/usr/src/sys/${NAS4FREE_KERNCONF}/modules/usr/src/sys/modules && install -v -o root -g wheel -m 555 zfs/zfs.ko $NAS4FREE_TMPDIR/boot/kernel
@@ -779,7 +880,7 @@ create_usb () {
 	copy_kmod
 
 	echo "USB: Copying IMG file to $NAS4FREE_TMPDIR"
-	cp ${NAS4FREE_WORKINGDIR}/image.bin.gz ${NAS4FREE_TMPDIR}/${NAS4FREE_PRODUCTNAME}-${NAS4FREE_XARCH}-embedded.gz
+	cp ${NAS4FREE_WORKINGDIR}/image.bin.xz ${NAS4FREE_TMPDIR}/${NAS4FREE_PRODUCTNAME}-${NAS4FREE_XARCH}-embedded.xz
 
 	echo "USB: Unmount memory disk"
 	umount $NAS4FREE_TMPDIR
@@ -792,12 +893,15 @@ create_usb () {
 
 	echo "Generating SHA256 CHECKSUM File"
 	NAS4FREE_CHECKSUMFILENAME="${NAS4FREE_PRODUCTNAME}-${NAS4FREE_XARCH}-${NAS4FREE_VERSION}.${NAS4FREE_REVISION}.checksum"
-	cd ${NAS4FREE_ROOTDIR} && sha256 *.img *.iso > ${NAS4FREE_ROOTDIR}/${NAS4FREE_CHECKSUMFILENAME}
+	cd ${NAS4FREE_ROOTDIR} && sha256 *.img *.xz *.iso > ${NAS4FREE_ROOTDIR}/${NAS4FREE_CHECKSUMFILENAME}
 
 	# Cleanup.
 	[ -d $NAS4FREE_TMPDIR ] && rm -rf $NAS4FREE_TMPDIR
 	[ -f $NAS4FREE_WORKINGDIR/mfsroot.gz ] && rm -f $NAS4FREE_WORKINGDIR/mfsroot.gz
-	[ -f $NAS4FREE_WORKINGDIR/image.bin ] && rm -f $NAS4FREE_WORKINGDIR/image.bin
+	[ -f $NAS4FREE_WORKINGDIR/mfsroot.uzip ] && rm -f $NAS4FREE_WORKINGDIR/mfsroot.uzip
+	[ -f $NAS4FREE_WORKINGDIR/mdlocal.xz ] && rm -f $NAS4FREE_WORKINGDIR/mdlocal.xz
+	[ -f $NAS4FREE_WORKINGDIR/mdlocal-mini.xz ] && rm -f $NAS4FREE_WORKINGDIR/mdlocal-mini.xz
+	[ -f $NAS4FREE_WORKINGDIR/image.bin.xz ] && rm -f $NAS4FREE_WORKINGDIR/image.bin.xz
 	[ -f $NAS4FREE_WORKINGDIR/usb-image.bin ] && rm -f $NAS4FREE_WORKINGDIR/usb-image.bin
 
 	return 0
@@ -826,6 +930,7 @@ create_full() {
 	cd $NAS4FREE_TMPDIR
 	tar -cf - -C $NAS4FREE_ROOTFS ./ | tar -xvpf -
 	#tar -cf - -C $NAS4FREE_ROOTFS ./ | tar -xvpf - -C $NAS4FREE_TMPDIR
+	echo "${NAS4FREE_PRODUCTNAME}-${PLATFORM}-${NAS4FREE_VERSION}.${NAS4FREE_REVISION}" > $NAS4FREE_TMPDIR/version
 
 	echo "Copying bootloader file(s) to root filesystem"
 	mkdir -p $NAS4FREE_TMPDIR/boot/kernel $NAS4FREE_TMPDIR/boot/defaults $NAS4FREE_TMPDIR/boot/zfs
@@ -862,7 +967,7 @@ create_full() {
 		cd ${NAS4FREE_OBJDIRPREFIX}/usr/src/sys/${NAS4FREE_KERNCONF}/modules/usr/src/sys/modules && cp apm/apm.ko $NAS4FREE_TMPDIR/boot/kernel
 	fi
 	# iSCSI driver
-	cd ${NAS4FREE_OBJDIRPREFIX}/usr/src/sys/${NAS4FREE_KERNCONF}/modules/usr/src/sys/modules && install -v -o root -g wheel -m 555 iscsi/isboot/isboot.ko $NAS4FREE_TMPDIR/boot/kernel
+	install -v -o root -g wheel -m 555 ${NAS4FREE_ROOTFS}/boot/kernel/isboot.ko $NAS4FREE_TMPDIR/boot/kernel
 	# preload kernel drivers
 	cd ${NAS4FREE_OBJDIRPREFIX}/usr/src/sys/${NAS4FREE_KERNCONF}/modules/usr/src/sys/modules && install -v -o root -g wheel -m 555 opensolaris/opensolaris.ko $NAS4FREE_TMPDIR/boot/kernel
 	cd ${NAS4FREE_OBJDIRPREFIX}/usr/src/sys/${NAS4FREE_KERNCONF}/modules/usr/src/sys/modules && install -v -o root -g wheel -m 555 zfs/zfs.ko $NAS4FREE_TMPDIR/boot/kernel
@@ -873,17 +978,18 @@ create_full() {
 	echo 'kernel="kernel"' >> $NAS4FREE_TMPDIR/boot/loader.conf
 	echo 'bootfile="kernel"' >> $NAS4FREE_TMPDIR/boot/loader.conf
 	echo 'kernel_options=""' >> $NAS4FREE_TMPDIR/boot/loader.conf
-	echo 'kern.hz="100"' >> $NAS4FREE_TMPDIR/boot/loader.conf
 	echo 'hw.est.msr_info="0"' >> $NAS4FREE_TMPDIR/boot/loader.conf
 	echo 'hw.hptrr.attach_generic="0"' >> $NAS4FREE_TMPDIR/boot/loader.conf
 	echo 'kern.maxfiles="65536"' >> $NAS4FREE_TMPDIR/boot/loader.conf
-	echo 'kern.maxfilesperproc="50000"' >> $NAS4FREE_TMPDIR/boot/loader.conf
+	echo 'kern.maxfilesperproc="60000"' >> $NAS4FREE_TMPDIR/boot/loader.conf
 	echo 'kern.cam.boot_delay="8000"' >> $NAS4FREE_TMPDIR/boot/loader.conf
 	echo 'splash_bmp_load="YES"' >> $NAS4FREE_TMPDIR/boot/loader.conf
 	echo 'bitmap_load="YES"' >> $NAS4FREE_TMPDIR/boot/loader.conf
 	echo 'bitmap_name="/boot/splash.bmp"' >> $NAS4FREE_TMPDIR/boot/loader.conf
 	echo 'autoboot_delay="5"' >> $NAS4FREE_TMPDIR/boot/loader.conf
 	echo 'isboot_load="YES"' >> $NAS4FREE_TMPDIR/boot/loader.conf
+	echo 'zfs_load="YES"' >> $NAS4FREE_TMPDIR/boot/loader.conf
+	echo 'geom_xmd_load="YES"' >> $NAS4FREE_TMPDIR/boot/loader.conf
 
 	#Check that there is no /etc/fstab file! This file can be generated only during install, and must be kept
 	[ -f $NAS4FREE_TMPDIR/etc/fstab ] && rm -f $NAS4FREE_TMPDIR/etc/fstab
@@ -1053,8 +1159,8 @@ $DIALOG --title \"$NAS4FREE_PRODUCTNAME - Ports\" \\
 				echo "--------------------------------------------------------------";
 				cd ${NAS4FREE_SVNDIR}/build/ports/${port};
 				# Delete cookie first, otherwise Makefile will skip this step.
-				rm -f ./work/.install_done.*;
-				env FORCE_PKG_REGISTER=1 make install;
+				rm -f ./work/.install_done.* ./work/.stage_done.*;
+				env PKG_DBDIR=$NAS4FREE_WORKINGDIR/pkg FORCE_PKG_REGISTER=1 make install;
 				[ 0 != $? ] && return 1; # successful?
 			done;
 			;;
@@ -1067,6 +1173,7 @@ $DIALOG --title \"$NAS4FREE_PRODUCTNAME - Ports\" \\
 main() {
 	# Ensure we are in $NAS4FREE_WORKINGDIR
 	[ ! -d "$NAS4FREE_WORKINGDIR" ] && mkdir $NAS4FREE_WORKINGDIR
+	[ ! -d "$NAS4FREE_WORKINGDIR/pkg" ] && mkdir $NAS4FREE_WORKINGDIR/pkg
 	cd $NAS4FREE_WORKINGDIR
 
 	echo -n "

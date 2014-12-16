@@ -2,22 +2,22 @@ msgid ""
 msgstr ""
 "Project-Id-Version: NAS4Free\n"
 "Report-Msgid-Bugs-To: zoon01 <zoon01@nas4free.org>\n"
-"POT-Creation-Date: 2014-04-16 00:50+0000\n"
-"PO-Revision-Date: 2013-04-14 18:58+0000\n"
+"POT-Creation-Date: 2014-12-14 09:25+0000\n"
+"PO-Revision-Date: 2014-12-14 01:00+0000\n"
 "Last-Translator: Daisuke Aoyama <Unknown>\n"
 "Language-Team: NAS4Free\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-04-21 22:09+0000\n"
-"X-Generator: Launchpad (build 16985)\n"
+"X-Launchpad-Export-Date: 2014-12-14 01:09+0000\n"
+"X-Generator: Launchpad (build 17286)\n"
 "X-Poedit-Country: JAPAN\n"
 "Language: \n"
 "X-Poedit-Language: Japanese\n"
 "X-Poedit-SourceCharset: utf-8\n"
 
 msgid " interfaces:"
-msgstr " インタフェース:"
+msgstr " インタフェース"
 
 msgid " was assigned to "
 msgstr " は次の項目にアサインされています "
@@ -77,6 +77,10 @@ msgstr "残り%s%%"
 #, php-format
 msgid "%s%d %s is already used by %s%d."
 msgstr "%s%d %s は既に %s%d で使用されています。"
+
+#, php-format
+msgid "%s: cannot get mirror name."
+msgstr "%s: ミラー名が取得できません。"
 
 #, c-format, php-format
 msgid "%sB available of %sB"
@@ -204,6 +208,10 @@ msgid "A valid IP address must be specified."
 msgstr "有効な IP アドレスを指定して下さい。"
 
 msgid ""
+"A valid IP address or CIDR notation must be specified for the hosts allow."
+msgstr "許可するホストには有効な IP アドレスか CIDR 表記を指定してください。"
+
+msgid ""
 "A valid IPv4 address must be specified for the primary/secondary DNS server."
 msgstr "プライマリ/セカンダリ DNS サーバは有効な IPv4 アドレスを指定してください。"
 
@@ -306,10 +314,10 @@ msgid "Active Directory"
 msgstr "Active Directory"
 
 msgid "Active Directory List"
-msgstr ""
+msgstr "アクティブなディレクトリリスト"
 
 msgid "Active Shares"
-msgstr ""
+msgstr "アクティブな共有"
 
 msgid "Active Users"
 msgstr "アクティブなユーザ"
@@ -498,11 +506,17 @@ msgstr "すべてのディレクトリ"
 msgid "All dirs requires mounted path, but Path %s is not mounted."
 msgstr "\"すべてのディレクトリ\"はマウントされたパスが必要ですが、指定されたパス %s はマウントされていません。"
 
+msgid "All disks are imported."
+msgstr "すべてのディスクがインポートされました。"
+
 msgid ""
 "All shares use the option 'usedots' thus making the filenames .Parent and "
 "anything beginning with .Apple illegal."
 msgstr ""
 "全ての共有で 'usedots' を使用します。従って、ファイル名 .Parent と .Appleから始まる全てのファイルは使えません。"
+
+msgid "All software raid disks are imported."
+msgstr "すべてのソフトウェアRAIDがインポートされました。"
 
 msgid "All users will have the root privilege."
 msgstr "全てのユーザが root 権限を持ちます。"
@@ -530,7 +544,7 @@ msgid "Allow new files to be created."
 msgstr "新しいファイルの作成を許可します。"
 
 msgid "Allow to start UPS from battery"
-msgstr ""
+msgstr "バッテリーでのUPS起動の可否"
 
 msgid "Allow trusted domains."
 msgstr "信頼するドメインを許可する。"
@@ -567,28 +581,20 @@ msgstr "常にオン"
 msgid "Always scan"
 msgstr "常にスキャン"
 
-msgid ""
-"Always use 0 for device number, helps when the device number is not constant "
-"across a reboot, cluster, ..."
-msgstr "デバイス番号として常に0を使います。リブートやクラスタを超てデバイスが特定の値をもたない場合に役に立ちます。"
-
 msgid "Ambient Conditions From External Probe Equipment"
-msgstr ""
+msgstr "外部プローブ装置からの周囲条件"
 
 msgid "Ambient relative humidity (percent)"
-msgstr ""
+msgstr "周辺相対湿度"
 
 msgid "Ambient temperature (degrees C)"
-msgstr ""
+msgstr "周辺温度"
 
 msgid "An host with this name already exists."
 msgstr "この名前がつけられたホストは既に存在しています。"
 
 msgid "An interface with the specified description already exists."
 msgstr "指定された説明がつけられたインタフェースは既に存在しています。"
-
-msgid "Anonymous"
-msgstr "匿名"
 
 msgid "Anonymous bind"
 msgstr "匿名バインド"
@@ -685,23 +691,17 @@ msgstr "オートサイズ"
 msgid "AutoScale"
 msgstr "オートスケール"
 
-msgid "Automatic disk discovery"
-msgstr "ディスクの自動検出"
-
-msgid "Automatic disk discovery mode"
-msgstr "ディスクの自動検出モード"
-
 msgid "Autoselect"
 msgstr "自動選択"
 
 msgid "Auxiliary device firmware"
-msgstr ""
+msgstr "予備デバイスファームウェア"
 
 msgid "Auxiliary parameters"
 msgstr "補助パラメータ"
 
 msgid "Available"
-msgstr ""
+msgstr "利用可能"
 
 msgid "Backup configuration"
 msgstr "設定のバックアップ"
@@ -738,47 +738,47 @@ msgid ""
 msgstr "iqn. から指定しない場合は自動的にベース名が追加されます。"
 
 msgid "Battery Details"
-msgstr ""
+msgstr "バッテリー詳細"
 
 msgid "Battery Level"
-msgstr ""
+msgstr "バッテリー残量"
 
 msgid "Battery Low"
 msgstr "バッテリー残量が少なくなりました"
 
 msgid ""
 "Battery Remaining level when UPS switches to Shutdown mode (Low Battery)"
-msgstr ""
+msgstr "UPSがシャットダウンモードに移行するバッテリー残量(バッテリー切れ)"
 
 msgid "Battery alarm threshold"
-msgstr ""
+msgstr "バッテリー警告しきい値"
 
 msgid "Battery capacity"
-msgstr ""
+msgstr "バッテリー容量"
 
 msgid "Battery change date"
-msgstr ""
+msgstr "バッテリー交換日"
 
 msgid "Battery chemistry"
-msgstr ""
+msgstr "バッテリー種別"
 
 msgid "Battery current"
-msgstr ""
+msgstr "バッテリー電流"
 
 msgid "Battery level"
-msgstr ""
+msgstr "バッテリー残量"
 
 msgid "Battery level when UPS switches to \"Warning\" state"
-msgstr ""
+msgstr "UPSが警告状態に移行するバッテリー残量"
 
 msgid "Battery manufacturing date"
-msgstr ""
+msgstr "バッテリー製造日"
 
 msgid "Battery temperature"
-msgstr ""
+msgstr "バッテリー温度"
 
 msgid "Battery voltage"
-msgstr ""
+msgstr "バッテリー電圧"
 
 msgid "Best available"
 msgstr "最も良いものを自動選択"
@@ -829,7 +829,7 @@ msgid "CD/DVD"
 msgstr "CD/DVD"
 
 msgid "CHANGED"
-msgstr ""
+msgstr "変更"
 
 msgid "CHAP"
 msgstr "CHAP"
@@ -913,16 +913,13 @@ msgid "Canmount"
 msgstr "マウント可否"
 
 msgid "Cannot get CPU load"
-msgstr ""
+msgstr "CPUロードを取得できません"
 
 msgid "Cannot get data about interface"
 msgstr "インタフェースのデータを取得出来ません"
 
 msgid "Capacity"
 msgstr "容量"
-
-msgid "Case Folding"
-msgstr "ケースフォールディング"
 
 msgid ""
 "Causes the server to display the network information for the specified IP "
@@ -966,6 +963,9 @@ msgstr "中国語 (簡体字)"
 msgid "Chinese (Traditional)"
 msgstr "中国語 (繁体字)"
 
+msgid "Choose UPS mode."
+msgstr "UPSモードを選択してください。"
+
 msgid "Choose on which interface packets must come in to match this rule."
 msgstr "パケットをルールに当てはめる為のインタフェースを指定します。"
 
@@ -989,18 +989,15 @@ msgid ""
 "image file for flashing.<br />Click &quot;Upgrade firmware&quot; to start "
 "the upgrade process."
 msgstr ""
+"&quot;ファームウェアアップロードを許可&quot; "
+"をクリックし、書き込みするイメージファイルを選択して下さい。<br/>その後、アップグレードプロセスを起動する為 "
+"&quot;ファームウェアアップグレード&quot; をクリックして下さい。"
 
 msgid "Click this button to download the server configuration in XML format."
 msgstr "サーバー設定ファイル(XMLフォーマット)をダウンロードするには、このボタンをクリックしてください。"
 
 msgid "Client"
 msgstr "クライアント"
-
-msgid "Client sees lowercase, server sees uppercase"
-msgstr "クライアントは小文字、サーバは大文字で表示。"
-
-msgid "Client sees uppercase, server sees lowercase"
-msgstr "クライアントは大文字、サーバは小文字で表示。"
 
 msgid "Clone"
 msgstr "クローン"
@@ -1092,7 +1089,7 @@ msgid "Content"
 msgstr "コンテンツ"
 
 msgid "Controller"
-msgstr ""
+msgstr "コントローラー"
 
 msgid "Controller Auth Group"
 msgstr "コントローラ 認証グループ"
@@ -1110,7 +1107,7 @@ msgid "Controller TCP Port"
 msgstr "コントローラ TCP ポート"
 
 msgid "Controller model"
-msgstr ""
+msgstr "コントローラーモデル"
 
 msgid "Controls power consumption."
 msgstr "消費電力の制御。"
@@ -1227,10 +1224,10 @@ msgid "Current password"
 msgstr "現在のパスワード"
 
 msgid "Current value of apparent power (Volt-Amps)"
-msgstr ""
+msgstr "現在の皮相電力(VA)"
 
 msgid "Current value of real power (Watts)"
-msgstr ""
+msgstr "現在の有効電力(W)"
 
 msgid "Custom"
 msgstr "カスタム"
@@ -1250,20 +1247,14 @@ msgstr "チェコ語"
 msgid "DAAP"
 msgstr "DAAP"
 
-msgid "DDP"
-msgstr "DDP"
-
 msgid "DHCP"
 msgstr "DHCP"
 
 msgid "DLNA/UPnP"
-msgstr ""
+msgstr "DLNA/UPnP"
 
 msgid "DLNA/UPnP Media Server"
-msgstr ""
-
-msgid "DNLA/UPnP"
-msgstr ""
+msgstr "DLNA/UPnP メディアサーバー"
 
 msgid "DNS settings"
 msgstr "DNS の設定"
@@ -1276,6 +1267,9 @@ msgid ""
 "the upgrade.<br />It is strongly recommended that you <a "
 "href='%s'>Backup</a> the server configuration before doing a upgrade."
 msgstr ""
+"ファームウェアのアップグレードを一旦開始したら途中で終了しないでください。サーバーはファームウェアのアップグレードが完了すると自動的に再起動します。現在の"
+"設定は維持されます。<br/>ファームウェアのアップグレードを行うには最低 %d MiB の 空き容量RAM "
+"が必要となります。<br/>ファームウェアをアップグレードする前にシステム設定の <a href='%s'>バックアップ</a> を行う事をお勧めします。"
 
 msgid "DVD"
 msgstr "DVD"
@@ -1512,8 +1506,14 @@ msgstr "接続先共有"
 msgid "Detected"
 msgstr "検出"
 
+msgid "Detected Language:<br />(Change if needed)"
+msgstr "検出された言語:<br />(必要ならば変更してください)"
+
 msgid "Detected RSYNC remote shares"
 msgstr "検出された RSYNC リモート共有"
+
+msgid "Detected an error while importing."
+msgstr "インポート中にエラーを検出しました。"
 
 msgid ""
 "Determine the default timeout, in microseconds, before the first packet is "
@@ -1534,7 +1534,7 @@ msgid "Device Pass-through"
 msgstr "SCSIデバイスパススルー"
 
 msgid "Device Serial"
-msgstr ""
+msgstr "デバイスシリアル"
 
 msgid "Device model"
 msgstr "デバイスモデル"
@@ -1590,9 +1590,6 @@ msgstr "リムーバブルメディアを格納するディレクトリ。(例: 
 msgid "Directory to watch for new .torrent files."
 msgstr "新しい .torrent ファイルを監視するディレクトリ。"
 
-msgid "Disable AFP-over-Appletalk to prevent DDP connections."
-msgstr "DDP 接続を防止する為に、AFP over Appletalk を無効にします。"
-
 msgid "Disable File Manager"
 msgstr "ファイルマネージャを無効にする"
 
@@ -1613,11 +1610,6 @@ msgstr "スタートアップとシャットダウン時のスピーカービー
 
 msgid "Disabled"
 msgstr "無効"
-
-msgid ""
-"Disables :hex translations for anything except dot files. This option makes "
-"the '/' character illegal."
-msgstr "ドットファイル以外のHEX変換を禁止します。このオプションは '/' を無効なキャラクタと認識するようになります。"
 
 #, php-format
 msgid "Discovered iSCSI target for %s"
@@ -1816,17 +1808,8 @@ msgstr "ドメイン名 (例: example.com)"
 msgid "Don't Erase MBR"
 msgstr "MBR を消去しない"
 
-msgid "Don't advertise createfileid, resolveid, deleteid calls."
-msgstr "createfileid、resoleveid 及び deleteid コールの広告を行いません。"
-
 msgid "Don't erase the MBR (useful for some RAID controller cards)"
 msgstr "MBR を消去しない (いくつかの RAID コントローラカードで有用です)"
-
-msgid ""
-"Don't stat volume path when enumerating volumes list, useful for "
-"automounting or volumes created by a preexec script."
-msgstr ""
-"ボリュームリスト作成時にボリュームパスに対して stat を行わない。自動マウントや preexec スクリプトが作成するボリュームの場合に有用です。"
 
 msgid "Donate"
 msgstr "寄附"
@@ -1868,13 +1851,13 @@ msgid "Driver parameters"
 msgstr "ドライバパラメータ"
 
 msgid "Driver used"
-msgstr ""
+msgstr "利用ドライバー"
 
 msgid "Driver version"
-msgstr ""
+msgstr "ドライバーバージョン"
 
 msgid "Driver version internal"
-msgstr ""
+msgstr "ドライバー内部バージョン"
 
 msgid "Duplex"
 msgstr "デュプレックス"
@@ -1995,7 +1978,7 @@ msgstr "ボリュームを編集"
 
 msgid ""
 "Efficiency of the UPS (Ratio of the output current on the input current)"
-msgstr ""
+msgstr "UPS効率(入出力電流の比率)"
 
 msgid "Email"
 msgstr "メール"
@@ -2033,7 +2016,7 @@ msgstr "SMTP-AUTHを有効化"
 msgid ""
 "Enable STARTTLS encryption. This doesn't mean you have to use TLS, you can "
 "use SSL."
-msgstr ""
+msgstr "STARTTLS暗号化を有効にします。これはTLSを必ず利用しなければいけないわけではなく、SSLを利用できます。"
 
 msgid "Enable TLS/SSL connections."
 msgstr "TLS/SSL 接続を有効にします。"
@@ -2044,17 +2027,11 @@ msgstr "ZFS ACLを有効化"
 msgid "Enable Zeroconf/Bonjour to advertise services of this device"
 msgstr "Zeroconf/Bonjour でのデバイスのサービスの広告を有効にする"
 
-msgid "Enable administrative DLNA/UPnP WebGUI."
-msgstr ""
-
 msgid "Enable anonymous bind."
 msgstr "匿名バインドを有効にします。"
 
 msgid "Enable authentication."
 msgstr "認証を有効にします。"
-
-msgid "Enable automatic disk discovery."
-msgstr "新しいディスクの自動検知を有効にする"
 
 msgid "Enable compression."
 msgstr "圧縮を有効化"
@@ -2170,18 +2147,6 @@ msgstr "書き込みキャッシュモードを有効にします。"
 msgid "Enabled"
 msgstr "有効"
 
-msgid ""
-"Enables crlf translation for TEXT files, automatically converting macintosh "
-"line breaks into Unix ones. Use of this option might be dangerous since some "
-"older programs store binary data files as type 'TEXT' when saving and switch "
-"the filetype in a second step. Afpd will potentially destroy such files when "
-"'erroneously' changing bytes in order to do line break translation."
-msgstr ""
-"テキストファイルの CRLF 変換を有効にすると、Macintosh の改行コードが Unix "
-"形式に自動的に変換されます。いくつかの古いプログラムはバイナリデータを 'テキスト' として保存した後、ファイルタイプを変更する "
-"2段階のステップを踏むものがありますので、このオプションを使用することは危険かもしれません。Afpd は改行コード変換の際 '誤った' "
-"バイト変換を行うプログラムによって、ファイルを破壊してしまいます。"
-
 msgid "Encrypted"
 msgstr "暗号化"
 
@@ -2267,10 +2232,10 @@ msgid "Extended attributes"
 msgstr "拡張属性"
 
 msgid "Extended input frequency range"
-msgstr ""
+msgstr "拡張された入力周波数範囲"
 
 msgid "Extended input voltage range"
-msgstr ""
+msgstr "拡張された入力電圧範囲"
 
 msgid "Extensions"
 msgstr "拡張"
@@ -2306,7 +2271,7 @@ msgstr "ifconfig の拡張オプション (通常は空)"
 
 msgid ""
 "Extra options to pass over rpc using transmission-remote (usually empty)."
-msgstr ""
+msgstr "transmission-remote を使って設定する拡張オプション (通常は空)"
 
 msgid "Extra options to rsync (usually empty)."
 msgstr "rsync の拡張オプション (通常は空)"
@@ -2452,7 +2417,7 @@ msgid "Firmware uploading is not supported on this platform."
 msgstr "ファームウェアアップロードはこのプラットフォームではサポートされていません。"
 
 msgid "Firmware version"
-msgstr ""
+msgstr "ファームウェアバージョン"
 
 msgid "Firmware version check"
 msgstr "ファームウェアバージョンチェック"
@@ -2461,7 +2426,7 @@ msgid "FirstBurstLength"
 msgstr "FirstBurstLength"
 
 msgid "Flag xxx (ups.conf or cmdline -x) status"
-msgstr ""
+msgstr "xxx フラグ (ups.conf または cmdline -x) ステータス"
 
 msgid "Flags"
 msgstr "フラグ"
@@ -2550,7 +2515,7 @@ msgid "Give only local users access to the web page."
 msgstr "ローカルユーザのみにウェブページのアクセスを許可します。"
 
 msgid "Give your media library a friendly name."
-msgstr ""
+msgstr "メディアライブラリの名称を指定してください。"
 
 msgid "Grant access to the user portal."
 msgstr "ユーザポータルへのアクセスを許可します。"
@@ -2640,13 +2605,13 @@ msgid "Hide dot files"
 msgstr "ドットファイルを隠す"
 
 msgid "High voltage boosting transfer point"
-msgstr ""
+msgstr "電圧上昇補正の戻り値"
 
 msgid "High voltage transfer point"
-msgstr ""
+msgstr "切替電圧上限値"
 
 msgid "High voltage trimming transfer point"
-msgstr ""
+msgstr "電圧下降補正のしきい値"
 
 msgid "Highlighting"
 msgstr "ハイライト"
@@ -2660,6 +2625,8 @@ msgid ""
 "real hostnames where possible.<br><font color='red'>Warning</font>: This can "
 "cause a huge delay in loading the log page!"
 msgstr ""
+"ヒント: チェックした場合、 サーバログ内の IP アドレスは可能であればホスト名で表示されます。<br><font "
+"color='red'>警告</font>: これはログページの表示に長い遅延が生じる可能性があります！"
 
 msgid "Home directory"
 msgstr "ホームディレクトリ"
@@ -2813,14 +2780,6 @@ msgstr ""
 "のオペレーションが実行されます。これはホストシステムのファイルスペースの一部からクライアントを確実に切り離す為に使用できます。"
 
 msgid ""
-"If set afpd uses the ID information stored in AppleDouble V2 header files to "
-"reduce database load. Don't set this option if the volume is modified by non "
-"AFP clients (NFS/SMB/local)."
-msgstr ""
-"有効にした場合、afpd はデータベース負荷を減らす為 AppleDouble V2 ヘッダファイル内の ID 情報を使用します。ボリュームが AFP "
-"クライアント以外 (NFS/SMB/ローカル) によって書き換えられる場合はこのオプションを有効にしないで下さい。"
-
-msgid ""
 "If the selected disk/partition is mounted it will be unmounted temporarily "
 "to perform selected command, otherwise the commands work in read-only "
 "mode.<br />Service disruption to users accessing this mount will occur "
@@ -2898,11 +2857,14 @@ msgstr "入力"
 msgid "In most cases, 'public' is used here."
 msgstr "ほとんどの場合 'public' が使われます。"
 
+msgid "In slave mode it is the UPS name (Identifier) at the UPS master."
+msgstr "スレーブモードではマスターでのUPS名(識別子)になります。"
+
 msgid "Include basic hardware information."
 msgstr "基本的なハードウェア情報を含む。"
 
 msgid "Incoming Line/Power Information"
-msgstr ""
+msgstr "入力電源情報"
 
 msgid "Incomplete directory"
 msgstr "未完了ディレクトリ"
@@ -2964,28 +2926,28 @@ msgid "Initiators"
 msgstr "イニシエータ"
 
 msgid "Input current (A)"
-msgstr ""
+msgstr "入力電流(A)"
 
 msgid "Input frequency"
-msgstr ""
+msgstr "入力周波数"
 
 msgid "Input line frequency (Hz)"
-msgstr ""
+msgstr "入力周波数(Hz)"
 
 msgid "Input line frequency high (Hz)"
-msgstr ""
+msgstr "入力周波数上限(Hz)"
 
 msgid "Input line frequency low (Hz)"
-msgstr ""
+msgstr "入力周波数下限(Hz)"
 
 msgid "Input power quality (* opaque)"
-msgstr ""
+msgstr "入力電源の品質"
 
 msgid "Input power sensitivity"
-msgstr ""
+msgstr "入力電源の感度"
 
 msgid "Input voltage"
-msgstr ""
+msgstr "入力電圧"
 
 msgid "Inquiry Product"
 msgstr "プロダクトの照会"
@@ -3012,34 +2974,34 @@ msgid "Interface Management"
 msgstr "インタフェースの管理"
 
 msgid "Interface selection"
-msgstr ""
+msgstr "インターフェース選択"
 
 msgid "Interfaces"
 msgstr "インタフェース"
 
 msgid "Internal Server Information"
-msgstr ""
+msgstr "内部サーバー情報"
 
 msgid "Internal UPS clock date"
-msgstr ""
+msgstr "内部UPS日時"
 
 msgid "Internal UPS clock time"
-msgstr ""
+msgstr "内部UPS時間"
 
 msgid "Interval between self tests"
-msgstr ""
+msgstr "セルフテスト間隔"
 
 msgid "Interval must be greater or equal than 10 seconds."
 msgstr "10 秒以上の時間を指定してください。"
 
 msgid "Interval to wait after shutdown with delay command"
-msgstr ""
+msgstr "ディレイコマンドを使ったシャットダウンの待ち時間"
 
 msgid "Interval to wait before rebooting the UPS)"
-msgstr ""
+msgstr "UPS再起動の待ち時間"
 
 msgid "Interval to wait before restarting the load"
-msgstr ""
+msgstr "再始動の待ち時間"
 
 msgid "Invalid file format."
 msgstr "無効なファイル形式です。"
@@ -3049,7 +3011,7 @@ msgid "Invalid max. block size! It must be in the range from %d to %d."
 msgstr "無効なブロックサイズの最大値です! %d から %d の範囲で指定して下さい。"
 
 msgid "Invalid username or password. Please try again."
-msgstr ""
+msgstr "ユーザー名またはパスワードが無効です。再入力してください。"
 
 msgid ""
 "It can be changed from the client side by standard SCSI mode page at any "
@@ -3140,7 +3102,7 @@ msgid "Language"
 msgstr "言語"
 
 msgid "Language to use on front panel"
-msgstr ""
+msgstr "フロントパネルで利用する言語"
 
 msgid "Large read/write"
 msgstr "Large read/write"
@@ -3263,10 +3225,10 @@ msgid "Load file"
 msgstr "ロード"
 
 msgid "Load on UPS"
-msgstr ""
+msgstr "UPSの負荷"
 
 msgid "Load when UPS switches to overload condition (\"OVER\")"
-msgstr ""
+msgstr "過負荷状態に移行するUPS負荷"
 
 msgid "Loadbalance"
 msgstr "ロードバランス"
@@ -3313,7 +3275,7 @@ msgid "Location where the content database file will be stored."
 msgstr "コンテンツデータベースファイルが保存される場所を指定します。"
 
 msgid "Location where the database with media contents will be stored."
-msgstr ""
+msgstr "コンテンツデータベースファイルが保存される場所を指定します。"
 
 #, php-format
 msgid ""
@@ -3325,6 +3287,9 @@ msgstr "ログ"
 
 msgid "Log (mirror)"
 msgstr "ログ (ミラー)"
+
+msgid "Log Device"
+msgstr "ログ デバイス"
 
 msgid "Log Level"
 msgstr "ログレベル"
@@ -3363,16 +3328,20 @@ msgid "Logout"
 msgstr "ログアウト"
 
 msgid "Low voltage boosting transfer point"
-msgstr ""
+msgstr "電圧上昇補正のしきい値"
 
 msgid "Low voltage transfer point"
-msgstr ""
+msgstr "切替電圧下限値"
 
 msgid "Low voltage trimming transfer point"
-msgstr ""
+msgstr "電圧下降補正の戻り値"
 
-msgid "Lowercases names in both directions"
-msgstr "両方で名前を小文字化します"
+msgid ""
+"Lowest value is higher priority. For master node, use 0 or 1. If preempt is "
+"enabled, it is adjusted to 240 on failure."
+msgstr ""
+"小さい値は高い優先度です。マスターノードの場合は 0 または 1 を使用してください。preempt "
+"が有効になっている場合は、失敗時に240に調整されます。"
 
 msgid "MAC address"
 msgstr "MAC アドレス"
@@ -3390,7 +3359,7 @@ msgid "MOTD"
 msgstr "MOTD"
 
 msgid "MOVED TO"
-msgstr ""
+msgstr "移動先"
 
 msgid "MS Active Directory"
 msgstr "MS Active Directory"
@@ -3422,7 +3391,7 @@ msgid "Manufacturer"
 msgstr "製造者"
 
 msgid "Manufacturing date"
-msgstr ""
+msgstr "製造日"
 
 msgid "Map all users to root"
 msgstr "全てのユーザを root にマッピングします。"
@@ -3486,7 +3455,7 @@ msgid "Maximum idle time in seconds."
 msgstr "最大のアイドル時間を秒単位で指定します。"
 
 msgid "Maximum incoming voltage seen"
-msgstr ""
+msgstr "最大入力電圧"
 
 msgid "Maximum number of allowed password attempts before disconnection."
 msgstr "セッションの切断までに、この値までパスワードの再入力を試行出来ます。"
@@ -3518,10 +3487,10 @@ msgid "Maximum performance, maximum acoustic output"
 msgstr "最大のパフォーマンス、最大の音響出力"
 
 msgid "Maximum relative humidity seen (percent)"
-msgstr ""
+msgstr "最大相対湿度"
 
 msgid "Maximum temperature seen (degrees C)"
-msgstr ""
+msgstr "最大温度(セ氏)"
 
 msgid "Media"
 msgstr "メディア"
@@ -3530,7 +3499,7 @@ msgid "Media Directory"
 msgstr "メディアディレクトリ"
 
 msgid "Media library"
-msgstr ""
+msgstr "メディアライブラリ"
 
 msgid "Medium acoustic output"
 msgstr "中間の音響出力"
@@ -3557,7 +3526,7 @@ msgid "Minimum"
 msgstr "最小"
 
 msgid "Minimum battery level for UPS restart after power-off"
-msgstr ""
+msgstr "電源OFF後のUPS再起動の最少バッテリー残量"
 
 msgid "Minimum free space"
 msgstr "空き容量の最小値"
@@ -3566,16 +3535,16 @@ msgid "Minimum frequency"
 msgstr "最少周波数"
 
 msgid "Minimum incoming voltage seen"
-msgstr ""
+msgstr "最少入力電圧"
 
 msgid "Minimum performance, Minimum acoustic output"
 msgstr "最小のパフォーマンス、最小の音響出力"
 
 msgid "Minimum relative humidity seen (percent)"
-msgstr ""
+msgstr "最少相対湿度(%)"
 
 msgid "Minimum temperature seen (degrees C)"
-msgstr ""
+msgstr "最少温度(セ氏)"
 
 msgid "Minutes"
 msgstr "分"
@@ -3593,7 +3562,7 @@ msgid "Mode"
 msgstr "モード"
 
 msgid "Model"
-msgstr ""
+msgstr "モデル"
 
 msgid "Model extra"
 msgstr "Model extra"
@@ -3611,7 +3580,7 @@ msgid "Modules"
 msgstr "モジュール"
 
 msgid "Monday Tuesday Wednesday Thursday Friday Saturday Sunday"
-msgstr ""
+msgstr "月曜日 火曜日 水曜日 木曜日 金曜日 土曜日 日曜日"
 
 msgid "Months"
 msgstr "月"
@@ -3673,7 +3642,7 @@ msgid "NTP time server"
 msgstr "NTP サーバ"
 
 msgid "NUT Internal Driver Information"
-msgstr ""
+msgstr "NUT 内部ドライバ情報"
 
 msgid "Name"
 msgstr "名前"
@@ -3748,9 +3717,6 @@ msgstr "DNS 設定が見つかりません。"
 msgid "No RSYNC Client configured"
 msgstr "設定された RSYNC クライアントはありません"
 
-msgid "No case folding"
-msgstr "ケースフォールディングを行いません"
-
 #, php-format
 msgid ""
 "No configured Auth Group. Please add new <a href='%s'>Auth Group</a> first."
@@ -3809,6 +3775,12 @@ msgstr "ディスクが構成されていません。ディスクの診断情報
 msgid "No file was uploaded."
 msgstr "ファイルはアップロードされていませんでした。"
 
+msgid "No new disk found."
+msgstr "新しいディスクがありません。"
+
+msgid "No new software raid disk found."
+msgstr "新しいソフトウェアRAIDがありません。"
+
 msgid "No pool was found."
 msgstr "プールは見つかりませんでした。"
 
@@ -3834,31 +3806,31 @@ msgid "Node Name"
 msgstr "ノード名"
 
 msgid "Nominal battery voltage"
-msgstr ""
+msgstr "公称バッテリー電圧"
 
 msgid "Nominal input current (A)"
-msgstr ""
+msgstr "公称入力電流(A)"
 
 msgid "Nominal input line frequency (Hz)"
-msgstr ""
+msgstr "公称入力周波数(Hz)"
 
 msgid "Nominal input voltage"
-msgstr ""
+msgstr "公称入力電圧"
 
 msgid "Nominal output current (A)"
-msgstr ""
+msgstr "公称出力電流(A)"
 
 msgid "Nominal output frequency (Hz)"
-msgstr ""
+msgstr "公称出力周波数(Hz)"
 
 msgid "Nominal output voltage (V)"
-msgstr ""
+msgstr "公称出力電圧(V)"
 
 msgid "Nominal value of apparent power (Volt-Amps)"
-msgstr ""
+msgstr "公称皮相電力(VA)"
 
 msgid "Nominal value of real power (Watts)"
-msgstr ""
+msgstr "公称有効電力(W)"
 
 msgid "None"
 msgstr "無し"
@@ -3882,11 +3854,6 @@ msgstr "接続されていません"
 
 msgid "Note"
 msgstr "注意"
-
-msgid ""
-"Note! Selecting 'Time Machine' on multiple shares will may cause "
-"unpredictable behavior in MacOS."
-msgstr "注意!! 複数の共有上で 'Time Machine' を選択すると MacOS の中で予測不可能な事象が発生するかもしれません。"
 
 msgid ""
 "Note: Ctrl-click (or command-click on the Mac) to select and de-select "
@@ -3915,10 +3882,10 @@ msgid "Null passwords"
 msgstr "空のパスワード"
 
 msgid "Number of bad battery packs"
-msgstr ""
+msgstr "不良バッテリーパック数"
 
 msgid "Number of battery packs"
-msgstr ""
+msgstr "バッテリーパック数"
 
 msgid "Number of clients"
 msgstr "クライアントの数"
@@ -3999,7 +3966,7 @@ msgid "Out"
 msgstr "出力"
 
 msgid "Outgoing Power/Inverter Information"
-msgstr ""
+msgstr "出力電源情報"
 
 msgid "Outgoing SMTP mail server address, e.g. smtp.mycorp.com."
 msgstr "外向けのSMTPサーバのアドレス。例) smtp.mycorp.com"
@@ -4008,16 +3975,16 @@ msgid "Outgoing mail server"
 msgstr "外向けのメールサーバ"
 
 msgid "Output current (A)"
-msgstr ""
+msgstr "出力電流(A)"
 
 msgid "Output frequency (Hz)"
-msgstr ""
+msgstr "出力周波数(Hz)"
 
 msgid "Output voltage"
-msgstr ""
+msgstr "出力電圧"
 
 msgid "Output voltage (V)"
-msgstr ""
+msgstr "出力電圧(V)"
 
 msgid "Overload"
 msgstr "オーバーロード"
@@ -4071,7 +4038,7 @@ msgid "Pairwise"
 msgstr "ペア"
 
 msgid "Parameter xxx (ups.conf or cmdline -x) setting"
-msgstr ""
+msgstr "xxx パラメータ(ups.conf または cmdline -x) 設定"
 
 msgid "Partition number"
 msgstr "パーティション番号"
@@ -4302,7 +4269,7 @@ msgid "Preserve permissions"
 msgstr "パーミッションを保持します。"
 
 msgid "Prevent deep discharge of battery"
-msgstr ""
+msgstr "バッテリー過充電保護"
 
 msgid "Primary"
 msgstr "プライマリ"
@@ -4332,7 +4299,7 @@ msgid "Processes information"
 msgstr "プロセス情報"
 
 msgid "Product ID"
-msgstr ""
+msgstr "製品ID"
 
 msgid "Profile"
 msgstr "プロファイル"
@@ -4345,9 +4312,6 @@ msgstr "プロトコル"
 
 msgid "Provider"
 msgstr "プロバイダ"
-
-msgid "Provides compatibility with Apple II clients."
-msgstr "Apple II クライアントとの互換性を提供します。"
 
 msgid "Proxy"
 msgstr "プロキシ"
@@ -4457,7 +4421,7 @@ msgid "Realm"
 msgstr "レルム"
 
 msgid "Reason for last transfer to battery (* opaque)"
-msgstr ""
+msgstr "最新バッテリー切替理由"
 
 msgid "Reboot"
 msgstr "リブート"
@@ -4481,10 +4445,10 @@ msgid "Reject"
 msgstr "却下"
 
 msgid "Relative humidity alarm (enabled/disabled)"
-msgstr ""
+msgstr "相対湿度警告(有効/無効)"
 
 msgid "Relative humidity threshold high (percent)"
-msgstr ""
+msgstr "相対湿度しきい値(%)"
 
 msgid "Release Notes"
 msgstr "リリースノート"
@@ -4493,7 +4457,7 @@ msgid "Reload page"
 msgstr "ページの再読込み"
 
 msgid "Remaining battery runtime"
-msgstr ""
+msgstr "残りバッテリー時間"
 
 msgid "Remote Rsync Server"
 msgstr "リモート Rsync サーバ"
@@ -4578,13 +4542,16 @@ msgid "Results for net rpc testjoin:"
 msgstr "net rpc testjoin の結果:"
 
 msgid "Results of last self test"
-msgstr ""
+msgstr "最新セルフテスト結果"
 
 msgid "Resume"
 msgstr "リジューム"
 
 msgid "Retry"
 msgstr "リトライ"
+
+msgid "Return to Command page"
+msgstr "コマンドページに戻る"
 
 msgid "Reverse DNS lookup"
 msgstr "DNS 逆引き参照"
@@ -4608,7 +4575,7 @@ msgid "Root bind password"
 msgstr "Root bind パスワード"
 
 msgid "Rotation rate"
-msgstr ""
+msgstr "回転数"
 
 msgid "Round-robin read"
 msgstr "ラウンドロビンでの読み出し"
@@ -4667,9 +4634,15 @@ msgstr "S.M.A.R.T. ログ"
 msgid "SMB2"
 msgstr "SMB2"
 
+msgid "SMB3"
+msgstr "SMB3"
+
 msgid ""
-"SMB2 is for recent OS like Windows 7 and Vista. NT1 is for legacy OS like XP."
-msgstr "SMB2 は Windows 7、Vista のような最新OS向けです。NT1 は XP のようなレガシーOS向けです。"
+"SMB3 is for recent OS like Windows 8. SMB2 is for OS like Windows 7 and "
+"Vista. NT1 is for legacy OS like XP."
+msgstr ""
+"SMB3 は Windows 8 のような最新OS 向けです。SMB2 は Windows 7、Vista OS 向けです。NT1 は XP "
+"のようなレガシーOS 向けです。"
 
 msgid "SNMP"
 msgstr "SNMP"
@@ -4802,7 +4775,7 @@ msgstr "サーバー設定ファイル(XMLフォーマット)を選択後、下�
 msgid ""
 "Select which interface to use. (only selectable if your server has more than "
 "one)"
-msgstr ""
+msgstr "利用するインターフェースを選択してください。(2個以上サーバーに装着してある場合にのみ選択可能)"
 
 msgid "Select your read balance algorithm."
 msgstr "読込み時のバランスアルゴリズムを選択して下さい。"
@@ -4850,13 +4823,13 @@ msgid "Server description. This can usually be left blank."
 msgstr "サーバの説明。通常は空白のままで構いません。"
 
 msgid "Server information"
-msgstr ""
+msgstr "サーバー情報"
 
 msgid "Server name"
 msgstr "サーバ名"
 
 msgid "Server version"
-msgstr ""
+msgstr "サーバーバージョン"
 
 msgid "Service"
 msgstr "サービス"
@@ -4876,14 +4849,11 @@ msgstr "読込み専用に設定します。"
 msgid "Set share password."
 msgstr "共有パスワードを設定します。"
 
-msgid "Set the CNID backend to be used for the volume."
-msgstr "ボリュームに CNID バックエンドを使用するよう設定します。"
-
 msgid "Set the account's primary group to the given group."
 msgstr "このアカウントのプライマリグループを設定して下さい。"
 
 msgid "Set the content location(s) to or from the media library."
-msgstr ""
+msgstr "メディアライブラリに使うコンテンツの場所(複数可)を設定します。"
 
 msgid "Set the desired Service Set Identifier (aka network name)."
 msgstr "SSID (サービスセット識別子。ネットワーク名)を設定して下さい。"
@@ -4911,11 +4881,6 @@ msgstr ""
 
 msgid "Sets an alternate mount point for the root dataset. Default is /mnt."
 msgstr "ルートデータセット用に別のマウントポイントを設定します。デフォルトは /mnt です。"
-
-msgid ""
-"Sets the database information to be stored in path. You have to specifiy a "
-"writable location, even if the volume is read only."
-msgstr "データベース情報を指定したパスに保存するように設定します。ボリュームが読み取り専用であっても、書込み可能な場所を選択して下さい。"
 
 msgid ""
 "Sets the interval between disk checks to N seconds. The minimum allowed "
@@ -4955,7 +4920,7 @@ msgid "Shell"
 msgstr "シェル"
 
 msgid "Show RAW UPS Info"
-msgstr ""
+msgstr "無加工UPS情報の表示"
 
 msgid "Show log entries in reverse order (newest entries on top)"
 msgstr "逆順でログエントリを表示する (もっとも新しいエントリがトップ)"
@@ -5053,6 +5018,13 @@ msgstr "接続元共有"
 
 msgid "Space Used"
 msgstr "使用量"
+
+msgid ""
+"Space delimited set of IP or CIDR notation that permitted to access the "
+"WebGUI. (empty is the same network of LAN interface)"
+msgstr ""
+"WebGUI へのアクセスを許可する IP アドレスもしくは CIDR 表記を "
+"スペース区切りで指定します。（空欄はLANインターフェースと同じネットワークです）"
 
 msgid "Spanish"
 msgstr "スペイン語"
@@ -5218,7 +5190,7 @@ msgid "Switch VIP to MASTER"
 msgstr "仮想IPをマスターに変更"
 
 msgid "Switch off when running on battery and no/low load"
-msgstr ""
+msgstr "負荷が少ないバッテリー稼働時に電源切断"
 
 msgid "Switch to"
 msgstr "切り替え"
@@ -5242,6 +5214,8 @@ msgid ""
 "server. Be sure to set syslogd on the remote server to accept syslog "
 "messages from this server."
 msgstr ""
+"Syslog は UDP データグラムを指定したリモートの syslog サーバの 514 ポートへ送信します。このサーバからの syslog "
+"メッセージを受信するようにリモートの syslog サーバを必ず設定して下さい。"
 
 msgid "System"
 msgstr "システム"
@@ -5265,7 +5239,7 @@ msgid "System information"
 msgstr "システムインフォメーション"
 
 msgid "System load"
-msgstr ""
+msgstr "システム負荷"
 
 msgid "System log"
 msgstr "システムログ"
@@ -5301,7 +5275,7 @@ msgid "TKIP"
 msgstr "TKIP"
 
 msgid "TLS mode"
-msgstr ""
+msgstr "TLSモード"
 
 msgid "Tag"
 msgstr "タグ"
@@ -5360,16 +5334,16 @@ msgid "Temperature"
 msgstr "温度"
 
 msgid "Temperature alarm (enabled/disabled)"
-msgstr ""
+msgstr "温度警告(有効/無効)"
 
 msgid "Temperature monitoring"
 msgstr "温度監視"
 
 msgid "Temperature threshold high (degrees C)"
-msgstr ""
+msgstr "温度上限値(セ氏)"
 
 msgid "Temperature threshold low (degrees C)"
-msgstr ""
+msgstr "温度下限値(セ氏)"
 
 msgid "Temporary Device"
 msgstr "一時的なデバイス"
@@ -5404,6 +5378,9 @@ msgstr "このオプションを有効にする前にBIOSでCOMポートを有�
 
 msgid "The HAST volumes can not be accessed until HAST node becomes Primary."
 msgstr "HASTノードがプライマリになるまでHASTボリュームにはアクセスできません。"
+
+msgid "The IP address of the UPS master."
+msgstr "UPSマスターのIPアドレス。"
 
 msgid "The IP address that this hostname represents."
 msgstr "このホストに割り当てられている IP アドレスを入力して下さい。"
@@ -5549,11 +5526,11 @@ msgstr "属性 '%s' は最低ひとつのエントリーを含む必要があり
 
 #, php-format
 msgid "The attribute '%s': use a port in the range from %d to %d."
-msgstr ""
+msgstr "属性 '%s': %d から %d の範囲のポートを使ってください。"
 
 #, php-format
 msgid "The attribute 'Port': port '%ld' is already taken by another service."
-msgstr ""
+msgstr "属性 'Port': ポート番号 %ld は既に他のサービスで使用されています。"
 
 msgid ""
 "The base name (e.g. iqn.2007-09.jp.ne.peach.istgt) will append the target "
@@ -5602,10 +5579,14 @@ msgstr "設定情報をリストアする事が出来ませんでした。%s"
 msgid "The configuration could not be restored. No file was uploaded!"
 msgstr "設定情報をリストアする事が出来ませんでした。アップロードファイルが見つかりません。"
 
+#, c-format
 msgid ""
 "The configuration has been changed.<br />You must apply the changes in order "
-"for them to take effect."
-msgstr "設定は変更されました。<br />変更された設定は適用するまで効果は出ません。"
+"for them to take effect.<br /><b>If this message persist take a look at the "
+"<a href='%s'>system log</a> for more information.</b>"
+msgstr ""
+"設定は変更されました。<br />変更された設定は適用するまで効果は出ません。<br /><b>もしもこのメッセージが出続けるようであれば <a "
+"href='%s'>システムログ</a> を参照してください。</b>"
 
 #, php-format
 msgid "The configuration has been restored. The server is now rebooting."
@@ -5657,6 +5638,8 @@ msgid ""
 "The device(s) in config are different to actual device(s). Please remove the "
 "device(s) and re-add it or use 'Clear config and Import disks'."
 msgstr ""
+"設定のデバイスと実際のデバイスに違いがあります。デバイスを削除して、再度追加してください。または「コンフィグ消去とディスクのインポート」を利用してください"
+"。"
 
 msgid ""
 "The directory containing the files you want to publish. The remote host does "
@@ -6081,6 +6064,7 @@ msgid ""
 "specify parameters to be passed to kernel, and additional modules to be "
 "loaded."
 msgstr ""
+"これらのオプションは /boot/loader.conf.local に追加されます。カーネルパラメータの指定や追加モジュールのロードに利用できます。"
 
 msgid ""
 "These option(s) will be added to /etc/rc.conf. This allow you to overwrite "
@@ -6162,22 +6146,11 @@ msgstr ""
 "この設定は、NUT UPS デーモンが必要とする ups.conf 設定ファイルを生成する為のものです。使用する UPS のより多くの情報を得たい場合は "
 "NUT (Network UPS Tools)の <a href='%s' target='_blank'>ドキュメント</a> をチェックして下さい。"
 
-msgid "This controls how the case of filenames are viewed and stored."
-msgstr "ファイル名ケースの表示、格納方法をコントロールします。"
-
 msgid "This controls the access a remote host has to this module."
 msgstr "リモートホストに対してこのモジュールへのアクセスをコントロールします。"
 
 msgid "This controls the access to this share with an access password."
 msgstr "アクセスパスワードを設定して、この共有へのアクセスを制御します。"
-
-msgid ""
-"This controls whether the .AppleDouble directory gets created unless "
-"absolutely needed. This option should not be used if files are access mostly "
-"by Mac computers."
-msgstr ""
-"絶対に必要でない場合にも .AppleDouble "
-"ディレクトリを作成するかどうかを制御します。このオプションはMacからのアクセスが主であれば使うべきではありません。"
 
 msgid "This controls whether this share is accessible by guest account."
 msgstr "この共有がゲストアカウントによってアクセス可能かを制御します。"
@@ -6202,12 +6175,6 @@ msgstr "このメールは、メール設定が正しいかをチェックする
 msgid "This extent is used."
 msgstr "このエクステントは使用されています。"
 
-msgid ""
-"This forces filenames to be restricted to the character set used by Windows. "
-"This is not recommended for shares used principally by Mac computers."
-msgstr ""
-"ファイル名を Windows で使用される文字セットに限定する事を強制します。主に Mac コンピュータで使用される共有への適用は推奨しません。"
-
 msgid "This function is unsupported. Use it on your own risk!"
 msgstr "この機能はサポートされていません。リスクを理解した上で使用して下さい!"
 
@@ -6217,7 +6184,7 @@ msgstr "グループは既にグループリストに存在しています。"
 msgid ""
 "This is a way to take an existing insecure connection, and upgrade it to a "
 "secure connection using SSL/TLS."
-msgstr ""
+msgstr "これは既存の安全でない接続上で、SSL/TLSを使って安全な接続を新たに作成する方法です。"
 
 msgid ""
 "This is both the name of the server as advertised via "
@@ -6446,17 +6413,14 @@ msgstr "TiB"
 msgid "Time"
 msgstr "時間"
 
-msgid "Time Machine"
-msgstr "Time Machine"
-
 msgid "Time before the load will be rebooted"
-msgstr ""
+msgstr "リブートする前の時間"
 
 msgid "Time before the load will be shutdown"
-msgstr ""
+msgstr "シャットダウン前の時間"
 
 msgid "Time before the load will be started"
-msgstr ""
+msgstr "起動前の時間"
 
 msgid "Time interval"
 msgstr "インターバル"
@@ -6583,7 +6547,7 @@ msgid "Transfer mode"
 msgstr "転送モード"
 
 msgid "Transfer rate"
-msgstr ""
+msgstr "転送速度"
 
 msgid "Trap host"
 msgstr "トラップホスト"
@@ -6636,12 +6600,17 @@ msgstr "エクステントとして使用するタイプを選択して下さい
 msgid "UCD-SNMP-MIB"
 msgstr "UCD-SNMP-MIB"
 
+msgid "UFS"
+msgstr "UFS"
+
 #, php-format
 msgid ""
 "UFS and ZFS are the NATIVE filesystems of FreeBSD (the underlying OS of %s). "
 "Attempting to use other filesystems such as FAT, FAT32, EXT2, EXT3, EXT4 or "
 "NTFS can result in unpredictable results, file corruption, and loss of data!"
 msgstr ""
+"UFS と ZFS はFreeBSD (%s のベース OS) のネイティブなファイルフォーマットです。FAT、FAT32、EXT2、EXT3 又は "
+"NTFS 等の他ファイルフォーマットを使う場合、予期せぬ結果、ファイルの破損及びデータの紛失が起こる恐れがあります！"
 
 #, php-format
 msgid ""
@@ -6672,55 +6641,55 @@ msgid "UPS Status"
 msgstr "UPSステータス"
 
 msgid "UPS Unit General Information"
-msgstr ""
+msgstr "UPS装置 一般情報"
 
 msgid "UPS Waiting"
 msgstr "USP待機"
 
 msgid "UPS alarms"
-msgstr ""
+msgstr "UPS警告"
 
 msgid "UPS beeper status"
-msgstr ""
+msgstr "UPSビープステータス"
 
 msgid "UPS coldstarts from battery"
-msgstr ""
+msgstr "バッテリーからのUPSコールドスタート"
 
 msgid "UPS disabled"
 msgstr "UPS は無効です"
 
 msgid "UPS external contact sensors"
-msgstr ""
+msgstr "UPS外部接触センサー"
 
 msgid "UPS firmware"
-msgstr ""
+msgstr "UPSファームウェア"
 
 msgid "UPS goes on battery"
 msgstr "UPS はバッテリ駆動となりました"
 
 msgid "UPS model"
-msgstr ""
+msgstr "UPSモデル"
 
 msgid "UPS reaches low battery"
 msgstr "UPS のバッテリ残量が少なくなりました"
 
 msgid "UPS starts when mains is (re)applied"
-msgstr ""
+msgstr "主電源が復帰した時のUPSを起動"
 
 msgid "UPS status"
 msgstr "UPSのステータス"
 
 msgid "UPS system identifier"
-msgstr ""
+msgstr "UPSシステム識別子"
 
 msgid "UPS temperature"
-msgstr ""
+msgstr "UPS温度"
 
 msgid "UPS type"
-msgstr ""
+msgstr "UPSタイプ"
 
 msgid "UPS watchdog status"
-msgstr ""
+msgstr "UPSウォッチドッグステータス"
 
 msgid "UPnP"
 msgstr "UPnP"
@@ -6732,7 +6701,7 @@ msgid "URL"
 msgstr "URL"
 
 msgid "Unavailable"
-msgstr ""
+msgstr "利用不可"
 
 msgid "Unformated"
 msgstr "フォーマットしない"
@@ -6794,12 +6763,6 @@ msgstr "アップロードディレクトリ"
 #, php-format
 msgid "Upload directory of the webserver. The default is %s."
 msgstr "ウェブサーバのアップロードディレクトリ。デフォルトは %s です。"
-
-msgid "Uppercases names in both directions"
-msgstr "両方で名前を大文字化します"
-
-msgid "Use AFP3 unix privileges."
-msgstr "AFP3 UNIX 権限を使用します。"
 
 msgid ""
 "Use a space to separate multiple hosts (only one required). Remember to set "
@@ -6891,10 +6854,10 @@ msgid "Username"
 msgstr "ユーザ名"
 
 msgid "Username contains invalid character(s) : "
-msgstr ""
+msgstr "ユーザ名に不正な文字が含まれています: "
 
 msgid "Username field : "
-msgstr ""
+msgstr "ユーザ名欄 : "
 
 msgid "Username of a domain administrator account."
 msgstr "ドメイン管理者アカウントのユーザ名"
@@ -6925,7 +6888,7 @@ msgid "Variable"
 msgstr "変数"
 
 msgid "Vendor ID"
-msgstr ""
+msgstr "ベンダーID"
 
 msgid "Version"
 msgstr "バージョン"
@@ -7025,7 +6988,7 @@ msgstr ""
 "HASTを有効にすると、HASTボリュームをサポートしていないローカルデバイス、ローカルサービス、追加パッケージは利用することが出来なくなります。"
 
 msgid "When UPS switches to Low Battery"
-msgstr ""
+msgstr "バッテリー切れになるまでの残り時間"
 
 msgid ""
 "When a client initially connects to the server the ident protocol is used to "
@@ -7076,11 +7039,11 @@ msgid "Yes"
 msgstr "Yes"
 
 msgid ""
-"You can also install a package via SSH or console using the the pkg_add "
-"command.<br />Example: pkg_add -r packagename"
+"You can also install a package via SSH or console using the the pkg add "
+"command.<br />Example: pkg add packagename"
 msgstr ""
-"SSHによるリモートコンソールもしくはローカルコンソールでも pkg_add コマンドを使用してパッケージをインストールする事が可能です。<br "
-"/>例) pkg_add -r パッケージ名"
+"SSHによるリモートコンソールもしくはローカルコンソールでも pkg add コマンドを使用してパッケージをインストールする事が可能です。<br/>例) "
+"pkg add パッケージ名"
 
 msgid "You can use the following parameters for substitution:"
 msgstr "以下のパラメータを埋め込みできます:"
@@ -7119,6 +7082,12 @@ msgstr "SCSI INQUIRY データを指定して下さい。デフォルトは空�
 msgid "You may specify logical block length (%d by default)."
 msgstr "論理ブロック長を指定して下さい。(デフォルトは%d)"
 
+#, php-format
+msgid ""
+"You must <a href='%s'>reboot</a> the system before you can upgrade the "
+"firmware."
+msgstr "ファームウェアのアップデートの前にシステムを <a href='%s'>リブート</a> する必要があります。"
+
 msgid "You must add disks first."
 msgstr "始めにディスクを追加して下さい。"
 
@@ -7128,9 +7097,6 @@ msgstr "ネットワークとゲートウェイには同じ IP 形式を入力�
 #, php-format
 msgid "You must have a minimum of %dMB of RAM for using iSCSI target."
 msgstr "iSCSI ターゲット機能を有効にするには最低 %dMB の RAM が必要になります。"
-
-msgid "You must reboot the system before you can upgrade the firmware."
-msgstr "ファームウェアのアップデートの前にシステムをリブートする必要があります。"
 
 msgid "You must select at least one authentication method."
 msgstr "少なくとも 1つの認証方法を選択して下さい。"
@@ -7182,17 +7148,12 @@ msgstr "Zeroconf/Bonjour"
 msgid "adaptive (low power consumption)"
 msgstr "adaptive (低消費電力)"
 
-msgid "all disks are imported."
-msgstr "ディスクをすべてインポートします。"
+#, php-format
+msgid "add any supplemental parameters"
+msgstr "もしあれば補足パラメータを追加してください"
 
 msgid "all encrypted disks are imported."
 msgstr "暗号化されたディスクをすべてインポートします。"
-
-msgid "all software raid disks are imported."
-msgstr "ソフトウェアRAIDディスクをすべてインポートします。"
-
-msgid "cachecnid"
-msgstr "CNID キャッシュ"
 
 msgid "change failed."
 msgstr "変更に失敗しました。"
@@ -7200,17 +7161,8 @@ msgstr "変更に失敗しました。"
 msgid "chroot() everyone, but root."
 msgstr "root 以外のユーザに chroot() を有効にします。"
 
-msgid "cnidscheme"
-msgstr "CNID スキーム"
-
-msgid "crlf"
-msgstr "改行コード"
-
 msgid "day(s)"
 msgstr "日"
-
-msgid "dbpath"
-msgstr "データベースの場所"
 
 msgid "detected an error while importing."
 msgstr "インポート中にエラーを検出しました。"
@@ -7226,10 +7178,10 @@ msgid "get target info failed."
 msgstr "ターゲット情報の取得に失敗しました。"
 
 msgid "greatest settable high voltage transfer point"
-msgstr ""
+msgstr "設定可能な最大切り替え電圧上限値"
 
 msgid "greatest settable low voltage transfer point"
-msgstr ""
+msgstr "設定可能な最大切り替え電圧下限値"
 
 msgid "hiadaptive (high performance)"
 msgstr "hiadaptive (高パフォーマンス)"
@@ -7263,7 +7215,7 @@ msgid "load/unload failed."
 msgstr "ロード/アンロードに失敗しました。"
 
 msgid "loader.conf"
-msgstr ""
+msgstr "loader.conf"
 
 msgid "maximum (highest performance)"
 msgstr "maximum (最大パフォーマンス)"
@@ -7283,44 +7235,17 @@ msgstr "ミラーリング"
 msgid "mount"
 msgstr "マウント"
 
-msgid "mswindows"
-msgstr "MS-Windows"
-
 msgid "n/a"
 msgstr "n/a"
-
-msgid "no new disk found."
-msgstr "新しいディスクは見つかりません。"
 
 msgid "no new encrypted disk found."
 msgstr "新しい暗号化ディスクは見つかりません。"
 
-msgid "no new software raid disk found."
-msgstr "新しいソフトウェアRAIDディスクは見つかりません。"
-
-msgid "noadouble"
-msgstr "noadouble"
-
-msgid "nodev"
-msgstr "nodev"
-
-msgid "nofileid"
-msgstr "nofileid"
-
-msgid "nohex"
-msgstr "nohex"
-
 msgid "none"
 msgstr "none"
 
-msgid "nostat"
-msgstr "nostat"
-
 msgid "phpBB"
 msgstr "phpBB"
-
-msgid "prodos"
-msgstr "prodos"
 
 msgid "rc.conf"
 msgstr "rc.conf"
@@ -7338,10 +7263,10 @@ msgid "second(s)"
 msgstr "秒"
 
 msgid "smallest settable high voltage transfer point"
-msgstr ""
+msgstr "設定可能な最少切り替え電圧上限値"
 
 msgid "smallest settable low voltage transfer point"
-msgstr ""
+msgstr "設定可能な最少切り替え電圧下限値"
 
 msgid "striping"
 msgstr "ストライピング"
@@ -7353,7 +7278,7 @@ msgid "sysctl.conf"
 msgstr "sysctl.conf"
 
 msgid "to"
-msgstr ""
+msgstr "から"
 
 msgid "umask"
 msgstr "umask"
@@ -7361,9 +7286,10 @@ msgstr "umask"
 msgid "umount"
 msgstr "アンマウント"
 
-msgid "upriv"
-msgstr "upriv"
-
 #, php-format
 msgid "version:"
 msgstr "バージョン:"
+
+#~ msgid ""
+#~ "A valid IP address or CIDR notation  must be specified for the hosts allow."
+#~ msgstr "許可するホストは有効な IP アドレスか CIDR 表記を指定してください。"

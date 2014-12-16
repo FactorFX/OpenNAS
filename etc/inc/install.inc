@@ -65,11 +65,11 @@ function get_install_source_drive()
 	global $g;
 
 	$mntpath = "/mnt";
-	$imgfile = get_product_name(). "-{$g['arch']}-embedded.gz";
+	$imgfile = get_product_name(). "-{$g['arch']}-embedded.xz";
 
 	$cdlist = get_cdrom_list();
 	$dalist = get_scsi_disks_list();
-	$ptlist = array("a", "s1a", "p2");
+	$ptlist = array("a", "s1a", "s4a", "p1", "p2");
 
 	$disklist = $cdlist;
 	foreach ($dalist as $disk) {
@@ -145,16 +145,28 @@ function install_unmount_cd()
 	return $result;
 }
 
+// Add default swap partition.
+function add_default_swap($harddrive)
+{
+	global $g_install;
+
+	if (mwexec("/sbin/gpart add -s {$g_install['default_swap']}m -t freebsd-swap {$harddrive}")) {
+		write_console("Error: Failed to add swap.\n");
+		return 1;
+	}
+	return 0;
+}
+
 // Install the IMG on the destination harddrive.
 // Return 0 if successful, otherwise 1
 function install_dd_image($harddrive)
 {
 	global $g;
 
-	$imgfilename=get_product_name(). "-{$g['arch']}-embedded.gz";
+	$imgfilename=get_product_name(). "-{$g['arch']}-embedded.xz";
 
 	// Test firmware file integrity.
-	if (mwexec("/usr/bin/gzip -t /mnt/cdrom/{$imgfilename}")) {
+	if (mwexec("/usr/bin/xz -t /mnt/cdrom/{$imgfilename}")) {
 		write_console("Error: Firmware file is corrupted.\n");
 		return 1;
 	}
@@ -162,7 +174,7 @@ function install_dd_image($harddrive)
 	set_kern_geom_debugflags(0x10);
 	// dd image file on the destination disk.
 	write_console("Installing system image on device {$harddrive}.\n");
-	if (mwexec("/usr/bin/gzip -cd /mnt/cdrom/{$imgfilename} | /bin/dd of=/dev/{$harddrive} ibs=16k obs=16k > /dev/null 2>&1")) {
+	if (mwexec("/usr/bin/xz -cdv /mnt/cdrom/{$imgfilename} | /bin/dd of=/dev/{$harddrive} ibs=16k obs=16k > /dev/null 2>&1")) {
 		set_kern_geom_debugflags(0);
 		write_console("Error: Failed to dd image on '/dev/{$harddrive}'!\n");
 		return 1;
@@ -178,6 +190,8 @@ function install_harddrive_image($harddrive)
 {
 	global $g;
 
+	$boot_lowmem = trim(@file_get_contents("/etc/boot_lowmem"));
+	$platform = get_platform_type();
 	$mntpath = "/mnt/inst_{$harddrive}";
 
 	// Mount disk used to install OS.
@@ -190,6 +204,16 @@ function install_harddrive_image($harddrive)
 	// Install system files.
 	write_console("Installing system files on device {$harddrive}s1a.\n");
 	mwexec("/usr/bin/tar --exclude mnt/ --exclude dev/ --exclude var/ --exclude tmp/ --exclude {$g['cf_path']}/ -c -f - -C / . | tar -xvpf - -C {$mntpath}");
+	if ($boot_lowmem === "1" && preg_match('/-liveCD$/i', $platform)) {
+		// under lowmem version
+		mwexec("/usr/bin/xz -dcv /mnt/cdrom/mdlocal.xz | dd of={$mntpath}/ftmp/mdlocal bs=1m status=none");
+		exec("/sbin/mdconfig -a -t vnode -f {$mntpath}/ftmp/mdlocal", $mdid, $result);
+		mwexec("/sbin/mount /dev/{$mdid[0]} {$mntpath}/cf");
+		mwexec("/usr/bin/tar -c -f - -C {$mntpath}/cf . | tar -xvpf - -C {$mntpath}/usr/local");
+		mwexec("/sbin/umount {$mntpath}/cf");
+		mwexec("/sbin/mdconfig -d -u {$mdid[0]}");
+		mwexec("/bin/rm {$mntpath}/ftmp/mdlocal");
+	}
 	mwexec("/bin/mkdir -p {$mntpath}/var");
 	mwexec("/bin/mkdir -p {$mntpath}/dev");
 	mwexec("/bin/mkdir -p {$mntpath}/mnt");
@@ -209,15 +233,15 @@ function install_harddrive_image($harddrive)
 kernel="kernel"
 bootfile="kernel"
 kernel_options=""
-kern.hz="100"
 hw.est.msr_info="0"
 hw.hptrr.attach_generic="0"
 kern.maxfiles="65536"
-kern.maxfilesperproc="50000"
+kern.maxfilesperproc="60000"
 kern.cam.boot_delay="8000"
 autoboot_delay="5"
 isboot_load="YES"
 zfs_load="YES"
+geom_xmd_load="YES"
 
 EOD;
 
@@ -297,6 +321,8 @@ function install_upgrade_full($harddrive)
 {
 	global $g;
 
+	$boot_lowmem = trim(@file_get_contents("/etc/boot_lowmem"));
+	$platform = get_platform_type();
 	$mntpath = "/mnt/inst_{$harddrive}";
 	$sysbackup = "/tmp/inst_{$harddrive}_bak";
 
@@ -314,7 +340,7 @@ function install_upgrade_full($harddrive)
 	if (file_exists("{$mntpath}/boot.config")) {
 		mwexec("/bin/cp -p {$mntpath}/boot.config {$sysbackup}");
 	}
-    if (file_exists("{$mntpath}/boot/loader.conf.local")) {
+	if (file_exists("{$mntpath}/boot/loader.conf.local")) {
 		mwexec("/bin/cp -p {$mntpath}/boot/loader.conf.local {$sysbackup}");
 	}
 	mwexec("/bin/cp -p {$mntpath}/etc/platform {$sysbackup}");
@@ -330,6 +356,16 @@ function install_upgrade_full($harddrive)
 	// Install system files
 	write_console("Installing system files on device {$harddrive}s1a.\n");
 	mwexec("/usr/bin/tar --exclude mnt/ --exclude dev/ --exclude var/ --exclude tmp/ --exclude {$g['cf_path']}/ -c -f - -C / . | tar -xvpf - -C {$mntpath}");
+	if ($boot_lowmem === "1" && preg_match('/-liveCD$/i', $platform)) {
+		// under lowmem version
+		mwexec("/usr/bin/xz -dcv /mnt/cdrom/mdlocal.xz | dd of={$mntpath}/ftmp/mdlocal bs=1m status=none");
+		exec("/sbin/mdconfig -a -t vnode -f {$mntpath}/ftmp/mdlocal", $mdid, $result);
+		mwexec("/sbin/mount /dev/{$mdid[0]} {$mntpath}/cf");
+		mwexec("/usr/bin/tar -c -f - -C {$mntpath}/cf . | tar -xvpf - -C {$mntpath}/usr/local");
+		mwexec("/sbin/umount {$mntpath}/cf");
+		mwexec("/sbin/mdconfig -d -u {$mdid[0]}");
+		mwexec("/bin/rm {$mntpath}/ftmp/mdlocal");
+	}
 	mwexec("/bin/mkdir -p {$mntpath}/var");
 	mwexec("/bin/mkdir -p {$mntpath}/dev");
 	mwexec("/bin/mkdir -p {$mntpath}/mnt");
@@ -353,8 +389,8 @@ function install_upgrade_full($harddrive)
 	} else {
 		mwexec("/bin/rm -f {$mntpath}/boot.config");
 	}
-    if (file_exists("{$sysbackup}/loader.conf.local")) {
-    	mwexec("/bin/cp -p {$sysbackup}/loader.conf.local {$mntpath}/boot/");
+	if (file_exists("{$sysbackup}/loader.conf.local")) {
+		mwexec("/bin/cp -p {$sysbackup}/loader.conf.local {$mntpath}/boot/");
 	}
 	mwexec("/bin/cp -p {$sysbackup}/platform {$mntpath}/etc");
 	mwexec("/bin/cp -p {$sysbackup}/fstab {$mntpath}/etc");
@@ -517,12 +553,12 @@ function install_restore_config($disk)
 
 	/* Restore the configuration file */
 	if (1 == mwexec("/bin/cp -p {$tmp_cf_bak}/config.xml {$mnt_cf_disk}/conf")) {
-		write_console("Error: Failed to restore the configuration file!\n");
+		write_console("Error: Failed to restore the configuration file! (config.xml)\n");
 		return 1;
 	}
 	if (file_exists("{$tmp_cf_bak}/boot.config")) {
 		if (1 == mwexec("/bin/cp -p {$tmp_cf_bak}/boot.config {$mnt_cf_disk}/")) {
-			write_console("Error: Failed to restore the configuration file!\n");
+			write_console("Error: Failed to restore the configuration file!(boot.config)\n");
 			return 1;
 		}
 	} else {
@@ -531,9 +567,11 @@ function install_restore_config($disk)
 			return 1;
 		}
 	}
-       if (1 == mwexec("/bin/cp -p {$tmp_cf_bak}/loader.conf.local {$mnt_cf_disk}/boot")) {
-		write_console("Error: Failed to restore the configuration file!\n");
-		return 1;
+	if (file_exists("{$tmp_cf_bak}/loader.conf.local")) {
+		if (1 == mwexec("/bin/cp -p {$tmp_cf_bak}/loader.conf.local {$mnt_cf_disk}/boot")) {
+			write_console("Error: Failed to restore the configuration file! (loader.conf.local)\n");
+			return 1;
+		}
 	}
 
 	/* Unmount the upgraded drive */
@@ -864,7 +902,7 @@ function install_newfs($disk, $volname, $sector, $fsize, $bsize) {
 function install_detect_installation($mode, &$devinfo) {
 	global $g;
 
-	$imgfile = get_product_name(). "-{$g['arch']}-embedded.gz";
+	$imgfile = get_product_name(). "-{$g['arch']}-embedded.xz";
 	$result = 1;
 	$devinfo = array();
 

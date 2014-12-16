@@ -64,6 +64,11 @@ if (isset($_POST['import']))
 	}
 
 	$retval = mwexec($cmd);
+
+	// remove existing pool cache
+	conf_mount_rw();
+	unlink_if_exists("{$g['cf_path']}/boot/zfs/zpool.cache");
+	conf_mount_ro();
 }
 
 $rawdata = null;
@@ -228,7 +233,7 @@ foreach ($rawdata as $line)
 		else if ($type == 'log')
 		{
 			$dev = $m[1];
-			if ($dev == 'mirror') {
+			if (preg_match("/^mirror-([0-9]+)$/", $dev, $m)) {
 				$type = "log-mirror";
 			}
 		}

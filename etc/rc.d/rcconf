@@ -31,8 +31,12 @@ setvar()
 			;;
 		*)
 			# If running from liveCD or embedded use a memory filesystem for /var.
-			eval /usr/local/sbin/rconf attribute set varmfs "YES";
-			eval /usr/local/sbin/rconf attribute set varmfs_flags "-S -m 3";
+			if [ ${BOOT_LIVECD} -ne 0 -a ${BOOT_LOWMEM} -ne 0 ]; then
+				eval /usr/local/sbin/rconf attribute set varmfs "NO";
+			else
+				eval /usr/local/sbin/rconf attribute set varmfs "YES";
+			fi
+			eval /usr/local/sbin/rconf attribute set varmfs_flags "-U -t -o noatime -m 2";
 			eval /usr/local/sbin/rconf attribute set populate_var "YES";
 			;;
 	esac
@@ -60,8 +64,8 @@ setifconfig()
 	local _value _ifn _ifconfig_args _ipaddr _subnet _gateway _cloned_interfaces _id
 	local _ifn_isboot
 
-	# Cleanup
-	set | grep ^ifconfig_ | while read _value; do
+	# Cleanup ifn and addrs
+	set | grep -E '^(ifconfig_|ipv4_|ipv6_)' | while read _value; do
 		_value=${_value%=*}
 		eval /usr/local/sbin/rconf attribute remove "${_value}"
 	done
@@ -114,11 +118,16 @@ setifconfig()
 	if [ "${_ifn}" = "${_ifn_isboot}" ]; then
 		# don't set default for iSCSI booted NIC
 	else
+		# "ifconfig hostname" is valid syntax, so it should not set a string.
+		#  A string causes name resolution.
+		if [ -n "${_ipaddr}" -a -n "${_subnet}" ]; then
+			is_validip inet "${_ipaddr}/${_subnet}"
+			if [ 0 -eq $? ]; then
+				_ifconfig_args="inet ${_ipaddr}/${_subnet} ${_ifconfig_args}"
+			fi
+		fi
 		if [ -n "${_ifconfig_args}" ]; then
 			eval /usr/local/sbin/rconf attribute set "ifconfig_${_ifn}" "${_ifconfig_args}"
-		fi
-		if [ -n "${_ipaddr}" ]; then
-			eval /usr/local/sbin/rconf attribute set "ipv4_addrs_${_ifn}" "${_ipaddr}/${_subnet}"
 		fi
 	fi
 
@@ -176,13 +185,19 @@ setifconfig()
 
 			_ipaddr=`configxml_get "//interfaces/*[name() = 'opt${_id}']/ipaddr"`
 			_subnet=`configxml_get "//interfaces/*[name() = 'opt${_id}']/subnet"`
+			# "ifconfig hostname" is valid syntax, so it should not set a string.
+			#  A string causes name resolution.
+			if [ -n "${_ipaddr}" -a -n "${_subnet}" ]; then
+				is_validip inet "${_ipaddr}/${_subnet}"
+				if [ 0 -eq $? ]; then
+					_ifconfig_args="inet ${_ipaddr}/${_subnet} ${_ifconfig_args}"
+				fi
+			fi
 			if [ -n "${_ifconfig_args}" ]; then
 				eval /usr/local/sbin/rconf attribute set "ifconfig_${_ifn}" "${_ifconfig_args}"
 			fi
-			if [ -n "${_ipaddr}" ]; then
-				eval /usr/local/sbin/rconf attribute set "ipv4_addrs_${_ifn}" "${_ipaddr}/${_subnet}"
-			fi
 		else
+			# OPTX is disabled
 			eval /usr/local/sbin/rconf attribute remove "ifconfig_${_ifn}"
 		fi
 
@@ -355,6 +370,10 @@ EOF
 # Update services
 updateservices()
 {
+	local _platform
+
+    	_platform=`cat /etc/platform`
+
 	# Update rcvar's. Use settings from config.xml
 	for _rcscript in /etc/rc.d/*; do
 		_rcscriptname=${_rcscript#/etc/rc.d/}
@@ -370,6 +389,13 @@ updateservices()
 				# Execute query.
 				_queryresult=`configxml_exec_query ${_xquery}`
 
+				# Force off when low memory liveCD
+				if [ ${BOOT_LIVECD} -ne 0 -a ${BOOT_LOWMEM} -ne 0 ]; then
+					if [ "${_rcscriptname}" = "mdnsresponder" ]; then
+						_queryresult=1;
+					fi
+				fi
+
 				# Enable/disable service depending on query result
 				if [ "0" = "${_queryresult}" ]; then
 					eval /usr/local/sbin/rconf service enable ${_rcvar}
@@ -380,9 +406,27 @@ updateservices()
 				fi
 
 				echo -n "."
+			else
+				# Force off when low memory liveCD
+				if [ ${BOOT_LIVECD} -ne 0 -a ${BOOT_LOWMEM} -ne 0 ]; then
+					if [ "${_rcscriptname}" = "lighttpd" ]; then
+						eval /usr/local/sbin/rconf service disable ${_rcscriptname}
+						debug "rcconf: ${_rcscriptname} service disabled"
+						echo -n "."
+					fi
+				fi
 			fi
 		fi
 	done
+
+	# Force on when low memory full
+	case ${_platform} in
+		*-full)
+			if [ ${BOOT_LOWMEM} -ne 0 ]; then
+				eval /usr/local/sbin/rconf service enable lighttpd
+			fi
+			;;
+	esac
 }
 
 # Set additional options.
@@ -453,3 +497,4 @@ echo
 #load_rc_config ${name}
 
 return 0
+

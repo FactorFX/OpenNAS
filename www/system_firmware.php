@@ -142,6 +142,7 @@ function get_latest_file($rss) {
 		$revision = $m[2];
 	}
 	$ext = "img";
+	$ext2 = "xz";
 
 	$resp = "";
 	$xml = @simplexml_load_file($rss);
@@ -149,14 +150,28 @@ function get_latest_file($rss) {
 	foreach ($xml->channel->item as $item) {
 		$link = $item->link;
 		$title = $item->title;
-		$date = $item->pubDate;
+		$pubdate = $item->pubDate;
 		$parts = pathinfo($title);
-		if (empty($parts['extension']) || strcasecmp($parts['extension'], $ext) != 0)
+
+		// convert to local time
+		$date = preg_replace('/UT$/', 'GMT', $pubdate);
+		$time = strtotime($date);
+		if ($time === FALSE) {
+			// convert error
+			$date = $pubdate;
+		} else {
+			$date = date("D, d M Y H:i:s T", $time);
+		}
+
+		if (empty($parts['extension']))
+			continue;
+		if (strcasecmp($parts['extension'], $ext) != 0
+		    && strcasecmp($parts['extension'], $ext2) != 0)
 			continue;
 		$filename = $parts['filename'];
 		$fullname = $parts['filename'].".".$parts['extension'];
 
-		if (preg_match("/^{$product}-{$platform}-(.*?)\.(\d+)$/", $filename, $m)) {
+		if (preg_match("/^{$product}-{$platform}-(.*?)\.(\d+)(\.img)?$/", $filename, $m)) {
 			$filever = $m[1];
 			$filerev = $m[2];
 			if ($version < $filever
@@ -175,9 +190,9 @@ function get_latest_file($rss) {
 }
 
 function check_firmware_version_rss($locale) {
-	$rss_path = "http://sourceforge.net/api/file/index/project-id/722987/mtime/desc/limit/20/rss";
-	$rss_release = "http://sourceforge.net/api/file/index/project-id/722987/path/NAS4Free-@@VERSION@@/mtime/desc/limit/20/rss";
-	$rss_beta = "http://sourceforge.net/api/file/index/project-id/722987/path/NAS4Free-Beta/mtime/desc/limit/20/rss";
+	$rss_path = "http://sourceforge.net/projects/nas4free/rss?limit=40";
+	$rss_release = "http://sourceforge.net/projects/nas4free/rss?path=/NAS4Free-@@VERSION@@&limit=20";
+	$rss_beta = "http://sourceforge.net/projects/nas4free/rss?path=/NAS4Free-Beta&limit=20";
 
 	// replace with existing version
 	$path_version = get_path_version($rss_path);
@@ -237,7 +252,7 @@ if ($_POST && !file_exists($d_firmwarelock_path)) {
 					/* move the image so PHP won't delete it */
 					move_uploaded_file($_FILES['ulfile']['tmp_name'], "{$g['ftmp_path']}/firmware.img");
 
-					if (!verify_gzip_file("{$g['ftmp_path']}/firmware.img")) {
+					if (!verify_xz_file("{$g['ftmp_path']}/firmware.img")) {
 						$input_errors[] = gettext("The image file is corrupt");
 						unlink("{$g['ftmp_path']}/firmware.img");
 					}
@@ -342,7 +357,7 @@ if ($mode === "default" || $mode === "enable" || $mode === "disable") {
 					</div>
 					<?php endif;?>
 				<?php else:?>
-				<strong><?=gettext("You must reboot the system before you can upgrade the firmware.");?></strong>
+				<strong><?=sprintf(gettext("You must <a href='%s'>reboot</a> the system before you can upgrade the firmware."), "reboot.php");?></strong>
 				<?php endif;?>
 				<div id="remarks">
 					<?php html_remark("warning", gettext("Warning"), sprintf(gettext("DO NOT abort the firmware upgrade process once it has started. Once it is completed, the server will automatically reboot, the current configuration will be maintained.<br />You need a minimum of %d MiB free RAM to perform the upgrade.<br />It is strongly recommended that you <a href='%s'>Backup</a> the server configuration before doing a upgrade."), 512, "system_backup.php"));?>

@@ -15,13 +15,13 @@
 	All rights reserved.
 
 	Redistribution and use in source and binary forms, with or without
-	modification, are permitted provided that the following conditions are met: 
+	modification, are permitted provided that the following conditions are met:
 
 	1. Redistributions of source code must retain the above copyright notice, this
-	   list of conditions and the following disclaimer. 
+	   list of conditions and the following disclaimer.
 	2. Redistributions in binary form must reproduce the above copyright notice,
 	   this list of conditions and the following disclaimer in the documentation
-	   and/or other materials provided with the distribution. 
+	   and/or other materials provided with the distribution.
 
 	THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
 	ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
@@ -35,7 +35,7 @@
 	SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 	The views and conclusions contained in the software and documentation are those
-	of the authors and should not be interpreted as representing official policies, 
+	of the authors and should not be interpreted as representing official policies,
 	either expressed or implied, of the NAS4Free Project.
 */
 require_once("functions.inc");
@@ -450,36 +450,41 @@ function system_get_device_temp($devicespecialfile) {
 			return $result;
 		}
 	}
-	
+
 	global $config;
 	// get S.M.A.R.T. arguments from config
-	if (is_array($config['disks']) && is_array($config['disks']['disk'])) {
-		foreach ($config['disks']['disk'] as &$disk) {
-			if($disk['devicespecialfile'] == $devicespecialfile){
-				$type_arg = '';
+	global $config_disks;
 
-				if( !is_null($disk['smart']['devicetypearg']) ){
-					$type_arg = "-d ".$disk['smart']['devicetypearg'];
-				}
+	if(empty($_SESSION[$devicespecialfile]['temp']['value']) or
+		time() - $_SESSION[$devicespecialfile]['temp']['timestamp'] > 120
+		){
 
-				/* get temperature from S.M.A.R.T. */
-				mwexec2("smartctl -A ".$type_arg." ".$disk['smart']['devicefilepath']."| grep -i 'Temperature_'" , $rawdata);
+		$type_arg = '';
 
-				foreach ($rawdata as $rawdatav) {
-					$arawdatav = preg_split("/\s+/", $rawdatav);
+		if( !empty($config_disks[$devicespecialfile]['smart']['devicetypearg']) ){
+			$type_arg = "-d ".$config_disks[$devicespecialfile]['smart']['devicetypearg'];
+		}
 
-					if (!empty($arawdatav[1]) && (0 == strncmp(trim($arawdatav[1]), "Temperature_", 12)) &&
-						((0 != strcmp(trim($arawdatav[0]), "190")) || (0 != strcmp(trim($arawdatav[0]), "194")) )) {
-						$result = chop($arawdatav[9]);
-						break;
-					} else if (preg_match("/Current Drive Temperature:\s+(\d+) C.*/", $rawdatav, $matches)) {
-						$result = $matches[1];
-						break;
-					}
-				}
-				return $result;
+		/* get temperature from S.M.A.R.T. */
+		mwexec2("smartctl -A ".$type_arg." ".$config_disks[$devicespecialfile]['smart']['devicefilepath']."| grep -i 'Temperature'" , $rawdata);
+
+		foreach ($rawdata as $rawdatav) {
+			$arawdatav = preg_split("/\s+/", $rawdatav);
+
+			if (!empty($arawdatav[1]) && (0 == strncmp(trim($arawdatav[1]), "Temperature_", 12)) &&
+				((0 != strcmp(trim($arawdatav[0]), "190")) || (0 != strcmp(trim($arawdatav[0]), "194")) )) {
+				$result = chop($arawdatav[9]);
+				break;
+			} else if (preg_match("/Current Drive Temperature:\s+(\d+) C.*/", $rawdatav, $matches)) {
+				$result = $matches[1];
+				break;
 			}
 		}
+		$_SESSION[$devicespecialfile]['temp']['value']=$result;
+		$_SESSION[$devicespecialfile]['temp']['timestamp']=time();
+		return $result;
+	} else {
+		return $_SESSION[$devicespecialfile]['temp']['value'];
 	}
 
 	return $result;
@@ -539,18 +544,12 @@ function system_get_volume_serial($devicespecialfile) {
 	global $config;
 
 	// get serial from config
-	if (is_array($config['disks']) && is_array($config['disks']['disk'])) {
+	global $config_disks;
+	/* get serial from S.M.A.R.T. */
+	$smart_arg = get_smartctl_info($config_disks[$devicespecialfile]);
 
-		foreach ($config['disks']['disk'] as &$disk) { 
-			if($disk['devicespecialfile'] == $devicespecialfile){
-				/* get serial from S.M.A.R.T. */
-				$smart_arg = get_smartctl_info($disk);
-
-				if( !empty($smart_arg['serial']) ){
-					return $smart_arg['serial'];
-				}
-			}
-		}
+	if( !empty($smart_arg['serial']) ){
+		return $smart_arg['serial'];
 	}
 
 	/* without smart */
@@ -582,22 +581,16 @@ function system_get_volume_model($devicespecialfile) {
 	global $config;
 
 	// get device model from config
-	if (is_array($config['disks']) && is_array($config['disks']['disk'])) {
+	global $config_disks;
+	if(!empty($config_disks[$devicespecialfile]['model'])){
+		return $config_disks[$devicespecialfile]['model'];
+	}
+	else {
+		/* get device model from S.M.A.R.T. */
+		$smart_arg = get_smartctl_info($config_disks[$devicespecialfile]);
 
-		foreach ($config['disks']['disk'] as &$disk) { 
-			if($disk['devicespecialfile'] == $devicespecialfile){
-				if(!empty($disk['model'])){
-					return $disk['model'];
-				}
-				else {
-					/* get device model from S.M.A.R.T. */
-					$smart_arg = get_smartctl_info($disk);
-					
-					if( !empty($smart_arg['model']) ){
-						return $smart_arg['model'];
-					}
-				}
-			}
+		if( !empty($smart_arg['model']) ){
+			return $smart_arg['model'];
 		}
 	}
 
@@ -683,7 +676,7 @@ function system_get_sysinfo() {
 
 	// Get uptime and date.
 	$value['uptime'] = system_get_uptime();
-	$value['date'] = shell_exec("date");
+	$value['date'] = trim(shell_exec("date"));
 
 	// Get RAM usage.
 	$raminfo = system_get_ram_info();
@@ -729,6 +722,26 @@ function system_get_sysinfo() {
 			$diskinfo['tooltip']['available'] = sprintf(gettext("%sB available of %sB"), $diskusagev['avail'], $diskusagev['size']);
 
 			$value['diskusage'][] = $diskinfo;
+		}
+	}
+
+	// Get pool info.
+	$zfspools = zfs_get_pool_list();
+	if (!empty($zfspools)) {
+		foreach ($zfspools as $poolk => $poolv) {
+			$id = $poolv['name'];
+			$id = preg_replace('/[-\.: ]/', '_', $id);
+			$poolinfo = array();
+			$poolinfo['id'] = $id;
+			$poolinfo['name'] = $poolv['name'];
+			$poolinfo['capacity'] = $poolv['cap'];
+			$poolinfo['percentage'] = rtrim($poolv['cap'], "%");
+			$poolinfo['size'] = $poolv['size'];
+			$poolinfo['used'] = $poolv['alloc'];
+			$poolinfo['avail'] = $poolv['free'];
+			$poolinfo['tooltip']['used'] = sprintf(gettext("%sB used of %sB"), $poolv['alloc'], $poolv['size']);
+			$poolinfo['tooltip']['available'] = sprintf(gettext("%sB available of %sB"), $poolv['free'], $poolv['size']);
+			$value['poolusage'][] = $poolinfo;
 		}
 	}
 

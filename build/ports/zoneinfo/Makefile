@@ -1,5 +1,5 @@
 PORTNAME=		zoneinfo
-DISTVERSION=	2014b
+DISTVERSION=	2014j
 CATEGORIES=		misc
 COMMENT=		Updated timezone definitions
 MAINTAINER=		zoon01@nas4free.org
@@ -23,8 +23,8 @@ MISSING=	ax bl bq cw gg im je me mf rs ss sx
 
 .ifndef NOMISSING
 .for M in ${MISSING}
-HAS_${M:U}!=	${GREP} -c ^${M:U} /usr/share/misc/iso3166 || ${TRUE}
-.if ${HAS_${M:U}} == "0"
+HAS_${M:tu}!=	${GREP} -c ^${M:tu} /usr/share/misc/iso3166 || ${TRUE}
+.if ${HAS_${M:tu}} == "0"
 EXTRA_PATCHES+=	${FILESDIR}/patchremove-${M}
 .endif
 .endfor
@@ -49,6 +49,6 @@ do-install:
 	@${ECHO_CMD} "zone.tab" >> ${WRKSRC}/zoneinfo.exlude
 
 	@${MKDIR} -p ${NAS4FREE_ROOTFS}/usr/share
-	${TAR} -c -v -f - -X ${WRKSRC}/zoneinfo.exlude -C ${WRKSRC}/zoneinfo/ . | ${GZIP_CMD} -cv > ${NAS4FREE_ROOTFS}/usr/share/zoneinfo.tgz
+	${TAR} -c -v -f - -X ${WRKSRC}/zoneinfo.exlude -C ${WRKSRC}/zoneinfo/ . | ${XZ_CMD} -cv > ${NAS4FREE_ROOTFS}/usr/share/zoneinfo.txz
 
 .include <bsd.port.post.mk>

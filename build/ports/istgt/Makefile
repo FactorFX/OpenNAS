@@ -1,5 +1,5 @@
 PORTNAME=		istgt
-PORTVERSION=		20121123
+PORTVERSION=		20141125
 CATEGORIES=		net
 COMMENT=		Implementation of userland ISCSI target
 MAINTAINER=		aoyama@nas4free.org
@@ -8,7 +8,6 @@ MASTER_SITES=		http://www.peach.ne.jp/archives/istgt/
 
 CC=clang
 GNU_CONFIGURE=	yes
-NO_STAGE=       yes
 CONFIGURE_ARGS+= --with-logfacility="daemon" --with-logpriority="info"
 
 do-install:

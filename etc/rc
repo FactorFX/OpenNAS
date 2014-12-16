@@ -57,6 +57,23 @@ export HOME PATH
 # Get operating platform
 PLATFORM=`cat /etc/platform`
 
+# Fixed values requested by build/make.sh
+MDLOCALSIZE=768m
+SWAPSIZE=1024m
+
+# NAS4Free request 2GB for swapless running
+mem=`/sbin/sysctl -n hw.physmem`
+mem=`/bin/expr ${mem} / 1024 / 1024`
+BOOT_LOWMEM=0
+BOOT_LIVECD=0
+if [ ${mem} -le 1536 ]; then
+	# less than or equal to 1.5GB
+	echo "Booting with low memory"
+	BOOT_LOWMEM=1
+fi
+export BOOT_LOWMEM BOOT_LIVECD
+#/bin/kenv -q boot_lowmem=${BOOT_LOWMEM} > /dev/null
+
 case ${PLATFORM} in
 	*-full)
 		# Do a fsck on root file system.
@@ -67,9 +84,97 @@ case ${PLATFORM} in
 		;;
 	*)
 		# If running from liveCD or embedded, mount the root (ramdisk) in read-write.
-		/sbin/mount -u -o rw /dev/md0 /;
+		if [ -e /dev/xmd0 ]; then
+			/sbin/mount -u -o rw,noatime,acls /dev/xmd0 /;
+		else
+			/sbin/mount -u -o rw,noatime,acls /dev/md0 /;
+		fi
+
+		/bin/echo "Creating 2nd memory disk for ${PLATFORM}"
+		md=`/sbin/mdconfig -t swap -s ${MDLOCALSIZE}`
+		case ${PLATFORM} in
+			*-liveUSB)
+				root=`/sbin/glabel status -s|/usr/bin/awk '/liveboot/{print $3;exit 0}'`
+				swap=`/bin/echo ${root}|/usr/bin/sed -e 's/a$/b/'`
+				#if [ ! -e "/dev/${swap}" ]; then
+				#	dev=`/bin/echo ${swap}|/usr/bin/sed -e 's/b$//'`
+				#	/sbin/gpart add -s ${SWAPSIZE} -t freebsd-swap ${dev}
+				#fi
+				if [ ${BOOT_LOWMEM} -ne 0 ]; then
+					/sbin/swapon /dev/${swap}
+					echo "/dev/${swap}" > /etc/swapdevice
+					if [ -f /boot/kernel/geom_xmd.ko ]; then
+						/sbin/mdconfig -d -u ${md}
+						/sbin/kldload /boot/kernel/geom_xmd.ko 2> /dev/null
+						md=`/sbin/xmdconfig -s ${MDLOCALSIZE}`
+					fi
+				else
+					rm -f /etc/swapdevice
+				fi
+
+				/sbin/mount /dev/${root} /mnt
+				/usr/bin/xz -dcv /mnt/mdlocal.xz | \
+				    /bin/dd of=/dev/${md} bs=1m status=none
+				/sbin/umount /mnt
+				;;
+			*-embedded)
+				root=`/sbin/glabel status -s|/usr/bin/awk '/embboot/{print $3;exit 0}'`
+				swap=`/bin/echo ${root}|/usr/bin/sed -e 's/a$/b/'`
+				# always create swap partition if not exists
+				if [ ! -e "/dev/${swap}" ]; then
+					dev=`/bin/echo ${swap}|/usr/bin/sed -e 's/b$//'`
+					/sbin/gpart add -s ${SWAPSIZE} -t freebsd-swap ${dev}
+				fi
+				if [ ${BOOT_LOWMEM} -ne 0 ]; then
+					/sbin/swapon /dev/${swap}
+					echo "/dev/${swap}" > /etc/swapdevice
+					if [ -f /boot/kernel/geom_xmd.ko ]; then
+						/sbin/mdconfig -d -u ${md}
+						/sbin/kldload /boot/kernel/geom_xmd.ko 2> /dev/null
+						md=`/sbin/xmdconfig -s ${MDLOCALSIZE}`
+					fi
+				else
+					rm -f /etc/swapdevice
+					if [ -f /boot/kernel/geom_xmd.ko ]; then
+						/sbin/mdconfig -d -u ${md}
+						/sbin/kldload /boot/kernel/geom_xmd.ko 2> /dev/null
+						md=`/sbin/xmdconfig -s ${MDLOCALSIZE}`
+					fi
+				fi
+
+				/sbin/mount /dev/${root} /mnt
+				/usr/bin/xz -dcv /mnt/mdlocal.xz | \
+				    /bin/dd of=/dev/${md} bs=1m status=none
+				#if [ -e /mnt/boot/zfs/zpool.cache ]; then
+				#	/bin/cp -p /mnt/boot/zfs/zpool.cache /boot/zfs/
+				#fi
+				/sbin/umount /mnt
+				;;
+			*-liveCD)
+				BOOT_LIVECD=1
+				root=`/sbin/glabel status -s|/usr/bin/awk '/LiveCD/{print $3;exit 0}'`
+				swap=NONE
+				#echo "NONE" > /etc/swapdevice
+				rm -f /etc/swapdevice
+
+				/sbin/mount -t cd9660 /dev/${root} /mnt
+				if [ ${BOOT_LOWMEM} -ne 0 ]; then
+					# no live mode, installation only
+					/usr/bin/xz -dcv /mnt/mdlocal-mini.xz | \
+					    /bin/dd of=/dev/${md} bs=1m status=none
+				else
+					/usr/bin/xz -dcv /mnt/mdlocal.xz | \
+					    /bin/dd of=/dev/${md} bs=1m status=none
+				fi
+				/sbin/umount /mnt
+				;;
+			*)
+				;;
+		esac
+		/sbin/mount -o noatime,acls /dev/${md} /usr/local
 		;;
 esac
+echo "${BOOT_LOWMEM}" > /etc/boot_lowmem
 
 # Create required directories in /var
 for dir in /var/run /var/log /var/etc /var/etc/ssh /var/etc/ssl/private /var/etc/private /var/etc/iscsi /var/etc/netatalk /var/db /var/mount /var/empty /var/backups /var/cron /var/cron/tabs /var/spool /var/spool/lock; do
@@ -93,6 +198,8 @@ chmod 1777 /var/tmp
 
 # Configure the shared library cache
 /sbin/ldconfig -elf /usr/lib /usr/local/lib /lib
+# Add the path of embedded boot disk
+/sbin/kldconfig -m /cf/boot/kernel
 
 # Let the PHP functions know we're booting
 BOOTING=1

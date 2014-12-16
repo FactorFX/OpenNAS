@@ -1,7 +1,7 @@
 PORTNAME=				bash
-PATCHLEVEL=		11
+PATCHLEVEL=		30
 PORTVERSION=		4.3.${PATCHLEVEL:S/^0//g}
-PORTREVISION?=	2
+PORTREVISION?=	3
 CATEGORIES=			shells
 COMMENT=				The GNU Project's Bourne Again SHell
 MAINTAINER=			zoon01@nas4free.org
@@ -32,7 +32,6 @@ COLONBREAKSWORDS_EXTRA_PATCHES= ${PATCHDIR}/extrapatch-colonbreakswords
 
 GNU_CONFIGURE=  yes
 USES=		  bison
-NO_STAGE=       yes
 USE_GETTEXT=	  yes
 CONFIGURE_ARGS=	--without-bash-malloc \
 								--disable-rpath \

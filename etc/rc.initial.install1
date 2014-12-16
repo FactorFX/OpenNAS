@@ -81,7 +81,7 @@ foreach ($cdlist as $cdromk => $cdromv) {
 	$menuitem['item'] = $cdromv['desc'];
 	$amenuitem[] = $menuitem;
 }
-$result = tui_display_menu("Choose installation media", "Select CD/DVD/USB drive for installation.", 60, 10, 6, $amenuitem, $cdrom);
+$result = tui_display_menu("Choose installation media", "Select CD/DVD/USB drive for installation source.", 60, 10, 6, $amenuitem, $cdrom);
 if (0 != $result)
 	exit(0);
 
@@ -116,14 +116,36 @@ if (install_dd_image($harddrive)) {
 	exit(0);
 }
 
+if (add_default_swap($harddrive)) {
+	install_unmount_cd();
+	tui_wait_keypress("There was a problem while adding swap.");
+	exit(0);
+}
+
 install_unmount_cd();
 
 // Display final message
 $text = <<<EOD
 
 {$productname} has been installed on {$harddrive}.
-You can now safely remove the LiveCD/USB and reboot the server.
+
 EOD;
+
+$boot_lowmem = trim(@file_get_contents("/etc/boot_lowmem"));
+if ($boot_lowmem === "1") {
+	// The lowmem version uses swap on it. Should not remove!!
+	$text .= <<<EOD
+
+You can now reboot the server.
+
+EOD;
+} else {
+	$text .= <<<EOD
+
+You can now safely remove the LiveCD/USB and reboot the server.
+
+EOD;
+}
 
 tui_wait_keypress($text);
 ?>

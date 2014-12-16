@@ -34,8 +34,8 @@
 	of the authors and should not be interpreted as representing official policies,
 	either expressed or implied, of the NAS4Free Project.
 */
-require_once "./_include/header.php";
-require_once "./_include/debug.php";
+require_once "_include/header.php";
+require_once "_include/debug.php";
 
 /**
     show error-message and terminate
@@ -57,6 +57,7 @@ function show_error($error,$extra=NULL)
         <?php if ($extra != NULL) echo " - " . $extra; ?>
     </center>
     <?php
-    show_footer(); exit;
+    show_footer();
+    exit;
 }
 ?>
