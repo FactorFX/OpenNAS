@@ -143,8 +143,10 @@ usr/local/lib/perl5/5.14/
 usr/local/lib/perl5/site_perl/5.14/
 usr/local/lib/perl5/5.14.2/
 usr/local/lib/perl5/site_perl/5.14.2/
-usr/local/lib/perl5/5.18/
-usr/local/lib/perl5/site_perl/5.18/
+usr/local/lib/perl5/5.16/
+usr/local/lib/perl5/site_perl/5.16/
+usr/local/bin/perl5.16.3
+usr/local/etc/man.d/perl5.16.conf
 
 # Clean old bacula share file
 usr/local/share/bacula

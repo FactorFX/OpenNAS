@@ -4,11 +4,11 @@
 PORTNAME=		perl
 PORTVERSION=	${PERL_VERSION}
 
-PERL_VERSION=	5.16.3
+PERL_VERSION=	5.18.4
 
 COMMENT=	Practical Extraction and Report Language
 
-MASTERDIR=	/usr/ports/lang/perl5.16
+MASTERDIR=	/usr/ports/lang/perl5.18
 
 STAGEDIR=	${NAS4FREE_ROOTFS}
 
