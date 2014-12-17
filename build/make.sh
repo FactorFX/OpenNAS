@@ -1281,7 +1281,7 @@ build_ports() {
 					cd ${NAS4FREE_SVNDIR}/build/ports/${port};
 					# Delete cookie first, otherwise Makefile will skip this step.
 					rm -f ./work/.install_done.* ./work/.stage_done.*;
-					env PKG_DBDIR=$NAS4FREE_WORKINGDIR/pkg FORCE_PKG_REGISTER=1 make install;
+					env NO_PKG_REGISTER=1 make install;
 					[ 0 != $? ] && return 1; # successful?
 				done;
 				;;
