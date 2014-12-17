@@ -2,7 +2,6 @@
 # $FreeBSD: head/security/nmap/Makefile 368003 2014-09-12 04:38:32Z ohauer $
 
 PORTNAME=		nmap
-DISTVERSION=	6.47
 
 COMMENT=	Port scanning utility for large networks
 

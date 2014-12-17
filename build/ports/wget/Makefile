@@ -2,7 +2,6 @@
 # $FreeBSD: head/ftp/wget/Makefile 366659 2014-08-30 18:18:14Z tijl $
 
 PORTNAME=		wget
-DISTVERSION=	1.15
 
 COMMENT=	Retrieve files from the Net via HTTP(S) and FTP
 

@@ -2,7 +2,6 @@
 # $FreeBSD: head/sysutils/ipmitool/Makefile 363340 2014-07-29 15:29:59Z sunpoet $
 
 PORTNAME=		ipmitool
-PORTVERSION=	1.8.14
 
 COMMENT=	CLI to manage IPMI systems
 

@@ -2,7 +2,6 @@
 # $FreeBSD: sysutils/pciutils/Makefile 333525 2013-11-11 17:17:51Z sunpoet $
 
 PORTNAME=		pciutils
-PORTVERSION=	3.2.1
 
 COMMENT=	PCI configuration utilities
 

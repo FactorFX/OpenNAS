@@ -2,7 +2,6 @@
 # $FreeBSD: head/sysutils/usbutils/Makefile 356165 2014-06-01 19:22:21Z brix $
 
 PORTNAME=		usbutils
-PORTVERSION=	0.86
 
 COMMENT=		Utility for listing USB devices
 

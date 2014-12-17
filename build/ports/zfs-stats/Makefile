@@ -6,7 +6,6 @@
 #
 
 PORTNAME=		zfs-stats
-PORTVERSION=	1.2.2
 
 COMMENT=		Display human-readable ZFS statistics
 

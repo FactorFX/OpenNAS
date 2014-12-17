@@ -6,7 +6,6 @@
 #
 
 PORTNAME=		pdksh
-PORTVERSION=	5.2.14p2
 
 COMMENT=	The Public Domain Korn Shell
 

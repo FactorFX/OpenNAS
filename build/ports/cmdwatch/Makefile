@@ -6,7 +6,6 @@
 #
 
 PORTNAME=	cmdwatch
-PORTVERSION=	0.2.0
 
 COMMENT=	Watches the output from a command at specified intervals
 

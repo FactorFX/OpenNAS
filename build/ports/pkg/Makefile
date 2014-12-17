@@ -1,7 +1,6 @@
 # $FreeBSD: head/ports-mgmt/pkg/Makefile 370273 2014-10-07 06:53:49Z bapt $
 
 PORTNAME=		pkg
-PORTVERSION=	1.3.8
 
 COMMENT=		Package manager
 

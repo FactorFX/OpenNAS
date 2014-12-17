@@ -2,7 +2,6 @@
 # $FreeBSD: head/sysutils/rsnapshot/Makefile 371526 2014-10-26 21:04:21Z swills $
 
 PORTNAME=		rsnapshot
-PORTVERSION=	1.3.1
 
 COMMENT=		Filesystem snapshot utility based on rsync(1)
 

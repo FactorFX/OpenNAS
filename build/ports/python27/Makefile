@@ -1,7 +1,6 @@
 # $FreeBSD: head/lang/python27/Makefile 372138 2014-11-04 09:14:21Z demon $
 
 PORTNAME=		python27
-PORTVERSION=	2.7.8
 
 COMMENT=		Interpreted object-oriented programming language
 

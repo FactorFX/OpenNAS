@@ -2,7 +2,6 @@
 # $FreeBSD: sysutils/ncdu/Makefile 317888 2013-05-11 15:31:46Z pawel $
 
 PORTNAME=		ncdu
-PORTVERSION=	1.10
 
 COMMENT=	Ncurses du(1)
 

@@ -2,7 +2,6 @@
 # $FreeBSD: sysutils/sysinfo/Makefile 316744 2013-04-28 20:01:07Z bapt $
 
 PORTNAME=		sysinfo
-PORTVERSION=	1.0.1
 
 COMMENT=	Utility used to gather system configuration information
 

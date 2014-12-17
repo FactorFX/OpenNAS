@@ -2,7 +2,6 @@
 
 PORTNAME=	bacula
 PKGNAMESUFFIX=	5-client
-DISTVERSION=	5.2.12
 
 COMMENT=	Network backup solution (client)
 
