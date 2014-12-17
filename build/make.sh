@@ -580,12 +580,8 @@ create_image() {
 	fi
 
 	# Cleanup.
-	chflags -R noschg $NAS4FREE_TMPDIR
-	[ -d $NAS4FREE_TMPDIR ] && rm -rf $NAS4FREE_TMPDIR
 	[ -f ${NAS4FREE_WORKINGDIR}/image.bin ] && rm -f ${NAS4FREE_WORKINGDIR}/image.bin
 	[ -f ${NAS4FREE_WORKINGDIR}/image.bin.xz ] && rm -f ${NAS4FREE_WORKINGDIR}/image.bin.xz
-	
-	[ -d $NAS4FREE_SVNDIR ] && use_svn ;
 
 	# Set platform information.
 	PLATFORM="${NAS4FREE_XARCH}-embedded"
@@ -699,15 +695,21 @@ create_iso () {
 	fi
 
 	# Cleanup.
-	chflags -R noschg $NAS4FREE_TMPDIR
 	[ -d $NAS4FREE_TMPDIR ] && rm -rf $NAS4FREE_TMPDIR
 	[ -f $NAS4FREE_WORKINGDIR/mfsroot.gz ] && rm -f $NAS4FREE_WORKINGDIR/mfsroot.gz
 	[ -f $NAS4FREE_WORKINGDIR/mfsroot.uzip ] && rm -f $NAS4FREE_WORKINGDIR/mfsroot.uzip
 	[ -f $NAS4FREE_WORKINGDIR/mdlocal.xz ] && rm -f $NAS4FREE_WORKINGDIR/mdlocal.xz
 	[ -f $NAS4FREE_WORKINGDIR/mdlocal-mini.xz ] && rm -f $NAS4FREE_WORKINGDIR/mdlocal-mini.xz
 
-	LABEL="${NAS4FREE_PRODUCTNAME}-${NAS4FREE_XARCH}-${NAS4FREE_VERSION}.${NAS4FREE_REVISION}${NAS4FREE_STAGE_DEVELOPMENT}"
-	VOLUMEID="${NAS4FREE_PRODUCTNAME}-${NAS4FREE_XARCH}-${NAS4FREE_VERSION}"
+	if [ ! $TINY_ISO ]; then
+		LABEL="${NAS4FREE_PRODUCTNAME}-${NAS4FREE_XARCH}-LiveCD-${NAS4FREE_VERSION}.${NAS4FREE_REVISION}${NAS4FREE_STAGE_DEVELOPMENT}"
+		VOLUMEID="${NAS4FREE_PRODUCTNAME}-${NAS4FREE_XARCH}-LiveCD-${NAS4FREE_VERSION}"
+		echo "ISO: Generating the $NAS4FREE_PRODUCTNAME Image file:"
+		create_image;
+	else
+		LABEL="${NAS4FREE_PRODUCTNAME}-${NAS4FREE_XARCH}-LiveCD-Tiny-${NAS4FREE_VERSION}.${NAS4FREE_REVISION}${NAS4FREE_STAGE_DEVELOPMENT}"
+		VOLUMEID="${NAS4FREE_PRODUCTNAME}-${NAS4FREE_XARCH}-LiveCD-Tiny-${NAS4FREE_VERSION}"
+	fi
 
 	# Set Platform Informations.
 	PLATFORM="${NAS4FREE_XARCH}-liveCD"
@@ -772,6 +774,11 @@ create_iso () {
 	# copy kernel modules
 	copy_kmod
 
+	if [ ! $TINY_ISO ]; then
+		echo "ISO: Copying IMG file to $NAS4FREE_TMPDIR"
+		cp ${NAS4FREE_WORKINGDIR}/image.bin.xz ${NAS4FREE_TMPDIR}/${NAS4FREE_PRODUCTNAME}-${NAS4FREE_XARCH}-embedded.xz
+	fi
+
 	echo "ISO: Generating ISO File"
 	mkisofs -b "boot/cdboot" -no-emul-boot -r -J -A "${NAS4FREE_PRODUCTNAME} CD-ROM image" -publisher "${NAS4FREE_URL}" -V "${VOLUMEID}" -o "${NAS4FREE_ROOTDIR}/${LABEL}.iso" ${NAS4FREE_TMPDIR}
 	[ 0 != $? ] && return 1 # successful?
@@ -787,6 +794,13 @@ create_iso () {
 	[ -f $NAS4FREE_WORKINGDIR/mdlocal.xz ] && rm -f $NAS4FREE_WORKINGDIR/mdlocal.xz
 	[ -f $NAS4FREE_WORKINGDIR/mdlocal-mini.xz ] && rm -f $NAS4FREE_WORKINGDIR/mdlocal-mini.xz
 
+	return 0
+}
+
+create_iso_tiny() {
+	TINY_ISO=1
+	create_iso;
+	unset TINY_ISO
 	return 0
 }
 
@@ -825,7 +839,7 @@ create_usb () {
 	# Set build time.
 	date > ${NAS4FREE_ROOTFS}/etc/prd.version.buildtime
 
-	IMGFILENAME="${NAS4FREE_PRODUCTNAME}-${NAS4FREE_XARCH}-${NAS4FREE_VERSION}.${NAS4FREE_REVISION}${NAS4FREE_STAGE_DEVELOPMENT}.img"
+	IMGFILENAME="${NAS4FREE_PRODUCTNAME}-${NAS4FREE_XARCH}-LiveUSB-${NAS4FREE_VERSION}.${NAS4FREE_REVISION}${NAS4FREE_STAGE_DEVELOPMENT}.img"
 
 	echo "USB: Generating temporary folder '$NAS4FREE_TMPDIR'"
 	mkdir $NAS4FREE_TMPDIR
@@ -1292,9 +1306,10 @@ Menu Options:
 
 1  - Update OPENNAS Source Files to LATEST STABLE.
 2  - Compile OPENNAS from Scratch.
+10 - Create 'Embedded' (IMG) File (rawrite to CF/USB/DD).
 11 - Create 'LiveUSB' (IMG) File.
 12 - Create 'LiveCD' (ISO) File.
-13 - Create Image.
+13 - Create 'LiveCD-Tiny' (ISO) File without 'Embedded' File.
 14 - Create 'Full' (TGZ) Update File.
 *  - Exit.
 Press # "
@@ -1302,9 +1317,10 @@ Press # "
 	case $choice in
 		1)	update_git;;
 		2)	build_system;;
+		10)	create_image;;
 		11)	create_usb;;
 		12)	create_iso;;
-		13) create_image;;
+		13)	create_iso_tiny;;
 		14)	create_full;;
 		*)	exit 0;;
 	esac
@@ -1342,11 +1358,14 @@ else
 				create_full;;
 			"usb")
 				create_usb;;
+			"image")
+				create_image;;
 			"iso")
 				create_iso;;
 			"all")
 				create_iso
 				create_full
+				create_image
 				create_usb;;
 			*)
 				echo "Bad Parameter";;	

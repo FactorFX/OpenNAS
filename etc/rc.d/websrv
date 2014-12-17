@@ -85,7 +85,7 @@ server.modules = (
   "mod_alias"
  )
 server.errorlog-use-syslog = "enable"
-# debugmode Â° debug.log-request-handling enable/disable
+# debugmode ° debug.log-request-handling enable/disable
 debug.log-request-handling = "disable"
 server.event-handler = "freebsd-kqueue"
 server.max-write-idle = ${websrv_server_maxwriteidle}

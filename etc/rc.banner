@@ -104,8 +104,8 @@ EOD;
 			
 echo <<<EOD
 
-	WebGUI default login is : admin and password is : opennas
-	Default login is : root and password is : opennas\n
+	WebGUI default login is admin and password is opennas
+	Default login is root and password is opennas\n
 	Type menu in shell to acces Menu\n
 EOD;
 

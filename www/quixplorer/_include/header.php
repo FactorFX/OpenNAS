@@ -231,7 +231,7 @@ function show_header($title, $additional_header_content = null)
 	echo "<link href=\"./_style/style.css\" rel=\"stylesheet\"	type=\"text/css\">\n";
 	echo "<link href=\"../gui.css\" rel=\"stylesheet\" type=\"text/css\">\n";
 	echo "<link href=\"../navbar.css\" rel=\"stylesheet\" type=\"text/css\">\n";
-	echo "<link href=\"../tabs.css\" rel=\"stylesheet\" type=\"text/css\">\n";
+	echo "<link href=\"../tabs.css\" rel=\"stylesheet\" type=\"text/css\">\n";	
 	echo "<script type=\"text/javascript\" src=\"../js/jquery.min.js\"></script>\n";
 	echo "<script type=\"text/javascript\" src=\"../js/gui.js\"></script>\n";
 	if (isset($pglocalheader) && !empty($pglocalheader)) {
@@ -291,7 +291,7 @@ function show_header($title, $additional_header_content = null)
 	echo "<div style=\"clear:both\"></div>\n";
 	echo "</div>\n";
 	echo "<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />\n";
-
+	
 	// QuiXplorer Header
 	$pgtitle = array(gettext("Advanced"), gettext("File Manager"));
 	if (!isset($pgtitle_omit) || !$pgtitle_omit):
@@ -302,7 +302,7 @@ function show_header($title, $additional_header_content = null)
 	echo "<tbody>\n";
 	echo "<tr>\n";
 	echo "<td class=\"title\" aligh=\"left\">\n";
-	if($GLOBALS["require_login"] && isset($GLOBALS['__SESSION']["s_user"]))
+	if($GLOBALS["require_login"] && isset($GLOBALS['__SESSION']["s_user"])) 
 	echo "[".$GLOBALS['__SESSION']["s_user"]."] "; echo $title;
 	echo "</td>\n";
 	echo "<td class=\"title_version\" align=\"right\">\n";

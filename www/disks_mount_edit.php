@@ -258,7 +258,7 @@ if ($_POST) {
 	// Check for duplicates.
 	if ("disk" === $_POST['type']) {
 		foreach ($a_mount as $mount) {
-			if (isset($uuid) && (FALSE !== $cnid) && ($mount['uuid'] === $uuid))
+			if (isset($uuid) && (FALSE !== $cnid) && ($mount['uuid'] === $uuid)) 
 				continue;
 			if (($mount['mdisk'] === $_POST['mdisk']) && ($mount['partition'] === $_POST['partition'])) {
 				$input_errors[] = gettext("The disk/partition is already configured.");
@@ -268,7 +268,7 @@ if ($_POST) {
 	}
 	if ("hvol" === $_POST['type']) {
 		foreach ($a_mount as $mount) {
-			if (isset($uuid) && (FALSE !== $cnid) && ($mount['uuid'] === $uuid))
+			if (isset($uuid) && (FALSE !== $cnid) && ($mount['uuid'] === $uuid)) 
 				continue;
 			if (($mount['mdisk'] === $_POST['hvol']) && ($mount['partition'] === $_POST['partition'])) {
 				$input_errors[] = gettext("The disk/partition is already configured.");

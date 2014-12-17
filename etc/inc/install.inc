@@ -157,7 +157,6 @@ function add_default_swap($harddrive)
 	return 0;
 }
 
-
 // Install the IMG on the destination harddrive.
 // Return 0 if successful, otherwise 1
 function install_dd_image($harddrive)

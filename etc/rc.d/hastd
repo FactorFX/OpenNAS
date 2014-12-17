@@ -22,7 +22,6 @@ load_rc_config "${name}"
 
 start_precmd="hastd_mkconf"
 stop_precmd="hastd_stop_precmd"
-reload_precmd="hastd_mkconf"
 mkconf_cmd="hastd_mkconf"
 extra_commands="reload mkconf"
 

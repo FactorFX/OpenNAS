@@ -89,7 +89,7 @@ function packages_uninstall($pkgname) {
 }
 
 // Check whether package is already installed.
-// $pkgname - The package name or filename (e.g. xyz or xyz.tbz)
+// $pkgname - The package name or filename (e.g. xyz or xyz.txz)
 // Return 0 if already installed, otherwise 1
 function packages_is_installed($pkgname) {
 	// Remove '.txz' if necessary.

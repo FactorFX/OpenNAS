@@ -100,26 +100,22 @@ if(!isset($do_action)) {
 				echo('<pre class="cmdoutput">');
 				//ob_end_flush();
 				ob_start();
-
+				
 				// Install package.
 				packages_install($packagename);
-
+				
 				// Delete file.
 				@unlink($packagename);
-
+				
 				$cmdoutput = ob_get_contents();
 				ob_end_clean();
 				echo htmlspecialchars($cmdoutput);
-
+				
 				echo('</pre>');
 				}
 				?>
 				<div id="remarks">
-<<<<<<< HEAD
 					<?php html_remark("note", gettext("Note"), gettext("You can also install a package via SSH or console using the the pkg install command.<br />Example: pkg install packagename"));?>
-=======
-					<?php html_remark("note", gettext("Note"), gettext("You can also install a package via SSH or console using the the pkg add command.<br />Example: pkg add packagename"));?>
->>>>>>> refs/heads/nas4free
 				</div>
 				<?php include("formend.inc");?>
 			</form>
