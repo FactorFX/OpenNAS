@@ -12,10 +12,12 @@ BIN_DEP=GET HEAD POST lwp-download lwp-dump lwp-mirror lwp-request \
 	xml_grep xml_merge xml_pp xml_spellcheck xml_split \
 	xpath
 
+BUILD_DEPENDS += ${RUN_DEPENDS}
+
 do-install:
 	$(MAKE) -C  ${WRKSRC} install DESTDIR=${NAS4FREE_ROOTFS}
 	
-	${REINPLACE_CMD:S/.bak/ ""/} -e "s|${NAS4FREE_ROOTFS}|/|g" ${NAS4FREE_ROOTFS}/${SITE_PERL}/mach/auto/Ocsinventory/Unix/Agent/.packlist 
+	${REINPLACE_CMD:S/.bak/ ""/} -e "s|${NAS4FREE_ROOTFS}|/|g" ${NAS4FREE_ROOTFS}/${SITE_PERL}/mach/${PERL_VER}/auto/Ocsinventory/Unix/Agent/.packlist 
 	${REINPLACE_CMD:S/.bak/ ""/} -e "s|pkg_info|pkg info|g" ${NAS4FREE_ROOTFS}/${SITE_PERL}/Ocsinventory/Agent/Backend/OS/Generic/Packaging/BSDpkg.pm
 
 	${MKDIR} ${NAS4FREE_ROOTFS}/usr/local/etc/ocsinventory/

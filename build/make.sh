@@ -1115,11 +1115,11 @@ finalization()
 	# Add missing manpages for perl
 	PERL_VER=$(make -f /usr/ports/Mk/Uses/perl5.mk -V PERL_VER PORTSDIR=/usr/ports USES=perl5 LOCALBASE=/usr/local)
 	#Copy manpage of perl dependencies
-	cp -R /usr/local/lib/perl5/${PERL_VER}/man/man3/ ${NAS4FREE_ROOTFS}/usr/local/lib/perl5/${PERL_VER}/man/man3/
+	#cp -R /usr/local/lib/perl5/${PERL_VER}/man/man3/ ${NAS4FREE_ROOTFS}/usr/local/lib/perl5/${PERL_VER}/man/man3/
 	cp -R /usr/local/lib/perl5/${PERL_VER}/perl/man/man3/ ${NAS4FREE_ROOTFS}/usr/local/lib/perl5/${PERL_VER}/perl/man/man3/
 	
 	# Add missing perl library
-	rsync -r --exclude=usr/local/lib/perl5/site_perl/${PERL_VER}/Ocsinventory /usr/local/lib/perl5/site_perl/${PERL_VER}/ ${NAS4FREE_ROOTFS}/usr/local/lib/perl5/site_perl/${PERL_VER}/
+	rsync -r --exclude=usr/local/lib/perl5/site_perl/Ocsinventory /usr/local/lib/perl5/site_perl/ ${NAS4FREE_ROOTFS}/usr/local/lib/perl5/site_perl/
 	
 	# bootstrap pkgng
 	chroot ${NAS4FREE_ROOTFS} env ASSUME_ALWAYS_YES=yes pkg update
