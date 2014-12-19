@@ -1364,8 +1364,8 @@ else
 				create_iso;;
 			"all")
 				create_iso
-				create_full
-				create_image
+				#create_full
+				#create_image
 				create_usb;;
 			*)
 				echo "Bad Parameter";;	
