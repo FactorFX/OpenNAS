@@ -214,6 +214,8 @@ function install_harddrive_image($harddrive)
 		mwexec("/sbin/mdconfig -d -u {$mdid[0]}");
 		mwexec("/bin/rm {$mntpath}/ftmp/mdlocal");
 	}
+	// Remove autologin in /etc/ttys
+	mwexec("sed -i '' -e '/^ttyv0/ s|autologin|Pc|' {$mntpath}/etc/ttys");
 	mwexec("/bin/mkdir -p {$mntpath}/var");
 	mwexec("/bin/mkdir -p {$mntpath}/dev");
 	mwexec("/bin/mkdir -p {$mntpath}/mnt");
@@ -372,6 +374,8 @@ function install_upgrade_full($harddrive)
 		mwexec("/sbin/mdconfig -d -u {$mdid[0]}");
 		mwexec("/bin/rm {$mntpath}/ftmp/mdlocal");
 	}
+	// Remove autologin in /etc/ttys
+	mwexec("sed -i '' -e '/^ttyv0/ s|autologin|Pc|' {$mntpath}/etc/ttys");
 	mwexec("/bin/mkdir -p {$mntpath}/var");
 	mwexec("/bin/mkdir -p {$mntpath}/dev");
 	mwexec("/bin/mkdir -p {$mntpath}/mnt");
