@@ -1090,7 +1090,7 @@ update_git() {
 	cd $NAS4FREE_SVNDIR
 	
 	git fetch origin
-	git checkout -f opennas
+	git checkout -f master
 	git pull --rebase
 
 	return 0
