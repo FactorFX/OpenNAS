@@ -3,3 +3,4 @@
 .project
 .settings
 build/ports/nas4free.mk
+.svn

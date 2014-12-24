@@ -253,7 +253,7 @@ EOD;
 	}
 
 	// Set the release type.
-	$platform .= <<<EOD
+	$platform = <<<EOD
 {$g['arch']}-full
 
 EOD;
@@ -274,7 +274,7 @@ EOD;
 		write_console("Error: Failed to get UFS ID.\n");
 		return 1;
 	}
-	$fstab .= <<<EOD
+	$fstab = <<<EOD
 # Device                    Mountpoint  FStype  Options         Dump    Pass#
 /dev/ufsid/{$ufsid}     /       ufs     rw              1       1
 
@@ -289,7 +289,7 @@ EOD;
 	// This file is used by the firmware and mount check and is normally
 	// generated with 'liveCD' and 'embedded' during startup, but need to be
 	// created during install of 'full'.
-	$cfdevice .= <<<EOD
+	$cfdevice = <<<EOD
 {$harddrive}p2
 
 EOD;

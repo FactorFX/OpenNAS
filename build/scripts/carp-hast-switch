@@ -75,7 +75,7 @@ case "$ARG1" in
 
 	# Wait for the /dev/hast/* devices to appear
 	for disk in ${resources}; do
-	    for I in $( jot 360 ); do
+	    for I in $( jot 240 ); do
 		[ -c "/dev/hast/${disk}" ] && break
 		sleep 0.5
 	    done
@@ -96,7 +96,7 @@ case "$ARG1" in
 	/etc/rc.d/iscsi_target start
 
 	# make sure all carp is master
-	if [ "${PREEMPTION}" = "0" -a  -n "${carps}" ]; then
+	if [ "${PREEMPT}" = "0" -a  -n "${carps}" ]; then
 		for if in ${carps}; do
 			/sbin/ifconfig ${if} up state master
 		done
@@ -107,7 +107,7 @@ case "$ARG1" in
 	logger -p $log -t $name "Switching to secondary provider for ${resources}. (carp=$STATE)"
 
 	# make sure all carp is backup
-	if [ "${PREEMPTION}" = "0" -a -n "${carps}" ]; then
+	if [ "${PREEMPT}" = "0" -a -n "${carps}" ]; then
 		for if in ${carps}; do
 			/sbin/ifconfig ${if} state backup
 		done

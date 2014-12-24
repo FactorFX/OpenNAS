@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: NAS4Free\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-12-02 12:55+0100\n"
-"PO-Revision-Date: 2014-12-16 17:38+0100\n"
+"PO-Revision-Date: 2014-12-24 12:15+0100\n"
 "Last-Translator: Cédric Denis <cedric@factorfx.com>\n"
 "Language-Team: français <cedric@factorfx.com>\n"
 "Language: fr_FR\n"
@@ -1615,7 +1615,7 @@ msgstr ""
 "-."
 
 #: /home/cedric/DEV/Nas4Free/opennas/trunk/www/disks_mount_edit.php:186
-#, php-format
+#, c-format, php-format
 msgid "The attribute '%s' contains invalid characters."
 msgstr "L'attribut '%s' contient des caractères invalides."
 
@@ -4230,7 +4230,7 @@ msgid "Memory usage"
 msgstr "Utilisation de la mémoire"
 
 #: /home/cedric/DEV/Nas4Free/opennas/trunk/www/index.php:418
-#, php-format
+#, c-format, php-format
 msgid "%d%% of %dMiB"
 msgstr "%d%% de %dMo"
 
@@ -4241,14 +4241,14 @@ msgstr "Utilisation de la pagination"
 #: /home/cedric/DEV/Nas4Free/opennas/trunk/www/index.php:431
 #: /home/cedric/DEV/Nas4Free/opennas/trunk/www/index.php:481
 #: /home/cedric/DEV/Nas4Free/opennas/trunk/www/index.php:516
-#, php-format
+#, c-format, php-format
 msgid "%sB used of %sB"
 msgstr "%sB de %sB utilisé"
 
 #: /home/cedric/DEV/Nas4Free/opennas/trunk/www/index.php:432
 #: /home/cedric/DEV/Nas4Free/opennas/trunk/www/index.php:482
 #: /home/cedric/DEV/Nas4Free/opennas/trunk/www/index.php:517
-#, php-format
+#, c-format, php-format
 msgid "%sB available of %sB"
 msgstr "%sB de %sB disponible"
 
@@ -4571,7 +4571,7 @@ msgstr "DefaultTime2Retain"
 
 #: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_iscsitarget.php:129
 #: /home/cedric/DEV/Nas4Free/opennas/trunk/www/services_iscsitarget.php:151
-#, php-format
+#, c-format, php-format
 msgid "The attribute '%s' is required."
 msgstr "L'attribut '%s' est requis."
 
@@ -7241,7 +7241,7 @@ msgid "Action"
 msgstr "Action"
 
 #: /home/cedric/DEV/Nas4Free/opennas/trunk/www/disks_zfs_snapshot_edit.php:176
-#, php-format
+#, c-format, php-format
 msgid "The attribute '%s' is invalid."
 msgstr "L'attribut '%s' est invalide."
 
@@ -8321,7 +8321,7 @@ msgid "The administrator has been notified to apply your changes."
 msgstr "L'administrateur a été notifié afin d'appliquer vos changements."
 
 #: /home/cedric/DEV/Nas4Free/opennas/trunk/www/interfaces_bridge_edit.php:79
-#, php-format
+#, c-format, php-format
 msgid "The attribute '%s' must be a number."
 msgstr "L'attribut '%s' doit être un nombre."
 
@@ -9765,6 +9765,105 @@ msgstr "Routes"
 
 #: /home/cedric/DEV/Nas4Free/opennas/trunk/www/quixplorer/_include/login.php:104
 msgid "Detected Language:<br />(Change if needed)"
+msgstr ""
+
+#, php-format
+msgid "%s: cannot get mirror name."
+msgstr ""
+
+msgid ""
+"A valid IP address or CIDR notation must be specified for the hosts allow."
+msgstr ""
+
+msgid "All disks are imported."
+msgstr ""
+
+msgid "All software raid disks are imported."
+msgstr ""
+
+msgid "Choose UPS mode."
+msgstr ""
+
+msgid "DLNA/UPnP"
+msgstr "DLNA/UPnP"
+
+msgid "DLNA/UPnP Media Server"
+msgstr "Serveur de médias DLNA/UPnP"
+
+msgid "Detected an error while importing."
+msgstr ""
+
+msgid "In slave mode it is the UPS name (Identifier) at the UPS master."
+msgstr ""
+
+msgid "Log Device"
+msgstr ""
+
+msgid ""
+"Lowest value is higher priority. For master node, use 0 or 1. If preempt is "
+"enabled, it is adjusted to 240 on failure."
+msgstr ""
+
+msgid "NAS4Free WebGUI Login"
+msgstr "Login d'accès  à l'interface WEB de NAS4Free"
+
+msgid "No new disk found."
+msgstr ""
+
+msgid "No new software raid disk found."
+msgstr ""
+
+msgid "Require authentication."
+msgstr "Activer l'authentification."
+
+msgid "Return to Command page"
+msgstr ""
+
+msgid "SMB3"
+msgstr ""
+
+msgid ""
+"SMB3 is for recent OS like Windows 8. SMB2 is for OS like Windows 7 and "
+"Vista. NT1 is for legacy OS like XP."
+msgstr ""
+
+msgid ""
+"Space delimited set of IP or CIDR notation that permitted to access the "
+"WebGUI. (empty is the same network of LAN interface)"
+msgstr ""
+
+msgid "The IP address of the UPS master."
+msgstr ""
+
+#, c-format
+msgid ""
+"The configuration has been changed.<br />You must apply the changes in order "
+"for them to take effect.<br /><b>If this message persist take a look at the "
+"<a href='%s'>system log</a> for more information.</b>"
+msgstr ""
+
+msgid "UFS"
+msgstr ""
+
+msgid ""
+"When the negotiation is complete, you will not be able to change the SMB "
+"protocol. If you change it, you will need to restart the client connected to "
+"this server."
+msgstr ""
+
+msgid ""
+"You can also install a package via SSH or console using the the pkg add "
+"command.<br />Example: pkg add packagename"
+msgstr ""
+
+#, php-format
+msgid ""
+"You must <a href='%s'>reboot</a> the system before you can upgrade the "
+"firmware."
+msgstr ""
+
+#, php-format
+msgid "add any supplemental parameters"
 msgstr ""
 
 #~ msgid "A valid mask must between 1 and 24."
