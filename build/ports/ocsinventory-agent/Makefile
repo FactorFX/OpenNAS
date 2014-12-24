@@ -10,7 +10,8 @@ BIN_DEP=GET HEAD POST lwp-download lwp-dump lwp-mirror lwp-request \
 	iptab ipcount\
 	snmpkey \
 	xml_grep xml_merge xml_pp xml_spellcheck xml_split \
-	xpath
+	xpath \
+	htmltree pidl yapp
 
 BUILD_DEPENDS += ${RUN_DEPENDS}
 
