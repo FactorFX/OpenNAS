@@ -33,6 +33,8 @@ hastctl="/sbin/hastctl"
 hastctl_args="-c ${hastd_config}"
 required_modules="geom_gate:g_gate"
 
+cat /dev/null > ${hastd_config}
+
 hastd_mkconf()
 {
 	# Create hastd.conf file
@@ -61,7 +63,9 @@ hastd_mkconf()
 hastd_stop_precmd()
 {
 	/usr/local/sbin/hastswitch shutdown
-	${hastctl} role ${hastctl_args} init all
+	if [ -s ${hastd_config} ]; then
+		${hastctl} role ${hastctl_args} init all
+	fi
 }
 
 load_rc_config $name
