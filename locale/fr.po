@@ -1,12 +1,12 @@
 #
-# Cédric Denis <cedric@factorfx.com>, 2014.
+# Cédric Denis <cedric@factorfx.com>, 2014, 2015.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: NAS4Free\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-12-02 12:55+0100\n"
-"PO-Revision-Date: 2014-12-24 12:15+0100\n"
+"PO-Revision-Date: 2015-01-05 10:38+0100\n"
 "Last-Translator: Cédric Denis <cedric@factorfx.com>\n"
 "Language-Team: français <cedric@factorfx.com>\n"
 "Language: fr_FR\n"

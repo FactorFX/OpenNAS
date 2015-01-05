@@ -3,7 +3,7 @@
 	services_samba.php
 
 	Part of NAS4Free (http://www.nas4free.org).
-	Copyright (c) 2012-2014 The NAS4Free Project <info@nas4free.org>.
+	Copyright (c) 2012-2015 The NAS4Free Project <info@nas4free.org>.
 	All rights reserved.
 
 	Portions of freenas (http://www.freenas.org).
@@ -179,7 +179,8 @@ if ($_POST) {
 			$config['samba']['aiowsize'] = $_POST['aiowsize'];
 			$config['samba']['aiowbehind'] = '';
 		}
-		if ($config['samba']['maxprotocol'] == "SMB2") {
+		if (($config['samba']['maxprotocol'] == "SMB2")
+		    || ($config['samba']['maxprotocol'] == "SMB3")) {
 			$config['samba']['usesendfile'] = false;
 			unset($pconfig['usesendfile']);
 		}

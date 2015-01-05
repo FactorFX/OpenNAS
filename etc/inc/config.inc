@@ -3,15 +3,11 @@
 	config.inc
 
 	Part of NAS4Free (http://www.nas4free.org).
-	Copyright (c) 2012-2014 The NAS4Free Project <info@nas4free.org>.
+	Copyright (c) 2012-2015 The NAS4Free Project <info@nas4free.org>.
 	All rights reserved.
 
 	Portions of freenas (http://www.freenas.org).
 	Copyright (c) 2005-2011 by Olivier Cochard (olivier@freenas.org).
-	All rights reserved.
-
-	Portions of m0n0wall (http://m0n0.ch/wall).
-	Copyright (c) 2003-2006 Manuel Kasper <mk@neon1.net>.
 	All rights reserved.
 
 	Redistribution and use in source and binary forms, with or without
@@ -138,6 +134,14 @@ if (is_booting()) {
 					if (file_exists("{$g['cf_conf_path']}/config.xml")) {
 						$cfgdevice = $disk;
 						$cfgpartition = "{$cfgdevice}a";
+						$cfgfstype = "ufs";
+					}
+					// Unmount device
+					mwexec("/sbin/umount -f {$g['cf_path']}");
+				} else if ($g['arch'] == "rpi" && (0 == mwexec("/sbin/mount -r /dev/{$disk}s3a {$g['cf_path']}"))) { // Search on slice 3
+					if (file_exists("{$g['cf_conf_path']}/config.xml")) {
+						$cfgdevice = $disk;
+						$cfgpartition = "{$cfgdevice}s3a";
 						$cfgfstype = "ufs";
 					}
 					// Unmount device

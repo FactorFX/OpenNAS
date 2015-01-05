@@ -1,6 +1,6 @@
 #
 # Part of NAS4Free (http://www.nas4free.org).
-# Copyright (c) 2012-2014 The NAS4Free Project <info@nas4free.org>.
+# Copyright (c) 2012-2015 The NAS4Free Project <info@nas4free.org>.
 # All rights reserved.
 #
 # List of files required for NAS4FREE.
@@ -746,7 +746,8 @@ etc/rc.suspend
 etc/network.subr
 etc/pccard_ether
 etc/gettytab
-####### Add custom devd.conf to NAS4Free 9.1.0.1 freebsd 9.1 series, it could use/need modifications
+etc/devd/*
+####### Add modified devd.conf into /etc
 #etc/devd.conf
 etc/devfs.conf
 etc/dhclient.conf
@@ -781,8 +782,10 @@ etc/rc.d/FILESYSTEMS
 etc/rc.d/ip6addrctl
 etc/rc.d/random
 etc/rc.d/swap1
+#etc/rc.d/swaplate
 #etc/rc.d/ip6fw
 etc/rc.d/devd
+#etc/rc.d/devfs
 etc/rc.d/dmesg
 etc/rc.d/hostid
 etc/rc.d/jail
@@ -829,7 +832,23 @@ usr/share/doc/legal/intel_wpi/LICENSE
 usr/share/doc/legal/intel_iwi/LICENSE
 usr/share/doc/legal/intel_ipw/LICENSE
 
-
 # XXX need move to ports
 # pkg -- a utility for manipulating packages
 usr/local/sbin/pkg
+etc/pkg/FreeBSD.conf
+usr/share/keys/pkg/revoked/*
+usr/share/keys/pkg/trusted/*
+
+# casperd
+sbin/casperd
+etc/casper/system.dns
+etc/casper/system.grp
+etc/casper/system.pwd
+etc/casper/system.random
+etc/casper/system.sysctl
+etc/rc.d/casperd
+libexec/casper/dns
+libexec/casper/grp
+libexec/casper/pwd
+libexec/casper/random
+libexec/casper/sysctl

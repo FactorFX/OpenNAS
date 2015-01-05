@@ -1,35 +1,10 @@
 #!/bin/sh
 #
-# Copyright (c) 2000-2004  The FreeBSD Project
-# All rights reserved.
-#
-# Redistribution and use in source and binary forms, with or without
-# modification, are permitted provided that the following conditions
-# are met:
-# 1. Redistributions of source code must retain the above copyright
-#    notice, this list of conditions and the following disclaimer.
-# 2. Redistributions in binary form must reproduce the above copyright
-#    notice, this list of conditions and the following disclaimer in the
-#    documentation and/or other materials provided with the distribution.
-#
-# THIS SOFTWARE IS PROVIDED BY THE AUTHOR AND CONTRIBUTORS ``AS IS'' AND
-# ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-# IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
-# ARE DISCLAIMED.  IN NO EVENT SHALL THE AUTHOR OR CONTRIBUTORS BE LIABLE
-# FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-# DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
-# OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
-# HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
-# LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
-# OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
-# SUCH DAMAGE.
-#
-#	@(#)rc	5.27 (Berkeley) 6/5/91
-# $FreeBSD: src/etc/rc,v 1.343.2.1.2.1 2011/11/11 04:20:22 kensmith Exp $
-#
 # Part of NAS4Free (http://www.nas4free.org).
-# Copyright (c) 2012-2014 The NAS4Free Project <info@nas4free.org>.
+# Copyright (c) 2012-2015 The NAS4Free Project <info@nas4free.org>.
 # All rights reserved.
+#
+# $FreeBSD: src/etc/rc
 #
 
 # System startup script run by init on autoboot
@@ -56,6 +31,8 @@ export HOME PATH
 
 # Get operating platform
 PLATFORM=`cat /etc/platform`
+XARCH=`/bin/echo ${PLATFORM} | sed -e 's/-.*//'`
+ARCH=`/usr/bin/uname -m`
 
 # Fixed values requested by build/make.sh
 MDLOCALSIZE=768m
@@ -96,7 +73,11 @@ case ${PLATFORM} in
 			*-liveUSB)
 				root=`/sbin/glabel status -s|/usr/bin/awk '/liveboot/{print $3;exit 0}'`
 				swap=`/bin/echo ${root}|/usr/bin/sed -e 's/a$/b/'`
-				#if [ ! -e "/dev/${swap}" ]; then
+				swap2=`/bin/echo ${root}|/usr/bin/sed -e 's/s[13]a$/s2b/'`
+				#if [ "${ARCH}" = "arm" -a -e "/dev/${swap2}" ]; then
+				#	# pre-configured swap
+				#	swap=${swap2}
+				#elif [ ! -e "/dev/${swap}" ]; then
 				#	dev=`/bin/echo ${swap}|/usr/bin/sed -e 's/b$//'`
 				#	/sbin/gpart add -s ${SWAPSIZE} -t freebsd-swap ${dev}
 				#fi
@@ -117,7 +98,7 @@ case ${PLATFORM} in
 					fi
 				fi
 
-				/sbin/mount /dev/${root} /mnt
+				/sbin/mount -r /dev/${root} /mnt
 				/usr/bin/xz -dcv /mnt/mdlocal.xz | \
 				    /bin/dd of=/dev/${md} bs=1m status=none
 				/sbin/umount /mnt
@@ -125,8 +106,12 @@ case ${PLATFORM} in
 			*-embedded)
 				root=`/sbin/glabel status -s|/usr/bin/awk '/embboot/{print $3;exit 0}'`
 				swap=`/bin/echo ${root}|/usr/bin/sed -e 's/a$/b/'`
+				swap2=`/bin/echo ${root}|/usr/bin/sed -e 's/s[13]a$/s2b/'`
 				# always create swap partition if not exists
-				if [ ! -e "/dev/${swap}" ]; then
+				if [ "${ARCH}" = "arm" -a -e "/dev/${swap2}" ]; then
+					# pre-configured swap
+					swap=${swap2}
+				elif [ ! -e "/dev/${swap}" ]; then
 					dev=`/bin/echo ${swap}|/usr/bin/sed -e 's/b$//'`
 					/sbin/gpart add -s ${SWAPSIZE} -t freebsd-swap ${dev}
 				fi
@@ -147,7 +132,7 @@ case ${PLATFORM} in
 					fi
 				fi
 
-				/sbin/mount /dev/${root} /mnt
+				/sbin/mount -r /dev/${root} /mnt
 				/usr/bin/xz -dcv /mnt/mdlocal.xz | \
 				    /bin/dd of=/dev/${md} bs=1m status=none
 				#if [ -e /mnt/boot/zfs/zpool.cache ]; then
