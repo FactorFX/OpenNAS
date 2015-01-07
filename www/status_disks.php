@@ -93,16 +93,16 @@ $raidstatus = get_sraid_disks_list();
 					<td class="listr"><?=htmlspecialchars($iostat);?>&nbsp;</td>
 					<td class="listr"><?php
 					if ($temp <> htmlspecialchars(gettext("n/a"))){
-						if ($temp >= $pconfig['temp_crit']){
+						if (!empty($pconfig['temp_crit']) && $temp >= $pconfig['temp_crit']){
 							print "<div class=\"errortext\">".$temp."</div>";
-						}
-						else if( $temp >= $pconfig['temp_info']){
+							  }
+						else if (!empty($pconfig['temp_info']) && $temp >= $pconfig['temp_info']){
 							print "<div class=\"warningtext\">".$temp."</div>";
 						}
-					}
-					else{
-						print $temp;
-					}
+						else{
+							print $temp;
+						    }  
+					} else { print htmlspecialchars(gettext("n/a")); }
 					?>&nbsp;</td>
 					<td class="listbg"><?=$status;?>&nbsp;</td>
 				</tr>
@@ -121,16 +121,16 @@ $raidstatus = get_sraid_disks_list();
 					<td class="listr"><?=htmlspecialchars($iostat);?>&nbsp;</td>
 					<td class="listr"><?php
 					if ($temp <> htmlspecialchars(gettext("n/a"))){
-						if ($temp >= $pconfig['temp_crit']){
+						if (!empty($pconfig['temp_crit']) && $temp >= $pconfig['temp_crit']){
 							print "<div class=\"errortext\">".$temp."</div>";
-						}
-						else if( $temp >= $pconfig['temp_info']){
+							}		
+						else if (!empty($pconfig['temp_info']) && $temp >= $pconfig['temp_info']){
 							print "<div class=\"warningtext\">".$temp."</div>";
-						}
-					}
-					else{
-						print $temp;
-					}
+							}
+						else{
+						      print $temp;
+						      } 
+					} else { print htmlspecialchars(gettext("n/a")); }
 					?>&nbsp;</td>
 					<td class="listbg"><?=htmlspecialchars($diskv['state']);?>&nbsp;</td>
 				</tr>
