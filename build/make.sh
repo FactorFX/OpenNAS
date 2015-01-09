@@ -1505,8 +1505,11 @@ else
 				create_image;;
 			"iso")
 				create_iso;;
+			"tiny")
+				create_iso_tiny;;
 			"all")
-				create_iso
+				create_iso_tiny
+				#create_iso
 				#create_full
 				#create_image
 				create_usb;;
