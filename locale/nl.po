@@ -2,15 +2,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: NAS4Free\n"
 "Report-Msgid-Bugs-To: zoon01 <zoon01@nas4free.org>\n"
-"POT-Creation-Date: 2014-12-19 19:28+0000\n"
-"PO-Revision-Date: 2014-12-19 12:45+0000\n"
+"POT-Creation-Date: 2015-01-17 20:39+0000\n"
+"PO-Revision-Date: 2015-01-17 16:34+0000\n"
 "Last-Translator: zoon01 <Unknown>\n"
 "Language-Team: NAS4Free\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-12-25 18:08+0000\n"
-"X-Generator: Launchpad (build 17286)\n"
+"X-Launchpad-Export-Date: 2015-01-17 20:28+0000\n"
+"X-Generator: Launchpad (build 17304)\n"
 "X-Poedit-Country: Netherlands\n"
 "Language: \n"
 "X-Poedit-Language: Dutch\n"
@@ -850,6 +850,14 @@ msgstr "Wachttijd Schermbeveiliging"
 msgid "Blocksize"
 msgstr "Blocksize"
 
+#, php-format
+msgid ""
+"Boot partition is too small. You need reinstall from LiveCD or LiveUSB, or "
+"resize boot partition of %s.\n"
+msgstr ""
+"De boot partitie is te klein. Een herinstallatie via LiveCD of LiveUSB is "
+"nodig, of herindeel de boot partitie van %s.\n"
+
 msgid "Bridge"
 msgstr "Brug"
 
@@ -1051,10 +1059,12 @@ msgstr ""
 "image bestand.<br />Druk op &quot;Update Firmware&quot; om het updateproces "
 "te starten."
 
-msgid "Click this button to download the server configuration in XML format."
+msgid ""
+"Click this button to download the server configuration in encrypted GZIP "
+"file or XML format."
 msgstr ""
-"Druk op de knop 'Configuratie Opslaan' om de huidige serverconfiguratie te "
-"downloaden. Het configuratiebestand wordt opgeslagen in het XML-formaat."
+"Druk op de knop 'Configuratie Opslaan' om de huidige serverconfiguratie op "
+"te slaan als versleutelde GZIP bestand of XML-formaat."
 
 msgid "Client"
 msgstr "Werkstation"
@@ -1294,8 +1304,25 @@ msgstr "Huidig"
 msgid "Current Version:"
 msgstr "Huidige Versie:"
 
+msgid "Current administrator password is used for decryption."
+msgstr "Het huidige beheerderswachtwoord wordt gebruikt voor decryptie."
+
+#, php-format
+msgid ""
+"Current administrator password is used for encryption.<br />Encrypted "
+"configuration is automatically gzipped."
+msgstr ""
+"Het huidige beheerderswachtwoord wordt gebruikt voor de versleuteling.<br "
+"/>De versleutelde configuratie wordt automatisch gzipped."
+
 msgid "Current password"
 msgstr "Huidig wachtwoord"
+
+msgid ""
+"Current password is default password. You should use your own password."
+msgstr ""
+"Het huidige wachtwoord is het standaard wachtwoord. U dient uw eigen "
+"wachtwoord te gebruiken."
 
 msgid "Current value of apparent power (Volt-Amps)"
 msgstr "Huidige waarde van schijnbaar vermogen (Volt-Amps)"
@@ -2128,6 +2155,9 @@ msgstr ""
 msgid "Enable TLS/SSL connections."
 msgstr "Inschakelen TLS/SSL verbindingen."
 
+msgid "Enable Time Machine support"
+msgstr "Inschakelen Time Machine ondersteuning"
+
 msgid "Enable ZFS ACL"
 msgstr "Activeer ZFS ACL"
 
@@ -2159,6 +2189,9 @@ msgstr "Inschakelen Distributed hash table (DHT)."
 
 msgid "Enable domain wildcarding."
 msgstr "Inschakelen domein wildcard"
+
+msgid "Enable encryption."
+msgstr "Encryptie gebruiken."
 
 msgid "Enable extended attribute support"
 msgstr "Inschakelen externe attributen support"
@@ -5053,11 +5086,11 @@ msgstr "Selecteer de tijdzone die voor u van toepassing is."
 
 #, php-format
 msgid ""
-"Select the server configuration XML file and click the button below to "
-"restore the configuration."
+"Select the server configuration encrypted GZIP file or XML file and click "
+"the button below to restore the configuration."
 msgstr ""
-"Selecteer het server configuratiebestand (XML-formaat) en druk op de knop "
-"'Configuratie Herstellen' om de server in oude staat te herstellen."
+"Selecteer het server configuratiebestand (GZIP of XML-formaat) en druk op de "
+"knop 'Configuratie Herstellen' om de server in oude staat te herstellen."
 
 msgid ""
 "Select which interface to use. (only selectable if your server has more than "
@@ -6335,7 +6368,6 @@ msgstr ""
 "De server is naar de standaard fabrieks-instellingen hersteld en is nu bezig "
 "met herstarten. Dit kan ongeveer een minuut duren."
 
-#, php-format
 msgid "The server will reboot after restoring the configuration."
 msgstr ""
 "De server zal automatisch herstarten na het herstellen van de "
@@ -6930,6 +6962,9 @@ msgstr "TiB"
 msgid "Time"
 msgstr "Tijd"
 
+msgid "Time Machine"
+msgstr "Time Machine"
+
 msgid "Time before the load will be rebooted"
 msgstr "Tijd voordat de belasting opnieuw zal worden opgestart"
 
@@ -7458,6 +7493,9 @@ msgstr "Volume"
 
 msgid "Volume Name"
 msgstr "Volume Naam"
+
+msgid "Volume Size Limit"
+msgstr "Volume grootte Limiet"
 
 msgid "Volume label"
 msgstr "Volume label"

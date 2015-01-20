@@ -29,6 +29,7 @@
     SUBDIR += nano
     SUBDIR += ncdu
     SUBDIR += netatalk
+    SUBDIR += netatalk3
     SUBDIR += nss_ldap
     SUBDIR += ntfsprogs
     SUBDIR += nut

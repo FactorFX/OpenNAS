@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: NAS4Free\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-12-02 12:55+0100\n"
-"PO-Revision-Date: 2015-01-05 10:38+0100\n"
+"PO-Revision-Date: 2015-01-20 12:13+0100\n"
 "Last-Translator: Cédric Denis <cedric@factorfx.com>\n"
 "Language-Team: français <cedric@factorfx.com>\n"
 "Language: fr_FR\n"
@@ -6137,7 +6137,6 @@ msgstr ""
 "sur le bouton suivant pour restaurer la configuration."
 
 #: /home/cedric/DEV/Nas4Free/opennas/trunk/www/system_backup.php:125
-#, php-format
 msgid "The server will reboot after restoring the configuration."
 msgstr "Le serveur va redémarrer après la restauration de la configuration."
 
@@ -9864,6 +9863,54 @@ msgstr ""
 
 #, php-format
 msgid "add any supplemental parameters"
+msgstr ""
+
+#, php-format
+msgid ""
+"Boot partition is too small. You need reinstall from LiveCD or LiveUSB, or "
+"resize boot partition of %s.\n"
+msgstr ""
+
+msgid ""
+"Click this button to download the server configuration in encrypted GZIP "
+"file or XML format."
+msgstr ""
+"Cliquer sur ce bouton pour télécharger la configuration du serveur dans un "
+"fichier encrypté GZIP ou au format XML."
+
+msgid "Current administrator password is used for decryption."
+msgstr ""
+"La mot de passe de l'administrateur courant est utilisé pour décrypter."
+
+#, php-format
+msgid ""
+"Current administrator password is used for encryption.<br />Encrypted "
+"configuration is automatically gzipped."
+msgstr ""
+"Le mot de passe de l'administrateur courant est utilisé pour encrypter.<br /"
+">La configuration cryptée est automatiquement mise au format gzip."
+
+msgid "Current password is default password. You should use your own password."
+msgstr ""
+"Le mot de passe courant est le mot de passe par défaut. Vous pourriez "
+"utiliser votre propre mot de passe."
+
+msgid "Enable Time Machine support"
+msgstr ""
+
+msgid "Enable encryption."
+msgstr "Encryption autorisée."
+
+#, php-format
+msgid ""
+"Select the server configuration encrypted GZIP file or XML file and click "
+"the button below to restore the configuration."
+msgstr ""
+"Sélectionnez le fichier de configuration encrypté au format GZIP ou le "
+"fichier XML du serveuret cliquez sur le bouton ci-dessous pour restaurer la "
+"configuration."
+
+msgid "Volume Size Limit"
 msgstr ""
 
 #~ msgid "A valid mask must between 1 and 24."

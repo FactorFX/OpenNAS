@@ -43,6 +43,7 @@ require_once("tui.inc");
 
 // Minimum size of geom/partition 2 (used for OS)
 $minpart1size = $g_install['part1size_full'];
+$swapsize =  $g_install['default_swap'];
 
 // Default slice/partition layout
 // 64k = 0.0625M
@@ -128,14 +129,20 @@ do {
 $partlayout[1]['size'] = $part1size;
 
 // Add swap partition?
-$result = tui_display_yesno("Do you want to add a swap partition?", 40, 5, false);
+//$result = tui_display_yesno("Do you want to add a swap partition?", 40, 5, false);
+$result = 0; // always adding swap
 if (0 == $result) {
 	do {
 		$raminfo = system_get_ram_info();
-		$swapsize = intval($raminfo['physical'] / 1024 / 1024); // Convert to MB
+		$swapsize = intval(ceil($raminfo['physical'] / 1024 / 1024 / 1024)); // Convert to GB
+		$swapsize *= 1024; /* MB */
+		/*
 		if ($swapsize < 512)
 			$swapsize = 512;
-		$result = tui_display_input("Enter the size of the swap partition in MB. (minimum 512, recommended 1024)", 47, 8, $swapsize);
+		*/
+		if ($swapsize < $g_install['default_swap'])
+			$swapsize = $g_install['default_swap'];
+		$result = tui_display_input("Enter the size of the swap partition in MB. (minimum 512, recommend {$g_install['default_swap']} or more)", 47, 8, $swapsize);
 		if (0 != $result)
 			exit(0);
 	} while (!is_numeric($swapsize) || $swapsize < 512);

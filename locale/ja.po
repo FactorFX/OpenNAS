@@ -2,15 +2,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: NAS4Free\n"
 "Report-Msgid-Bugs-To: zoon01 <zoon01@nas4free.org>\n"
-"POT-Creation-Date: 2014-12-19 19:28+0000\n"
-"PO-Revision-Date: 2014-12-19 10:46+0000\n"
+"POT-Creation-Date: 2015-01-17 20:39+0000\n"
+"PO-Revision-Date: 2015-01-17 11:54+0000\n"
 "Last-Translator: Daisuke Aoyama <Unknown>\n"
 "Language-Team: NAS4Free\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2014-12-25 18:09+0000\n"
-"X-Generator: Launchpad (build 17286)\n"
+"X-Launchpad-Export-Date: 2015-01-17 20:28+0000\n"
+"X-Generator: Launchpad (build 17304)\n"
 "X-Poedit-Country: JAPAN\n"
 "Language: \n"
 "X-Poedit-Language: Japanese\n"
@@ -798,6 +798,14 @@ msgstr "待機時間"
 msgid "Blocksize"
 msgstr "ブロックサイズ"
 
+#, php-format
+msgid ""
+"Boot partition is too small. You need reinstall from LiveCD or LiveUSB, or "
+"resize boot partition of %s.\n"
+msgstr ""
+"ブートパーティションが小さすぎます。LiveCD か LiveUSB から再インストール、または %s "
+"のブートパーティションのサイズを変更する必要があります。\n"
+
 msgid "Bridge"
 msgstr "ブリッジ"
 
@@ -993,8 +1001,10 @@ msgstr ""
 "をクリックし、書き込みするイメージファイルを選択して下さい。<br/>その後、アップグレードプロセスを起動する為 "
 "&quot;ファームウェアアップグレード&quot; をクリックして下さい。"
 
-msgid "Click this button to download the server configuration in XML format."
-msgstr "サーバー設定ファイル(XMLフォーマット)をダウンロードするには、このボタンをクリックしてください。"
+msgid ""
+"Click this button to download the server configuration in encrypted GZIP "
+"file or XML format."
+msgstr "暗号化された GZIP ファイルまたは XML 形式でサーバー設定ファイルをダウンロードするには、このボタンをクリックしてください。"
 
 msgid "Client"
 msgstr "クライアント"
@@ -1220,8 +1230,21 @@ msgstr "現在"
 msgid "Current Version:"
 msgstr "現在のバージョン:"
 
+msgid "Current administrator password is used for decryption."
+msgstr "現在の管理者パスワードが復号化に使用されます。"
+
+#, php-format
+msgid ""
+"Current administrator password is used for encryption.<br />Encrypted "
+"configuration is automatically gzipped."
+msgstr "現在の管理者パスワードが暗号化に使用されます。<br />暗号化された設定ファイルは自動的にgzip圧縮されます。"
+
 msgid "Current password"
 msgstr "現在のパスワード"
+
+msgid ""
+"Current password is default password. You should use your own password."
+msgstr "現在のパスワードはデフォルトのパスワードです。自分のパスワードを使用する必要があります。"
 
 msgid "Current value of apparent power (Volt-Amps)"
 msgstr "現在の皮相電力(VA)"
@@ -2021,6 +2044,9 @@ msgstr "STARTTLS暗号化を有効にします。これはTLSを必ず利用し�
 msgid "Enable TLS/SSL connections."
 msgstr "TLS/SSL 接続を有効にします。"
 
+msgid "Enable Time Machine support"
+msgstr "Time Machine サポートを有効にします。"
+
 msgid "Enable ZFS ACL"
 msgstr "ZFS ACLを有効化"
 
@@ -2050,6 +2076,9 @@ msgstr "分散ハッシュテーブルを有効にします。"
 
 msgid "Enable domain wildcarding."
 msgstr "ワイルドカードドメインを有効にします。"
+
+msgid "Enable encryption."
+msgstr "暗号化を有効にします。"
 
 msgid "Enable extended attribute support"
 msgstr "拡張属性サポートを有効にします"
@@ -4768,9 +4797,9 @@ msgstr "もっとも近いロケーションを選択して下さい。"
 
 #, php-format
 msgid ""
-"Select the server configuration XML file and click the button below to "
-"restore the configuration."
-msgstr "サーバー設定ファイル(XMLフォーマット)を選択後、下のボタンをクリックすると設定が復元されます。"
+"Select the server configuration encrypted GZIP file or XML file and click "
+"the button below to restore the configuration."
+msgstr "暗号化された GZIP ファイルまたは XML ファイルのサーバー設定ファイルを選択後、下のボタンをクリックすると設定が復元されます。"
 
 msgid ""
 "Select which interface to use. (only selectable if your server has more than "
@@ -5926,7 +5955,6 @@ msgid ""
 "take one minute."
 msgstr "サーバーを初期状態にリストアした後、リブートを実行中です。しばらくお待ちください。"
 
-#, php-format
 msgid "The server will reboot after restoring the configuration."
 msgstr "サーバーは設定をリストア後、リブートします。"
 
@@ -6412,6 +6440,9 @@ msgstr "TiB"
 
 msgid "Time"
 msgstr "時間"
+
+msgid "Time Machine"
+msgstr "Time Machine"
 
 msgid "Time before the load will be rebooted"
 msgstr "リブートする前の時間"
@@ -6913,6 +6944,9 @@ msgstr "ボリューム"
 
 msgid "Volume Name"
 msgstr "ボリューム名"
+
+msgid "Volume Size Limit"
+msgstr "ボリュームサイズ制限"
 
 msgid "Volume label"
 msgstr "ボリュームラベル"

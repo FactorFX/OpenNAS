@@ -118,12 +118,13 @@ NAS4FREE_SVN_SRCTREE="svn://svn.FreeBSD.org/base/releng/9.3"
 NAS4FREE_MFSROOT_SIZE=128
 NAS4FREE_MDLOCAL_SIZE=768
 NAS4FREE_MDLOCAL_MINI_SIZE=32
-NAS4FREE_IMG_SIZE=512
+# Now image size is less than 500MB (up to 476MiB - alignment)
+NAS4FREE_IMG_SIZE=460
 if [ "amd64" = ${NAS4FREE_ARCH} ]; then
 	NAS4FREE_MFSROOT_SIZE=128
 	NAS4FREE_MDLOCAL_SIZE=768
 	NAS4FREE_MDLOCAL_MINI_SIZE=32
-	NAS4FREE_IMG_SIZE=512
+	NAS4FREE_IMG_SIZE=460
 fi
 # xz9->673MB/64MB, 8->369MB/32MB, 7->185MB/16MB, 6->93MB/8MB, 5->47MB/4MB
 # 4->24MB/2.1MB, 3->12.6MB/1.1MB, 2->4.8MB/576KB, 1->1.4MB/128KB
@@ -138,10 +139,10 @@ NAS4FREE_XMD_SEGLEN=32768
 # Media geometry, only relevant if bios doesn't understand LBA.
 NAS4FREE_IMG_SIZE_SEC=`expr ${NAS4FREE_IMG_SIZE} \* 2048`
 NAS4FREE_IMG_SECTS=63
-NAS4FREE_IMG_HEADS=16
-#NAS4FREE_IMG_HEADS=255
+#NAS4FREE_IMG_HEADS=16
+NAS4FREE_IMG_HEADS=255
 # cylinder alignment
-NAS4FREE_IMG_SIZE_SEC=`expr \( \( $NAS4FREE_IMG_SIZE_SEC - 1 + $NAS4FREE_IMG_SECTS \* $NAS4FREE_IMG_HEADS \) / \( $NAS4FREE_IMG_SECTS \* $NAS4FREE_IMG_HEADS \) \) \* \( $NAS4FREE_IMG_SECTS \* $NAS4FREE_IMG_HEADS \)`
+NAS4FREE_IMG_SIZE_SEC=`expr \( $NAS4FREE_IMG_SIZE_SEC / \( $NAS4FREE_IMG_SECTS \* $NAS4FREE_IMG_HEADS \) \) \* \( $NAS4FREE_IMG_SECTS \* $NAS4FREE_IMG_HEADS \)`
 
 # aligned BSD partition on MBR slice
 NAS4FREE_IMG_SSTART=$NAS4FREE_IMG_SECTS
@@ -239,8 +240,9 @@ update_sources() {
 # Build world. Copying required files defined in 'build/nas4free.files'.
 build_world() {
 	# Make a pseudo 'chroot' to NAS4FREE root.
-	cd $NAS4FREE_ROOTFS
+  cd $NAS4FREE_ROOTFS
 
+	echo
 	echo "Building World:"
 
 	[ -f $NAS4FREE_WORKINGDIR/nas4free.files ] && rm -f $NAS4FREE_WORKINGDIR/nas4free.files
@@ -425,8 +427,8 @@ build_kernel() {
 					install -v -o root -g wheel -m 555 ${modulesdir}/${module} ${NAS4FREE_ROOTFS}/boot/kernel
 				done
 				;;
-  		esac
-	done
+  	esac
+  done
 
 	return 0
 }
@@ -570,10 +572,6 @@ create_mfsroot() {
 	[ -f $NAS4FREE_WORKINGDIR/mdlocal.uzip ] && rm -f $NAS4FREE_WORKINGDIR/mdlocal.uzip
 	[ -d $NAS4FREE_SVNDIR ] && use_svn ;
 
-	#NAS4FREE_MFSROOT_SIZE=`expr \`du -hs ${NAS4FREE_ROOTFS} | cut -dM -f1\` \+ 50`
-	
-	#echo "Mfsroot is ${NAS4FREE_MFSROOT_SIZE}M size"
-
 	# Make mfsroot to have the size of the NAS4FREE_MFSROOT_SIZE variable
 	#dd if=/dev/zero of=$NAS4FREE_WORKINGDIR/mfsroot bs=1k count=$(expr ${NAS4FREE_MFSROOT_SIZE} \* 1024)
 	#dd if=/dev/zero of=$NAS4FREE_WORKINGDIR/mdlocal bs=1k count=$(expr ${NAS4FREE_MDLOCAL_SIZE} \* 1024)
@@ -695,16 +693,23 @@ create_image() {
 	md=`mdconfig -a -t vnode -f ${NAS4FREE_WORKINGDIR}/image.bin -x ${NAS4FREE_IMG_SECTS} -y ${NAS4FREE_IMG_HEADS}`
 	diskinfo -v ${md}
 
+	# create 1MB aligned MBR image
+	echo "===> Creating MBR partition on this memory disk"
+	gpart create -s mbr ${md}
+	gpart add -t freebsd ${md}
+	gpart set -a active -i 1 ${md}
+	gpart bootcode -b ${NAS4FREE_BOOTDIR}/mbr ${md}
+
 	echo "===> Creating BSD partition on this memory disk"
-	gpart create -s bsd ${md}
-	gpart bootcode -b ${NAS4FREE_BOOTDIR}/boot ${md}
-	gpart add -s ${NAS4FREE_IMG_SIZE}m -t freebsd-ufs ${md}
-	mdp=${md}a
+	gpart create -s bsd ${md}s1
+	gpart bootcode -b ${NAS4FREE_BOOTDIR}/boot ${md}s1
+	gpart add -a 1m -t freebsd-ufs ${md}s1
+	mdp=${md}s1a
 
 	echo "===> Formatting this memory disk using UFS"
-	newfs -S $NAS4FREE_IMGFMT_SECTOR -b $NAS4FREE_IMGFMT_BSIZE -f $NAS4FREE_IMGFMT_FSIZE -O2 -U -o space -m 0 -L "embboot" /dev/${md}a
+	newfs -S $NAS4FREE_IMGFMT_SECTOR -b $NAS4FREE_IMGFMT_BSIZE -f $NAS4FREE_IMGFMT_FSIZE -O2 -U -o space -m 0 -L "embboot" /dev/${mdp}
 	echo "===> Mount this virtual disk on $NAS4FREE_TMPDIR"
-	mount /dev/${md}a $NAS4FREE_TMPDIR
+	mount /dev/${mdp} $NAS4FREE_TMPDIR
 	echo "===> Copying previously generated MFSROOT file to memory disk"
 	cp $NAS4FREE_WORKINGDIR/mfsroot.gz $NAS4FREE_TMPDIR
 	cp $NAS4FREE_WORKINGDIR/mfsroot.uzip $NAS4FREE_TMPDIR
@@ -775,10 +780,6 @@ create_image() {
 }
 
 create_iso () {
-	echo "**************************************************************"
-	echo ">>> Generating ${NAS4FREE_PRODUCTNAME} ISO"
-	echo "**************************************************************"
-	
 	# Check if rootfs (contining OS image) exists.
 	if [ ! -d "$NAS4FREE_ROOTFS" ]; then
 		echo "==> Error: ${NAS4FREE_ROOTFS} does not exist!."
@@ -931,10 +932,6 @@ create_embedded() {
 }
 
 create_usb () {
-	echo "**************************************************************"
-	echo ">>> USB: Generating the $NAS4FREE_PRODUCTNAME Image file:"
-	echo "**************************************************************"
-	
 	# Check if rootfs (contining OS image) exists.
 	if [ ! -d "$NAS4FREE_ROOTFS" ]; then
 		echo "==> Error: ${NAS4FREE_ROOTFS} does not exist!."
@@ -991,15 +988,20 @@ create_usb () {
 	MDLSIZE=$(stat -f "%z" ${NAS4FREE_WORKINGDIR}/mdlocal.xz)
 	MDLSIZE2=$(stat -f "%z" ${NAS4FREE_WORKINGDIR}/mdlocal-mini.xz)
 	IMGSIZEM=$(expr \( $IMGSIZE + $MFSSIZE + $MFS2SIZE + $MDLSIZE + $MDLSIZE2 - 1 + 1024 \* 1024 \) / 1024 / 1024)
-	USBROOTM=200
+	USBROOTM=416
 	USBSWAPM=512
-	USBDATAM=50
-	USB_SECTS=64
-	USB_HEADS=32
+	USBDATAM=12
+	#USB_SECTS=64
+	#USB_HEADS=32
+	USB_SECTS=63
+	USB_HEADS=255
 
-	USBSYSSIZEM=$(expr $USBROOTM + $IMGSIZEM + 0)
-	USBDATSIZEM=$(expr $USBDATAM + 0)
-	USBIMGSIZEM=$(expr $USBSYSSIZEM + $USBSWAPM + $USBDATSIZEM + 2)
+	# 1MB alignment
+	#USBSYSSIZEM=$(expr $USBROOTM + $IMGSIZEM + 1)
+	USBSYSSIZEM=$(expr $USBROOTM + 1)
+	USBSWPSIZEM=$(expr $USBSWAPM + 2)
+	USBDATSIZEM=$(expr $USBDATAM + 2)
+	USBIMGSIZEM=$(expr $USBSYSSIZEM + $USBSWAPM + $USBDATSIZEM + 3)
 
 	# 1MB aligned USB stick
 	echo "USB: Creating Empty IMG File"
@@ -1016,17 +1018,38 @@ create_usb () {
 	#gpart add -s ${USBSWAPM}m -t freebsd-swap ${md}
 	#gpart add -s ${USBDATSIZEM}m -t freebsd-ufs ${md}
 	#mdp=${md}a
+
+	#gpart create -s mbr ${md}
+	#gpart add -i 4 -t freebsd ${md}
+	#gpart set -a active -i 4 ${md}
+	#gpart bootcode -b ${NAS4FREE_BOOTDIR}/mbr ${md}
+	#mdp=${md}s4
+	#gpart create -s bsd ${mdp}
+	#gpart bootcode -b ${NAS4FREE_BOOTDIR}/boot ${mdp}
+	#gpart add -a 1m -s ${USBSYSSIZEM}m -t freebsd-ufs ${mdp}
+	#gpart add -a 1m -s ${USBSWAPM}m -t freebsd-swap ${mdp}
+	#gpart add -a 1m -s ${USBDATSIZEM}m -t freebsd-ufs ${mdp}
+	#mdp=${mdp}a
+
 	gpart create -s mbr ${md}
-	gpart add -i 4 -t freebsd ${md}
-	gpart set -a active -i 4 ${md}
+	gpart add -s ${USBSYSSIZEM}m -t freebsd ${md}
+	gpart add -s ${USBSWPSIZEM}m -t freebsd ${md}
+	gpart add -s ${USBDATSIZEM}m -t freebsd ${md}
+	gpart set -a active -i 1 ${md}
 	gpart bootcode -b ${NAS4FREE_BOOTDIR}/mbr ${md}
-	mdp=${md}s4
-	gpart create -s bsd ${mdp}
-	gpart bootcode -b ${NAS4FREE_BOOTDIR}/boot ${mdp}
-	gpart add -a 1m -s ${USBSYSSIZEM}m -t freebsd-ufs ${mdp}
-	gpart add -a 1m -s ${USBSWAPM}m -t freebsd-swap ${mdp}
-	gpart add -a 1m -s ${USBDATSIZEM}m -t freebsd-ufs ${mdp}
-	mdp=${mdp}a
+
+	# s1 (UFS/SYSTEM)
+	gpart create -s bsd ${md}s1
+	gpart bootcode -b ${NAS4FREE_BOOTDIR}/boot ${md}s1
+	gpart add -a 1m -s ${USBROOTM}m -t freebsd-ufs ${md}s1
+	# s2 (SWAP)
+	gpart create -s bsd ${md}s2
+	gpart add -i2 -a 1m -s ${USBSWAPM}m -t freebsd-swap ${md}s2
+	# s3 (UFS/DATA) dummy
+	gpart create -s bsd ${md}s3
+	gpart add -a 1m -s ${USBDATAM}m -t freebsd-ufs ${md}s3
+	# SYSTEM partition
+	mdp=${md}s1a
 
 	echo "USB: Formatting this memory disk using UFS"
 	#newfs -S 512 -b 32768 -f 4096 -O2 -U -j -o time -m 8 -L "liveboot" /dev/${mdp}
@@ -1122,11 +1145,9 @@ create_usb () {
 }
 
 create_full() {
-	echo "--------------------------------------------------------------"
-	echo ">>> FULL: Generating $NAS4FREE_PRODUCTNAME tgz update file"
-	echo "--------------------------------------------------------------"
-	
 	[ -d $NAS4FREE_SVNDIR ] && use_svn ;
+
+	echo "FULL: Generating $NAS4FREE_PRODUCTNAME tgz update file"
 
 	# Set platform information.
 	PLATFORM="${NAS4FREE_XARCH}-full"
@@ -1315,7 +1336,17 @@ Press # "
 			3)	build_kernel;;
 			4)	build_world;;
 			5)	build_ports;;
-			6)	build_bootloader;;
+			6)	opt="-f";
+					if [ 0 != $OPT_BOOTMENU ]; then
+						opt="$opt -m"
+					fi;
+					if [ 0 != $OPT_BOOTSPLASH ]; then
+						opt="$opt -b"
+					fi;
+					if [ 0 != $OPT_SERIALCONSOLE ]; then
+						opt="$opt -s"
+					fi;
+					$NAS4FREE_SVNDIR/build/nas4free-create-bootdir.sh $opt $NAS4FREE_BOOTDIR;;
 			7)	add_libs;;
 			8)	finalization;;
 			9)	modify_permissions;;
