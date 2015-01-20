@@ -66,6 +66,7 @@ bacula_fd_mkconf()
 		-o "Name = OPENNAS-MESSAGES-bacula" -n \
 		-o "director = undef-dir = all, !skipped" -n \
 		-o "}" -n \
+		-m "//bacula_fd/filedaemonauxparam" -v "." -n -b \
 		${configxml_file} | /usr/local/bin/xml unesc > ${bacula_fd_config}
 
 }

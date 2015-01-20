@@ -49,6 +49,8 @@ $pconfig['directorpassword'] = !empty($config['bacula_fd']['directorpassword']) 
 $pconfig['filedaemonname'] = !empty($config['bacula_fd']['filedaemonname']) ? $config['bacula_fd']['filedaemonname'] : "OPENNAS-CLIENT-bacula";
 $pconfig['filedaemonport'] = !empty($config['bacula_fd']['filedaemonport']) ? $config['bacula_fd']['filedaemonport'] : $bacula_port_range[1];
 $pconfig['filedaemonmaxjobs'] = !empty($config['bacula_fd']['filedaemonmaxjobs']) ? $config['bacula_fd']['filedaemonmaxjobs'] : "20";
+if (isset($config['bacula_fd']['filedaemonauxparam']) && is_array($config['bacula_fd']['filedaemonauxparam']))
+	$pconfig['filedaemonauxparam'] = implode("\n", $config['bacula_fd']['filedaemonauxparam']);
 $pconfig['enable'] = isset($config['bacula_fd']['enable']);
 
 if ($_POST) {
@@ -93,6 +95,14 @@ if ($_POST) {
 		$config['bacula_fd']['filedaemonname'] = $_POST['filedaemonname'];
 		$config['bacula_fd']['filedaemonport'] = $_POST['filedaemonport'];
 		$config['bacula_fd']['filedaemonmaxjobs'] = $_POST['filedaemonmaxjobs'];
+
+		unset($config['bacula_fd']['filedaemonauxparam']);
+		foreach (explode("\n", $_POST['filedaemonauxparam']) as $auxparam) {
+			$auxparam = trim($auxparam, "\t\n\r");
+			if (!empty($auxparam))
+				$config['bacula_fd']['filedaemonauxparam'][] = $auxparam;
+		}
+
 		$config['bacula_fd']['enable'] = isset($_POST['enable']) ? true : false;
 
 		write_config();
@@ -118,6 +128,7 @@ function enable_change(enable_change) {
 	document.iform.filedaemonname.disabled = endis;
 	document.iform.filedaemonport.disabled = endis;
 	document.iform.filedaemonmaxjobs.disabled = endis;
+	document.iform.filedaemonauxparam.disabled = endis;
 }
 //-->
 </script>
@@ -146,7 +157,8 @@ function enable_change(enable_change) {
 					<?php html_inputbox("filedaemonname", gettext("Name"), $pconfig['filedaemonname'], sprintf(gettext("Default is %s."), "OPENNAS-CLIENT-bacula"), true, 40);?>
 					<?php html_combobox("filedaemonport", gettext("Port"), $pconfig['filedaemonport'], array_combine($bacula_port_range, $bacula_port_range), sprintf(gettext("Default is %s."), "9102"), true)?>
 					<?php html_inputbox("filedaemonmaxjobs", gettext("Maximum Concurrent Jobs"), $pconfig['filedaemonmaxjobs'], sprintf(gettext("Default is %s."), "20"), true, 4)?>
-				</table>
+					<?php html_textarea("filedaemonauxparam", gettext("Auxiliary parameters"), $pconfig['filedaemonauxparam'], sprintf(gettext("These parameters are added to %s."), "bacula_fd.conf"), false, 65, 5, false, false);?>
+					</table>
 				<div id="submit">
 					<input name="Submit" type="submit" class="formbtn" value="<?=gettext("Save and Restart");?>" onclick="enable_change(true)" />
 				</div>

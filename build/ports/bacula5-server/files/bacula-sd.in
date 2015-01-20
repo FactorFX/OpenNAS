@@ -84,6 +84,7 @@ bacula_sd_mkconf()
 		-o "Name     = Standard" -n \
 		-v "concat('director = ', //bacula_sd/directorname, ' = all')" -n \
 		-o "}" -n \
+		-m "//bacula_sd/storageauxparam" -v "." -n -b \
 		${configxml_file} | /usr/local/bin/xml unesc >> ${bacula_sd_config}
 
 }

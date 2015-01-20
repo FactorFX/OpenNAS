@@ -52,6 +52,8 @@ if (isset($_POST['add_device']) || isset($_POST['remove_device'])) {
 	$pconfig['directorname'] = $_POST['directorname'];
 	$pconfig['directorpassword'] = $_POST['directorpassword'];
 	$pconfig['device'] = $_POST['device'];
+	if (isset($config['bacula_sd']['storageauxparam']) && is_array($config['bacula_sd']['storageauxparam']))
+		$pconfig['storageauxparam'] = implode("\n", $config['bacula_sd']['storageauxparam']);
 	$pconfig['enable'] = $_POST['enable'];
 
 	if (isset($_POST['add_device'])) {
@@ -68,6 +70,8 @@ else {
 	$pconfig['storagemaxjobs'] = !empty($config['bacula_sd']['storagemaxjobs']) ? $config['bacula_sd']['storagemaxjobs'] : "20";
 	$pconfig['directorname'] = !empty($config['bacula_sd']['directorname']) ? $config['bacula_sd']['directorname'] : "OPENNAS-DIRECTOR-bacula";
 	$pconfig['directorpassword'] = !empty($config['bacula_sd']['directorpassword']) ? $config['bacula_sd']['directorpassword'] : "";
+	if (isset($config['bacula_sd']['storageauxparam']) && is_array($config['bacula_sd']['storageauxparam']))
+		$pconfig['storageauxparam'] = implode("\n", $config['bacula_sd']['storageauxparam']);
 
 	if (!empty($config['bacula_sd']['device'])){
 		$pconfig['device'] = $config['bacula_sd']['device'];
@@ -152,6 +156,13 @@ if (isset($_POST['Submit']) && $_POST['Submit']) {
 			$config['bacula_sd']['device'][$device_nb]['alwaysopen'] = isset($_POST['device'][$device_nb]['alwaysopen']) ? true : false;
 		}
 
+		unset($config['bacula_sd']['storageauxparam']);
+		foreach (explode("\n", $_POST['storageauxparam']) as $auxparam) {
+			$auxparam = trim($auxparam, "\t\n\r");
+			if (!empty($auxparam))
+				$config['bacula_sd']['storageauxparam'][] = $auxparam;
+		}
+
 		$config['bacula_sd']['enable'] = isset($_POST['enable']) ? true : false;
 
 		write_config();
@@ -177,6 +188,7 @@ function enable_change(enable_change) {
 	document.iform.storagemaxjobs.disabled = endis;
 	document.iform.directorname.disabled = endis;
 	document.iform.directorpassword.disabled = endis;
+	document.iform.storageauxparam.disabled = endis;
 	$('#add_device').toggle(!endis);
 	$('a[id^=remove_device]').toggle(!endis);
 
@@ -252,6 +264,7 @@ function enable_change(enable_change) {
 						<?php endif;?>
 						<?php html_separator()?>
 					<?php endforeach;?>
+					<?php html_textarea("storageauxparam", gettext("Auxiliary parameters"), $pconfig['storageauxparam'], sprintf(gettext("These parameters are added to %s."), "bacula_sd.conf"), false, 65, 5, false, false);?>
 					<tr>
 						<td class="list" colspan="3"></td>
 						<td class="list"><a href="#" id="add_device"><img src="plus.gif" title="<?=gettext("Add device");?>" border="0" alt="<?=gettext("Add device");?>" /></a></td>
