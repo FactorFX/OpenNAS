@@ -162,3 +162,6 @@ usr/local/pkg.conf.sample
 usr/local/etc/bacula-sd.conf
 usr/local/etc/bacula-fd.conf
 usr/local/etc/bconsole.conf
+
+# Old ssh lib
+usr/lib/libssh.so.5
