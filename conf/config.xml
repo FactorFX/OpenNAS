@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- OpenNas default system configuration -->
-<opennas>
-	<version>1.8</version>
-	<on_version>0.2</on_version>
+<!-- NAS4Free default system configuration -->
+<nas4free>
+	<version>2.0</version>
+	<on_version>0.3</on_version>
 	<lastchange></lastchange>
 	<system>
 		<hostname>opennas</hostname>
@@ -11,7 +11,7 @@
 		<ipv6dnsserver></ipv6dnsserver>
 		<dnsallowoverride/>
 		<username>root</username>
-		<password>$1$FZ3XCeeR$D8/kC18nBvwgMtkc2AdID0</password>
+		<password>$6$hZQCYqStnbJ8Jzj4$v33GzkB/1VaRvqpg66rBaczMGmSZ3VdNLneZ4pMYmD.yk65xI1eS.KGsOGbBLu/wB7HSL3jUdhjXoJndaom5A1</password>
 		<timezone>Etc/UTC</timezone>
 		<language>en_US</language>
 		<ntp>
@@ -39,6 +39,7 @@
 		<enableserialconsole/>
 		<disablefm/>
 		<disablefirmwarecheck/>
+		<disablebeep/>
 		<powerd/>
 		-->
 		<pwmode>hiadaptive</pwmode>
@@ -138,7 +139,6 @@
 				<comment>Populate /var</comment>
 				<enable/>
 			</param>
-			
 		</rcconf>
 		<sysctl>
 			<!--
@@ -167,7 +167,7 @@
 			<param>
 				<uuid>d25eb28e-a719-4f07-af4e-00841fd3bd42</uuid>
 				<name>net.inet.tcp.delayed_ack</name>
-				<value>0</value>
+				<value>1</value>
 				<comment>System tuning</comment>
 				<enable/>
 			</param>
@@ -415,7 +415,7 @@
 			-->
 			<rule>
 				<uuid>26e8a05f-2567-4739-bed9-64f65d1a81fb</uuid>
-				<ruleno>100</ruleno>
+				<ruleno>10100</ruleno>
 				<action>deny</action>
 				<log/>
 				<protocol>tcp</protocol>
@@ -430,7 +430,7 @@
 			</rule>
 			<rule>
 				<uuid>5768a98d-c4a8-4a28-a25b-f8cb564cfa6c</uuid>
-				<ruleno>200</ruleno>
+				<ruleno>10200</ruleno>
 				<action>deny</action>
 				<log/>
 				<protocol>tcp</protocol>
@@ -445,7 +445,7 @@
 			</rule>
 			<rule>
 				<uuid>857f3162-0939-4f9d-9a78-578ec4b96999</uuid>
-				<ruleno>300</ruleno>
+				<ruleno>10300</ruleno>
 				<action>deny</action>
 				<log/>
 				<protocol>tcp</protocol>
@@ -848,20 +848,20 @@
 		<!-- <enable/> -->
 		<netbiosname>opennas</netbiosname>
 		<workgroup>WORKGROUP</workgroup>
-		<serverdesc>OpenNas Server</serverdesc>
+		<serverdesc>OpenNAS Server</serverdesc>
 		<security>user</security>
 		<maxprotocol>SMB3</maxprotocol>
 		<guestaccount>ftp</guestaccount>
-		<maptoguest>Never</maptoguest>
+		<maptoguest>Bad User</maptoguest>
 		<localmaster>yes</localmaster>
-		<rcvbuf>64240</rcvbuf>
-		<sndbuf>64240</sndbuf>
+		<rcvbuf>128480</rcvbuf>
+		<sndbuf>128480</sndbuf>
 		<storedosattributes/>
 		<largereadwrite/>
 		<!-- <usesendfile/> -->
 		<!-- <aio/> -->
-		<aiorsize>4096</aiorsize>
-		<aiowsize>4096</aiowsize>
+		<aiorsize>1024</aiorsize>
+		<aiowsize>1024</aiowsize>
 		<aiowbehind/>
 		<!--
 		// createmask and directorymask can be used to overwrite default values when security=share
@@ -880,12 +880,24 @@
 			<inheritpermissions/>
 			<recyclebin/>
 			<hidedotfiles/>
+			<aiomodule>aio_pthread</aiomodule>
 			<hostsallow>xxx<hostsallow> // Comma, space, or tab delimited set of hosts which are permitted to access a service.
 			<hostsdeny>xxx<hostsdeny> // Hosts listed here are NOT permitted to access a services. Where the lists conflict, the allow list takes precedence.
 			<auxparam></auxparam> // Can be defined multiple times.
 		</share>
 		-->
 	</samba>
+	<sambaad>
+		<!-- <enable/> -->
+		<!--
+		<path>/mnt/xxx</path>
+		<fstype>s3fs</fstype>
+		<dns_forwarder>xxx.xxx.xxx.xxx</dns_forwarder>
+		<dns_domain>mydomain.local</dns_domain>
+		<netbios_domain>MYDOMAIN</netbios_domain>
+		<user_shares/>
+		-->
+	</sambaad>
 	<ftpd>
 		<!-- <enable/> -->
 		<numberclients>5</numberclients>
@@ -951,23 +963,6 @@
 			<rolist/>
 			<rwlist/>
 			<dbpath>xxx<dbpath>
-			<cnidscheme>cdb|dbd|last</cnidscheme>
-			<options>
-				<cachecnid/>
-				<crlf/>
-				<mswindows/>
-				<noadouble/>
-				<nodev/>
-				<nofileid/>
-				<nohex/>
-				<prodos/>
-				<nostat/>
-				<upriv/>
-			</options>
-			<adisk>
-				<enable/>
-				<advf>0x83</advf>
-			</adisk>
 		</share>
 		-->
 	</afp>
@@ -1250,6 +1245,26 @@
 			-->
 		</shutdown>
 	</rc>
+	<websrv>
+		<protocol>http</protocol>
+		<port></port>
+		<documentroot></documentroot>
+		<privatekey></privatekey>
+		<certificate></certificate>
+		<authentication>
+			<!-- <enable/> -->
+			<url>
+				<uuid>9feabff2-dc8a-48d6-987a-dafe961e7680</uuid>
+				<path>/</path>
+				<realm>Webserver</realm>
+			</url>
+		</authentication>
+		<!--
+		<enable/>
+		<protocol>http|https</protocol>
+		<dirlisting/>
+		-->
+	</websrv>
 	<smartd>
 		<!--
 		<enable/>

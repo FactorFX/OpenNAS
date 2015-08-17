@@ -454,6 +454,9 @@ usr/bin/diff
 ## bc -- An arbitrary precision calculator language
 usr/bin/bc
 
+## dc -- desk calculator
+usr/bin/dc
+
 ## printf -- formatted output
 usr/bin/printf
 
@@ -462,6 +465,9 @@ usr/bin/true
 
 ## nc -- arbitrary TCP and UDP connections and listens
 usr/bin/nc
+
+## openssl -- OpenSSL command line tool
+usr/bin/openssl
 
 ## ssh-keygen -- authentication key generation, management and conversion
 usr/bin/ssh-keygen
@@ -535,8 +541,29 @@ usr/bin/kdestroy
 ## mkuzip -- compress disk image for use with geom_uzip(4) class
 usr/bin/mkuzip
 
-##mkulzma -- compress disk image for use with geom_uncompress(4) class
+## mkulzma -- compress disk image for use with geom_uncompress(4) class
 usr/bin/mkulzma
+
+## bspatch -- apply a patch built with bsdiff(1)
+usr/bin/bspatch
+
+## comm -- select or reject lines common to two files
+usr/bin/comm
+
+## host -- DNS lookup utility
+usr/bin/host
+
+## join -- relational database operator
+usr/bin/join
+
+## lam -- laminate files
+usr/bin/lam
+
+## look -- display lines beginning with a given string
+usr/bin/look
+
+## which -- locate a program file in the user's path
+usr/bin/which
 
 ####### contents of /usr/sbin
 ## acpiconf -- control ACPI power management
@@ -678,6 +705,18 @@ usr/sbin/wake
 ## zdb - ZFS debugg
 usr/sbin/zdb
 
+## hostapd -- authenticator for IEEE 802.11 networks
+usr/sbin/hostapd
+
+## tcpdump - dump traffic on a network
+usr/sbin/tcpdump
+
+## getextattr, lsextattr, rmextattr, setextattr -- manipulate extended attributes
+usr/sbin/rmextattr:usr/sbin/getextattr:usr/sbin/setextattr:usr/sbin/lsextattr
+
+## portsnap -- fetch and extract compressed snapshots of the ports tree
+usr/sbin/portsnap
+
 ####### contents of /usr/libexec
 # ld-elf.so.1, ld.so, rtld -- run-time link-editor
 libexec/ld-elf.so.1:usr/libexec/ld-elf.so.1
@@ -688,6 +727,12 @@ usr/libexec/sftp-server
 
 ## getty -- set terminal mode
 usr/libexec/getty
+
+## make_index
+usr/libexec/make_index
+
+## phttpget
+usr/libexec/phttpget
 
 ####### contents of /usr/share/misc
 usr/share/misc/init.ee
@@ -753,6 +798,7 @@ etc/network.subr
 etc/pccard_ether
 etc/gettytab
 etc/devd/*
+etc/ssl/openssl.cnf
 ####### Add modified devd.conf into /etc
 #etc/devd.conf
 etc/devfs.conf
@@ -763,6 +809,7 @@ etc/netconfig
 etc/networks
 etc/protocols
 #etc/rc.firewall6
+etc/regdomain.xml
 etc/remote
 etc/rpc
 
@@ -787,7 +834,8 @@ etc/rc.d/power_profile
 etc/rc.d/FILESYSTEMS
 etc/rc.d/ip6addrctl
 etc/rc.d/random
-etc/rc.d/swap1
+etc/rc.d/postrandom
+etc/rc.d/swap
 #etc/rc.d/swaplate
 #etc/rc.d/ip6fw
 etc/rc.d/devd
@@ -838,12 +886,20 @@ usr/share/doc/legal/intel_wpi/LICENSE
 usr/share/doc/legal/intel_iwi/LICENSE
 usr/share/doc/legal/intel_ipw/LICENSE
 
+####### iSCSI initiator daemon / management utility
+etc/rc.d/iscsid
+#etc/rc.d/iscsictl
+usr/sbin/iscsid
+usr/bin/iscsictl
+
 # XXX need move to ports
 # pkg -- a utility for manipulating packages
 usr/local/sbin/pkg
 etc/pkg/FreeBSD.conf
 usr/share/keys/pkg/revoked/*
 usr/share/keys/pkg/trusted/*
+etc/gss/mech
+etc/gss/qop
 
 # casperd
 sbin/casperd

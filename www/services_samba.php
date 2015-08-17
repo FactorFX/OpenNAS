@@ -401,14 +401,14 @@ function aio_change() {
             <td width="22%" valign="top" class="vncell"><?=gettext("Send Buffer Size"); ?></td>
             <td width="78%" class="vtable">
               <input name="sndbuf" type="text" class="formfld" id="sndbuf" size="30" value="<?=htmlspecialchars($pconfig['sndbuf']);?>" />
-              <br /><?=sprintf(gettext("Size of send buffer (%d by default)."), 64240); ?>
+              <br /><?=sprintf(gettext("Size of send buffer (%d by default)."), 128480); ?>
             </td>
   				</tr>
   				<tr>
             <td width="22%" valign="top" class="vncell"><?=gettext("Receive Buffer Size") ; ?></td>
             <td width="78%" class="vtable">
               <input name="rcvbuf" type="text" class="formfld" id="rcvbuf" size="30" value="<?=htmlspecialchars($pconfig['rcvbuf']);?>" />
-              <br /><?=sprintf(gettext("Size of receive buffer (%d by default)."), 64240); ?>
+              <br /><?=sprintf(gettext("Size of receive buffer (%d by default)."), 128480); ?>
             </td>
   				</tr>
   				<tr>
@@ -444,8 +444,8 @@ function aio_change() {
 						</td>
 					</tr>
 					<?php html_checkbox("aio", gettext("Asynchronous I/O (AIO)"), !empty($pconfig['aio']) ? true : false, gettext("Enable Asynchronous I/O (AIO)"), "", false, "aio_change()");?>
-					<?php html_inputbox("aiorsize", gettext("AIO read size"), $pconfig['aiorsize'], sprintf(gettext("Samba will read from file asynchronously when size of request is bigger than this value. (%d by default)"), 4096), true, 30);?>
-					<?php html_inputbox("aiowsize", gettext("AIO write size"), $pconfig['aiowsize'], sprintf(gettext("Samba will write to file asynchronously when size of request is bigger than this value. (%d by default)"), 4096), true, 30);?>
+					<?php html_inputbox("aiorsize", gettext("AIO read size"), $pconfig['aiorsize'], sprintf(gettext("Samba will read from file asynchronously when size of request is bigger than this value. (%d by default)"), 1024), true, 30);?>
+					<?php html_inputbox("aiowsize", gettext("AIO write size"), $pconfig['aiowsize'], sprintf(gettext("Samba will write to file asynchronously when size of request is bigger than this value. (%d by default)"), 1024), true, 30);?>
 					<?php /*html_inputbox("aiowbehind", gettext("AIO write behind"), $pconfig['aiowbehind'], "", false, 60);*/?>
 					<?php html_textarea("auxparam", gettext("Auxiliary parameters"), $pconfig['auxparam'], sprintf(gettext("These parameters are added to [Global] section of %s."), "smb.conf") . " " . sprintf(gettext("Please check the <a href='%s' target='_blank'>documentation</a>."), "http://us1.samba.org/samba/docs/man/manpages-3/smb.conf.5.html"), false, 65, 5, false, false);?>
         </table>

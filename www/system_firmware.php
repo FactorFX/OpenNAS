@@ -52,9 +52,13 @@ $cfdevice = trim(file_get_contents("{$g['etc_path']}/cfdevice"));
 $diskinfo = disks_get_diskinfo($cfdevice);
 unset($errormsg);
 $part1ok = true;
+if ($g['arch'] == "rpi" || $g['arch'] == "rpi2" || $g['arch'] == "oc1")
+	$part1min = 320; /* rpi use 320MB */
 if ($diskinfo['mediasize_mbytes'] < $part1min) {
-	$part1ok = false;
-	$errormsg = sprintf(gettext("Boot partition is too small. You need reinstall from LiveCD or LiveUSB, or resize boot partition of %s.\n"), $cfdevice);
+	if (in_array($g['platform'], $fwupplatforms)) {
+		$part1ok = false;
+		$errormsg = sprintf(gettext("Boot partition is too small. You need reinstall from LiveCD or LiveUSB, or resize boot partition of %s.\n"), $cfdevice);
+	}
 }
 
 /* checks with /etc/firm.url to see if a newer firmware version online is available;
@@ -122,6 +126,7 @@ function get_path_version($rss) {
 
 	$xml = @simplexml_load_file($rss);
 	if (empty($xml)) return $resp;
+	if (empty($xml->channel)) return $resp;
 	foreach ($xml->channel->item as $item) {
 		$title = $item->title;
 		$parts = pathinfo($title);
@@ -159,6 +164,7 @@ function get_latest_file($rss) {
 	$resp = "";
 	$xml = @simplexml_load_file($rss);
 	if (empty($xml)) return $resp;
+	if (empty($xml->channel)) return $resp;
 	foreach ($xml->channel->item as $item) {
 		$link = $item->link;
 		$title = $item->title;
@@ -205,6 +211,8 @@ function check_firmware_version_rss($locale) {
 	$rss_path = "http://sourceforge.net/projects/nas4free/rss?limit=40";
 	$rss_release = "http://sourceforge.net/projects/nas4free/rss?path=/NAS4Free-@@VERSION@@&limit=20";
 	$rss_beta = "http://sourceforge.net/projects/nas4free/rss?path=/NAS4Free-Beta&limit=20";
+	$rss_arm = "http://sourceforge.net/projects/nas4free/rss?path=/NAS4Free-ARM&limit=20";
+	$rss_arm_beta = "http://sourceforge.net/projects/nas4free/rss?path=/NAS4Free-ARM/Beta&limit=20";
 
 	// replace with existing version
 	$path_version = get_path_version($rss_path);
@@ -215,6 +223,11 @@ function check_firmware_version_rss($locale) {
 
 	$release = get_latest_file($rss_release);
 	$beta = get_latest_file($rss_beta);
+	$hw = @exec("/usr/bin/uname -m");
+	if ($hw == 'arm') {
+		$arm = get_latest_file($rss_arm);
+		$arm_beta = get_latest_file($rss_arm_beta);
+	}
 	$resp = "";
 	if (!empty($release)) {
 		$resp .= sprintf(gettext("Latest Release: %s"), $release);
@@ -222,6 +235,14 @@ function check_firmware_version_rss($locale) {
 	}
 	if (!empty($beta)) {
 		$resp .= sprintf(gettext("Latest Beta Build: %s"), $beta);
+		$resp .= "<br />\n";
+	}
+	if (!empty($arm)) {
+		$resp .= sprintf(gettext("Latest Release: %s"), $arm);
+		$resp .= "<br />\n";
+	}
+	if (!empty($arm_beta)) {
+		$resp .= sprintf(gettext("Latest Beta Build: %s"), $arm_beta);
 		$resp .= "<br />\n";
 	}
 	return $resp;

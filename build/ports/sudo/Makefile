@@ -1,24 +1,31 @@
-# Created by: erich@rrnet.com
-# $FreeBSD: head/security/sudo/Makefile 370967 2014-10-16 02:05:17Z wxs $
+PORTNAME=		sudo
+PORTVERSION=		1.18.14
+PORTREVISION=		0
+CATEGORIES=		security
 
-PORTNAME=	sudo
+COMMENT=		Allow others to run commands as root
+MAINTAINER=		aoyama@nas4free.org
 
-MASTERDIR=	/usr/ports/security/sudo
+DISTFILES=
+NO_BUILD=		yes
+NO_PKG_REGISTER=	yes
+#ALWAYS_BUILD_DEPENDS=	yes
+#DISABLE_VULNERABILITIES=yes
+DEPENDS_TARGET=	clean build stage
 
-COMMENT=	Allow others to run commands as root
-
-STAGEDIR=	${NAS4FREE_ROOTFS}
-
-post-install:
-	${TOUCH} ${STAGEDIR}${PREFIX}/etc/sudoers.d/.keep-me
-	${MV} ${STAGEDIR}${PREFIX}/etc/sudoers ${STAGEDIR}${PREFIX}/etc/sudoers.sample
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/bin/sudoreplay
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/sbin/visudo
-.for f in group_file.so libsudo_util.so sudoers.so system_group.so
-	${STRIP_CMD} ${STAGEDIR}${PREFIX}/libexec/sudo/${f}
-.endfor
+BUILD_DEPENDS=		${NONEXISTENT}:${PORTSDIR}/security/sudo
+DEP_STAGEDIR=		${PORTSDIR}/security/sudo/work/stage
 
 do-install:
-	$(MAKE) -C  ${WRKSRC} install DESTDIR=${NAS4FREE_ROOTFS}
+# NAS4Free install
+	@echo "install for ${NAS4FREE_ROOTFS}"
+	@${INSTALL_PROGRAM} -m 4755 -v ${DEP_STAGEDIR}${PREFIX}/bin/sudo ${NAS4FREE_ROOTFS}/usr/local/bin
+	@${INSTALL_PROGRAM} -v ${DEP_STAGEDIR}${PREFIX}/bin/sudoreplay ${NAS4FREE_ROOTFS}/usr/local/bin
+	@${INSTALL_PROGRAM} -v ${DEP_STAGEDIR}${PREFIX}/sbin/visudo ${NAS4FREE_ROOTFS}/usr/local/sbin
+	@${LN} -fsv /usr/local/bin/sudo ${NAS4FREE_ROOTFS}/usr/local/bin/sudoedit
+	@${CP} -Rpv ${DEP_STAGEDIR}${PREFIX}/libexec/sudo ${NAS4FREE_ROOTFS}/usr/local/libexec
+	@${INSTALL_DATA} -m 440 -v ${FILESDIR}/sudoers ${NAS4FREE_ROOTFS}/usr/local/etc
+	@${MKDIR} -p ${NAS4FREE_ROOTFS}/usr/local/etc/pam.d
+	@${INSTALL_DATA} -v ${DEP_STAGEDIR}${PREFIX}/etc/pam.d/sudo.default ${NAS4FREE_ROOTFS}/usr/local/etc/pam.d/sudo
 
-.include "${MASTERDIR}/Makefile"
+.include <bsd.port.mk>

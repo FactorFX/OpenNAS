@@ -99,7 +99,7 @@ if ($_POST) {
 			if (file_exists("/$bootconfig")) {
 				unlink("/$bootconfig");
 			}
-			if (file_exists("{$g['cf_path']}/mfsroot.gz")
+			if (file_exists("{$g['cf_path']}/mfsroot.uzip")
 			    && file_exists("{$g['cf_path']}/$bootconfig")) {
 				config_lock();
 				conf_mount_rw();
@@ -112,7 +112,7 @@ if ($_POST) {
 				unlink("/$bootconfig");
 			}
 			file_put_contents("/$bootconfig", "-Dh\n");
-			if (file_exists("{$g['cf_path']}/mfsroot.gz")) {
+			if (file_exists("{$g['cf_path']}/mfsroot.uzip")) {
 				config_lock();
 				conf_mount_rw();
 				if (file_exists("{$g['cf_path']}/$bootconfig")) {
@@ -201,7 +201,7 @@ function sysctl_tune($mode) {
 	$a_sysctlvar = &$config['system']['sysctl']['param'];
 
 	$a_mib = array(
-		"net.inet.tcp.delayed_ack" => 0,
+		"net.inet.tcp.delayed_ack" => 1,
 		"net.inet.tcp.rfc1323" => 1,
 		"net.inet.tcp.sendspace" => 131072,
 		"net.inet.tcp.recvspace" => 131072,
@@ -314,7 +314,7 @@ function powerd_change() {
 				<?php if (!empty($input_errors)) print_input_errors($input_errors);?>
 				<?php if (!empty($savemsg)) print_info_box($savemsg);?>
 				<table width="100%" border="0" cellpadding="6" cellspacing="0">
-					<?php html_checkbox("disableconsolemenu", gettext("Console menu"), !empty($pconfig['disableconsolemenu']) ? true : false, gettext("Disable console menu"), gettext("Changes to this option will take effect after a reboot."));?>
+					<?php html_checkbox("disableconsolemenu", gettext("Console Menu"), !empty($pconfig['disableconsolemenu']) ? true : false, gettext("Disable console menu"), gettext("Changes to this option will take effect after a reboot."));?>
 					<?php html_checkbox("enableserialconsole", gettext("Serial Console"), !empty($pconfig['enableserialconsole']) ? true : false, gettext("Enable serial console"), sprintf("<span class='red'><strong>%s</strong></span><br />%s", gettext("The COM port in BIOS has to be enabled before enabling this option."), gettext("Changes to this option will take effect after a reboot.")));?>
 					<?php html_checkbox("sysconsaver", gettext("Console screensaver"), !empty($pconfig['sysconsaver']) ? true : false, gettext("Enable console screensaver"), "", false, "sysconsaver_change()");?>
 					<?php html_inputbox("sysconsaverblanktime", gettext("Blank time"), $pconfig['sysconsaverblanktime'], gettext("Turn the monitor to standby after N seconds."), true, 5);?>

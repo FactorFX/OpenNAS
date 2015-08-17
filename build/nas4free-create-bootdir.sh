@@ -110,9 +110,11 @@ echo 'mfsroot_type="mfs_root"' >> $MINIBSD_DIR/loader.conf
 echo 'mfsroot_name="/mfsroot"' >> $MINIBSD_DIR/loader.conf
 echo 'hw.est.msr_info="0"' >> $MINIBSD_DIR/loader.conf
 echo 'hw.hptrr.attach_generic="0"' >> $MINIBSD_DIR/loader.conf
+echo 'hw.msk.msi_disable="1"' >> $MINIBSD_DIR/loader.conf
 echo 'kern.maxfiles="65536"' >> $MINIBSD_DIR/loader.conf
 echo 'kern.maxfilesperproc="60000"' >> $MINIBSD_DIR/loader.conf
 echo 'kern.cam.boot_delay="8000"' >> $MINIBSD_DIR/loader.conf
+echo 'kern.geom.label.disk_ident.enable="0"' >> $MINIBSD_DIR/loader.conf
 # Enable bootsplash?
 if [ 0 != $opt_b ]; then
 	echo 'splash_bmp_load="YES"' >> $MINIBSD_DIR/loader.conf

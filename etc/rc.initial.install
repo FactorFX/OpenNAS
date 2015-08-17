@@ -17,8 +17,8 @@ trap "rm -f $tmpfile" 0 1 2 5 15
 # Endless loop
 while : ; do
 	cdialog --clear --title "OpenNas Install & Upgrade Options Menu" --cancel-label "Exit" --menu "" 12 73 6 \
-		"1" "Install 'Full' OS on HDD + DATA + SWAP partition" \
-		"2" "Upgrade 'Full' OS from LiveCD/LiveUSB" 2> $tmpfile
+		"1" "Install OpenNAS on HDD + DATA + SWAP partition" \
+		"2" "Upgrade OpenNAS from LiveCD/LiveUSB" 2> $tmpfile
 
 	if [ 0 -ne $? ]; then
 		exit 0;

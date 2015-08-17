@@ -111,6 +111,7 @@ $menu['services']['visible'] = Session::isAdmin();
 $menu['services']['link'] = "../status_services.php";
 $menu['services']['menuitem'] = array();
 $menu['services']['menuitem'][] = array("desc" => gettext("HAST"), "link" => "../services_hast.php", "visible" => TRUE);
+$menu['services']['menuitem'][] = array("desc" => gettext("Samba AD"), "link" => "../services_samba_ad.php", "visible" => TRUE);
 $menu['services']['menuitem'][] = array("type" => "separator", "visible" => TRUE);
 $menu['services']['menuitem'][] = array("desc" => gettext("CIFS/SMB"), "link" => "../services_samba.php", "visible" => TRUE);
 $menu['services']['menuitem'][] = array("desc" => gettext("FTP"), "link" => "../services_ftp.php", "visible" => TRUE);
@@ -184,7 +185,13 @@ function display_menu($menuid) {
 	$link = $menu[$menuid]['link'];
 	if ($link == '') $link = 'index.php';
 	echo "<li>\n";
-	echo "	<a href=\"{$link}\" onmouseover=\"mopen('{$menuid}')\" onmouseout=\"mclosetime()\">".htmlspecialchars($menu[$menuid]['desc'])."</a>\n";
+	    $agent = $_SERVER['HTTP_USER_AGENT']; // Put browser name into local variable for desktop/mobile detection
+       if ((preg_match("/iPhone/i", $agent)) || (preg_match("/android/i", $agent))) {
+          echo "<a href=\"javascript:mopen('{$menuid}');\" onmouseout=\"mclosetime()\">".htmlspecialchars($menu[$menuid]['desc'])."</a>\n";
+       }
+       else {
+          echo "<a href=\"{$link}\" onmouseover=\"mopen('{$menuid}')\" onmouseout=\"mclosetime()\">".htmlspecialchars($menu[$menuid]['desc'])."</a>\n";
+       }
 	echo "	<div id=\"{$menuid}\" onmouseover=\"mcancelclosetime()\" onmouseout=\"mclosetime()\">\n";
 
 	# Display menu items.
@@ -211,7 +218,7 @@ function display_menu($menuid) {
 // header for html-page
 function show_header($title, $additional_header_content = null)
 {
-    global $site_name;
+    global $site_name, $g;
 
 	header("Expires: Mon, 26 Jul 1997 05:00:00 GMT");
 	header("Last-Modified: " . gmdate("D, d M Y H:i:s") . " GMT");
@@ -267,14 +274,24 @@ function show_header($title, $additional_header_content = null)
 	//-- Begin extension section --//
 	if (Session::isAdmin() && isset($g) && isset($g['www_path']) && is_dir("{$g['www_path']}/ext")):
 		echo "<li>\n";
-			echo "<a href=\"index.php\" onmouseover=\"mopen('extensions')\" onmouseout=\"mclosetime()\">".gettext("Extensions")."</a>\n";
+			$agent = $_SERVER['HTTP_USER_AGENT']; // Put browser name into local variable for desktop/mobile detection
+			if ((preg_match("/iPhone/i", $agent)) || (preg_match("/android/i", $agent))) {
+				echo "<a href=\"javascript:mopen('extensions');\" onmouseout=\"mclosetime()\">".gettext("Extensions")."</a>\n";
+			} else {
+				echo "<a href=\"../index.php\" onmouseover=\"mopen('extensions')\" onmouseout=\"mclosetime()\">".gettext("Extensions")."</a>\n";
+			}
 			echo "<div id=\"extensions\" onmouseover=\"mcancelclosetime()\" onmouseout=\"mclosetime()\">\n";
 				$dh = @opendir("{$g['www_path']}/ext");
 				if ($dh) {
 					while (($extd = readdir($dh)) !== false) {
 						if (($extd === ".") || ($extd === ".."))
 							continue;
-						@include("{$g['www_path']}/ext/" . $extd . "../menu.inc");
+						ob_start();
+						@include("{$g['www_path']}/ext/" . $extd . "/menu.inc");
+						$tmp = trim(ob_get_contents());
+						ob_end_clean();
+						$tmp = preg_replace('/href=\"([^\/\.])/', 'href="../\1', $tmp);
+						echo "$tmp\n";
 					}
 					closedir($dh);
 				}

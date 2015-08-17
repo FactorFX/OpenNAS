@@ -51,7 +51,7 @@ $pgtitle = array(gettext("Help"), gettext("License & Credits"));
               (<a href="mailto:info@nas4free.org">info@nas4free.org</a>).<br />
               All rights reserved.</strong></p>
 
-		<p>NAS4Free use portions of freenas which is Copyright &copy; 2005-2011 by Olivier Cochard (olivier@freenas.org).</p>
+		<p>NAS4Free use legally portions of FreeNAS 7 which is Copyright &copy; 2005-2011 by Olivier Cochard (olivier@freenas.org).</p>
 		<p>NAS4Free use portions of m0n0wall which is Copyright &copy; 2002-2006 by Manuel Kasper (mk@neon1.net).</p>
 		<p>NAS4Free code and documentation are released under the Simplified BSD license, under terms as follows.</p>
             <p> Redistribution and use in source and binary forms, with or without<br />
@@ -66,6 +66,10 @@ $pgtitle = array(gettext("Help"), gettext("License & Credits"));
               notice, this list of conditions and the following disclaimer in
               the<br />
               documentation and/or other materials provided with the distribution.<br />
+              <br />
+              3. Neither the name of the copyright holder nor the names of its contributors<br />
+              may be used to endorse or promote products derived from this software
+              without specific prior written permission.<br />
               <br />
               <strong>THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND<br />
               ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,<br />
@@ -93,9 +97,7 @@ $pgtitle = array(gettext("Help"), gettext("License & Credits"));
               &nbsp;&nbsp;&nbsp;&nbsp;<em><font color="#666666">Developer & Project leader</font></em></div><br />
             <hr size="1" />
             <p>The following persons have contributed to NAS4Free support:</p>
-            <div>Samuel Tunis alias killermist (<a href="mailto:killermist@nas4free.org">killermist@nas4free.org</a>)<br />
-              &nbsp;&nbsp;&nbsp;&nbsp;<em><font color="#666666">User guide and Live support on irc #nas4free|IRC Freenode <a href="http://webchat.freenode.net/?channels=#nas4free">http://webchat.freenode.net</a></font></em></div><br />
-            <div>Rhett Hillary alias SIFTU (<a href="mailto:siftu@nas4free.org">siftu@nas4free.org</a>)<br />
+            <div>Rhett Hillary (<a href="mailto:siftu@nas4free.org">siftu@nas4free.org</a>) irc alias SIFTU<br />
               &nbsp;&nbsp;&nbsp;&nbsp;<em><font color="#666666">User guide and Live support on irc #nas4free|IRC Freenode <a href="http://webchat.freenode.net/?channels=#nas4free">http://webchat.freenode.net</a></font></em></div><br />
 	     <hr size="1" />
             <p>The following persons have contributed to NAS4Free documentation and/or webgui translations:</p>
@@ -103,7 +105,7 @@ $pgtitle = array(gettext("Help"), gettext("License & Credits"));
               &nbsp;&nbsp;&nbsp;&nbsp;<em><font color="#666666">Chinese translator of the WebGUI</font></em></div><br />
             <div>Carsten Vinkler (<a href="mailto:carsten@indysign.dk">carsten@indysign.dk</a>)<br />
               &nbsp;&nbsp;&nbsp;&nbsp;<em><font color="#666666">Danish translator of the WebGUI</font></em></div><br />
-            <div>Christophe Lherieau (<a href="skimpax+freenas@gmail.com">skimpax+freenas@gmail.com</a>)<br />
+            <div>Christophe Lherieau (<a href="mailto:skimpax@gmail.com">skimpax@gmail.com</a>)<br />
               &nbsp;&nbsp;&nbsp;&nbsp;<em><font color="#666666">French translator of the WebGUI</font></em></div><br />
             <div>Edouard Richard (<a href="mailto:richard.edouard84@gmail.com">richard.edouard84@gmail.com</a>)<br />
               &nbsp;&nbsp;&nbsp;&nbsp;<em><font color="#666666">French translator of the WebGUI</font></em></div><br />
@@ -121,6 +123,12 @@ $pgtitle = array(gettext("Help"), gettext("License & Credits"));
               &nbsp;&nbsp;&nbsp;&nbsp;<em><font color="#666666">Romanian translator of the WebGUI</font></em></div><br />
             <div>Raul Fernandez Garcia (<a href="mailto:raulfg3@gmail.com">raulfg3@gmail.com</a>)<br />
 	      &nbsp;&nbsp;&nbsp;&nbsp;<em><font color="#666666">Spanish translator of the WebGUI</font></em></div><br />
+            <div>Mucahid Zeyrek (<a href="mailto:mucahid.zeyrek@dhl.com">mucahid.zeyrek@dhl.com</a>)<br />
+	      &nbsp;&nbsp;&nbsp;&nbsp;<em><font color="#666666">Turkish translator of the WebGUI</font></em></div><br />
+            <hr size="1" />
+            <p>The following persons have contributed to NAS4Free in the past:</p>
+            <div>Samuel Tunis (<a href="mailto:killermist@gmail.com">killermist@gmail.com</a>) irc alias killermist<br />
+              &nbsp;&nbsp;&nbsp;&nbsp;<em><font color="#666666">User guide and Live support on irc #nas4free|IRC Freenode <a href="http://webchat.freenode.net/?channels=#nas4free">http://webchat.freenode.net</a></font></em></div><br />
 						</td></tr>
             <?php html_separator();?>
             <?php html_titleline(gettext("Software used"));?>
@@ -133,14 +141,15 @@ $pgtitle = array(gettext("Help"), gettext("License & Credits"));
       <p> FreeBSD (<a href="http://www.freebsd.org" target="_blank">http://www.freebsd.org</a>)<br />
         Copyright &copy; 1995-2015 The FreeBSD Project. All Rights Reserved.</p>
 
-      <p> GEOM RAID5 module (<a href="http://www.wgboome.org/geom_raid5-html" target="_blank">http://www.wgboome.org/geom_raid5-html</a>)<br />
-        Copyright &copy; 2006-2013 Arne Woerner (<a href="mailto:graid5@wgboome.org">graid5@wgboome.org</a>).</p>
+      <p> GEOM RAID5 module (<a href="http://www.wgboome.org/geom_raid5-html" target="_blank">http://www.wgboome.org/geom_raid5-html</a> & (<a href="http://lev.serebryakov.spb.ru/download/graid5/" target="_blank">http://lev.serebryakov.spb.ru/download/graid5/</a>)<br />
+        Copyright &copy; 2006-2010 Originally written by Arne Woerner (<a href="mailto:graid5@wgboome.org">graid5@wgboome.org</a>).<br />
+	 Copyright &copy; 2010-2014 Now maintained by Lev Serebryakov	(<a href="mailto:lev@FreeBSD.org">lev@FreeBSD.org</a>).</p>
 
       <p> PHP (<a href="http://www.php.net" target="_blank">http://www.php.net</a>)<br />
         Copyright &copy; 1999-2014 The PHP Group. All Rights Reserved.</p>
 
       <p> jQuery (<a href="http://jquery.com" target="_blank">http://jquery.com</a>).<br />
-        Copyright &copy; 2012 jQuery Foundation. All Rights Reserved.</p>
+        Copyright &copy; 2015 jQuery Foundation. All Rights Reserved.</p>
 
       <p> Lighttpd (<a href="http://www.lighttpd.net" target="_blank">http://www.lighttpd.net</a>)<br />
         Copyright &copy; 2004 Jan Kneschke (<a href="mailto:jan@kneschke.de">jan@kneschke.de</a>). All Rights Reserved.</p>
@@ -223,6 +232,12 @@ $pgtitle = array(gettext("Help"), gettext("License & Credits"));
 
       <p>tmux: tmux is a terminal multiplexer. (<a href="http://sourceforge.net/projects/tmux/" target="_blank">http://sourceforge.net/projects/tmux/</a>)<br />
 	 Copyright &copy; 2010 Nicholas Marriott. All Rights Reserved.</p>
+
+      <p>iperf3: An tool to measure TCP and UDP bandwidth. (<a href="http://software.es.net/iperf/" target="_blank">http://software.es.net/iperf/</a>)<br />
+	 Copyright &copy; 2014 The Regents of the University of California. All Rights Reserved.</p>
+
+      <p>sudo: An tool to allow a sysadmin to give limited root privileges. (<a href="http://www.sudo.ws/" target="_blank">http://www.sudo.ws/</a>)<br />
+	 Copyright &copy; 1994-1996, 1998-2015 Todd C. Miller. All Rights Reserved.</p>
 
       <p>Some of the software used for NAS4Free are under the <a href="gpl-license.txt">GNU General Public License</a> (<a href="gpl-license.txt">GPLv2</a>, <a href="gpl3-license.txt">GPLv3</a>), <a href="lgpl-license.txt">GNU Lesser General Public License (LGPL)</a>, <a href="apple-license.txt">Apple Public Source License</a> and <a href="php-license.txt">PHP License</a>.</p>
 

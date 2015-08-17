@@ -2,17 +2,20 @@ msgid ""
 msgstr ""
 "Project-Id-Version: NAS4Free\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-01-17 20:39+0000\n"
-"PO-Revision-Date: 2015-01-17 12:45+0000\n"
-"Last-Translator: peter <peterswebdesign2010@gmail.com>\n"
+"POT-Creation-Date: 2015-07-16 03:45+0000\n"
+"PO-Revision-Date: 2015-08-07 19:24+0000\n"
+"Last-Translator: Laurentiu Bubuianu <Unknown>\n"
 "Language-Team: NAS4Free\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2015-01-17 20:28+0000\n"
-"X-Generator: Launchpad (build 17304)\n"
+"X-Launchpad-Export-Date: 2015-08-13 21:12+0000\n"
+"X-Generator: Launchpad (build 17686)\n"
 "Language: ro_RO\n"
 "X-Poedit-SourceCharset: UTF-8\n"
+
+msgid "Status"
+msgstr "Info"
 
 msgid " interfaces:"
 msgstr " interfețe:"
@@ -58,7 +61,7 @@ msgstr "%s este prea lung."
 
 #, php-format
 msgid "%s is used to create %s volumes."
-msgstr "Pachetul software %s este utilizat pentru a creea volumul %s."
+msgstr "%s este utilizat pentru a creea volumul %s."
 
 #, php-format
 msgid "%s of %sB"
@@ -88,8 +91,67 @@ msgstr "%sB disponibili din %sB"
 msgid "%sB used of %sB"
 msgstr "%sB utilizați din %sB"
 
+msgid "(Found in a Maxtor 6B200M0 200GB and Maxtor 2R015H1 15GB disks)."
+msgstr ""
+"(Găsit într-un Maxtor 6B200M0 de v200GB și un Maxtor 2R015H1 de 15GB)."
+
+msgid ""
+"(Kingston)Counts the number of flash erase failures. This Attribute returns "
+"the total number of Flash erase operation failures since the drive was "
+"deployed. This Attribute is identical to Attribute 182."
+msgstr ""
+"(Kingston) Stochează numărul de erori apărute la ștergerea memoriei flash. "
+"Această valoare contorizează numărul total de erori de ștergere a memoriei "
+"flash din momentul fabricării dispozitivului. Acest contor este identic cu "
+"cel cu nr. 182."
+
+msgid ""
+"(Kingston)Counts the number of flash program failures. This Attribute "
+"returns the total number of Flash program operation failures since the drive "
+"was deployed. This attribute is identical to attribute 181."
+msgstr ""
+"(Kingston) Stochează numărul de erori apărute la programarea memoriei flash. "
+"Această valoare contorizează numărul total de erori de programare a memoriei "
+"flash din momentul fabricării dispozitivului. Acest contor este identic cu "
+"cel cu nr. 181."
+
+msgid ""
+"(Vendor specific raw value.) Rate of seek errors of the magnetic heads. If "
+"there is a partial failure in the mechanical positioning system, then seek "
+"errors will arise. Such a failure may be due to numerous factors, such as "
+"damage to a servo, or thermal widening of the hard disk. The raw value has "
+"different structure for different vendors and is often not meaningful as a "
+"decimal number."
+msgstr ""
+"(Valoare brută specifică producătorului) Rata de erori la căutare a "
+"capetelor magnetice. Dacă apare o eroare parțială la sistemul mecanic de "
+"poziționare numărul de erori va crește. O astfel de eroare poate apare din "
+"cauza mai multor factori cum ar fi erori ale mecansimului servo sau "
+"eventuale dilatări termice ale hard discului. Valorile brute afișate au "
+"structuri diferite specifice producătorului și de cele mai multe ori nu au o "
+"însemnătate evidentă ca valoare numerică."
+
+msgid ""
+"(Vendor specific raw value.) Stores data related to the rate of hardware "
+"read errors that occurred when reading data from a disk surface. The raw "
+"value has different structure for different vendors and is often not "
+"meaningful as a decimal number."
+msgstr ""
+"(Valoare brută specifică producătorului) Memorează date referitoare la rata "
+"erorilor hardware care apar la citirea datelor de pe suprafata discului "
+"magnetic. Datele brute furnizate au structuri diferite funcție de producător "
+"și nu oferă informații directe citite ca număr zecimal."
+
+msgid ""
+"(Vendor-specific raw value.) The raw value has different structure for "
+"different vendors and is often not meaningful as a decimal number."
+msgstr ""
+"(Valoare brută specifică producătorului) Datele brute furnizate au structuri "
+"diferite funcție de producător și nu oferă informații directe citite ca "
+"număr zecimal."
+
 msgid "*** Imported duplicate ***"
-msgstr "*** Duplicat detectat ***"
+msgstr "*** Duplicat importat ***"
 
 msgid "0=disabled, 1-255=enabled command queuing with specified depth."
 msgstr "0=dezactivat, 1-255=listă activă de comenzi cu lungimea specificată."
@@ -99,8 +161,11 @@ msgid ""
 "of using this menu for starting a RAID volume (start automaticaly)."
 msgstr ""
 "1. Folosiți aceste comenzi speciale doar pentru depanare!<br />2. Nu este "
-"nevoie să folosiți acest meniu pentru a porni un volum RAID (volumul va fi "
+"nevoie să folosiți acest meniu pentru pornirea volumului RAID (volumul este "
 "pornit automat)"
+
+msgid "4KB wrapper"
+msgstr "4KB wrapper"
 
 msgid "802.1Q VLAN tag (between 1 and 4094)."
 msgstr "Etichetă VLAN 802.1Q (între 1 și 4094)."
@@ -220,6 +285,17 @@ msgstr ""
 msgid "A route to this destination network already exists."
 msgstr "Exista deja o rută către această destinație."
 
+msgid ""
+"A tally of spindle start/stop cycles. The spindle turns on, and hence the "
+"count is increased, both when the hard disk is turned on after having before "
+"been turned entirely off (disconnected from power source) and when the hard "
+"disk returns from having previously been put to sleep mode."
+msgstr ""
+"Contorizarea ciclurilor de pornire/oprire. Discul se rotește și prin urmare "
+"valoarea contorului crește atât la pornirea completă din starea oprită "
+"(deconectat de la alimentare) cât și la revenirea hard discului din modul "
+"sleep."
+
 msgid "A valid IP address must be specified."
 msgstr "Trebuie să introduceți o adresă IP validă."
 
@@ -272,6 +348,12 @@ msgstr "Trebuie introdus un prefix valid (1-128)."
 msgid "A valid systctl MIB value."
 msgstr "O valoare validă systctl MIB."
 
+msgid "ACL inherit"
+msgstr "permis ACL mostenit"
+
+msgid "ACL mode"
+msgstr "mod ACL"
+
 msgid "AD authentication disabled"
 msgstr "Autentificare AD dezactivată"
 
@@ -284,6 +366,9 @@ msgstr "AFP"
 msgid "AG"
 msgstr "AG"
 
+msgid "AIO module"
+msgstr "modul AIO"
+
 msgid "AIO read size"
 msgstr "Mărimea buffer citire AIO"
 
@@ -293,11 +378,17 @@ msgstr "Mărimea buffer scriere AIO"
 msgid "ALL interfaces"
 msgstr "TOATE interfețele"
 
+msgid "AP mode"
+msgstr "Mod punct de acces"
+
 msgid "ARP Tables"
 msgstr "Tabele ARP"
 
 msgid "ARP tables"
 msgstr "Tabele ARP"
+
+msgid "ATTRIBUTE NAME"
+msgstr "NUME ATRIBUT"
 
 msgid "Access"
 msgstr "Acces"
@@ -453,6 +544,9 @@ msgstr "Adresa"
 msgid "Address of the remote hastd daemon. It must be a static IP address."
 msgstr "Adresa daemon-ului hastd (trebuie să fie o adresă IP statică)."
 
+msgid "Admin password"
+msgstr "Parola Admin"
+
 msgid "Administration password"
 msgstr "Parola Administrare"
 
@@ -490,7 +584,7 @@ msgid ""
 "IP address of your computer</li><li>access the webGUI with the new IP "
 "address</li></ul>"
 msgstr ""
-"După selecția butonului &quot;Salvare&quot;, va mai fi probabil necesar să "
+"După selectarea butonului &quot;Salvare&quot;, va mai fi probabil necesar să "
 "executați și următorii pași înainte de a putea accesa serverul din nou: "
 "<ul><li>schimbați adresa IP a calculatorului dumneavoastră</li><li>accesați "
 "Interfața Web cu noua adresă IP</li></ul>"
@@ -503,9 +597,9 @@ msgid ""
 "class='vexpl'>change the IP address of your server</span></li><li><span "
 "class='vexpl'>access the webGUI with the new IP address</span></li></ul>"
 msgstr ""
-"După selecția butonului &quot;Salvare&quot;, va trebui să reporniți serverul "
-"pentru a activa modificările. Va mai trebui însă să parcurgeți și următorii "
-"pași pentru a avea din nou acces la server:  <ul><li><span "
+"După selectarea butonului &quot;Salvare&quot;, va trebui să reporniți "
+"serverul pentru a activa modificările. Va mai trebui însă să parcurgeți și "
+"următorii pași pentru a avea din nou acces la server:  <ul><li><span "
 "class='vexpl'>modificați adresa IP a serverului "
 "dumneavoastră</span></li><li><span class='vexpl'>accesați Interfața Grafică "
 "folosind noua adresă IP</span></li></ul>"
@@ -516,11 +610,26 @@ msgstr "Protocol de agregare"
 msgid "Aggressive"
 msgstr "Agresiv"
 
+msgid ""
+"Airflow temperature on Western Digital HDs (Same as temp. , but current "
+"value is 50 less for some models. Marked as obsolete.)"
+msgstr ""
+"Temperatura fluxului de aer pentru hard discurile Western Digital (Similar "
+"temperaturii dar valoarea curentă e mai mică cu 50 pentru unele model. La "
+"ultimele modele această indicație nu mai este folosită)"
+
 msgid "Albanian"
 msgstr "Albaneza"
 
 msgid "All"
 msgstr "Toate"
+
+msgid ""
+"All data in the path is overwritten. To avoid invalid data/permission, using "
+"empty UFS directory is recommended."
+msgstr ""
+"Toate datele din calea specificată vor fi suprascrise. Pentru a evita "
+"date/permisiuni invalide se recomandă utilizarea folderelor UFS goale."
 
 msgid "All dirs"
 msgstr "Toate directoarele"
@@ -549,8 +658,8 @@ msgstr "Toți utilizatorii vor avea privilegii de root."
 msgid "Allow"
 msgstr "Permite"
 
-msgid "Allow TLS/SSL connections only."
-msgstr "Permite doar conexiuni TLS/SSL"
+msgid "Allow TLS connections only."
+msgstr "Permite doar conexiuni TLS."
 
 msgid "Allow client access to accounts that have null passwords."
 msgstr "Permite accesul la sistem pentru conturile fără parolă."
@@ -593,6 +702,20 @@ msgstr ""
 msgid "Allows the server to try and become a local master browser."
 msgstr "Permite serverului să încerce să devină un Master Browser local."
 
+msgid ""
+"Also known as 'Power-off Retract Count' per conventional HDD terminology. "
+"Raw value reports the number of unclean shutdowns, cumulative over the life "
+"of an SSD, where an 'unclean shutdown' is the removal of power without "
+"STANDBY IMMEDIATE as the last command (regardless of PLI activity using "
+"capacitor power). Normalized value is always 100."
+msgstr ""
+"Cunoscută și ca  'Power-off Retract Count' în terminologia folosită la hard "
+"discuri. Valorile brute indică numărul de opriri incorete/accidentale, "
+"cumulative în viața unui SSD, unde termenul  'unclean shutdown' se referă la "
+"dispariția alimentării fără ca acest lucru să fi fost precedat de o comandă "
+"STANDBY IMMEDIATE (indiferent de activitatea PLI folosind un condensator de "
+"protecție). Valoarea normalizată este întotdeauna 100."
+
 msgid "AltRoot"
 msgstr "AltRoot"
 
@@ -620,6 +743,16 @@ msgstr "Umiditate relativă ambientală (procent)"
 
 msgid "Ambient temperature (degrees C)"
 msgstr "Temperatură ambientală (grade C)"
+
+msgid "Amount of surge current used to spin up the drive."
+msgstr "Valoarea curentului necesar pentru pornirea discului."
+
+msgid ""
+"Amplitude of 'thrashing' (distance of repetitive forward/reverse head "
+"motion)."
+msgstr ""
+"Amplitudinea pentru 'thrashing' (distanța pentru mișcări înainte/înapoi ale "
+"capetelor magnetice)."
 
 msgid "An host with this name already exists."
 msgstr "Un sistem cu acest nume există deja."
@@ -650,6 +783,9 @@ msgstr "Doar utilizatori anonimi"
 
 msgid "Any"
 msgstr "Oricare"
+
+msgid "Append user defined shares"
+msgstr "Adaugă partajările definite"
 
 msgid "Apple Filing Protocol"
 msgstr "Protocol Apple Filing"
@@ -739,6 +875,19 @@ msgstr "Parametri auxiliari"
 
 msgid "Available"
 msgstr "Disponibil"
+
+msgid ""
+"Average performance of seek operations of the magnetic heads. If this "
+"attribute is decreasing, it is a sign of problems in the mechanical "
+"subsystem."
+msgstr ""
+"Performanța medie a operațiilor de căutare a capetelor magnetice. Dacă "
+"această valoare scade înseamnă că a apărut o problemă la subsistemul mecanic."
+
+msgid "Average time of spindle spin up (from zero RPM to fully operational)."
+msgstr ""
+"Timpul mediu de pornire a discului (de la viteza de rotație zero la viteza "
+"de funcționare)."
 
 msgid "Backup configuration"
 msgstr "Salvare configurație"
@@ -894,6 +1043,9 @@ msgstr "CIFS/SMB dezactivat"
 msgid "CIFS/SMB informations"
 msgstr "Informații CIFS/SMS"
 
+msgid "CIFS/SMB is enabled."
+msgstr "Serviciu CIFS/SMS activat."
+
 msgid "CP1251 (Cyrillic)"
 msgstr "CP1251 (Chirilică)"
 
@@ -967,6 +1119,9 @@ msgstr "Eroare afișare încărcare CPU"
 msgid "Cannot get data about interface"
 msgstr "Nicio informație disponibilă despre interfață"
 
+msgid "Cannot use DHCP for LAN interface."
+msgstr "Nu se poate utilza DHCP pentru interfața."
+
 msgid "Capacity"
 msgstr "Capacitate"
 
@@ -982,7 +1137,7 @@ msgstr ""
 "server."
 
 msgid "Certificate"
-msgstr "Certificat"
+msgstr "Certificat de securitate"
 
 msgid "Change"
 msgstr "Modificare"
@@ -1001,6 +1156,14 @@ msgstr "Canal"
 
 msgid "Charging Battery"
 msgstr "Încărcare acumulator"
+
+#, php-format
+msgid "Check <a href=\"%s\">System|General Setup</a> before initializing."
+msgstr ""
+"Verificați <a href=\"%s\">Sistem|Setări generale</a> înainte de inițializare."
+
+msgid "Check and replace cable"
+msgstr "Verificați și înlocuiți cablul"
 
 msgid "Check interval"
 msgstr "Interval de verificare"
@@ -1043,16 +1206,16 @@ msgid ""
 "image file for flashing.<br />Click &quot;Upgrade firmware&quot; to start "
 "the upgrade process."
 msgstr ""
-"Click pe &quot;Activare încărcare firmware&quot; și selectați fișierul "
-"imagine de încărcat.<br />Click pe &quot;Actualizare firmare&quot; pentru a "
-"începe efectiv procesul de actualizare."
+"Click pe &quot;Activare actualizare&quot; și selectați fișierul imagine de "
+"încărcat.<br />Click pe &quot;Actualizare firmare&quot; pentru a începe "
+"efectiv procesul de actualizare."
 
 msgid ""
 "Click this button to download the server configuration in encrypted GZIP "
 "file or XML format."
 msgstr ""
-"Click pe acest buton pentru a descarca configuratia serverului in format "
-"GZIP codificat sau in format XML"
+"Folosiți butonul de mai jos pentru a descărca configurația serverului în "
+"format XML sau GZIP criptat/necriptat."
 
 msgid "Client"
 msgstr "Client"
@@ -1095,6 +1258,9 @@ msgstr "Sistemul de Fișiere utilizat"
 msgid "Community"
 msgstr "Comunitate"
 
+msgid "Compilations directories"
+msgstr "Directoriu colectii"
+
 msgid "Compliant profile to be used."
 msgstr "Profilul folosit implicit."
 
@@ -1131,8 +1297,11 @@ msgstr "Confirmare"
 msgid "Connected FTP users"
 msgstr "Utilizatori FTP conectați"
 
-msgid "Console menu"
-msgstr "Meniu Consolă"
+msgid "Consider replacing this drive"
+msgstr "Luați în calcul înlocuirea discului"
+
+msgid "Console Menu"
+msgstr "Meniu consolă"
 
 msgid "Console screensaver"
 msgstr "Screensaver consolă"
@@ -1240,6 +1409,167 @@ msgstr "Controlează dacă acest set de date poate fi modificat."
 msgid "Count"
 msgstr "Numărul de pachete"
 
+msgid "Count of 'Free Fall Events' detected."
+msgstr "Au fost detectate evenimente  'Free Fall Events'."
+
+msgid ""
+"Count of 'unstable' sectors (waiting to be remapped, because of "
+"unrecoverable read errors). If an unstable sector is subsequently read "
+"successfully, the sector is remapped and this value is decreased. Read "
+"errors on a sector will not remap the sector immediately (since the correct "
+"value cannot be read and so the value to remap is not known, and also it "
+"might become readable later); instead, the drive firmware remembers that the "
+"sector needs to be remapped, and will remap it the next time it's written. "
+"However some drives will not immediately remap such sectors when written; "
+"instead the drive will first attempt to write to the problem sector and if "
+"the write operation is successful then the sector will be marked good (in "
+"this case, the 'Reallocation Event Count' (0xC4) will not be increased). "
+"This is a serious shortcoming, for if such a drive contains marginal sectors "
+"that consistently fail only after some time has passed following a "
+"successful write operation, then the drive will never remap these problem "
+"sectors."
+msgstr ""
+"Contorizează sectoarele 'instabile' (care așteaptă să fie remapate din cauza "
+"erorilor de citire care nu pot fi reparate). Dacă un sector instabil este "
+"citit cu succes după câteva încercări, sectorul va fi remapat și valoarea "
+"acestui contor va fi micșorată. Erorile de citire ale unui sector nu vor "
+"determina remaparea imediată a acestuia (deoarece datele conținute nu au "
+"putut fi citite corect și deci nu pot fi remapate și eventual poate vor "
+"putea fi citite ulterior); în schimb aceste sectoare vor fi memorate și vor "
+"fi remapate în momentul unei scrieri ulterioare. Totuși unele hard discuri "
+"nu vor remapa astfel de sectoare la scriere; mai întâi hard discul va "
+"încerca să scrie ceva în sectorul cu probleme și, în cazul în care scrierea "
+"va fi efectuată cu succes, sectorul va fi marcat ca fiind bun (caz în care "
+"contorul  'Reallocation Event Count' (0xC4) nu va fi incrementat). Aceasta "
+"reprezintă totuși o deficiență pentru discurile care au un număr de sectoare "
+"defecte care în mod constant produce erori la scriere/citire întrucît după o "
+"scriere corectă discul nu va remapa deloc aceste sectoare care generează "
+"probleme."
+
+msgid "Count of Data Address Mark errors (or vendor-specific)."
+msgstr ""
+"Contor pentru erori Data Address Mark (sau specifice producătorului)."
+
+msgid "Count of attempts to compensate for platter speed variations."
+msgstr ""
+"Contor pentru încercările de compensare a variațiilor de viteză ale "
+"platanelor."
+
+msgid ""
+"Count of buzz routines needed to spin up the drive due to insufficient power."
+msgstr ""
+"Contor pentru procedurile de pornire nefinalizate apărute din cauza unei "
+"puteri de alimentare insuficiente."
+
+msgid "Count of errors corrected by software ECC."
+msgstr "Numărul de erori corectate de softwareul ECC."
+
+msgid "Count of errors due to high temperature."
+msgstr "Numărul de erori apărute din cauza temperaturii ridicate."
+
+msgid "Count of errors while reading from a disk."
+msgstr "Numărul de erori apărute la citirea de pe disc."
+
+msgid ""
+"Count of hours in power-on state. The raw value of this attribute shows "
+"total count of hours (or minutes, or seconds, depending on manufacturer) in "
+"power-on state."
+msgstr ""
+"Contor pentru orele de alimentare. Acest contor arată timpul total în ore "
+"(sau minute/secunde, funcție de producător) în care hard discul a fost "
+"alimentat."
+
+msgid "Count of load/unload cycles into head landing zone position."
+msgstr ""
+"Contor pentru numărul de cicluri de deplasare a capetelor magnetice în zona "
+"de parcare."
+
+msgid "Count of off-track errors."
+msgstr "Contor pentru erorile de poziționare off-track."
+
+msgid ""
+"Count of reallocated sectors. When the hard drive finds a "
+"read/write/verification error, it marks that sector as 'reallocated' and "
+"transfers data to a special reserved area (spare area). This process is also "
+"known as remapping, and reallocated sectors are called 'remaps'. The raw "
+"value normally represents a count of the bad sectors that have been found "
+"and remapped. Thus, the higher the attribute value, the more sectors the "
+"drive has had to reallocate. This allows a drive with bad sectors to "
+"continue operation; however, a drive which has had any reallocations at all "
+"is significantly more likely to fail in the near future. While primarily "
+"used as a metric of the life expectancy of the drive, this number also "
+"affects performance. As the count of reallocated sectors increases, the "
+"read/write speed tends to become worse because the drive head is forced to "
+"seek to the reserved area whenever a remap is accessed. If sequential access "
+"speed is critical, the remapped sectors can be manually marked as bad blocks "
+"in the file system in order to prevent their use."
+msgstr ""
+"Contorizează numărul de sectoare realocate. Cînd hard discul găsește o "
+"eroare la citire/scriere/verificare sectorul respectiv va fi marcat ca "
+"'realocat' conținutul său fiind transferat într-o zonă specială, rezervată. "
+"Procesul este cunoscut ca remapare, sectoarele realocate fiind numite și "
+"'remapate'. Valoarea brută a contorului reprezintă numărul de sectoare "
+"defecte găsite și remapate. Adică, cu cât această valoare este mai mare, cu "
+"atât numărul sectoarelor remapate a fost mai mare. În acest mod se permite "
+"funcționarea corectă, în continuare, a unui hard disc care are sectoare "
+"defecte; totuși, un disc care are un număr de sectoare defecte remapate are "
+"o probabilitate crescută pentru a se defecta în viitor. Deși acest contor "
+"este utilizat în primul rând ca o indicație pentru speranța de viață a hard "
+"discului, el reprezintă și un indicator al performanței discului. Odată cu "
+"creșterea numărului de sectoare realocateviteza de citire/scriere este "
+"afectată din cauza faptului că hard discul trebuie să caute sectoare valide "
+"în zona rezervată atunci cînd apar operațiuni de remapare. Dacă accesul "
+"secvențial la disc este critic sectoarele remapate pot fi marcate manual ca "
+"sectoare defecte pentru a preveni orice încercare de utilizare a lor "
+"ulterioară."
+
+msgid ""
+"Count of remap operations. The raw value of this attribute shows the total "
+"count of attempts to transfer data from reallocated sectors to a spare area. "
+"Both successful & unsuccessful attempts are counted."
+msgstr ""
+"Contor pentru operațiile de remapare. Această valoarea brută arată numărul "
+"total de încercări de a remapa/transfera datele dintr-o zonă cu probleme a "
+"hard discului în zonele de rezervă. Sunt contorizate atât încercările "
+"reușite cât și cele nereușite."
+
+msgid ""
+"Count of retry of spin start attempts. This attribute stores a total count "
+"of the spin start attempts to reach the fully operational speed (under the "
+"condition that the first attempt was unsuccessful). An increase of this "
+"attribute value is a sign of problems in the hard disk mechanical subsystem."
+msgstr ""
+"Contorizează numărul de încercări de pornire a discului. Este memorat "
+"numărul total de încercări de pornie a motorului discului până la atingerea "
+"vitezei nominale de rotație (în condițiile în care prima încercare a eșuat). "
+"O valoare mare a acestui contor indică o problemă la partea mecanică a hard "
+"discului."
+
+msgid "Count of times head changes position."
+msgstr "Timpii de schimbare a poziției capetelor de scriere/citire."
+
+msgid ""
+"Count of times the heads are loaded off the media. Heads can be unloaded "
+"without actually powering off."
+msgstr ""
+"Contor pentru poziționarea capetelor magnetice pe platane. Retragerea "
+"capetelor poate avea loc și în lipsa alimentării."
+
+msgid "Count of times the link is reset during a data transfer."
+msgstr ""
+"Contor pentru numărul de resetări ale conexiunii în timpul transferului."
+
+msgid "Counts the maximum worst erase count on any block."
+msgstr ""
+"Contor pentru cea mai mare valoare (nr. de încercări) de ștergere a oricărui "
+"bloc/sector."
+
+msgid "Create 4KB wrapper (nop device)."
+msgstr "Creare wrapper 4KB (dispozitiv nop)."
+
+msgid "Create ZFS on GPT partition"
+msgstr "Creare ZFS în partiție GPT"
+
 msgid "Create and initialize RAID."
 msgstr "Creare și inițializare RAID."
 
@@ -1289,18 +1619,10 @@ msgid "Current"
 msgstr "Curent"
 
 msgid "Current Version:"
-msgstr "Versiune Curentă:"
+msgstr "Versiunea curentă:"
 
-msgid "Current administrator password is used for decryption."
-msgstr "Codul de acces al administratorului este ulilizat pentru decriptare"
-
-#, php-format
-msgid ""
-"Current administrator password is used for encryption.<br />Encrypted "
-"configuration is automatically gzipped."
-msgstr ""
-"Codul de acces al administratorului este ulilizat pentru codificare.<br "
-"/>Setarile de configurare codificate sant comprimate automat."
+msgid "Current internal temperature."
+msgstr "Temperatura internă curentă."
 
 msgid "Current password"
 msgstr "Parola curentă"
@@ -1311,6 +1633,9 @@ msgstr ""
 "Codul de acces actual este configurat pentru prima utilizare.Se recomanda "
 "utilizarea unui cod de acces propriu."
 
+msgid "Current state of drive operation based upon the Life Curve."
+msgstr "Starea curentă a discului pe baza curbei de viață."
+
 msgid "Current value of apparent power (Volt-Amps)"
 msgstr "Valoare curent pentru puterea aparentă (Volți-Amperi)"
 
@@ -1319,6 +1644,9 @@ msgstr "Valoarea curentă pentru puterea reală (Wați)"
 
 msgid "Custom"
 msgstr "Personalizat"
+
+msgid "Custom device"
+msgstr "Dispozitiv utilizator"
 
 msgid "Custom script"
 msgstr "Script personalizat"
@@ -1335,14 +1663,29 @@ msgstr "Cehă"
 msgid "DAAP"
 msgstr "DAAP"
 
+msgid "DESCRIPTION"
+msgstr "DESCRIERE"
+
 msgid "DHCP"
 msgstr "DHCP"
+
+msgid "DHCP cannot be used for LAN interface."
+msgstr "DHCP nu poate fi utilizat pentru interfața LAN."
 
 msgid "DLNA/UPnP"
 msgstr "DLNA/UPnP"
 
 msgid "DLNA/UPnP Media Server"
 msgstr "Server media DLNA/UPnP"
+
+msgid "DNS domain"
+msgstr "Domeniu DNS"
+
+msgid "DNS forwarder"
+msgstr "Forwarder DNS"
+
+msgid "DNS server is empty."
+msgstr "Serverul DNS este nul."
 
 msgid "DNS settings"
 msgstr "Setări DNS"
@@ -1355,12 +1698,12 @@ msgid ""
 "the upgrade.<br />It is strongly recommended that you <a "
 "href='%s'>Backup</a> the server configuration before doing a upgrade."
 msgstr ""
-"NU OPRIŢI procesul de actualizare firmware odată început. După terminarea "
-"procesului de actualizare sistemul va reporni în mod automat cu păstrarea "
+"Odată început NU OPRIŢI sub nicio formă procesul de actualizare! După "
+"terminarea actualizării sistemul va reporni în mod automat cu păstrarea "
 "configurației curente. <br />Aveți nevoie de minim %d MiB memorie RAM liberă "
 "pentru a putea efectua actualizarea.<br />Vă sugerăm să efectuați "
 "obligatoriu un <a href='%s'>Backup</a> al configurației curente a sistemului "
-"înainte de o actualizare firmware."
+"înainte de orice actualizare firmware."
 
 msgid "DVD"
 msgstr "DVD"
@@ -1400,6 +1743,16 @@ msgstr "Zile"
 
 msgid "Debug"
 msgstr "Depanare"
+
+msgid ""
+"Decoded as: byte 0-1-2 = average erase count (big endian) and byte 3-4-5 = "
+"max erase count (big endian)."
+msgstr ""
+"Semnificație: biții 0-1-2 = numărul mediu de ștergeri (big endian) iar biții "
+"3-4-5 = numărul maxim de ștergeri (big endian)."
+
+msgid "Decrypt password"
+msgstr "Parolă decriptare"
 
 msgid "Dedup"
 msgstr "Dedup"
@@ -1564,6 +1917,14 @@ msgstr "Ștergere metadata GEOM"
 msgid "Deleting MBR and partition table"
 msgstr "Se șterge MBR-ul și tabela de partiții"
 
+msgid ""
+"Delta between most-worn and least-worn Flash blocks. It describes how "
+"good/bad the wearleveling of the SSD works on a more technical way."
+msgstr ""
+"Diferența dintre cele mai folosite și cele mai puțin folosite blocuri de "
+"memorie Flash. Descrie performanța/gradul de uzură al discului SSD într-un "
+"mod tehnic."
+
 msgid "Deny"
 msgstr "Respinge"
 
@@ -1598,7 +1959,7 @@ msgid "Detected"
 msgstr "Detectat"
 
 msgid "Detected Language:<br />(Change if needed)"
-msgstr "Limba detectata:<br />(Schimba daca este necesar)"
+msgstr "Limba detectată:<br />(Modifcați dacă este necesar)"
 
 msgid "Detected RSYNC remote shares"
 msgstr "Partajări RSYNC la distanță detectate"
@@ -1616,6 +1977,9 @@ msgstr ""
 msgid "Device"
 msgstr "Dispozitiv"
 
+msgid "Device / Label"
+msgstr "Dispozitiv / Etichetă"
+
 #, php-format
 msgid "Device /dev/%s - %s"
 msgstr "Dispozitiv /dev/%s - %s"
@@ -1630,7 +1994,7 @@ msgid "Device Serial"
 msgstr "Serial dispozitiv"
 
 msgid "Device model"
-msgstr "Model dispozitiv"
+msgstr "Model"
 
 msgid "Device polling"
 msgstr "Device polling"
@@ -1657,7 +2021,7 @@ msgid "Devices"
 msgstr "Dispozitive"
 
 msgid "Diagnostics"
-msgstr "Diagnostice"
+msgstr "Diagnoză"
 
 msgid "Difference"
 msgstr "Diferență"
@@ -1698,7 +2062,7 @@ msgid "Disable console menu"
 msgstr "Dezactivare meniu consolă"
 
 msgid "Disable firmware upload"
-msgstr "Dezactivare actualizare firmware"
+msgstr "Dezactivare actualizare"
 
 msgid "Disable firmware version check"
 msgstr "Dezactivare verificare versiune firmware"
@@ -1736,6 +2100,13 @@ msgstr "Informații Discuri (ATA)"
 
 msgid "Display"
 msgstr "Afișare"
+
+msgid ""
+"Distance the disk has shifted relative to the spindle (usually due to shock "
+"or temperature). Unit of measure is unknown."
+msgstr ""
+"Dilatarea/deplasarea mecanică relativ la momentul pornirii (ca urmare a unui "
+"șoc mecanic sau a a temperaturii). Unitatea de măsură nu este cunoscută."
 
 msgid "Distributed hash table"
 msgstr "Tabela distribuită de asocieri (hash table)"
@@ -1896,6 +2267,9 @@ msgstr "Domeniu"
 msgid "Domain controller name"
 msgstr "Numele controlerului de domeniu"
 
+msgid "Domain have no 2nd level name."
+msgstr "Domeniul nu are definit numele de nivel 2."
+
 msgid "Domain name"
 msgstr "Nume Domeniu"
 
@@ -1948,6 +2322,12 @@ msgstr "Folder de descărcare"
 msgid "Download firewall rules."
 msgstr "Descărcare reguli firewall."
 
+msgid "Drive Temperature."
+msgstr "Temperatura discului."
+
+msgid "Drive's seek performance during its internal tests."
+msgstr "Performanța discului la căutare la testele interne."
+
 msgid "Driver"
 msgstr "Driver"
 
@@ -1986,6 +2366,9 @@ msgstr "Suport Atribute Extinse"
 
 msgid "EFI/GPT partition can be use with UFS only."
 msgstr "Partitiile EFI/GPT pot fi folosite doar cu UFS."
+
+msgid "ERROR:"
+msgstr "EROARE:"
 
 msgid "Edit"
 msgstr "Editare"
@@ -2105,6 +2488,9 @@ msgstr "Pentru valoarea implicită lasați cîmpul necompletat."
 msgid "Enable"
 msgstr "Activare"
 
+msgid "Enable ACL inheritance"
+msgstr "Activeaza mostenirea permiselor ACL"
+
 msgid "Enable Advanced Format (4KB sector)"
 msgstr "Activare Format Avansat (sector 4KB)"
 
@@ -2113,6 +2499,9 @@ msgstr "Activare mod I/O Asincron (AIO)"
 
 msgid "Enable FXP protocol."
 msgstr "Activare protocol FXP."
+
+msgid "Enable NFSv4 server."
+msgstr "Activeaza server NFSv4."
 
 msgid "Enable NTP"
 msgstr "Activare NTP"
@@ -2127,8 +2516,8 @@ msgstr ""
 "Activare criptare STARTTLS. Nu e obligatoriu să folosiți TLS, puteți folosi "
 "și SSL."
 
-msgid "Enable TLS/SSL connections."
-msgstr "Activare conexiuni TLS/SSL."
+msgid "Enable TLS connections."
+msgstr "Activare conexiuni TLS."
 
 msgid "Enable Time Machine support"
 msgstr "Activare compatibilitate Time Machine"
@@ -2166,7 +2555,7 @@ msgid "Enable domain wildcarding."
 msgstr "Activare caractere speciale pentru domeniu."
 
 msgid "Enable encryption."
-msgstr "Activeaza codificare."
+msgstr "Activare criptare."
 
 msgid "Enable extended attribute support"
 msgstr "Activare suport atribute extinse"
@@ -2175,7 +2564,7 @@ msgid "Enable extended attributes for this file system."
 msgstr "Activare atribute extinse pentru acest sistem de fișiere."
 
 msgid "Enable firmware upload"
-msgstr "Activare actualizare firmware"
+msgstr "Activare actualizare"
 
 msgid ""
 "Enable foreground/background file system consistency check during boot "
@@ -2268,8 +2657,17 @@ msgstr "Activare mod cache la scriere."
 msgid "Enabled"
 msgstr "Activat"
 
+msgid "Encrypt password"
+msgstr "Parolă criptare"
+
+msgid "Encrypt password (confirmed)"
+msgstr "Parolă criptare (confirmare)"
+
 msgid "Encrypted"
 msgstr "Criptat"
+
+msgid "Encrypted configuration is automatically gzipped."
+msgstr "Configurația criptată este automat comprimată (gzip)."
 
 #, php-format
 msgid "Encrypting '%s'... Please wait"
@@ -2458,6 +2856,10 @@ msgstr "Eroare la crearea sistemului de fișiere în memorie."
 msgid "Failed to execute cron job."
 msgstr "Eroare execuție acțiune din lista cron."
 
+#, php-format
+msgid "Failed to remove: %s"
+msgstr "Eroare eliminare: %s"
+
 #, c-format
 msgid "Failed to send status report to: %s."
 msgstr "Eroare transmitere raport de stare la %s."
@@ -2534,6 +2936,9 @@ msgstr "Trimitere fișier oprită prin extensie."
 
 msgid "Filename"
 msgstr "Nume fișier"
+
+msgid "Fileserver"
+msgstr "Server de fișiere"
 
 msgid "Filter"
 msgstr "Filtru"
@@ -2630,20 +3035,23 @@ msgid "GPT partition"
 msgstr "partiție GPT"
 
 msgid "Gateway"
-msgstr "Poartă de Acces (Gateway)"
+msgstr "Gateway"
 
 msgid "Gateway to be used to reach the destination network."
 msgstr ""
 "Poartă de Acces de utilizat pentru a ajunge la rețeaua de destinație."
 
 msgid "General"
-msgstr "Generale"
+msgstr "Setări generale"
 
 msgid "General Setup"
-msgstr "Setări Generale"
+msgstr "Setări generale"
 
 msgid "Generate"
 msgstr "Generare"
+
+msgid "Generate password if leave empty."
+msgstr "Generare parolă pentru câmp nul."
 
 msgid "German"
 msgstr "Germană"
@@ -2681,6 +3089,9 @@ msgstr "Grup"
 
 msgid "Group ID"
 msgstr "ID Grup"
+
+msgid "Group compilations"
+msgstr "Colectii Grupuri"
 
 msgid "Group description."
 msgstr "Descriere grup."
@@ -2724,6 +3135,25 @@ msgstr "Volum HAST"
 msgid "HAST volume can be use with GPT/UFS only."
 msgstr "Volumul HAST poate fi utizat doar cu GPT/UFS."
 
+msgid ""
+"HDD producers implement a Fly Height Monitor that attempts to provide "
+"additional protections for write operations by detecting when a recording "
+"head is flying outside its normal operating range. If an unsafe fly height "
+"condition is encountered, the write process is stopped, and the information "
+"is rewritten or reallocated to a safe region of the hard drive. This "
+"attribute indicates the count of these errors detected over the lifetime of "
+"the drive. This feature is implemented in most modern Seagate drives."
+msgstr ""
+"Producătorii de hard discuri implementează un sistem de monitorizare pentru "
+"înălțimea de ”zbor” a capetelor magnetice în încercarea de a oferi o "
+"protecție suplimentară pentru operațiile de scriere prin detecția pozițiilor "
+"anormale a capetelor magnetice fată de suprafața discului magnetic. La "
+"identificarea unei poziții anormale de zbor procesul de scriere este "
+"întrerupt informația de scris fiind reluată sau realocată într-o zonă sigură "
+"a hard discului. Se contorizează numărul total de erori de acest tip "
+"detectate. Acest contor este implementat în cele mai multe hard discuri "
+"Seagate actuale."
+
 msgid "HTTP Proxy"
 msgstr "Proxy HTTP"
 
@@ -2741,6 +3171,16 @@ msgstr "Rezumat Header"
 
 msgid "Health"
 msgstr "Stare"
+
+msgid ""
+"Height of heads above the disk surface. A flying height that's too low "
+"increases the chances of a head crash while a flying height that's too high "
+"increases the chances of a read/write error."
+msgstr ""
+"Distanța de levitare a capetelor magnatice față de platan. O distanță prea "
+"mică crește probabilitatea de lovire a platanului (cu risc de defectare a "
+"capului magnetic și/sau zgâriere a suprafeței discului) pe când o distanță "
+"prea mare crește rata erorilor de citire/scriere."
 
 msgid "Help"
 msgstr "Asistență"
@@ -2831,18 +3271,15 @@ msgstr "Ungară"
 msgid "I/O Timeout"
 msgstr "Timeout I/O"
 
-msgid "I/O errors"
-msgstr "Erori I/O"
-
-msgid "I/O packets"
-msgstr "Pachete I/O"
-
 msgid "I/O statistics"
 msgstr "Statistici I/O"
 
 #, php-format
 msgid "I/O timeout in seconds (%d by default)."
 msgstr "Timeout I/O în secunde (implicit %d)."
+
+msgid "ID"
+msgstr "ID"
 
 msgid "IG"
 msgstr "IG"
@@ -2886,7 +3323,7 @@ msgid "IPv6 DNS servers"
 msgstr "Servere DNS IPv6"
 
 msgid "IPv6 Gateway"
-msgstr "Poartă de Acces (Gateway) IPv6"
+msgstr "Gateway IPv6"
 
 msgid "IPv6 Prefix"
 msgstr "Prefix IPv6"
@@ -3034,6 +3471,12 @@ msgid "In slave mode it is the UPS name (Identifier) at the UPS master."
 msgstr ""
 "În modul slave reprezintă numele (identificatorul) pentru UPS-ul master."
 
+msgid "In/Out errors"
+msgstr "Erori In/Out"
+
+msgid "In/Out packets"
+msgstr "Packete In/Out"
+
 msgid "Include basic hardware information."
 msgstr "Include informații de bază hardware."
 
@@ -3042,6 +3485,14 @@ msgstr "Informații circuit alimentare"
 
 msgid "Incomplete directory"
 msgstr "Folder incomplet"
+
+msgid ""
+"Indicates the approximate SSD life left, in terms of program/erase cycles or "
+"Flash blocks currently available for use."
+msgstr ""
+"Indică viața aproximativă rămasă a discului SSD bazată pe ciclurile de "
+"programare/ștergere sau blocurile de memorie flash disponibile pentru "
+"utilizare."
 
 msgid "Info"
 msgstr "Info"
@@ -3057,6 +3508,9 @@ msgstr "Informații & Manual"
 
 msgid "Information & Manuals"
 msgstr "Informații & Manuale"
+
+msgid "Inherit ACL"
+msgstr "permise mostenite ACL"
 
 msgid "Inherit permissions"
 msgstr "Permisiuni ierarhice"
@@ -3075,6 +3529,9 @@ msgstr "Inițializare și criptare disc."
 
 msgid "Initializing"
 msgstr "Inițializare"
+
+msgid "Initializing..."
+msgstr "Inițializare..."
 
 msgid "Initiator Group"
 msgstr "Grup Inițiator"
@@ -3145,11 +3602,28 @@ msgstr "Instalare"
 msgid "Install package"
 msgstr "Instalare pachet"
 
+msgid ""
+"Intel SSD reports a normalized value of 100 (when the SSD is new) and "
+"declines to a minimum value of 1. It decreases while the NAND erase cycles "
+"increase from 0 to the maximum-rated cycles."
+msgstr ""
+"SSD-urile Intel raportează o valoare normalizată de 100 (atunci când discul "
+"este nou) care scade în timp până la valoarea 1. Valoarea scade simultan cu "
+"creșterea numărului de cicluri de ștergere ale memoriei NAND de la 0 la "
+"valoarea maximă."
+
+msgid ""
+"Intel SSD reports the number of available reserved space as a percentage of "
+"reserved space in a brand new SSD."
+msgstr ""
+"Numărul de spații de memorie rezervate pentru un disc nou, raportate de "
+"discurile SSD Intel, ca procent."
+
 msgid "Interface"
 msgstr "Interfața"
 
 msgid "Interface Management"
-msgstr "Management Interfață"
+msgstr "Management Interfețe"
 
 msgid "Interface selection"
 msgstr "Selecție interfață"
@@ -3180,6 +3654,9 @@ msgstr "Timp de așteptare pînă la repornirea UPS-ului"
 
 msgid "Interval to wait before restarting the load"
 msgstr "Timp de așteptare pînă la repornirea sarcinii"
+
+msgid "Invalid file format or incorrect password."
+msgstr "Format invalid de fișier sau parolă incorectă."
 
 msgid "Invalid file format."
 msgstr "Format invalid fișier."
@@ -3222,15 +3699,18 @@ msgid ""
 "It's recommended to change the default username and password for accessing "
 "the WebGUI, enter the username here."
 msgstr ""
-"Din motive de securitate este recomandabil să schimbați numele și parola "
-"implicite utilizate pentru accesarea Interfeței Grafice. Introduceți un nume "
-"de utilizator aici."
+"Din motive de securitate se recomandă să schimbați numele și parola "
+"implicite NAS4Free pentru accesarea Interfeței Grafice. <br>Introduceți aici "
+"numele de utilizator."
 
 msgid "Italian"
 msgstr "Italiană"
 
 msgid "JBOD"
 msgstr "JBOD"
+
+msgid "JBOD information and status"
+msgstr "Informații și stare JBOD"
 
 msgid ""
 "January February March April May June July August September October November "
@@ -3302,13 +3782,36 @@ msgstr "Citire/Scriere în pachete"
 msgid "Last config change"
 msgstr "Ultima modificare configurație"
 
+msgid ""
+"Last test result as microseconds to discharge cap, saturated at its maximum "
+"value. Also logs minutes since last test and lifetime number of tests. Raw "
+"value contains the following data: Bytes 0-1: Last test result as "
+"microseconds to discharge cap, saturates at max value. Test result expected "
+"in range 25 <= result <= 5000000, lower indicates specific error code. Bytes "
+"2-3: Minutes since last test, saturates at max value. Bytes 4-5: Lifetime "
+"number of tests, not incremented on power cycle, saturates at max value. "
+"Normalized value is set to one on test failure or 11 if the capacitor has "
+"been tested in an excessive temperature condition, otherwise 100."
+msgstr ""
+"Rezultatul ultimului test în microsecunde pentru descărcarea "
+"condensatorului, acesta fiind încărcat la capacitatea maximă. De asemenea "
+"contorizează numărul de minute de la ultimul test și numărul total de teste "
+"efectuate. Valorile normale se încadrează în intervalul 25-5000000, valori "
+"mai mici indicînd coduri specifice de eroare. Octeții 2-3 reprezintă "
+"minutele de la ultimul test, condensatorul fiind încărcat la capacitatea "
+"maximă. Octeții 4-5 indică numărul total de teste efectuate, fără a lua în "
+"calcul ciclurile de pornire, condensatorul fiind încărcat de asemenea la "
+"capacitatea maximă. Valoarea normalizată este setată în 1 în cazul unei "
+"erori la test sau 11 dacă capacitorul a fost testat în condiții de "
+"temperatură excesivă, în rest valoarea normală este 100."
+
 #, php-format
 msgid "Latest Beta Build: %s"
 msgstr "Ultima versiune Beta disponibilă: %s"
 
 #, php-format
 msgid "Latest Release: %s"
-msgstr "Ultima versiune disponibilă: %s"
+msgstr "Ultima versiune disponibilă online: %s"
 
 msgid "Latvian"
 msgstr "Letonă"
@@ -3611,6 +4114,13 @@ msgstr "Mapare ca vizitator"
 msgid "Map to user"
 msgstr "Mapare la utilizator"
 
+msgid ""
+"Margin of a channel while reading data. The function of this attribute is "
+"not specified."
+msgstr ""
+"Marginea unui canal în timpul citirii datelor. Funcția acestei valori nu "
+"este specificată."
+
 msgid "Masquerade address"
 msgstr "Adresă de masguerade"
 
@@ -3786,6 +4296,9 @@ msgstr "Extra Model"
 msgid "Model name"
 msgstr "Nume Model"
 
+msgid "Modified"
+msgstr "Modificat"
+
 msgid "Modifying"
 msgstr "Modificare"
 
@@ -3838,6 +4351,9 @@ msgstr "Autentificare Interfață Grafică"
 msgid "NFS"
 msgstr "NFS"
 
+msgid "NFSv4"
+msgstr "NFSv4"
+
 msgid "NIS"
 msgstr "NIS"
 
@@ -3854,6 +4370,12 @@ msgstr "INDISPONIBIL MOMENTAN"
 
 msgid "NT1"
 msgstr "NT1"
+
+msgid "NTP is not enabled."
+msgstr "NTP nu este activ."
+
+msgid "NTP must be enabled."
+msgstr "NTP trebuie activat."
 
 msgid "NTP time server"
 msgstr "Server NTP"
@@ -3881,6 +4403,9 @@ msgstr ""
 
 msgid "Name of the variable."
 msgstr "Numele variabilei."
+
+msgid "NetBIOS domain"
+msgstr "Domeniu NetBIOS"
 
 msgid "NetBIOS name"
 msgstr "Nume NetBIOS"
@@ -4091,6 +4616,9 @@ msgstr ""
 msgid "Not attached"
 msgstr "Neatașat"
 
+msgid "Not found path."
+msgstr "Calea nu a fost găsită."
+
 msgid "Note"
 msgstr "Obs."
 
@@ -4134,11 +4662,21 @@ msgstr "Numărul de pachete de acumulatori"
 msgid "Number of clients"
 msgstr "Numărul de clienți"
 
+msgid "Number of hours elapsed in the power-on state."
+msgstr "Numărul de ore de alimentare."
+
 msgid "Number of log entries to show"
 msgstr "Numărul de linii din Jurnal de afișat"
 
 msgid "Number of log entries to show must be between 5 and 1000."
 msgstr "Numărul intrarilor din jurnal trebuie să fie în intervalul 5-1000."
+
+msgid ""
+"Number of physical erase cycles completed on the drive as a percentage of "
+"the maximum physical erase cycles the drive is designed to endure."
+msgstr ""
+"Numărul de cicluri de ștergere realizate ca procent din numărul maxim de "
+"cicluri de ștergere pentru care a fost proiectat discul."
 
 msgid "Number of servers"
 msgstr "Numărul de servere"
@@ -4182,7 +4720,7 @@ msgstr ""
 "virtuale existente."
 
 msgid "Online version check"
-msgstr "Verificare versiune online"
+msgstr "Verificare actualizări"
 
 msgid ""
 "Only allow anonymous users. Use this on a public FTP site with no remote FTP "
@@ -4237,6 +4775,15 @@ msgstr "Tensiunea de ieșire"
 msgid "Output voltage (V)"
 msgstr "Tensiunea de ieșire (V)"
 
+msgid ""
+"Overall (general) throughput performance of a hard disk drive. If the value "
+"of this attribute is decreasing there is a high probability that there is a "
+"problem with the disk."
+msgstr ""
+"Performanța generală de transfer a unui hard disc. Dacă această valoare "
+"descrește în timp există o probabilitate ridicată ca hard discul să aibă "
+"probleme de funcționare."
+
 msgid "Overload"
 msgstr "Supraîncărcare"
 
@@ -4265,6 +4812,7 @@ msgstr "PPTP"
 msgid "PPTP clients"
 msgstr "Clienți PPTP"
 
+#, c-format
 msgid "PSK"
 msgstr "PSK"
 
@@ -4291,6 +4839,9 @@ msgstr "Pereche"
 
 msgid "Parameter xxx (ups.conf or cmdline -x) setting"
 msgstr "Setările pentru parametrul xxx (ups.conf sau cmdline -x)"
+
+msgid "Parent Directory"
+msgstr "Director principal"
 
 msgid "Partition number"
 msgstr "Numărul partiției"
@@ -4340,7 +4891,7 @@ msgid "Password don't match."
 msgstr "Parolele nu coincid."
 
 msgid "Password encryption"
-msgstr "Criptare parolă"
+msgstr "Parolă criptare"
 
 msgid "Password for the administrative pages."
 msgstr "Parola pentru paginile de administrare."
@@ -4392,6 +4943,10 @@ msgstr "Schimb în grup"
 msgid "Peer port"
 msgstr "Port grup"
 
+#, php-format
+msgid "Permanent samba data path (e.g. %s)."
+msgstr "Cale permanentă samba (ex. %s)."
+
 msgid "Permit root login"
 msgstr "Permisiune autentificare directă root"
 
@@ -4414,7 +4969,7 @@ msgid "Platform"
 msgstr "Platformă"
 
 msgid "Platform OS"
-msgstr "Platformă Sistem Operare"
+msgstr "Sistem Operare"
 
 #, php-format
 msgid "Please check the <a href='%s' target='_blank'>documentation</a>."
@@ -4502,6 +5057,16 @@ msgstr "Mod Energetic"
 
 msgid "Power mode"
 msgstr "Mod energetic"
+
+msgid "Pre-Fail' Attribute used at least in HP devices."
+msgstr ""
+"Atribut de avertizare pre-defect a discului folosit cel puțin de discurile "
+"HP."
+
+msgid "Pre-Fail' Attribute used at least in Samsung devices."
+msgstr ""
+"Atribut de avertizare pre-defect utilizat cel puțin de hard discurile "
+"Samsung."
 
 msgid "PreInit"
 msgstr "PreInițializare"
@@ -4593,14 +5158,26 @@ msgstr "Cotă"
 msgid "RAID 0"
 msgstr "RAID 0"
 
+msgid "RAID 0 information and status"
+msgstr "Informații și stare RAID 0"
+
 msgid "RAID 0/1/5"
 msgstr "RAID 0/1/5"
+
+msgid "RAID 0/1/5 information and status"
+msgstr "Informații și stare RAID 0/1/5"
 
 msgid "RAID 1"
 msgstr "RAID 1"
 
+msgid "RAID 1 information and status"
+msgstr "Informații și stare RAID 1"
+
 msgid "RAID 5"
 msgstr "RAID 5"
+
+msgid "RAID 5 information and status"
+msgstr "Informații și stare RAID 5"
 
 msgid "RAID0"
 msgstr "RAID0"
@@ -4610,6 +5187,12 @@ msgstr "RAID1"
 
 msgid "RAID5"
 msgstr "RAID5"
+
+msgid "RAW VALUE"
+msgstr "VALOARE BRUTĂ"
+
+msgid "RAW info"
+msgstr "Informații brute"
 
 msgid "RSYNC"
 msgstr "RSYNC"
@@ -4738,6 +5321,9 @@ msgstr "Nume destinație"
 msgid "Remote monitoring"
 msgstr "Monitorizare destinație"
 
+msgid "Remote rsync daemon"
+msgstr "Daemon reomote sync"
+
 msgid "Remote syslog server"
 msgstr "Serverul Remote syslog"
 
@@ -4784,6 +5370,10 @@ msgstr "Interval scanare"
 
 msgid "Reservation"
 msgstr "Rezervare"
+
+msgid "Resistance caused by friction in mechanical parts while operating."
+msgstr ""
+"Rezistența cauzată de frecarea între părțile mecanice în timpul funcționării."
 
 msgid "Resolve"
 msgstr "Rezolvare"
@@ -4843,7 +5433,7 @@ msgid "Root bind password"
 msgstr "Parolă Root bind"
 
 msgid "Rotation rate"
-msgstr "Rată rotire"
+msgstr "Viteză"
 
 msgid "Round-robin read"
 msgstr "Citire Round-robin"
@@ -4880,6 +5470,9 @@ msgstr "Rulează ca"
 
 msgid "Run now"
 msgstr "Execută acum"
+
+msgid "Run without requiring remote rsync daemon. (Disabled by default)"
+msgstr "Rulare fără activare daemon remote sync. (Implicit dezactivat)"
 
 msgid "Running"
 msgstr "În execuție"
@@ -4930,11 +5523,11 @@ msgstr "Jurnal SSHD"
 msgid "SSID"
 msgstr "SSID"
 
-msgid "SSL/TLS"
-msgstr "SSL/TLS"
+msgid "Samba AD"
+msgstr "Samba AD"
 
-msgid "SSL/TLS only"
-msgstr "Doar SSL/TLS"
+msgid "Samba Active Directory Domain Controller"
+msgstr "Samba Active Directory Domain Controller"
 
 #, php-format
 msgid ""
@@ -5014,6 +5607,9 @@ msgstr "Shell Securizat"
 msgid "Security"
 msgstr "Securitate"
 
+msgid "See attribute E8."
+msgstr "Vezi valoarea E8."
+
 msgid ""
 "Select Hypertext Transfer Protocol (HTTP) or Hypertext Transfer Protocol "
 "Secure (HTTPS) for the WebGUI."
@@ -5045,8 +5641,8 @@ msgid ""
 "Select the server configuration encrypted GZIP file or XML file and click "
 "the button below to restore the configuration."
 msgstr ""
-"Selectionati configuratia dispozitivului in format GZIP sau XML si "
-"confirmati cu butonul de mai jos pentru a restaura configuratia."
+"Selectați configurația dorită a sistemului în format GZIP sau XML și "
+"confirmați cu butonul de mai jos restaurarea efectivă a configurației."
 
 msgid ""
 "Select which interface to use. (only selectable if your server has more than "
@@ -5060,6 +5656,9 @@ msgstr "Selectați algoritmul de echilibrare la citire."
 
 msgid "Selected"
 msgstr "Selectat"
+
+msgid "Selected device or label does not exist."
+msgstr "Dispozitivele/etichetele specificate nu există."
 
 msgid "Selected file isn't an valid ISO file."
 msgstr "Fișierul selectat nu este un fișier ISO valid."
@@ -5208,6 +5807,9 @@ msgstr "Partajări"
 msgid "Shell"
 msgstr "Shell"
 
+msgid "Shock During Write."
+msgstr "Șoc în timpul operației de scriere."
+
 msgid "Show RAW UPS Info"
 msgstr "Afișare informații (neprelucrate) UPS"
 
@@ -5238,7 +5840,7 @@ msgid "Single-parity RAID-Z"
 msgstr "RAID-Z cu paritate simplă"
 
 msgid "Size"
-msgstr "Mărime"
+msgstr "Dimensiune"
 
 #, php-format
 msgid "Size of receive buffer (%d by default)."
@@ -5257,6 +5859,9 @@ msgstr ""
 
 msgid "Skew"
 msgstr "Skew"
+
+msgid "Skip first scan"
+msgstr "Salta prima scanare"
 
 msgid "Sleep - Check the device unless it is in SLEEP mode."
 msgstr "Sleep - Verificare dispozitiv doar dacă nu este deja în modul Sleep."
@@ -5291,9 +5896,6 @@ msgstr "Raid Software"
 msgid "Software RAID"
 msgstr "RAID Software"
 
-msgid "Software RAID information and status"
-msgstr "Informații despre volumul RAID Software și starea acestuia"
-
 msgid "Software used"
 msgstr "Software utilizat"
 
@@ -5316,9 +5918,10 @@ msgid ""
 "Space delimited set of IP or CIDR notation that permitted to access the "
 "WebGUI. (empty is the same network of LAN interface)"
 msgstr ""
-"set de IP sau notari CIDR separate prin spatiu care au dreptul de a accesa "
-"consola de configurare a sistemului.(fara nici o adresa IP sau notare CIDR "
-"se permite accesul din reteaua la care este conectat sistemul)"
+"set de adrese IP sau adrese de rețea în notația CIDR, separate prin spațiu, "
+"care au dreptul de a accesa consola de configurare a sistemului.<br>Dacă "
+"lăsați câmpul necompletat (fără nicio adresă) se va permite accesul de la "
+"orice calculator din rețeaua la care este conectat sistemul."
 
 msgid "Spanish"
 msgstr "Spaniolă"
@@ -5328,6 +5931,21 @@ msgstr "Împrăștiat"
 
 msgid "Sparse Volume"
 msgstr "Volum Imagine"
+
+msgid ""
+"Specific to He8 drives from HGST. The Helium, so says the literature, allows "
+"the drives to run cooler and quieter, and reduces power consumption. This is "
+"the status of the Helium in the drive. It is a pre-fail attribute that trips "
+"once the drive detects that the internal environment is out of specification."
+msgstr ""
+"Specific discurilor He8 de la HGST. Heliumul, conform literaturii de "
+"specialitate, permite discului să funcționeze la temperaturi mai scăzute și "
+"să fie mai silențios, reducînd și consumul de energie electrică. Indică "
+"starea Heliumului în hard disc. Este un indicator de tipul pre-defect care "
+"odată activat arată apariția unei probleme în mediul intern al hard discului."
+
+msgid "Specified path is NFSv4 root directory."
+msgstr "Ruta specificata este directorul root"
 
 msgid "Specifies how many servers to create."
 msgstr "Specifică câte servere vor fi create."
@@ -5412,9 +6030,6 @@ msgstr "Rute Statice"
 msgid "Static routes"
 msgstr "Rute Statice"
 
-msgid "Status"
-msgstr "Stare"
-
 #, c-format
 msgid "Status report successfully sent to: %s."
 msgstr "Raportul de stare a fost trimis cu succes la: %s."
@@ -5436,6 +6051,18 @@ msgstr "Spațiu stocare"
 
 msgid "Store DOS attributes"
 msgstr "Salvare atribute DOS"
+
+msgid "Store NTFS acls"
+msgstr "Salveaza NTFS acls"
+
+msgid "Store NTFS acls in Extended Attributes"
+msgstr "Salveaza NTFS in Atribute Extinse"
+
+msgid "Store alternate data streams"
+msgstr "Salveaza stream de date alternative"
+
+msgid "Store alternate data streams in Extended Attributes"
+msgstr "Salveaza stream de date in Atribute Extinse"
 
 msgid ""
 "String displayed in the dialog presented to the user when accessing the URL."
@@ -5581,8 +6208,14 @@ msgstr "TFTP"
 msgid "TKIP"
 msgstr "TKIP"
 
+msgid "TLS"
+msgstr "TLS"
+
 msgid "TLS mode"
 msgstr "Mod TLS"
+
+msgid "TLS only"
+msgstr "Doar TLS."
 
 msgid "Tag"
 msgstr "Etichetă"
@@ -5640,7 +6273,7 @@ msgid "Targets"
 msgstr "Destinații"
 
 msgid "Temperature"
-msgstr "Temperatura"
+msgstr "Temperatură"
 
 msgid "Temperature alarm (enabled/disabled)"
 msgstr "Alarmă temperatură (activat/dezactivat)"
@@ -5704,6 +6337,21 @@ msgstr "MIB-ul '%s' există deja."
 #, php-format
 msgid "The MIB '%s' doesn't exist in sysctl."
 msgstr "MIB-ul '%s' nu există în sysctl."
+
+msgid ""
+"The Minimum Spares Remaining attribute indicates the number of remaining "
+"spare blocks as a percentage of the total number of spare blocks available."
+msgstr ""
+"Numărul minim de zone de rezervă pentru remapare rămase indicat ca procent "
+"raportat la numărul total de zone de rezervă."
+
+msgid ""
+"The Newly Added Bad Flash Block attribute indicates the total number of bad "
+"flash blocks the drive detected since it was first initialized in "
+"manufacturing."
+msgstr ""
+"Noul contor Bad Flash Block indică numărul total e blocuri defecte ale "
+"memoriei flash apărute din m omentul fabricației."
 
 #, php-format
 msgid ""
@@ -5819,6 +6467,12 @@ msgid "The attribute '%s' is not a valid time value."
 msgstr "Atributul '%s' nu reprezintă o valoare de timp validă."
 
 #, c-format, php-format
+msgid ""
+"The attribute '%s' is required within %d or more characters to %d characters."
+msgstr ""
+"Atributul '%s' este necesar cu %d caractere sau pana la %d caractere."
+
+#, c-format, php-format
 msgid "The attribute '%s' is required."
 msgstr "Atributul '%s' este necesar."
 
@@ -5927,9 +6581,61 @@ msgid "The configuration has been restored. The server is now rebooting."
 msgstr "Configurația a fost restaurată și serverul va reporni automat."
 
 msgid ""
-"The confimed password does not match. Please ensure the passwords match "
+"The confirmation password does not match. Please ensure the passwords match "
 "exactly."
-msgstr "Parolele nu coincid. Reintroduceți parolele!"
+msgstr ""
+"Parola de confirmare nu coincide. Verificați ca cele două parole să fie "
+"identice."
+
+msgid ""
+"The confirmed password does not match. Please ensure the passwords match "
+"exactly."
+msgstr "Parolele introduse nu coincid. Verificați parolele introduse."
+
+msgid ""
+"The count of aborted operations due to HDD timeout. Normally this attribute "
+"value should be equal to zero and if the value is far above zero, then most "
+"likely there will be some serious problems with power supply or an oxidized "
+"data cable."
+msgstr ""
+"Numărul de oprații anulate din cauza erorilor de tip timeout. În mod normal "
+"acest contor trebuie să fie zero, astfel încît dacă valoarea sa este "
+"diferită de zero avem o probabilitate mare ca discul să aibă probleme cu "
+"sursa de alimentare sau cu cablul de alimentare (contacte imperfecte)."
+
+msgid ""
+"The count of errors found when writing a sector. The higher the value, the "
+"worse the disk's mechanical condition is."
+msgstr ""
+"Numărul de erori apărute în timpul scrierii unui sector. Cu cât valoarea "
+"este mai mare cu atât starea discului este mai deteriorată."
+
+msgid ""
+"The count of errors in data transfer via the interface cable as determined "
+"by ICRC (Interface Cyclic Redundancy Check)."
+msgstr ""
+"Numărul de erori apărute la transferul datelor prin intermediul cablului de "
+"interfață determinate prin intermediul ICRC (Interface Cyclic Redundancy "
+"Check - Verificare Periodică Redundantă a Interfeței)."
+
+msgid ""
+"The count of errors resulting from externally induced shock & vibration."
+msgstr ""
+"Numărul de erori apărute din cauza șocurilor externe și a vibrațiilor."
+
+msgid ""
+"The count of errors that could not be recovered using hardware ECC (see "
+"attribute 195)."
+msgstr ""
+"Numărul de erori care nu au putut fi corectate prin mecanismul ECC (vezi "
+"valoarea 195)."
+
+msgid ""
+"The count of times the magnetic armature was retracted automatically as a "
+"result of cutting power."
+msgstr ""
+"Numărul parcărilor mecanismului capetelor magnetice apărute din cauza "
+"căderilor tensiunii de alimentare."
 
 msgid "The credentials with which to bind."
 msgstr "Creditele folosite pentru asociere (bind)."
@@ -6023,8 +6729,8 @@ msgid ""
 "The driver used to communicate with your UPS. Get the list of available <a "
 "href='%s' target='_blank'>drivers</a>."
 msgstr ""
-"Driverul utilizat pentru a comunica cu UPS-ul dumneavoastră. Lista "
-"driverelor disponibile o găsiți <a href='%s' target='_blank'>aici</a>."
+"Driverul utilizat pentru a comunica cu UPS-ul. Lista driverelor disponibile "
+"o găsiți <a href='%s' target='_blank'>aici</a>."
 
 #, php-format
 msgid ""
@@ -6198,6 +6904,13 @@ msgstr ""
 msgid "The number of clients must be between 1 and 50."
 msgstr "Numărul clienților trebuie sa fie cuprins între 1 și 50."
 
+msgid ""
+"The number of errors caused by incorrect checksum during the error "
+"correction."
+msgstr ""
+"Numărul erorilor cauzate de sumele incorecte de control apărute în timpul "
+"procesului de corecție al erorilor."
+
 msgid "The old password is not correct."
 msgstr "Parola veche este incorectă."
 
@@ -6355,6 +7068,18 @@ msgstr ""
 msgid "The time update interval must be either between 6 and 1440."
 msgstr "Timpul pentru actualizare trebuie să fie între 6 și 1440."
 
+msgid "The total count of errors when writing a sector."
+msgstr "Numărul total de erori apărute la scrierea unui sector."
+
+msgid ""
+"The total count of uncorrectable errors when reading/writing a sector. A "
+"rise in the value of this attribute indicates defects of the disk surface "
+"and/or problems in the mechanical subsystem."
+msgstr ""
+"Numărul total de erori necorectabile la citirea/scrierea unui sector. "
+"Creșterea acestei valori indică apariția unui defect la suprafața discurilor "
+"magnetice și/sau apariția unei probleme mecanice."
+
 msgid "The unique group ID is already used."
 msgstr "Identificatorul unic de grup (ID) este deja utilizat."
 
@@ -6410,16 +7135,16 @@ msgid "There is no error, the file uploaded with success."
 msgstr "Fișierul a fost încărcat cu succes, fără eroare."
 
 msgid "There must be 2 disks in a RAID 1 volume."
-msgstr "Sînt necesare cel puțin 2 discuri pentru un volum RAID 1."
+msgstr "Sunt necesare cel puțin 2 discuri pentru un volum RAID 1."
 
 msgid "There must be a minimum of 2 disks in a JBOD."
-msgstr "Sînt necesare cel puțin 2 discuri pentru un JBOD."
+msgstr "Sunt necesare cel puțin 2 discuri pentru un JBOD."
 
 msgid "There must be a minimum of 2 disks in a RAID 0 volume."
-msgstr "Sînt necesare cel puțin 2 discuri pentru un volum RAID 0."
+msgstr "Sunt necesare cel puțin 2 discuri pentru un volum RAID 0."
 
 msgid "There must be a minimum of 3 disks in a RAID 5 volume."
-msgstr "Sînt necesare cel puțin 3 discuri pentru un volum RAID 5"
+msgstr "Sunt necesare cel puțin 3 discuri pentru un volum RAID 5"
 
 msgid "There must be at least 1 disks selected."
 msgstr "Trebuie să selectați cel puțin un disc."
@@ -6530,6 +7255,11 @@ msgstr ""
 "Acest VLAN nu poate fi șters întrucît este încă folosită ca o interfață."
 
 msgid ""
+"This WLAN cannot be deleted because it is still being used as an interface."
+msgstr ""
+"Aceasta WLAN nu se poate elimina pentru ca se utilizeaza ca interfata"
+
+msgid ""
 "This allows you to lower the power consumption of the drive, at the expense "
 "of performance."
 msgstr ""
@@ -6549,6 +7279,30 @@ msgstr ""
 
 msgid "This allows you to set the transfer mode for ATA/IDE hard drives."
 msgstr "Vă permite să stabiliți modul de transfer pentru discurile ATA/IDE."
+
+msgid ""
+"This attribute indicates the count of full hard disk power on/off cycles."
+msgstr "Numărul total de porniri/opriri complete ale hard discului."
+
+msgid ""
+"This attribute indicates the count that recalibration was requested (under "
+"the condition that the first attempt was unsuccessful). An increase of this "
+"attribute value is a sign of problems in the hard disk mechanical subsystem."
+msgstr ""
+"Acest contor indică numărul de recalibrări necesare în condițiile în care "
+"prima operație a generat o eroare. O valoare mare a acestui contor indica o "
+"problemă la partea mecanică a hard discului."
+
+msgid ""
+"This attribute is a part of Hewlett-Packard's SMART IV technology, as well "
+"as part of other vendors' IO Error Detection and Correction schemas, and it "
+"contains a count of parity errors which occur in the data path to the media "
+"via the drive's cache RAM."
+msgstr ""
+"Acest contor este specific tehnologiei SMRT IV de la Hewlett-Packard, la fel "
+"și pentru schema de detecție și corecție a erorilor de Intrare/Ieșire a "
+"altor producători. Indică numărul de erori de paritate apărute la transferul "
+"de date către media magnetică via memoria cache RAM a discului."
 
 #, php-format
 msgid ""
@@ -6693,9 +7447,9 @@ msgid ""
 "for a listing of available modules. By setting this to false you can create "
 "hidden modules."
 msgstr ""
-"Această opțiune determină dacă acest modul să fie listat cînd un client cere "
-"lista modulelor disponibile. Setînd opțiunea la valoarea fals puteți crea "
-"module ascunse."
+"Această opțiune determină dacă acest modul va fi listat atunci când un "
+"client cere lista modulelor disponibile. Folosind aici valoarea 'fals' "
+"puteți ascunde utilizatorilor anumite module."
 
 msgid ""
 "This option is a comma, space, or tab delimited set of host which are NOT "
@@ -6836,6 +7590,9 @@ msgid "This rule is triggered whenever the selected event directive occurs."
 msgstr ""
 "Această regulă este activată ori de cîte ori apare evenimentul selectat."
 
+msgid "This server uses default swap."
+msgstr "Acest server utilizeaza SWAP  in configuratie"
+
 msgid "This tag already exists."
 msgstr "Această etichetă există deja."
 
@@ -6882,6 +7639,10 @@ msgstr ""
 "Această opțiune determină ştergerea TUTUROR datelelor de pe disc! Nu "
 "folosiți această opțiune dacă doriți să adăugați un disc criptat existent."
 
+msgid "This will provide NTFS acls without ZFS ACL support such as UFS."
+msgstr ""
+"Vor fi activate permisiunile NTFS acls fără suport ZFS ACL (ex. UFS)."
+
 msgid "This will provide ZFS ACL support. (ZFS only)"
 msgstr ""
 "Aceasta opțiune va oferi suport ACL pentru ZFS (doar pentru sisteme cu ZFS)."
@@ -6914,6 +7675,15 @@ msgstr "Interval de Timp"
 
 msgid "Time server"
 msgstr "Server Bază de Timp"
+
+msgid "Time spent during the positioning of the drive heads."
+msgstr "Timpul necesar pentru poziționarea capetelor magnetice."
+
+msgid ""
+"Time spent operating under data load (movement of magnetic head armature)."
+msgstr ""
+"Timpul necesar pentru transferul de date (mișcarea ansamblului capetelor "
+"magnetice)."
 
 msgid "Time update interval"
 msgstr "Interval actualizare"
@@ -7016,6 +7786,39 @@ msgstr "Tolerat"
 msgid "Tools"
 msgstr "Unelte"
 
+msgid ""
+"Total NAND Writes. Raw value reports the number of writes to NAND in 1GB "
+"increments."
+msgstr ""
+"Numărul total de scrieri în memoria NAND. Valoarea brută indică numărul de "
+"scrieri în incremente de 1GB."
+
+msgid ""
+"Total count of LBAs read. Some S.M.A.R.T. utilities will report a negative "
+"number for the raw value since in reality it has 48 bits rather than 32."
+msgstr ""
+"Numărul total de citiri LBA. Unele utilitare S.M.A.R.T. vor raporta numere "
+"negative atât timp cât valorile brute au 48 de biți în loc de 32."
+
+msgid "Total count of LBAs written."
+msgstr "Numărul total de scrieri LBA."
+
+msgid "Total count of load cycles."
+msgstr "Numărul total de cicluri de încărcare."
+
+msgid ""
+"Total number of Flash program operation failures since the drive was "
+"deployed."
+msgstr ""
+"Numărul total de erori de utilizare a memoriei FLash din momentul fabricării."
+
+msgid ""
+"Total time of loading on the magnetic heads actuator (time not spent in "
+"parking area)."
+msgstr ""
+"Numărul total de încărcare a capetelor magnetice (timp în afara zonei de "
+"parcare)."
+
 #, php-format
 msgid "Total: %s | Used: %s | Free: %s"
 msgstr "Total: %s | Utilizat: %s | Liber: %s"
@@ -7034,6 +7837,13 @@ msgstr ""
 "Trasarea rutei poate dura cîteva momente. Puteți renunța în orice moment "
 "apăsînd butonul Stop, în browser fiind afișate rutele descoperite pînă în "
 "acel moment."
+
+msgid ""
+"Tracks whose path contains one or more of these comma separated strings will "
+"be treated as a compilation."
+msgstr ""
+"Localizarea rutelor care contin unul sau mai multe din urmatoarele linii "
+"separate de virgula se va considera compilare."
 
 msgid "Transcoding"
 msgstr "Transcodare"
@@ -7199,8 +8009,14 @@ msgstr "URI"
 msgid "URL"
 msgstr "URL"
 
+msgid "Ukrainian"
+msgstr "Ucraineană"
+
 msgid "Unavailable"
 msgstr "Indisponibil"
+
+msgid "Uncorrected read errors reported to the operating system."
+msgstr "Numărul de erori necorectate raportate de sistemul de operare."
 
 msgid "Unformated"
 msgstr "Neformatat"
@@ -7331,10 +8147,10 @@ msgid ""
 msgstr ""
 "Folosiți această opțiune pentru a suprascrie utilizatorul implicit ('ftp'), "
 "utilizatorul specificat fiind folosit pentru accesarea serviciilor ca "
-"utilizator vizitator. Toate privilegiile acestui utilizator vor fi "
+"utilizator de tip vizitator. Toate privilegiile acestui utilizator vor fi "
 "disponibile oricărui client care se conectează la acest serviciu. "
-"Utilizatorul trebuie să fie deja definit în lista cu parole dar nu este "
-"obligatoriu să aibă date valide de autentificare."
+"Utilizatorul trebuie să fie deja definit în lista utilizatorilor cu parole "
+"dar nu este obligatoriu să aibă date valide de autentificare."
 
 msgid "Used"
 msgstr "Utilizat"
@@ -7363,6 +8179,9 @@ msgstr "Parola Utilizator."
 
 msgid "User portal"
 msgstr "Portal utilizator"
+
+msgid "User shares"
+msgstr "Partajări utilizator"
 
 msgid "User suffix"
 msgstr "Sufix user"
@@ -7401,6 +8220,14 @@ msgstr "Eticheta VLAN"
 msgid "Value"
 msgstr "Valoare"
 
+msgid ""
+"Value is equal to (100-temp. &deg;C), allowing manufacturer to set a minimum "
+"threshold which corresponds to a maximum temperature."
+msgstr ""
+"Valoarea este egală cu 100-temp. &deg;C permițînd producătorului să seteze "
+"un prag minim care corespunde cu temperatura maximă de funcționare a hard "
+"discului."
+
 msgid "Variable"
 msgstr "Variabilă"
 
@@ -7409,6 +8236,9 @@ msgstr "ID vînzător"
 
 msgid "Version"
 msgstr "Versiune"
+
+msgid "Vibration During Write."
+msgstr "Vibrații în timpul scrierii"
 
 msgid "Virtual Host ID"
 msgstr "ID Sistem Virtual"
@@ -7438,7 +8268,7 @@ msgid "Volume label"
 msgstr "Etichetă volum"
 
 msgid "Volume label of the new file system."
-msgstr "Eticheta volum a noului sistem de fișiere."
+msgstr "Eticheta de volum a noului sistem de fișiere."
 
 msgid "Volumes"
 msgstr "Volume"
@@ -7456,6 +8286,10 @@ msgid "WINS server IP address (e.g. from MS Active Directory server)."
 msgstr ""
 "Adresă IP server WINS (ex. obținută de la un server MS Active Directory)."
 
+msgid "WLAN"
+msgstr "WLAN-Retea virtuala"
+
+#, c-format
 msgid "WPA"
 msgstr "WPA"
 
@@ -7467,6 +8301,9 @@ msgstr "WPA-PSK (Cheie inițială partajată)"
 
 msgid "WPA-PSK WPA-EAP"
 msgstr "WPA-PSK WPA-EAP"
+
+msgid "WPA2"
+msgstr "WPA2"
 
 msgid "Wait time"
 msgstr "Timp de așteptare"
@@ -7506,12 +8343,28 @@ msgstr "Folderul de bază pentru documente lipsește."
 msgid "Week days"
 msgstr "Zilele săptămînii"
 
+msgid "Western Digital attribute."
+msgstr "Contor Western Digital"
+
+msgid ""
+"Western Digital, Samsung or Seagate attribute: Total number of data blocks "
+"with detected, uncorrectable errors encountered during normal operation."
+msgstr ""
+"Contor Western Digital, Samsung sau Seagate: Numărul total de blocuri care "
+"au avut erori necorectabile în timpul operațiilor normale de scriere/citire."
+
 msgid ""
 "When HAST is enabled, the local devices, the local services and the "
 "additional packages which do not support HAST volume cannot be used."
 msgstr ""
 "Cînd modul HAST este activat dispozitivele locale, serviciile locale și "
 "pachetele adiționale care nu suportă HAST nu pot fi folosite."
+
+msgid ""
+"When Samba AD is enabled, stand-alone CIFS/SMB file sharing cannot be used."
+msgstr ""
+"Când se activează modul Samba AD partajările de sine-stătătoare CIFS/SMB nu "
+"pot fi utilizate."
 
 msgid "When UPS switches to Low Battery"
 msgstr "Cînd comută UPS-ul pe Acumulator Descărcat"
@@ -7535,12 +8388,18 @@ msgstr ""
 msgid "Where to save downloaded data."
 msgstr "Folderul unde vor fi salvate datele descărcate."
 
+msgid "Whether compilations should be shown together under Various Artists."
+msgstr "Daca colectiile ar trebui listate in Artisti Diversi."
+
 msgid ""
 "Whether scans should be skipped if there are no users connected. This allows "
 "the drive to spin down when no users are connected."
 msgstr ""
 "Specifică dacă scanările trebuiesc omise atunci cînd nu sînt utilizatori "
 "conectați, permțînd discurilor să oprească rotirea platanelor."
+
+msgid "Whether to skip initial boot-up scan."
+msgstr "Daca se salta scanarea initiala in boot-up."
 
 msgid "Who"
 msgstr "Utilizator"
@@ -7614,6 +8473,10 @@ msgstr "Trebuie să selectați cel puțin un element pentru '%s'."
 msgid "You may enter a description here for your reference."
 msgstr "Puteți introduce aici o scurtă descriere pentru referință."
 
+msgid "You may enter a device file or label path."
+msgstr ""
+"Va trebui să introduceți numele unui dispozitiv sau o etichetă de cale."
+
 #, php-format
 msgid ""
 "You may specify as SCSI INQUIRY data. Empty as default. (up to %d ASCII "
@@ -7635,7 +8498,7 @@ msgstr ""
 "firmware."
 
 msgid "You must add disks first."
-msgstr "Trebuie să adăugați mai întâi discuri."
+msgstr "Mai întâi trebuie să adăugați discuri."
 
 msgid "You must enter the same IP type for network and gateway."
 msgstr ""
@@ -7643,9 +8506,12 @@ msgstr ""
 "acces."
 
 #, php-format
-msgid "You must have a minimum of %dMB of RAM for using iSCSI target."
+msgid "You must have a minimum of %dMiB RAM for using iSCSI target."
 msgstr ""
-"Trebuie să aveți cel puțin %dMB RAM pentru a putea folosi destinații iSCSI."
+"Trebuie să aveți minim %dMiB RAM disponibil pentru a putea folosi iSCSI."
+
+msgid "You must initialize data before enabling."
+msgstr "Va trebui să inițializați datele înainte de activare."
 
 msgid "You must select at least one authentication method."
 msgstr "Trebuie să selectați cel puțin o metodă de autentificare."
@@ -7715,6 +8581,13 @@ msgstr "chroot() pentru toți utilizatorii, fără root."
 msgid "day(s)"
 msgstr "zi(le)"
 
+msgid ""
+"decoded as: byte 0-1-2 = good block count (big endian) and byte 3-4 = "
+"system(free) block count."
+msgstr ""
+"biții 0-1-2 reprezintă numărul de sectoare valide (big endian) în timp ce "
+"biții 3-4-5 reprezintă numărul de sectoare libere."
+
 msgid "detected an error while importing."
 msgstr "au fost detectate erori la import."
 
@@ -7729,10 +8602,10 @@ msgid "get target info failed."
 msgstr "eșuare găsire info destinație."
 
 msgid "greatest settable high voltage transfer point"
-msgstr "valoarea maximă pentru punctul de transfer tensiune înaltă"
+msgstr "valoarea maximă punct de transfer tensiune înaltă"
 
 msgid "greatest settable low voltage transfer point"
-msgstr "valoarea maximă pentru punctul de transfer tensiune jos"
+msgstr "valoarea maximă punct de transfer tensiune joasă"
 
 msgid "hiadaptive (high performance)"
 msgstr "superadaptiv (performanță maximă)"
@@ -7790,7 +8663,7 @@ msgid "n/a"
 msgstr "n/a"
 
 msgid "no new encrypted disk found."
-msgstr "niciun disc nou criptat găsit."
+msgstr "nu a fost găsit niciun disc nou criptat."
 
 msgid "none"
 msgstr "nimic"
@@ -7805,7 +8678,7 @@ msgid "revision"
 msgstr "revizie"
 
 msgid "rotated block-interleaved parity"
-msgstr "paritate rotită întrețesere blocuri"
+msgstr "paritate întrețesere blocuri rotită"
 
 msgid "scan target failed."
 msgstr "eroare scanare destinație."
@@ -7817,7 +8690,7 @@ msgid "smallest settable high voltage transfer point"
 msgstr "valoarea minimă pentru punctul de transfer tensiune înaltă"
 
 msgid "smallest settable low voltage transfer point"
-msgstr "valoarea minimă pentru punctul de transfer tensiune joasă"
+msgstr "valoarea minimă punct de transfer tensiune joasă"
 
 msgid "striping"
 msgstr "striping"
@@ -7828,6 +8701,9 @@ msgstr "cu succes."
 msgid "sysctl.conf"
 msgstr "sysctl.conf"
 
+msgid "sysvol exist in path."
+msgstr "sysvol există în cale."
+
 msgid "to"
 msgstr "către"
 
@@ -7837,6 +8713,5 @@ msgstr "umask"
 msgid "umount"
 msgstr "demontare"
 
-#, php-format
 msgid "version:"
 msgstr "versiune:"

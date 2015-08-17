@@ -56,6 +56,8 @@ function disks_mount_all()
 		foreach ($config['mounts']['mount'] as $mount) {
 			if ("disk" !== $mount['type'])
 				continue;
+			if (is_booting() && disks_ismounted($mount))
+				continue;
 
 			// Advanced unmount filesystem if not in booting mode (mount edition).
 			// Background: 'disks_umount' can't be used in the case the mount point
@@ -70,6 +72,8 @@ function disks_mount_all()
 		// Then mount ISOs
 		foreach ($config['mounts']['mount'] as $mount) {
 			if ("iso" !== $mount['type'])
+				continue;
+			if (is_booting() && disks_ismounted($mount))
 				continue;
 
 			// Advanced unmount filesystem if not in booting mode (mount edition)
@@ -115,6 +119,21 @@ function disks_mount($mount)
 		write_log("Error: Failed to create directory {$mountname}");
 	}
 
+	// msdosfs does not support some operation
+	if ($mount['fstype'] == 'msdosfs') {
+		$mode = "777";
+		$owner = "root";
+		$group = "wheel";
+		if (is_array($mount['accessrestrictions'])) {
+			$mode = $mount['accessrestrictions']['mode'];
+			$owner = $mount['accessrestrictions']['owner'];
+			$group = $mount['accessrestrictions']['group'][0];
+		}
+		if (!@chmod($mountname, octdec($mode)) || !@chown($mountname, $owner) || !@chgrp($mountname, $group)) {
+			write_log("Error: Failed to set access restrictions on directory '{$mountname}'");
+		}
+	}
+
 	/* Mount the filesystem */
 	/* In booting mode, skip encrypted disk (need to enter the passphrase on the webgui) */
 	if (is_booting()) {
@@ -140,6 +159,8 @@ function disks_mount($mount)
 			break;
 
 		case "iso":
+			if (!file_exists($mount['filename']))
+				return 0;
 			// Create memory disk. 'mdconfig' returns the ID of this disk
 			exec("/sbin/mdconfig -a -t vnode -f '{$mount['filename']}'", $mdid, $result);
 			if (0 !== $result) {
@@ -147,6 +168,12 @@ function disks_mount($mount)
 				return 1;
 			}
 			$devicespecialfile = "/dev/{$mdid[0]}";
+			break;
+
+		case "custom":
+			$devicespecialfile = $mount['devicespecialfile'];
+			if (!file_exists($devicespecialfile))
+				return 0;
 			break;
 	}
 
@@ -197,11 +224,31 @@ function disks_mount($mount)
 			// Load the kernel FUSE module
 			mwexec("/sbin/kldload /boot/kernel/fuse.ko");
 			$readonly = (isset($mount['readonly'])) ? "-o ro" : "";
+			$mode = "777";
+			$owner = "root";
+			$group = "wheel";
+			if (is_array($mount['accessrestrictions'])) {
+				$mode = $mount['accessrestrictions']['mode'];
+				$owner = $mount['accessrestrictions']['owner'];
+				$group = $mount['accessrestrictions']['group'][0];
+			}
+			$pw = posix_getpwnam($owner);
+			$gr = posix_getgrnam($group);
+			if ($pw == FALSE || $gr == FALSE) {
+				@rmdir($mountname);
+				write_log("Error: Failed to get uid/gid");
+				$result = 1;
+				break;
+			}
+			$uid = "-o uid={$pw['uid']}";
+			$gid = "-o gid={$gr['gid']}";
+			$mask = decoct(0777 ^ octdec($mode));
+			$umask = "-o umask={$mask}";
 			$osver = @exec("/usr/bin/uname -U");
-			if ($osver >= 1100000) {
-				$result = mwexec("/sbin/mount_ntfs {$readonly} {$devicespecialfile} '{$mountname}'", true); // default options: silent,allow_other
+			if ($osver >= 1000000) {
+				$result = mwexec("/sbin/mount_ntfs {$readonly} {$uid} {$gid} {$umask} {$devicespecialfile} '{$mountname}'", true); // default options: silent,allow_other
 			} else {
-				$result = mwexec("/sbin/mount -t ntfs {$readonly} {$devicespecialfile} '{$mountname}'", true); // default options: silent,allow_other
+				$result = mwexec("/sbin/mount -t ntfs {$readonly} {$uid} {$gid} {$umask} {$devicespecialfile} '{$mountname}'", true); // default options: silent,allow_other
 			}
 			if (0 == $result) {
 				write_log("Disk {$devicespecialfile} mounted using NTFS on '{$mountname}'");
@@ -335,6 +382,8 @@ function disks_ismounted($mount)
 {
 	// MUST CHECK IF IT'S NTFS filesystem
 	if (0 == strcmp($mount['fstype'],"ntfs")) {
+		return disks_ismounted_ex($mount['sharename'], "sharename");
+	} else if (0 == strcmp($mount['type'],"iso")) {
 		return disks_ismounted_ex($mount['sharename'], "sharename");
 	} else {
 		return disks_ismounted_ex($mount['devicespecialfile'], "devicespecialfile");
@@ -880,7 +929,7 @@ function disks_geli_setkey($devicespecialfile, $oldpassphrase, $passphrase, $ver
 
 // Format disk. Error and warning messages are redirected to stdout.
 // Return none
-function disks_format($disk, $type, $notinitmbr, $minspace, $volumelabel, $aft4k)
+function disks_format($disk, $type, $notinitmbr, $minspace, $volumelabel, $aft4k, $zfsgpt)
 {
 	global $g;
 
@@ -890,6 +939,7 @@ function disks_format($disk, $type, $notinitmbr, $minspace, $volumelabel, $aft4k
 	set_kern_geom_debugflags(0x10);
 	if (!$notinitmbr) {
 		echo gettext("Deleting MBR and partition table")."...\n";
+		system("/sbin/gpart destroy -F {$disk} 1>/dev/null 2>&1");
 		$count = (1024*1024) / $diskinfo['sectorsize'];
 		system("/bin/dd if=/dev/zero of={$disk} bs={$diskinfo['sectorsize']} count={$count} 2>&1");
 		$oseek = $diskinfo['mediasize_sectors'] - $count;
@@ -917,7 +967,7 @@ function disks_format($disk, $type, $notinitmbr, $minspace, $volumelabel, $aft4k
 	switch ($type) {
 		case "ufsgpt":
 			echo gettext("Creating partition")."...\n";
-			// Destroy old GTP partition
+			// Destroy old GPT partition
 			//system("/sbin/gpt destroy {$disk} 1>/dev/null 2>&1");
 			system("/sbin/gpart destroy -F {$disk} 1>/dev/null 2>&1");
 			// Create new GPT partition
@@ -956,13 +1006,18 @@ function disks_format($disk, $type, $notinitmbr, $minspace, $volumelabel, $aft4k
 			// Calculate last sector of disk containing GEOM metadata.
 			$oseek = $diskinfo['mediasize_sectors'] - 1;
 
-			// Destroy old GTP partition
+			// Destroy old GPT partition
 			system("/sbin/gpart destroy -F {$disk} 1>/dev/null 2>&1");
 
 			// Initialize disk
 			// Ensure that existing GEOM metadata is completely removed.
 			echo gettext("Deleting GEOM metadata")."...\n";
 			system("/bin/dd if=/dev/zero of={$disk} bs={$diskinfo['sectorsize']} oseek={$oseek} count=1 2>&1");
+			if ($zfsgpt) {
+				echo gettext("Creating partition")."...\n";
+				system("/sbin/gpart create -s gpt {$disk} 2>&1");
+				system("/sbin/gpart add -a4m -t freebsd-zfs {$disk} 2>&1");
+			}
 			break;
 
 		case "msdos":
@@ -1585,6 +1640,12 @@ function disks_try_ntfs($file) {
 	return "NTFS";
 }
 
+function disks_try_ext2($file) {
+	if (0 != mwexec("/usr/local/sbin/tune2fs -l {$file} 2>/dev/null"))
+		return false;
+	return "EXT2";
+}
+
 function disks_import_try_allfs($dev) {
 	$mntpath = "/tmp/disks_import";
 
@@ -1601,6 +1662,9 @@ function disks_import_try_allfs($dev) {
 			$ntfs = disks_try_ntfs($file);
 			if (!empty($ntfs))
 				return "ntfs";
+			$ext2 = disks_try_ext2($file);
+			if (!empty($ext2))
+				return "ext2";
 		}
 	}
 
@@ -1617,6 +1681,9 @@ function disks_import_try_allfs($dev) {
 			$ntfs = disks_try_ntfs($file);
 			if (!empty($ntfs))
 				return "ntfs";
+			$ext2 = disks_try_ext2($file);
+			if (!empty($ext2))
+				return "ext2";
 		}
 	}
 
@@ -1633,6 +1700,9 @@ function disks_import_try_allfs($dev) {
 			$ntfs = disks_try_ntfs($file);
 			if (!empty($ntfs))
 				return "ntfs";
+			$ext2 = disks_try_ext2($file);
+			if (!empty($ext2))
+				return "ext2";
 		}
 	}
 

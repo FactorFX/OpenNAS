@@ -2,15 +2,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: NAS4Free\n"
 "Report-Msgid-Bugs-To: zoon01 <zoon01@nas4free.org>\n"
-"POT-Creation-Date: 2015-01-17 20:39+0000\n"
-"PO-Revision-Date: 2015-01-16 07:49+0000\n"
+"POT-Creation-Date: 2015-07-16 03:45+0000\n"
+"PO-Revision-Date: 2015-07-28 07:29+0000\n"
 "Last-Translator: ChriZathens <c_kan1@hotmail.com>\n"
 "Language-Team: NAS4Free\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2015-01-17 20:28+0000\n"
-"X-Generator: Launchpad (build 17304)\n"
+"X-Launchpad-Export-Date: 2015-08-13 21:12+0000\n"
+"X-Generator: Launchpad (build 17686)\n"
 "X-Poedit-Country: Greece\n"
 "Language: \n"
 "X-Poedit-Language: Greek\n"
@@ -90,6 +90,64 @@ msgstr "%sB διαθέσιμα από %sB"
 msgid "%sB used of %sB"
 msgstr "%sB σε χρήση από %sB"
 
+msgid "(Found in a Maxtor 6B200M0 200GB and Maxtor 2R015H1 15GB disks)."
+msgstr "(Υπάρχουν σε  δίσκους Maxtor 6B200M0 200GB και Maxtor 2R015H1 15GB)."
+
+msgid ""
+"(Kingston)Counts the number of flash erase failures. This Attribute returns "
+"the total number of Flash erase operation failures since the drive was "
+"deployed. This Attribute is identical to Attribute 182."
+msgstr ""
+"(Kingston)Μετράει τον αριθμό των αποτυχιών διαγραφής της μνήμης flash. Αυτό "
+"το χαρακτηριστικό επιστρέφει το συνολικό αριθμό αποτυχιών της λειτουργίας "
+"διαγραφής της μνήμης flash από τότε που ξεκίνησε η λειτουργία του δίσκου. "
+"Αυτό το χαρακτηριστικό είναι ίδιο με το χαρακτηριστικό 182."
+
+msgid ""
+"(Kingston)Counts the number of flash program failures. This Attribute "
+"returns the total number of Flash program operation failures since the drive "
+"was deployed. This attribute is identical to attribute 181."
+msgstr ""
+"(Kingston)Ο αριθμός των αποτυχιών του προγράμματος flash. Αυτό το "
+"χαρακτηριστικό δείχνει τον συνολικό αριθμό αποτυχιών της λειτουργίας του "
+"προγράμματος flash από την στιγμή που ξεκίνησε η χρήση του δίσκου. Αυτό το "
+"χαρακτηριστικό είναι παρόμοιο με το χαρακτηριστικό 181."
+
+msgid ""
+"(Vendor specific raw value.) Rate of seek errors of the magnetic heads. If "
+"there is a partial failure in the mechanical positioning system, then seek "
+"errors will arise. Such a failure may be due to numerous factors, such as "
+"damage to a servo, or thermal widening of the hard disk. The raw value has "
+"different structure for different vendors and is often not meaningful as a "
+"decimal number."
+msgstr ""
+"(Συγκεκριμένη ανά κατασκευαστή ακατέργαστη τιμή.) Τιμή σφαλμάτων αναζήτησης "
+"των μαγνητικών κεφαλών. Αν υπάρξει μερική αποτυχία στο μηχανικό σύστημα "
+"τοποθέτησης, τότε προκύπτουν σφάλματα αναζήτησης. Τέτοια αποτυχία μπορεί να "
+"οφείλεται σε διάφορους παράγοντες, όπως βλάβη στο σερβομηχανισμό ή διαστολή "
+"του σκληρού δίσκου λόγω θερμοκρασιών. Η ακατέργαστη τιμή έχει διαφορετική "
+"δομή ανά κατασκευαστή και συχνά δεν βγάζει νόημα ως  δεκαδικός αριθμός."
+
+msgid ""
+"(Vendor specific raw value.) Stores data related to the rate of hardware "
+"read errors that occurred when reading data from a disk surface. The raw "
+"value has different structure for different vendors and is often not "
+"meaningful as a decimal number."
+msgstr ""
+"(Συγκεκριμένη ανά κατασκευαστή ακατέργαστη τιμή.) Αποθηκεύει δεδομένα "
+"σχετικά με την τιμή των σφαλμάτων ανάγνωσης του υλικού, που προέκυψαν κατά "
+"την ανάγνωση δεδομένων από την επιφάνεια του δίσκου. Η ακατέργαστη τιμή έχει "
+"διαφορετική δομή ανά κατασκευαστή και συχνά δεν βγάζει νόημα ως  δεκαδικός "
+"αριθμός."
+
+msgid ""
+"(Vendor-specific raw value.) The raw value has different structure for "
+"different vendors and is often not meaningful as a decimal number."
+msgstr ""
+"(Συγκεκριμένη ανά κατασκευαστή ακατέργαστη τιμή.) Η ακατέργαστη τιμή έχει "
+"διαφορετική δομή για διαφορετικούς κατασκευαστές και  πολύ συχνά δεν έχει "
+"σημασία σαν δεκαδικό νούμερο."
+
 msgid "*** Imported duplicate ***"
 msgstr "*** Εισήσχθησαν εις διπλούν ***"
 
@@ -104,6 +162,9 @@ msgstr ""
 "1. Χρησιμοποιήστε αυτές τις ειδικές ενέργειες για αποσφαλμάτωση μόνο! <br /> "
 "2. Δεν χρειάζεται να χρησιμοποιήσετε αυτό το μενού  για την εκκίνηση ενός "
 "τόμου RAID (ξεκινάει αυτόματα)."
+
+msgid "4KB wrapper"
+msgstr "4KB wrapper"
 
 msgid "802.1Q VLAN tag (between 1 and 4094)."
 msgstr "ετικέτα 802.1Q VLAN  (μεταξύ  1 και 4094)."
@@ -223,6 +284,18 @@ msgstr ""
 msgid "A route to this destination network already exists."
 msgstr "Υπάρχει ήδη μια διαδρομή προς αυτόν τον προορισμό δικτύου."
 
+msgid ""
+"A tally of spindle start/stop cycles. The spindle turns on, and hence the "
+"count is increased, both when the hard disk is turned on after having before "
+"been turned entirely off (disconnected from power source) and when the hard "
+"disk returns from having previously been put to sleep mode."
+msgstr ""
+"Η αντιστοίχιση κύκλων εκκίνησης/σταματήματος του μηχανισμού περιστροφής. Ο "
+"μηχανισμός περιστροφής ξεκινά, οπότε και αυξάνεται ο μετρητής, και στην "
+"περίπτωση που ο δίσκος έχει σβήσει εντελώς (αποσυνδέθηκε από το ρεύμα), αλλά "
+"και όταν ο σκληρός δίσκος επιστρέφει από πρότερη λειτουργία εξοικονόμησης "
+"ενέργειας ( sleep mode)."
+
 msgid "A valid IP address must be specified."
 msgstr "Πρέπει να καθοριστεί μια έγκυρη διεύθυνση IP."
 
@@ -277,6 +350,12 @@ msgstr "Πρέπει να καθοριστεί ένα έγκυρο πρόθεμ�
 msgid "A valid systctl MIB value."
 msgstr "Μια έγκυρη τιμή systctl MIB."
 
+msgid "ACL inherit"
+msgstr "Κληρονόμηση ACL"
+
+msgid "ACL mode"
+msgstr "Λειτουργία ACL"
+
 msgid "AD authentication disabled"
 msgstr "Η πιστοποίηση AD απενεργοποιήθηκε"
 
@@ -289,6 +368,9 @@ msgstr "AFP"
 msgid "AG"
 msgstr "AG"
 
+msgid "AIO module"
+msgstr "Άρθρωμα AIO"
+
 msgid "AIO read size"
 msgstr "Μέγεθος ανάγνωσης AIO"
 
@@ -298,11 +380,17 @@ msgstr "Μέγεθος εγραφής  AIO"
 msgid "ALL interfaces"
 msgstr "Όλες οι διεπαφές"
 
+msgid "AP mode"
+msgstr "Λειτουργία AP"
+
 msgid "ARP Tables"
 msgstr "Πίνακες ARP"
 
 msgid "ARP tables"
 msgstr "Πίνακες ARP"
+
+msgid "ATTRIBUTE NAME"
+msgstr "ΟΝΟΜΑ ΧΑΡΑΚΤΗΡΙΣΤΙΚΟΥ"
 
 msgid "Access"
 msgstr "Πρόσβαση"
@@ -462,6 +550,9 @@ msgstr ""
 "Διεύθυνση του απομακρυσμένου δαίμονα hastd. Πρέπει να είναι στατική "
 "διεύθυνση IP."
 
+msgid "Admin password"
+msgstr "Κωδικός πρόσβασης διαχειριστή"
+
 msgid "Administration password"
 msgstr "Κωδικός διαχειριστή"
 
@@ -526,11 +617,26 @@ msgstr "Πρωτόκολλο συνάθροισης"
 msgid "Aggressive"
 msgstr "Επιθετικά"
 
+msgid ""
+"Airflow temperature on Western Digital HDs (Same as temp. , but current "
+"value is 50 less for some models. Marked as obsolete.)"
+msgstr ""
+"Θερμοκρασία ροής αέρα σε σκληρούς δίσκους Western Digital (Το ίδιο με τη "
+"θερμοκρασία, αλλά η τρέχουσα τιμή είναι 50 λιγότερο σε μερικά μοντέλα. Έχει "
+"χαρακτηριστεί ως ξεπερασμένο.)"
+
 msgid "Albanian"
 msgstr "Αλβανικά"
 
 msgid "All"
 msgstr "Όλα"
+
+msgid ""
+"All data in the path is overwritten. To avoid invalid data/permission, using "
+"empty UFS directory is recommended."
+msgstr ""
+"Όλα τα δεδομένα στη διαδρομή θα αντικατασταθούν. Για να αποφύγετε μη έγκυρα "
+"δεδομένα/δικαιώματα, συνιστάται να χρησιμοποιήσετε έναν άδειο κατάλογο UFS."
 
 msgid "All dirs"
 msgstr "Όλοι οι κατάλογοι"
@@ -560,8 +666,8 @@ msgstr "Όλοι οι χρήστες θα έχουν δικαιώματα root."
 msgid "Allow"
 msgstr "Επιτρέπονται"
 
-msgid "Allow TLS/SSL connections only."
-msgstr "Να επιτρέπονται μόνο TLS/SSL συνδέσεις."
+msgid "Allow TLS connections only."
+msgstr "Να επιτρέπονται μόνο συνδέσεις TLS."
 
 msgid "Allow client access to accounts that have null passwords."
 msgstr ""
@@ -611,6 +717,21 @@ msgstr ""
 "Επιτρέπει στο διακομιστή να προσπαθήσει να γίνει κεντρικός τοπικός "
 "περιηγητής."
 
+msgid ""
+"Also known as 'Power-off Retract Count' per conventional HDD terminology. "
+"Raw value reports the number of unclean shutdowns, cumulative over the life "
+"of an SSD, where an 'unclean shutdown' is the removal of power without "
+"STANDBY IMMEDIATE as the last command (regardless of PLI activity using "
+"capacitor power). Normalized value is always 100."
+msgstr ""
+"Επίσης γνωστό ως  'Power-off Retract Count' σύμφωνα με τη συμβατική ορολογία "
+"στους σκληρούς δίσκους. Η ακατέργαστη τιμή αναφέρει τον αριθμό των μη "
+"αναμενόμενων τερματισμών λειτουργίας, συσωρευτικά σε όλη τη διάρκεια ζωής "
+"ενός δίσκου SSD, όπου ένας 'μη αναμενόμενος τερματισμός λειτουργίας' είναι η "
+"απώλεια ρεύματος  χωρίς  να έχει εκτελεστεί ως τελευταία η εντολή STANDBY "
+"IMMEDIATE (άσχετα από την λειτουργία PLI με χρήση ρεύματος πυκνωτή). Η "
+"κανονικοποιημένη τιμή είναι πάντα 100."
+
 msgid "AltRoot"
 msgstr "Εναλλακτική ρίζα"
 
@@ -637,6 +758,16 @@ msgstr "Σχετική υγρασία περιβάλλοντος (ποσοστό
 
 msgid "Ambient temperature (degrees C)"
 msgstr "Θερμοκρασία περιβάλλοντος (βαθμοί C)"
+
+msgid "Amount of surge current used to spin up the drive."
+msgstr "Ποσότητα τάσης ρεύματος  που χρειάζεται για να εκκινήσει ο δίσκος."
+
+msgid ""
+"Amplitude of 'thrashing' (distance of repetitive forward/reverse head "
+"motion)."
+msgstr ""
+"Εύρος του  'thrashing' (απόσταση επαναλαμβανόμενης κίνησης εμπρός/πίσω της "
+"κεφαλής)"
 
 msgid "An host with this name already exists."
 msgstr "Ένας υπολογιστής με αυτό το όνομα υπάρχει ήδη."
@@ -667,6 +798,9 @@ msgstr "Μόνο ανώνυμοι χρήστες"
 
 msgid "Any"
 msgstr "Οποιοδήποτε"
+
+msgid "Append user defined shares"
+msgstr "Προσάρτηση κοινόχρηστων φακέλων των χρηστών."
 
 msgid "Apple Filing Protocol"
 msgstr "Πρωτοκόλλο Αρχειοθέτησης Apple"
@@ -756,6 +890,19 @@ msgstr "Βοηθητικές παράμετροι"
 
 msgid "Available"
 msgstr "Διαθέσιμο"
+
+msgid ""
+"Average performance of seek operations of the magnetic heads. If this "
+"attribute is decreasing, it is a sign of problems in the mechanical "
+"subsystem."
+msgstr ""
+"Μέσος όρος απόδοσης των λειτουργιών αναζήτησης των μαγνητικών κεφαλών. Αν "
+"αυτό το χαρακτηριστικό μειώνεται, είναι ένδειξη για προβλήματα στο "
+"υποσύστημα μηχανικών μερών του δίσκου."
+
+msgid "Average time of spindle spin up (from zero RPM to fully operational)."
+msgstr ""
+"Μέσος χρόνος εκκίνησης περιστροφής (από 0 στροφές/λεπτό σε πλήρη λειτουργία)."
 
 msgid "Backup configuration"
 msgstr "Αποθήκευση ρυθμίσεων"
@@ -860,6 +1007,9 @@ msgid ""
 "Boot partition is too small. You need reinstall from LiveCD or LiveUSB, or "
 "resize boot partition of %s.\n"
 msgstr ""
+"Η κατάτμηση boot είναι πολύ μικρή. Χρειάζεται να κάνετε επανεγκατάσταση από "
+"το LiveCD ή το LiveUSB, ή να κάνετε αλλαγή στο μέγεθος της κατάτμησης boot "
+"του %s.\n"
 
 msgid "Bridge"
 msgstr "Γεφύρωμα δικτύου"
@@ -908,6 +1058,9 @@ msgstr "CIFS/SMB απενεργοποιημένο"
 
 msgid "CIFS/SMB informations"
 msgstr "Πληροφορίες CIFS/SMB"
+
+msgid "CIFS/SMB is enabled."
+msgstr "To CIFS/SMB είναι ενεργό."
 
 msgid "CP1251 (Cyrillic)"
 msgstr "CP1251 (Κυριλλικά)"
@@ -982,6 +1135,9 @@ msgstr "Δεν μπορεί να εμφανιστεί ο φόρτος της CPU
 msgid "Cannot get data about interface"
 msgstr "Αδυναμία παραλαβής δεδομένων σχετικά με την διεπαφή"
 
+msgid "Cannot use DHCP for LAN interface."
+msgstr "Δεν μπορεί να χρησιμοποιηθεί DHCP για τη διεπαφή δικτύου LAN."
+
 msgid "Capacity"
 msgstr "Χωρητικότητα"
 
@@ -1016,6 +1172,15 @@ msgstr "Κανάλι"
 
 msgid "Charging Battery"
 msgstr "Μπαταρία σε φόρτιση"
+
+#, php-format
+msgid "Check <a href=\"%s\">System|General Setup</a> before initializing."
+msgstr ""
+"Ελέγξτε στο <a href=\"%s\">Σύστημα|Γενικές Ρυθμίσεις</a> πριν την "
+"αρχικοποίηση."
+
+msgid "Check and replace cable"
+msgstr "Ελέγξτε και αντικαταστήστε το καλώδιο"
 
 msgid "Check interval"
 msgstr "Διαστήματα ελέγχου"
@@ -1111,6 +1276,9 @@ msgstr "Κοινό διαδικτυακό σύστημα αρχείων (CIFS)"
 msgid "Community"
 msgstr "Κοινότητα"
 
+msgid "Compilations directories"
+msgstr "Φάκελοι συλλογών"
+
 msgid "Compliant profile to be used."
 msgstr "Συμβατό προφίλ που θα χρησιμοποιηθεί."
 
@@ -1147,7 +1315,10 @@ msgstr "Επιβεβαίωση"
 msgid "Connected FTP users"
 msgstr "Συνδεδεμένοι χρήστες FTP"
 
-msgid "Console menu"
+msgid "Consider replacing this drive"
+msgstr "Σκεφτείτε την αλλαγή του δίσκου"
+
+msgid "Console Menu"
 msgstr "Μενού κονσόλας"
 
 msgid "Console screensaver"
@@ -1257,6 +1428,169 @@ msgstr "Ελέγχει αν αυτό το dataset μπορεί να τροποπ
 msgid "Count"
 msgstr "Αριθμός πακέτων"
 
+msgid "Count of 'Free Fall Events' detected."
+msgstr "Αριθμός των 'Free Fall Events' που ανιχνεύθηκαν."
+
+msgid ""
+"Count of 'unstable' sectors (waiting to be remapped, because of "
+"unrecoverable read errors). If an unstable sector is subsequently read "
+"successfully, the sector is remapped and this value is decreased. Read "
+"errors on a sector will not remap the sector immediately (since the correct "
+"value cannot be read and so the value to remap is not known, and also it "
+"might become readable later); instead, the drive firmware remembers that the "
+"sector needs to be remapped, and will remap it the next time it's written. "
+"However some drives will not immediately remap such sectors when written; "
+"instead the drive will first attempt to write to the problem sector and if "
+"the write operation is successful then the sector will be marked good (in "
+"this case, the 'Reallocation Event Count' (0xC4) will not be increased). "
+"This is a serious shortcoming, for if such a drive contains marginal sectors "
+"that consistently fail only after some time has passed following a "
+"successful write operation, then the drive will never remap these problem "
+"sectors."
+msgstr ""
+"Αριθμός 'ασταθών' τομέων (που περιμένουν να επαναχαρτογραφηθούν, εξαιτίας "
+"ανεπανόρθωτων σφαλμάτων ανάγνωσης). Αν ένας ασταθής τομέας διαβαστεί κατόπιν "
+"επιτυχώς, ο τομέας επαναχαρτογραφείται και αυτή η τιμή μειώνεται. Σφάλματα "
+"ανάγνωσης σε έναν τομέα δεν οδηγούν σε άμεση επαναχαρτογράφηση του τομέα "
+"(εφόσον η σωστή τιμή δεν μπορεί να διαβαστεί η τιμή για επαναχαρτογράφηση "
+"δεν είναι γνωστή και επίσης μπορεί να γίνει αναγνώσιμη αργότερα), αντιθέτως, "
+"το υλικολογισμικό του σκληρού δίσκου θυμάται ότι ο τομέας χρειάζεται να "
+"επαναχαρτογραφηθεί και τον επαναχαρτογραφεί την επόμενη φορά που εγγράφεται. "
+"Όμως μερικοί δίσκοι δεν επαναχαρτογραφούν αμέσως τέτοιους τομείς μόλις "
+"γραφτούν. Αντίθετα, ο δίσκος πρώτα προσπαθεί να γράψει στον προβληματικό "
+"τομέα και αν η λειτουργία εγγραφής είναι επιτυχής, τότε ο τομέας σημειώνεται "
+"καλός (σε αυτή την περίπτωση η τιμή 'Reallocation Event Count' (0xC4) δεν θα "
+"αυξηθεί). Αυτή είναι σοβαρή αδυναμία, επειδή αν ένας τέτοιος δίσκος περιέχει "
+"κάποιους όχι πολύ σημαντικούς τομείς που συνεχώς αποτυχαίνουν, αλλά μόνο "
+"αφού περάσει κάποια ώρα έπειτα από μια επιτυχημένη λειτουργία εγγραφής, τότε "
+"ο δίσκος δεν θα επαναχαρτογραφήσει ποτέ αυτούς τους προβληματικούς τομείς."
+
+msgid "Count of Data Address Mark errors (or vendor-specific)."
+msgstr ""
+"Αριθμός σφαλμάτων Data Address Mark (ή συγκεκριμένο ανά κατασκευαστή)."
+
+msgid "Count of attempts to compensate for platter speed variations."
+msgstr ""
+"Αριθμός προσπαθειών για αντιστάθμηση των παραλλαγών στις ταχύτητες των πλατώ "
+"του δίσκου."
+
+msgid ""
+"Count of buzz routines needed to spin up the drive due to insufficient power."
+msgstr ""
+"Αριθμός ρουτίνων buzz που χρειάστηκαν για εκκίνηση περιστροφής του δίσκου "
+"εξαιτίας ανεπαρκούς τροφοδοσίας."
+
+msgid "Count of errors corrected by software ECC."
+msgstr "Αριθμός σφαλμάτων διορθωμένων από το λογισμικό ECC."
+
+msgid "Count of errors due to high temperature."
+msgstr "Αριθμός σφαλμάτων που οφείλονται σε υψηλές θερμοκρασίες."
+
+msgid "Count of errors while reading from a disk."
+msgstr "Αριθμός σφαλμάτων κατά την ανάγνωση από το δίσκο."
+
+msgid ""
+"Count of hours in power-on state. The raw value of this attribute shows "
+"total count of hours (or minutes, or seconds, depending on manufacturer) in "
+"power-on state."
+msgstr ""
+"Αριθμός ωρών σε κατάσταση λειτουργίας. Η ακατέργαστη τιμή αυτού του "
+"χαρακτηριστικού δείχνει τον συνολικό αριθμό των ωρών (ή λεπτών, ή "
+"δευτερολέπτων, ανάλογα με τον κατασκευαστή) που ο δίσκος βρίσκεται σε "
+"κατάσταση λειτουργίας."
+
+msgid "Count of load/unload cycles into head landing zone position."
+msgstr ""
+"Αριθμός κύκλων φόρτωσης/εκφόρτωσης στη θέση της ζώνης παρκαρίσματος της "
+"κεφαλής."
+
+msgid "Count of off-track errors."
+msgstr "Αριθμός σφαλμάτων off-track."
+
+msgid ""
+"Count of reallocated sectors. When the hard drive finds a "
+"read/write/verification error, it marks that sector as 'reallocated' and "
+"transfers data to a special reserved area (spare area). This process is also "
+"known as remapping, and reallocated sectors are called 'remaps'. The raw "
+"value normally represents a count of the bad sectors that have been found "
+"and remapped. Thus, the higher the attribute value, the more sectors the "
+"drive has had to reallocate. This allows a drive with bad sectors to "
+"continue operation; however, a drive which has had any reallocations at all "
+"is significantly more likely to fail in the near future. While primarily "
+"used as a metric of the life expectancy of the drive, this number also "
+"affects performance. As the count of reallocated sectors increases, the "
+"read/write speed tends to become worse because the drive head is forced to "
+"seek to the reserved area whenever a remap is accessed. If sequential access "
+"speed is critical, the remapped sectors can be manually marked as bad blocks "
+"in the file system in order to prevent their use."
+msgstr ""
+"Αριθμός των επανατοποθετημένων τομέων. Όταν ένας σκληρός  δίσκος βρίσκει ένα "
+"σφάλμα ανάγνωσης/εγγραφής/επαλήθευσης, σημειώνει αυτό τον τομέα σαν "
+"'επανατοποθετημένο' και μεταφέρει τα δεδομένα σε μια ειδική κρατημένη "
+"περιοχή (εφεδρική περιοχή). Αυτή η διαδικασία είναι επίσης γνωστή ως "
+"επαναχαρτογράφηση, και οι επανατοποθετημένοι τομείς ονομάζονται 'remaps'. Η "
+"ακατέργαστη τιμή κανονικά αντιπροσωπεύει τον αριθμό των προβληματικών τομέων "
+"που έχουν βρεθεί και έχουν επαναχαρτογραφηθεί. Οπότε, όσο μεγαλύτερη είναι "
+"αυτή η τιμή, τόσο περισσότεροι τομείς  θα πρέπει να επανατοποθετηθούν από το "
+"σκληρό δίσκο. Αυτό επιτρέπει σε ένα σκληρό δίσκο με κατεστραμμένους  τομείς "
+"να συνεχίσει να λειτουργεί, όμως, ένας δίσκος ο οποίος έχει επανατοποθετήσει "
+"τομείς, έχει πολύ περισσότερες πιθανότητες να αποτύχει στο κοντινό μέλλον. "
+"Ενώ πρωταρχικά χρησιμοποιείται σαν μέτρο προσδιορισμού της προσδοκώμενης "
+"ζωής του σκληρού δίσκου, αυτό το νούμερο επίσης επηρεάζει την απόδοση. Όσο ο "
+"αριθμός των επανατοποθετημένων τομέων αυξάνεται, η ταχύτητα "
+"ανάγνωσης/εγγραφής τείνει να χειροτερεύει επειδή η κεφαλή του δίσκου "
+"αναγκάζεται να κάνει αναζητήσεις στην εφεδρική περιοχή όταν γίνεται "
+"προσπέλαση σε  ένα remap. Αν η ταχύτητα σειριακής πρόσβασης είναι κρίσιμης "
+"σπουδαιότητας, οι επαναχαρτογραφημένοι τομείς μπορούν χειροκίνητα να "
+"σημειωθούν ως κατεστραμμένοι στο σύστημα αρχείων, ώστε να αποτρέπεται η "
+"χρήση τους."
+
+msgid ""
+"Count of remap operations. The raw value of this attribute shows the total "
+"count of attempts to transfer data from reallocated sectors to a spare area. "
+"Both successful & unsuccessful attempts are counted."
+msgstr ""
+"Αριθμός λειτουργιών επαναχαρτογράφησης. Η ακατέργαστη τιμή αυτού του "
+"χαρακτηριστικού δείχνει το συνολικό αριθμό προσπαθειών για μεταφορά "
+"δεδομένων από τους επανατοποθετημένουν τομείς στην εφεδρική περιοχή. "
+"Μετρώνται και οι επιτυχημένες και οι αποτυχημένες προσπάθειες."
+
+msgid ""
+"Count of retry of spin start attempts. This attribute stores a total count "
+"of the spin start attempts to reach the fully operational speed (under the "
+"condition that the first attempt was unsuccessful). An increase of this "
+"attribute value is a sign of problems in the hard disk mechanical subsystem."
+msgstr ""
+"Αριθμός προσπαθειών για εκκίνηση περιστροφής. Αυτό το χαρακτηριστικό "
+"αποθηκεύει το συνολικό αριθμό των προσπαθειών εκκίνησης περιστροφής του "
+"δίσκου ως την πλήρη ταχύτητα (με την προϋπόθεση ότι η πρώτη προσπάθεια ήταν "
+"αποτυχημένη). Αύξηση της τιμής αυτού του χαρακτηριστικού είναι ένδειξη για "
+"προβλήματα στο υποσύστημα μηχανικών μερών του δίσκου."
+
+msgid "Count of times head changes position."
+msgstr "Αριθμός των φορών που η κεφαλή αλλάζει θέση."
+
+msgid ""
+"Count of times the heads are loaded off the media. Heads can be unloaded "
+"without actually powering off."
+msgstr ""
+"Ο αριθμός των φορών που οι κεφαλές ξεφορτώνονται από το μέσο. Οι κεφαλές "
+"μπορεί να ξεφορτωθούν χωρίς στην ουσία να γίνει τερματισμός λειτουργίας."
+
+msgid "Count of times the link is reset during a data transfer."
+msgstr ""
+"Αριθμός φορών που γίνεται επαναφορά της σύνδεσης κατά τη διάρκεια εγγραφής  "
+"δεδομένων."
+
+msgid "Counts the maximum worst erase count on any block."
+msgstr "Μετράει τον μέγιστο χειρότερο αριθμό διαγραφής σε κάποιο block."
+
+msgid "Create 4KB wrapper (nop device)."
+msgstr "Δημιουργία wrapper μεγέθους 4KB  (συσκευή nop)."
+
+msgid "Create ZFS on GPT partition"
+msgstr "Δημιουργία ZFS σε κατάτμηση GPT"
+
 msgid "Create and initialize RAID."
 msgstr "Δημιουργία και αρχικοποίηση RAID."
 
@@ -1308,17 +1642,8 @@ msgstr "Τρέχον"
 msgid "Current Version:"
 msgstr "Τρέχουσα έκδοση:"
 
-msgid "Current administrator password is used for decryption."
-msgstr ""
-"Ο τρέχων κωδικός  του διαχειριστή χρησιμοποιείται για την αποκρυπτογράφηση."
-
-#, php-format
-msgid ""
-"Current administrator password is used for encryption.<br />Encrypted "
-"configuration is automatically gzipped."
-msgstr ""
-"Ο τρέχων κωδικός  του διαχειριστή χρησιμοποιείται για την κρυπτογράφηση.<br "
-"/>Το κρυπτογραφημένο αρχείο ρυθμίσεων συμπιέζεται αυτόματα σε μορφή gzip."
+msgid "Current internal temperature."
+msgstr "Τρέχουσα εσωτερική θερμοκρασία."
 
 msgid "Current password"
 msgstr "Τρέχων κωδικός"
@@ -1329,6 +1654,10 @@ msgstr ""
 "Ο τρέχων κωδικός είναι ο προεπιλεγμένος κωδικός. Θα πρέπει να χρησιμοποιείτε "
 "τον δικό σας κωδικό."
 
+msgid "Current state of drive operation based upon the Life Curve."
+msgstr ""
+"Τρέχουσα κατάσταση της λειτουργίας του δίσκου, βασιζόμενη στον Κύκλο Ζωής."
+
 msgid "Current value of apparent power (Volt-Amps)"
 msgstr "Τρέχουσα τιμή φαινόμενης ισχύος (Volt-Amps)"
 
@@ -1337,6 +1666,9 @@ msgstr "Τρέχουσα τιμή πραγματικής ισχύος (Watts)"
 
 msgid "Custom"
 msgstr "Προσαρμοσμένο"
+
+msgid "Custom device"
+msgstr "Προσαρμοσμένη συσκευή"
 
 msgid "Custom script"
 msgstr "Προσαρμοσμένο αρχείο εντολών"
@@ -1353,14 +1685,29 @@ msgstr "Τσέχικα"
 msgid "DAAP"
 msgstr "DAAP"
 
+msgid "DESCRIPTION"
+msgstr "ΠΕΡΙΓΡΑΦΗ"
+
 msgid "DHCP"
 msgstr "DHCP"
+
+msgid "DHCP cannot be used for LAN interface."
+msgstr "Δεν μπορεί να χρησιμοποιηθεί DHCP για τη διεπαφή δικτύου LAN."
 
 msgid "DLNA/UPnP"
 msgstr "DLNA/UPnP"
 
 msgid "DLNA/UPnP Media Server"
 msgstr "DLNA/UPnP Media Server"
+
+msgid "DNS domain"
+msgstr "Τομέας DNS"
+
+msgid "DNS forwarder"
+msgstr "Διαβιβαστής DNS"
+
+msgid "DNS server is empty."
+msgstr "Το πεδίο για το διακομιστή DNS είναι άδειο."
 
 msgid "DNS settings"
 msgstr "Ρυθμίσεις DNS"
@@ -1418,6 +1765,16 @@ msgstr "Ημέρες"
 
 msgid "Debug"
 msgstr "Αποσφαλμάτωση"
+
+msgid ""
+"Decoded as: byte 0-1-2 = average erase count (big endian) and byte 3-4-5 = "
+"max erase count (big endian)."
+msgstr ""
+"Αποκωδικοποιείται ως: byte 0-1-2 = μέσος όρος διαγραφών (big endian) και "
+"byte 3-4-5 = μέγιστος αριθμός διαγραφών (big endian)."
+
+msgid "Decrypt password"
+msgstr "Αποκρυπτογράφηση κωδικού πρόσβασης"
 
 msgid "Dedup"
 msgstr "Dedup"
@@ -1584,6 +1941,14 @@ msgstr "Διαγραφή μεταδεδομένων GEOM"
 msgid "Deleting MBR and partition table"
 msgstr "Διαγραφή MBR και πίνακα κατατμήσεως"
 
+msgid ""
+"Delta between most-worn and least-worn Flash blocks. It describes how "
+"good/bad the wearleveling of the SSD works on a more technical way."
+msgstr ""
+"Διάστημα τιμής ανάμεσα στα περισσότερο φθαρμένα και τα λιγότερα φθαρμένα "
+"μπλοκ της μνήμης Flash. Περιγράφει πόσο καλά/άσχημα δουλεύει η λετουργία "
+"ελάττωσης φθοράς του SSD με έναν πιο τεχνικό τρόπο."
+
 msgid "Deny"
 msgstr "Απαγορεύονται"
 
@@ -1635,6 +2000,9 @@ msgstr ""
 
 msgid "Device"
 msgstr "Συσκευή"
+
+msgid "Device / Label"
+msgstr "Συσκευή / Ετικέτα"
 
 #, php-format
 msgid "Device /dev/%s - %s"
@@ -1757,6 +2125,14 @@ msgstr "Πληροφορίες δίσκων (ATA)"
 
 msgid "Display"
 msgstr "Εμφάνιση"
+
+msgid ""
+"Distance the disk has shifted relative to the spindle (usually due to shock "
+"or temperature). Unit of measure is unknown."
+msgstr ""
+"Απόσταση μετατόπισης του δίσκου σε σχέση με το μηχανισμό περιστροφής "
+"(συνήθως  εξαιτίας κραδασμών ή θερμοκρασίας). Η μονάδα μέτρησης είναι "
+"άγνωστη."
 
 msgid "Distributed hash table"
 msgstr "Διανεμημένος πίνακας κατακερματισμού"
@@ -1922,6 +2298,9 @@ msgstr "Τομέας"
 msgid "Domain controller name"
 msgstr "Όνομα ελεγκτή τομέα"
 
+msgid "Domain have no 2nd level name."
+msgstr "Ο τομέας δεν έχει όνομα 2ου επιπέδου."
+
 msgid "Domain name"
 msgstr "Όνομα τομέα"
 
@@ -1973,6 +2352,12 @@ msgstr "Φάκελος λήψεων"
 msgid "Download firewall rules."
 msgstr "Λήψη κανόνων τοίχους προστασίας"
 
+msgid "Drive Temperature."
+msgstr "Θερμοκρασία δίσκου."
+
+msgid "Drive's seek performance during its internal tests."
+msgstr "Επιδόσεις αναζήτησης του δίσκου κατά τις εσωτερικές του δοκιμές."
+
 msgid "Driver"
 msgstr "Οδηγός υλικού"
 
@@ -2013,6 +2398,9 @@ msgstr "Υποτήριξη ΕΑ"
 
 msgid "EFI/GPT partition can be use with UFS only."
 msgstr "Η κατάτμηση EFI/GPT μπορεί να χρησιμοποιηθεί μόνο με UFS."
+
+msgid "ERROR:"
+msgstr "ΣΦΑΛΜΑ:"
 
 msgid "Edit"
 msgstr "Επεξεργασία"
@@ -2132,6 +2520,9 @@ msgstr "Κενό από προεπιλογή."
 msgid "Enable"
 msgstr "Ενεργοποίηση"
 
+msgid "Enable ACL inheritance"
+msgstr "Ενεργοποίηση κληρονόμησης ACL"
+
 msgid "Enable Advanced Format (4KB sector)"
 msgstr "Ενεργοποίηση Προχωρημένης Διαμόρφωσης (4KB τομέας)"
 
@@ -2140,6 +2531,9 @@ msgstr "Ενεργοποίηση Ασύγχρονου Ι/Ο (είσοδος/έξ
 
 msgid "Enable FXP protocol."
 msgstr "Ενεργοποίηση πρωτοκόλλου FXP."
+
+msgid "Enable NFSv4 server."
+msgstr "Ενεργοποίηση διακομιστή NFSv4."
 
 msgid "Enable NTP"
 msgstr "Ενεργοποίηση NTP"
@@ -2154,8 +2548,8 @@ msgstr ""
 "Ενεργοποίηση κρυπτογράφησης STARTTLS. Αυτό δεν σημαίνει ότι είναι "
 "υποχρεωτικό να χρησιμοποιήσετε TLS, μπορείτε να χρησιμοποιήσετε SSL."
 
-msgid "Enable TLS/SSL connections."
-msgstr "Ενεργοποίηση  TLS/SSL συνδέσεων."
+msgid "Enable TLS connections."
+msgstr "Ενεργοποίηση συνδέσεων TLS."
 
 msgid "Enable Time Machine support"
 msgstr "Ενεργοποίηση υποστήριξης Time Machine"
@@ -2297,8 +2691,18 @@ msgstr "Ενεργοποίηση προσωρινής μνήμης για την
 msgid "Enabled"
 msgstr "Ενεργοποιημένο"
 
+msgid "Encrypt password"
+msgstr "Κρυπτογράφηση κωδικού"
+
+msgid "Encrypt password (confirmed)"
+msgstr "Κρυπτογράφηση κωδικού (επιβεβαίωση)"
+
 msgid "Encrypted"
 msgstr "Κρυπτογραφημένο"
+
+msgid "Encrypted configuration is automatically gzipped."
+msgstr ""
+"Το κρυπτογραφημένο αρχείο ρυθμίσεων συμπιέζεται αυτόματα σε μορφή gzip."
 
 #, php-format
 msgid "Encrypting '%s'... Please wait"
@@ -2490,6 +2894,10 @@ msgstr "Αποτυχία δημιουργίας συστήματος αρχεί�
 msgid "Failed to execute cron job."
 msgstr "Αποτυχία εκτέλεσης προγραμματισμένης εργασίας."
 
+#, php-format
+msgid "Failed to remove: %s"
+msgstr "Αποτυχία αφαίρεσης: %s"
+
 #, c-format
 msgid "Failed to send status report to: %s."
 msgstr "Αποτυχία αποστολής αναφοράς κατάστασης στο: %s."
@@ -2569,6 +2977,9 @@ msgstr "Το ανέβασμα του αρχείου διακόπηκε από μ
 
 msgid "Filename"
 msgstr "Όνομα αρχείου"
+
+msgid "Fileserver"
+msgstr "Διακομιστής αρχείων"
 
 msgid "Filter"
 msgstr "Φίλτρο"
@@ -2679,6 +3090,9 @@ msgstr "Γενικές Ρυθμίσεις"
 msgid "Generate"
 msgstr "Δημιουργία"
 
+msgid "Generate password if leave empty."
+msgstr "Δημιουργία κωδικού πρόσβασης αν μείνει άδειο."
+
 msgid "German"
 msgstr "Γερμανικά"
 
@@ -2716,6 +3130,9 @@ msgstr "Ομάδα"
 
 msgid "Group ID"
 msgstr "ID Ομάδας"
+
+msgid "Group compilations"
+msgstr "Ομαδοποίηση συλλογών"
 
 msgid "Group description."
 msgstr "Περιγραφή ομάδας."
@@ -2759,6 +3176,25 @@ msgstr "Τόμος HAST"
 msgid "HAST volume can be use with GPT/UFS only."
 msgstr "Ο τόμος HAST μπορεί να χρησιμοποιηθεί μόνο με GPT/UFS."
 
+msgid ""
+"HDD producers implement a Fly Height Monitor that attempts to provide "
+"additional protections for write operations by detecting when a recording "
+"head is flying outside its normal operating range. If an unsafe fly height "
+"condition is encountered, the write process is stopped, and the information "
+"is rewritten or reallocated to a safe region of the hard drive. This "
+"attribute indicates the count of these errors detected over the lifetime of "
+"the drive. This feature is implemented in most modern Seagate drives."
+msgstr ""
+"Οι κατασκευαστές σκληρών δίσκων εφαρμόζουν έναν Ελεγκτή Ύψους Αιώρησης (Fly "
+"Height Monitor) ο οποίος επιχειρεί να παρέχει πρόσθετη ασφάλεια κατά τις "
+"εγγραφές, ανιχνεύοντας πότε μια κεφαλή εγγραφής αιωρείται εκτός των ορίων "
+"προδιαγραφών. Όταν ανιχνεύεται μια όχι ασφαλής  θέση ύψους, η εγγραφή "
+"σταματά και η πληροφορία ξαναγράφεται ή μετατοπίζεται σε μια ασφαλή "
+"τοποθεσία του σκληρού δίσκου. Αυτό το χαρακτηριστικό δείχνει τον αριθμό "
+"τέτοιων σφαλμάτων που ανιχνεύτηκαν κατά τη διάρκεια της ζωής ενός δίσκου. "
+"Αυτό το χαρακτηριστικό εφαρμόζεται στους περισσότερους σύγχρονους σκληρούς "
+"δίσκους της Seagate."
+
 msgid "HTTP Proxy"
 msgstr "Διακομιστής μεσολάβησης HTTP"
 
@@ -2776,6 +3212,15 @@ msgstr "Περίληψη κεφαλίδας"
 
 msgid "Health"
 msgstr "Κατάσταση"
+
+msgid ""
+"Height of heads above the disk surface. A flying height that's too low "
+"increases the chances of a head crash while a flying height that's too high "
+"increases the chances of a read/write error."
+msgstr ""
+"Ύψος των κεφαλών πάνω από την επιφάνεια του δίσκου. Ένα αιωρούμενο ύψος που "
+"είναι πολύ μικρό, αυξάνει τις πιθανότητες χτυπήματος της κεφαλής, ενώ όταν "
+"είναι πολύ μεγάλο αυξάνονται οι πιθανότητες για σφάλματα ανάγνωσης/εγγραφής."
 
 msgid "Help"
 msgstr "Βοήθεια"
@@ -2864,18 +3309,15 @@ msgstr "Ουγγρικά"
 msgid "I/O Timeout"
 msgstr "Λήξη χρόνου I/O"
 
-msgid "I/O errors"
-msgstr "Σφάλματα I/O"
-
-msgid "I/O packets"
-msgstr "Πακέτα I/O"
-
 msgid "I/O statistics"
 msgstr "Στατιστικά I/O"
 
 #, php-format
 msgid "I/O timeout in seconds (%d by default)."
 msgstr "Λήξη χρόνου I/O σε δευτερόλεπτα (%d προεπιλογή)."
+
+msgid "ID"
+msgstr "ID"
 
 msgid "IG"
 msgstr "IG"
@@ -3073,6 +3515,12 @@ msgid "In slave mode it is the UPS name (Identifier) at the UPS master."
 msgstr ""
 "Σε λειτουργία slave είναι το όνομα UPS (Αναγνωριστικό) κατά το master UPS."
 
+msgid "In/Out errors"
+msgstr "Σφάλματα εισόδου/εξόδου"
+
+msgid "In/Out packets"
+msgstr "Εισερχόμενα/εξερχόμενα πακέτα"
+
 msgid "Include basic hardware information."
 msgstr "Να συμπεριληφθούν βασικές πληροφορίες υλικού."
 
@@ -3081,6 +3529,14 @@ msgstr "Πληροφορίες Γραμμής/Ισχύος εισόδου"
 
 msgid "Incomplete directory"
 msgstr "Κατάλογος ημιτελών"
+
+msgid ""
+"Indicates the approximate SSD life left, in terms of program/erase cycles or "
+"Flash blocks currently available for use."
+msgstr ""
+"Δείχνει τις εκτιμώμενες  ώρες λειτουργίας που απομένουν σε έναν δίσκο SSD, "
+"λαμβάνοντας υπόψη τους κύκλους εγγραφής/διαγραφής σε blocks μνήμης flash τα "
+"οποία είναι αυτή τη στιγμή διαθέσιμα προς  χρήση."
 
 msgid "Info"
 msgstr "Πληροφορίες"
@@ -3096,6 +3552,9 @@ msgstr "Πληροφορίες & Εγχειρίδιο χρήσης"
 
 msgid "Information & Manuals"
 msgstr "Πληροφορίες & Εγχειρίδια χρήσης"
+
+msgid "Inherit ACL"
+msgstr "Κληρονόμηση ACL"
 
 msgid "Inherit permissions"
 msgstr "Κληρονόμηση δικαιωμάτων"
@@ -3117,6 +3576,9 @@ msgstr "Αρχικοποίηση και κρυπτογράφηση δίσκου.
 msgid "Initializing"
 msgstr "Γίνεται αρχικοποίηση"
 
+msgid "Initializing..."
+msgstr "Γίνεται αρχικοποίηση..."
+
 msgid "Initiator Group"
 msgstr "Ομάδα Εκκινητή"
 
@@ -3127,7 +3589,7 @@ msgid ""
 "Initiator authorised to access to the iSCSI target.  It takes a name or "
 "'ALL' for any initiators."
 msgstr ""
-"Εκκινητής που επιτρέπεται να έχει πρόσβαση στο iSCSI στόχο. Δέχεται ένα "
+"Εκκινητής που επιτρέπεται να έχει πρόσβαση στον προορισμό iSCSI. Δέχεται ένα "
 "όνομα ή τη λέξη 'ALL' για οποιονδήποτε εκκινητή."
 
 msgid "Initiator name"
@@ -3185,6 +3647,23 @@ msgstr "Εγκατάσταση"
 msgid "Install package"
 msgstr "Εγκατάσταση πακέτου"
 
+msgid ""
+"Intel SSD reports a normalized value of 100 (when the SSD is new) and "
+"declines to a minimum value of 1. It decreases while the NAND erase cycles "
+"increase from 0 to the maximum-rated cycles."
+msgstr ""
+"Οι SSD δίσκοι της Intel αναφέρουν μια κανονικοποιημένη τιμή 100 (όταν ο SSD "
+"είναι καινούριος) και μειώνεται μέχρι την ελάχιστη τιμή 1. Μειώνεται καθώς "
+"οι κύκλοι διαγαφής της NAND αυξάνονται από το 0 στο μέγιστο επιτρεπόμενο "
+"όριο κύκλων διαγραφής."
+
+msgid ""
+"Intel SSD reports the number of available reserved space as a percentage of "
+"reserved space in a brand new SSD."
+msgstr ""
+"Οι SSD δίσκοι της Intel αναφέρουν τον διαθέσιμο κρατημένο ελεύθερο χώρο ως "
+"ποσοστό του κρατημένου ελεύθερου χώρου που υπάρχει σε έναν καινούριο SSD."
+
 msgid "Interface"
 msgstr "Διεπαφή δικτύου"
 
@@ -3222,6 +3701,9 @@ msgstr "Μεσοδιάστημα αναμονής πριν την επανεκκ
 
 msgid "Interval to wait before restarting the load"
 msgstr "Μεσοδιάστημα αναμονής πριν την επανεκκίνηση του φορτίου"
+
+msgid "Invalid file format or incorrect password."
+msgstr "Μη έγκυρος τύπος αρχείου ή λανθασμένος κωδικός πρόσβασης"
 
 msgid "Invalid file format."
 msgstr "Άκυρη μορφή αρχείου."
@@ -3271,6 +3753,9 @@ msgstr "Ιταλικά"
 
 msgid "JBOD"
 msgstr "JBOD"
+
+msgid "JBOD information and status"
+msgstr "Πληροφορίες και κατάσταση JBOD"
 
 msgid ""
 "January February March April May June July August September October November "
@@ -3341,6 +3826,30 @@ msgstr "Μεγάλη ανάγνωση/εγγραφή"
 
 msgid "Last config change"
 msgstr "Τελευταία αλλαγή ρυθμίσεων"
+
+msgid ""
+"Last test result as microseconds to discharge cap, saturated at its maximum "
+"value. Also logs minutes since last test and lifetime number of tests. Raw "
+"value contains the following data: Bytes 0-1: Last test result as "
+"microseconds to discharge cap, saturates at max value. Test result expected "
+"in range 25 <= result <= 5000000, lower indicates specific error code. Bytes "
+"2-3: Minutes since last test, saturates at max value. Bytes 4-5: Lifetime "
+"number of tests, not incremented on power cycle, saturates at max value. "
+"Normalized value is set to one on test failure or 11 if the capacitor has "
+"been tested in an excessive temperature condition, otherwise 100."
+msgstr ""
+"Τελευταίο αποτέλεσμα δοκιμών, ως μικροδευτερόλεπτα για αποφόρτιση του "
+"πυκνωτή, ενώ είναι φορτισμένος στο μέγιστο δυνατό. Επίσης καταγράφει τα "
+"λεπτά που πέρασαν από την τελευταία δοκιμή και το συνολικό αριθμό δοκιμών. Η "
+"ακατέργαστη τιμή περιέχει τα ακόλουθα δεδομένα: Bytes 0-1:  Τελευταίο "
+"αποτέλεσμα δοκιμών σε  μικροδευτερόλεπτα για αποφόρτιση του πυκνωτή, "
+"φορτωμένο στο μέγιστο δυνατό. Το αποτέλεμα αναμένεται να έχει εύρος  25 <= "
+"αποτέλεσμα <= 5000000, η χαμηλότερη τιμή είναι ένδειξη συγκεκριμένου κωδικού "
+"σφάλματος. Bytes 2-3: Λεπτά που πέρασαν από την τελευταία δοκιμή, φορτωμένο "
+"στο μέγιστο δυνατό. Bytes 4-5: Συνολικός αριθμός δοκιμών, μη αυξανόμενος "
+"κατά τις επαν/εκκινήσεις , φορτωμένο στο μέγιστο δυνατό. Η κανονικοποιημένη "
+"τιμή είναι 1 σε αποτυχία της δοκιμής, ή 11 αν ο πυκνωτής ελέγχθηκε σε "
+"συνθήκες  υπερβολικής θερμοκρασίας, αλλιώς είναι 100."
 
 #, php-format
 msgid "Latest Beta Build: %s"
@@ -3654,6 +4163,13 @@ msgstr "Αντιστοίχιση σε επισκέπτη"
 msgid "Map to user"
 msgstr "Αντιστοίχιση σε χρήστη"
 
+msgid ""
+"Margin of a channel while reading data. The function of this attribute is "
+"not specified."
+msgstr ""
+"Τα περιθώρια του καναλιού κατά την ανάγνωση δεδομένων. Η λειτουργία αυτού "
+"του χαρακτηριστικού δεν προσδιορίζεται."
+
 msgid "Masquerade address"
 msgstr "Μεταμφίεση διεύθυνσης"
 
@@ -3830,6 +4346,9 @@ msgstr "Έξτρα μοντέλο"
 msgid "Model name"
 msgstr "Όνομα μοντέλου"
 
+msgid "Modified"
+msgstr "Τροποποίηση"
+
 msgid "Modifying"
 msgstr "Τροποποιείται"
 
@@ -3884,6 +4403,9 @@ msgstr "Σύνδεση στο Web περιβάλλον του NAS4Free"
 msgid "NFS"
 msgstr "NFS"
 
+msgid "NFSv4"
+msgstr "NFSv4"
+
 msgid "NIS"
 msgstr "NIS"
 
@@ -3899,6 +4421,12 @@ msgstr "ΔΕΝ ΕΙΝΑΙ ΑΚΟΜΗ ΔΙΑΘΕΣΙΜΟ"
 
 msgid "NT1"
 msgstr "NT1"
+
+msgid "NTP is not enabled."
+msgstr "Το NTP δεν είναι ενεργό."
+
+msgid "NTP must be enabled."
+msgstr "Το NTP πρέπει να είναι ενεργό."
 
 msgid "NTP time server"
 msgstr "Διακομιστής ώρας NTP"
@@ -3926,6 +4454,9 @@ msgstr ""
 
 msgid "Name of the variable."
 msgstr "Το όνομα της μεταβλητής."
+
+msgid "NetBIOS domain"
+msgstr "Τομέας NetBIOS"
 
 msgid "NetBIOS name"
 msgstr "Όνομα NetBIOS"
@@ -4139,6 +4670,9 @@ msgstr ""
 msgid "Not attached"
 msgstr "Μη συνημμένος"
 
+msgid "Not found path."
+msgstr "Η διαδρομή δεν βρέθηκε."
+
 msgid "Note"
 msgstr "Σημείωση"
 
@@ -4184,6 +4718,9 @@ msgstr "Αριθμός μονάδων μπαταρίας"
 msgid "Number of clients"
 msgstr "Αριθμός πελατών"
 
+msgid "Number of hours elapsed in the power-on state."
+msgstr "Αριθμός ωρών που πέρασαν σε κατάσταση κανονικής λειτουργίας."
+
 msgid "Number of log entries to show"
 msgstr "Αριθμός καταχωρήσεων καταγραφέα που να προβληθούν"
 
@@ -4191,6 +4728,13 @@ msgid "Number of log entries to show must be between 5 and 1000."
 msgstr ""
 "Ο προς προβολή αριθμός των εγγραφών του αρχείου καταγραφής πρέπει να είναι "
 "μεταξύ του 5 και του 1000."
+
+msgid ""
+"Number of physical erase cycles completed on the drive as a percentage of "
+"the maximum physical erase cycles the drive is designed to endure."
+msgstr ""
+"Ο αριθμός των φυσικών κύκλων διαγραφής στο δίσκο, ως ποσοστό του μέγιστου "
+"αριθμού κύκλων διαγραφής που είναι σχεδιασμένος ο δίσκος να αντέξει."
 
 msgid "Number of servers"
 msgstr "Αριθμός διακομιστών"
@@ -4289,6 +4833,15 @@ msgstr "Τάση εξόδου"
 msgid "Output voltage (V)"
 msgstr "Τάση εξόδου (V)"
 
+msgid ""
+"Overall (general) throughput performance of a hard disk drive. If the value "
+"of this attribute is decreasing there is a high probability that there is a "
+"problem with the disk."
+msgstr ""
+"Συνολική (γενική) επίδοση διακίνησης δεδομένων σε έναν σκληρό δίσκο. Αν η "
+"τιμή αυτού του χαρακτηριστικού μειώνεται, υπάρχει μεγάλη πιθανότητα ύπαρξης "
+"προβλήματος στο δίσκο."
+
 msgid "Overload"
 msgstr "Υπερφόρτωση"
 
@@ -4318,6 +4871,7 @@ msgstr "PPTP"
 msgid "PPTP clients"
 msgstr "Πελάτες PPTP"
 
+#, c-format
 msgid "PSK"
 msgstr "PSK"
 
@@ -4344,6 +4898,9 @@ msgstr "Ανά ζεύγος"
 
 msgid "Parameter xxx (ups.conf or cmdline -x) setting"
 msgstr "Ρύθμιση παραμέτρου xxx (ups.conf ή cmdline -x)"
+
+msgid "Parent Directory"
+msgstr "Γονικός κατάλογος"
 
 msgid "Partition number"
 msgstr "Αριθμός κατάτμησης"
@@ -4447,6 +5004,10 @@ msgstr "Συναλλαγή ομότιμου χρήστη"
 
 msgid "Peer port"
 msgstr "Θύρα σύνδεσης ομότιμων χρηστών"
+
+#, php-format
+msgid "Permanent samba data path (e.g. %s)."
+msgstr "Μόνιμη διαδρομή δεδομένων samba (π.χ. %s)."
 
 msgid "Permit root login"
 msgstr "Να επιτρέπεται είσοδος ως root"
@@ -4559,6 +5120,15 @@ msgstr "Λειτουργία ενέργειας"
 msgid "Power mode"
 msgstr "Κατάσταση ενέργειας"
 
+msgid "Pre-Fail' Attribute used at least in HP devices."
+msgstr ""
+"Χαρακτηριστικό Pre-Fail που χρησιμοποιείται τουλάχιστον στις συσκευές HP."
+
+msgid "Pre-Fail' Attribute used at least in Samsung devices."
+msgstr ""
+"Χαρακτηριστικό Pre-Fail που χρησιμοποιείται τουλάχιστον στις συσκευές "
+"Samsung."
+
 msgid "PreInit"
 msgstr "Πριν τη διαδικασία έναρξης"
 
@@ -4576,7 +5146,7 @@ msgid "Preformatted file system"
 msgstr "Προδιαμορφωμένο σύστημα αρχείων"
 
 msgid "Preserve extended attributes"
-msgstr "Διατήρηση των πρόσθετων χαρακτηριστικών"
+msgstr "Διατήρηση των πρόσθετων ιδιοτήτων"
 
 msgid "Preserve modification times."
 msgstr "Διατήρηση της ημν/ίας τροποποίησης."
@@ -4651,14 +5221,26 @@ msgstr "Όριο δίσκου"
 msgid "RAID 0"
 msgstr "RAID 0"
 
+msgid "RAID 0 information and status"
+msgstr "Πληροφορίες και κατάσταση RAID 0"
+
 msgid "RAID 0/1/5"
 msgstr "Συστοιχία RAID 0/1/5"
+
+msgid "RAID 0/1/5 information and status"
+msgstr "Πληροφορίες και κατάσταση RAID 0/1/5"
 
 msgid "RAID 1"
 msgstr "RAID 1"
 
+msgid "RAID 1 information and status"
+msgstr "Πληροφορίες και κατάσταση RAID 1"
+
 msgid "RAID 5"
 msgstr "RAID 5"
+
+msgid "RAID 5 information and status"
+msgstr "Πληροφορίες και κατάσταση RAID 5"
 
 msgid "RAID0"
 msgstr "RAID0"
@@ -4668,6 +5250,12 @@ msgstr "RAID1"
 
 msgid "RAID5"
 msgstr "RAID5"
+
+msgid "RAW VALUE"
+msgstr "ΑΚΑΤΕΡΓΑΣΤΗ ΤΙΜΗ"
+
+msgid "RAW info"
+msgstr "Αμορφοποίητες πληροφορίες"
 
 msgid "RSYNC"
 msgstr "RSYNC"
@@ -4797,6 +5385,9 @@ msgstr "Όνομα απομακρυσμένου αρθρώματος"
 msgid "Remote monitoring"
 msgstr "Απομακρυσμένη εποπτεία"
 
+msgid "Remote rsync daemon"
+msgstr "Δαίμονας απομακρυσμένου rsync"
+
 msgid "Remote syslog server"
 msgstr "Απομακρυσμένος διακομιστής syslog"
 
@@ -4843,6 +5434,11 @@ msgstr "Διάστημα επανελέγχου"
 
 msgid "Reservation"
 msgstr "Κράτηση"
+
+msgid "Resistance caused by friction in mechanical parts while operating."
+msgstr ""
+"Αντίσταση που δημιουργείται από την τριβή των μηχανικών μερών κατά τη "
+"διάρκεια της λειτουργίας."
 
 msgid "Resolve"
 msgstr "Ανάλυση"
@@ -4940,6 +5536,11 @@ msgstr "Εκτέλεση ως"
 msgid "Run now"
 msgstr "Εκτέλεση τώρα"
 
+msgid "Run without requiring remote rsync daemon. (Disabled by default)"
+msgstr ""
+"Εκτέλεση χωρίς να απαιτείται απομακρυσμένος δαίμονας rsync. "
+"(Απενεργοποιημένο από προεπιλογή)"
+
 msgid "Running"
 msgstr "Εκτελείται"
 
@@ -4990,11 +5591,11 @@ msgstr "Καταγραφή SSHD"
 msgid "SSID"
 msgstr "SSID"
 
-msgid "SSL/TLS"
-msgstr "SSL/TLS"
+msgid "Samba AD"
+msgstr "Samba AD"
 
-msgid "SSL/TLS only"
-msgstr "SSL/TLS μόνο"
+msgid "Samba Active Directory Domain Controller"
+msgstr "Ελεγκτής Τομέα Active Directory της Samba"
 
 #, php-format
 msgid ""
@@ -5075,6 +5676,9 @@ msgstr "Ασφαλές κέλυφος (SSH)"
 msgid "Security"
 msgstr "Ασφάλεια"
 
+msgid "See attribute E8."
+msgstr "Δείτε το χαρακτηριστικό E8."
+
 msgid ""
 "Select Hypertext Transfer Protocol (HTTP) or Hypertext Transfer Protocol "
 "Secure (HTTPS) for the WebGUI."
@@ -5123,6 +5727,9 @@ msgstr "Επιλέξτε τον αλγόριθμο ισορροπίας ανάγ
 
 msgid "Selected"
 msgstr "Επιλεγμένο"
+
+msgid "Selected device or label does not exist."
+msgstr "Η επιλεγμένη συσκευή ή ετικέτα δεν υπάρχουν."
 
 msgid "Selected file isn't an valid ISO file."
 msgstr "Το επιλεγμένο αρχείο δεν είναι ένα έγκυρο αρχείο ISO."
@@ -5276,6 +5883,9 @@ msgstr "Κοινόχρηστα"
 msgid "Shell"
 msgstr "Κέλυφος"
 
+msgid "Shock During Write."
+msgstr "Δόνηση κατά τη διάρκεια της εγγραφής."
+
 msgid "Show RAW UPS Info"
 msgstr "Προβολή ακατέργαστων πληροφοριών UPS"
 
@@ -5326,6 +5936,9 @@ msgstr ""
 msgid "Skew"
 msgstr "Στρέβλωση"
 
+msgid "Skip first scan"
+msgstr "Παράλειψη αρχικής σάρωσης"
+
 msgid "Sleep - Check the device unless it is in SLEEP mode."
 msgstr ""
 "Κατάσταση νάρκης - Ελέγξτε τη συσκευή, εκτός αν είναι σε κατάσταση νάρκης."
@@ -5359,9 +5972,6 @@ msgstr "RAID μέσω λογισμικού"
 
 msgid "Software RAID"
 msgstr "RAID μέσω λογισμικού"
-
-msgid "Software RAID information and status"
-msgstr "Πληροφορίες και κατάσταση λογισμικού RAID"
 
 msgid "Software used"
 msgstr "Λογισμικό που χρησιμοποιείται"
@@ -5397,6 +6007,21 @@ msgstr "Sparse"
 
 msgid "Sparse Volume"
 msgstr "Sparse Volume"
+
+msgid ""
+"Specific to He8 drives from HGST. The Helium, so says the literature, allows "
+"the drives to run cooler and quieter, and reduces power consumption. This is "
+"the status of the Helium in the drive. It is a pre-fail attribute that trips "
+"once the drive detects that the internal environment is out of specification."
+msgstr ""
+"Υπάρχει ειδικά σε  He8 δίσκους της  HGST. Το ήλιο, σύμφωνα με τις "
+"προδιαγραφές, επιτρέπει στους δίσκους πιο ψυχρή και πιο ήσυχη λειτουργία και "
+"μειώνει την κατανάλωση ρεύματος. Αυτή είναι η κατάσταση του ήλιου στον "
+"δίσκο. Είναι ένα pre-fail  χαρακτηριστικό που εμφανίζεται μόλις ο δίσκος "
+"ανιχνεύσει ότι το εσωτερικό περιβάλλον είναι εκτός προδιαγραφών."
+
+msgid "Specified path is NFSv4 root directory."
+msgstr "Η διαδρομή που ορίστηκε είναι ο ριζικός φάκελος του NFSv4."
 
 msgid "Specifies how many servers to create."
 msgstr "Καθορίζει πόσοι διακομιστές θα δημιουργηθούν."
@@ -5504,6 +6129,18 @@ msgstr "Αποθήκευση"
 
 msgid "Store DOS attributes"
 msgstr "Αποθήκευση ιδιοτήτων DOS"
+
+msgid "Store NTFS acls"
+msgstr "Αποθήκευση των NTFS acls"
+
+msgid "Store NTFS acls in Extended Attributes"
+msgstr "Αποθήκευση των NTFS acls στις Πρόσθετες Ιδιότητες"
+
+msgid "Store alternate data streams"
+msgstr "Αποθήκευση εναλλακτικών ροών δεδομένων"
+
+msgid "Store alternate data streams in Extended Attributes"
+msgstr "Αποθήκευση εναλλακτικών ροών δεδομένων στις Πρόσθετες Ιδιότητες"
 
 msgid ""
 "String displayed in the dialog presented to the user when accessing the URL."
@@ -5651,8 +6288,14 @@ msgstr "TFTP"
 msgid "TKIP"
 msgstr "TKIP"
 
+msgid "TLS"
+msgstr "TLS"
+
 msgid "TLS mode"
 msgstr "Λειτουργία TLS."
+
+msgid "TLS only"
+msgstr "Μόνο TLS"
 
 msgid "Tag"
 msgstr "Ετικέτα"
@@ -5782,6 +6425,23 @@ msgstr "Το MIB '%s' υπάρχει ήδη."
 msgid "The MIB '%s' doesn't exist in sysctl."
 msgstr "Το MIB '%s' δεν υπάρχει στο sysctl."
 
+msgid ""
+"The Minimum Spares Remaining attribute indicates the number of remaining "
+"spare blocks as a percentage of the total number of spare blocks available."
+msgstr ""
+"Το χαρακτηριστικό Minimum Spares Remaining δείχνει τον αριθμό των εφεδρικών "
+"μπλοκ που απομένουν, ως  ποσοστό του συνολικού αριθμού διαθέσιμων εφεδρικών "
+"μπλοκ."
+
+msgid ""
+"The Newly Added Bad Flash Block attribute indicates the total number of bad "
+"flash blocks the drive detected since it was first initialized in "
+"manufacturing."
+msgstr ""
+"Το χαρακτηριστικό Newly Added Bad Flash Block δείχνει τον συνολικό αριθμό "
+"προβληματικών μπλοκ μνήμης flash που έχει ανιχνεύσει ο δίσκος  από την πρώτη "
+"του αρχικοποίηση κατά την κατασκευή του."
+
 #, php-format
 msgid ""
 "The RAID volume is currently mounted! Remove the <a href='%s'>mount "
@@ -5843,7 +6503,7 @@ msgstr ""
 
 #, c-format, php-format
 msgid "The attribute '%s' contains invalid characters."
-msgstr "Το χαρακτηριστικό '%s' περιέχει μη έγκυρους χαρακτήρες."
+msgstr "Η ιδιότητα  '%s' περιέχει μη έγκυρους χαρακτήρες."
 
 #, c-format
 msgid ""
@@ -5895,8 +6555,15 @@ msgid "The attribute '%s' is not a valid time value."
 msgstr "Η ιδιότητα '%s' δεν είναι μια έγκυρη τιμή ώρας."
 
 #, c-format, php-format
+msgid ""
+"The attribute '%s' is required within %d or more characters to %d characters."
+msgstr ""
+"Η ιδιότητα  '%s' είναι απαραίτητη στο %d ή περισσότεροι χαρακτήρες  στους  "
+"%d χαρακτήρες."
+
+#, c-format, php-format
 msgid "The attribute '%s' is required."
-msgstr "Το χαρακτηριστικό '%s' απαιτείται."
+msgstr "Η ιδιότητα '%s' απαιτείται."
 
 #, php-format
 msgid ""
@@ -5932,13 +6599,11 @@ msgstr "Η ιδιότητα '%s' πρέπει να περιέχει τουλάχ
 
 #, php-format
 msgid "The attribute '%s': use a port in the range from %d to %d."
-msgstr ""
-"Χαρακτηριστικό '%s':  χρησιμοποιήστε μια θύρα στο εύρος από %d εως %d."
+msgstr "Ιδιότητα '%s':  χρησιμοποιήστε μια θύρα στο εύρος από %d εως %d."
 
 #, php-format
 msgid "The attribute 'Port': port '%ld' is already taken by another service."
-msgstr ""
-"Χαρακτηριστικό 'Θύρα': η θύρα '%ld' είναι είδη σε χρήση από άλλη υπηρεσία"
+msgstr "Ιδιότητα 'Θύρα': η θύρα '%ld' είναι είδη σε χρήση από άλλη υπηρεσία"
 
 msgid ""
 "The base name (e.g. iqn.2007-09.jp.ne.peach.istgt) will append the target "
@@ -6012,11 +6677,64 @@ msgstr ""
 "Οι ρυθμίσεις έχουν επαναφερθεί. Ο διακομιστής κάνει τώρα επανεκκίνηση."
 
 msgid ""
-"The confimed password does not match. Please ensure the passwords match "
+"The confirmation password does not match. Please ensure the passwords match "
 "exactly."
 msgstr ""
-"Η κωδικός επιβεβαίωσης δεν ταιριάζει. Παρακαλούμε βεβαιωθείτε ότι οι κωδικοί "
-"ταιριάζουν απόλυτα."
+"Ο κωδικός επιβεβαίωσης δεν ταιριάζει. Παρακαλώ βεβαιωθείτε ότι οι κωδικοί "
+"ταιριάζουν ακριβώς."
+
+msgid ""
+"The confirmed password does not match. Please ensure the passwords match "
+"exactly."
+msgstr ""
+"Ο κωδικός επιβεβαίωσης δεν ταιριάζει. Παρακαλώ βεβαιωθείτε ότι οι κωδικοί "
+"ταιριάζουν ακριβώς."
+
+msgid ""
+"The count of aborted operations due to HDD timeout. Normally this attribute "
+"value should be equal to zero and if the value is far above zero, then most "
+"likely there will be some serious problems with power supply or an oxidized "
+"data cable."
+msgstr ""
+"Ο αριθμός των λειτουργιών που ματαιώθηκαν εξαιτίας εξάντλησης του χρονικού "
+"ορίου του σκληρού δίσκου. Υπό φυσιολογικές συνθήκες αυτό το χαρακτηριστικό "
+"θα πρέπει να ισούται με 0 και αν η τιμή είναι πολύ μεγαλύτερη του μηδενός, "
+"τότε το πιο πιθανόν είναι ότι είτε υπάρχουν σοβαρά προβλήματα με το "
+"τροφοδοτικό, είτε κάποιο καλώδιο δεδομένων είναι φθαρμένο."
+
+msgid ""
+"The count of errors found when writing a sector. The higher the value, the "
+"worse the disk's mechanical condition is."
+msgstr ""
+"Ο αριθμός σφαλμάτων που βρέθηκαν κατά την εγγραφή ενός sector. Όσο υψηλότερη "
+"είναι η τιμή, τόσο χειρότερη είναι η κατάσταση των μηχανικών μερών του "
+"δίσκου."
+
+msgid ""
+"The count of errors in data transfer via the interface cable as determined "
+"by ICRC (Interface Cyclic Redundancy Check)."
+msgstr ""
+"Ο αριθμός σφαλμάτων στη μεταφορά δεδομένων διαμέσου του καλωδίου διεπαφής, "
+"όπως καθορίζεται από το  ICRC (Interface Cyclic Redundancy Check)."
+
+msgid ""
+"The count of errors resulting from externally induced shock & vibration."
+msgstr ""
+"Ο αριθμός σφαλμάτων που προκαλούνται από εξωτερικό κούνημα και δόνηση."
+
+msgid ""
+"The count of errors that could not be recovered using hardware ECC (see "
+"attribute 195)."
+msgstr ""
+"Ο αριθμός των σφαλμάτων που δεν μπόρεσαν να διορθωθούν με τη χρήση της ECC "
+"του υλικού (δείτε το χαρακτηριστικό 195)."
+
+msgid ""
+"The count of times the magnetic armature was retracted automatically as a "
+"result of cutting power."
+msgstr ""
+"Ο αριθμός των φορών που αποτραβήχτηκε αυτόματα ο μαγνητικός μηχανισμός σαν "
+"αποτέλεσμα απώλειας ρεύματος."
 
 msgid "The credentials with which to bind."
 msgstr "Τα διαπιστευτήρια με την οποία να δεσμεύει."
@@ -6298,6 +7016,13 @@ msgstr ""
 msgid "The number of clients must be between 1 and 50."
 msgstr "Ο αριθμός των πελατών πρέπει να είναι ανάμεσα σε 1 και 50."
 
+msgid ""
+"The number of errors caused by incorrect checksum during the error "
+"correction."
+msgstr ""
+"Ο αριθμός σφαλμάτων που ήταν αποτέλεσμα εσφαλμένου ελέγχου σφαλμάτων κατά τη "
+"διαδικασία διόρθωσης σφαλμάτων."
+
 msgid "The old password is not correct."
 msgstr "Ο παλαιός κωδικός δεν είναι σωστός."
 
@@ -6457,6 +7182,18 @@ msgstr ""
 
 msgid "The time update interval must be either between 6 and 1440."
 msgstr "Το χρονικό διάστημα ενημέρωσης πρέπει να είναι μεταξύ 6 και 1440."
+
+msgid "The total count of errors when writing a sector."
+msgstr "Ο συνολικός αριθμός σφαλμάτων κατά την εγγραφή ενός sector."
+
+msgid ""
+"The total count of uncorrectable errors when reading/writing a sector. A "
+"rise in the value of this attribute indicates defects of the disk surface "
+"and/or problems in the mechanical subsystem."
+msgstr ""
+"Ο συνολικός αριθμός ανεπανόρθωτων σφαλμάτων κατά την ανάγνωση/εγγραφή ενός  "
+"sector. Αύξηση στην τιμή αυτού του χαρακτηριστικού δείχνει ελαττώματα στην "
+"επιφάνεια του δίσκου ή/και προβλήματα στο υποσύστημα των μηχανικών του μερών."
 
 msgid "The unique group ID is already used."
 msgstr "Το μοναδικό ID ομάδας χρησιμοποιείται ήδη."
@@ -6639,6 +7376,12 @@ msgstr ""
 "δικτύου."
 
 msgid ""
+"This WLAN cannot be deleted because it is still being used as an interface."
+msgstr ""
+"Αυτή η ασύρματη σύνδεση δεν μπορεί να διαγραφεί, επειδή χρησιμοποιείται "
+"ακόμη σαν διεπαφή δικτύου."
+
+msgid ""
 "This allows you to lower the power consumption of the drive, at the expense "
 "of performance."
 msgstr ""
@@ -6661,6 +7404,34 @@ msgid "This allows you to set the transfer mode for ATA/IDE hard drives."
 msgstr ""
 "Αυτό σας επιτρέπει να ορίσετε την κατάσταση μετάδοση για τους ATA/IDE "
 "σκληρούς δίσκους."
+
+msgid ""
+"This attribute indicates the count of full hard disk power on/off cycles."
+msgstr ""
+"Αυτό το χαρακτηριστικό δείχνει πόσες φορές συνολικά εκκίνησε/τερματίστηκε η "
+"λειτουργία του δίσκου."
+
+msgid ""
+"This attribute indicates the count that recalibration was requested (under "
+"the condition that the first attempt was unsuccessful). An increase of this "
+"attribute value is a sign of problems in the hard disk mechanical subsystem."
+msgstr ""
+"Αυτό το χαρακτηριστικό δείχνει πόσες φορές ζητήθηκε επαναθαθμονόμηση (υπό "
+"την προϋπόθεση ότι η πρώτη προσπάθεια ήταν ανεπιτυχής). Αύξηση της τιμής "
+"αυτού του χαρακτηριστικού είναι ένδειξη προβλημάτων στο υποσύστημα μηχανικών "
+"μερών του δίσκου."
+
+msgid ""
+"This attribute is a part of Hewlett-Packard's SMART IV technology, as well "
+"as part of other vendors' IO Error Detection and Correction schemas, and it "
+"contains a count of parity errors which occur in the data path to the media "
+"via the drive's cache RAM."
+msgstr ""
+"Αυτό το χαρακτηριστικό είναι μέρος της τεχνολογίας  SMART IV της  Hewlett-"
+"Packard, όπως επίσης και σχημάτων για Ανίχνευση και Διόρθωση σφαλμάτων "
+"εισόδου/εξόδου άλλων κατασκευαστών και περιέχει τον αριθμό των σφαλμάτων "
+"ισοτιμίας που προκύπτουν στη διαδρομή δεδομένων του μέσου, διαμέσου της  "
+"λανθάνουσας μνήμης RAM."
 
 #, php-format
 msgid ""
@@ -6964,6 +7735,9 @@ msgid "This rule is triggered whenever the selected event directive occurs."
 msgstr ""
 "Ο κανόνας αυτός ενεργοποιείται κάθε φορά που συμβαίνει η επιλεγμένη οδηγία."
 
+msgid "This server uses default swap."
+msgstr "Αυτός ο διακομιστής χρησιμοποιεί την προεπιλεγμένη swap."
+
 msgid "This tag already exists."
 msgstr "Αυτή η ετικέτα υπάρχει ήδη."
 
@@ -7007,6 +7781,10 @@ msgstr ""
 "Αυτό θα διαγράψει ΟΛΑ τα δεδομένα του δίσκου σας! Μην χρησιμοποιείτε αυτή "
 "την επιλογή αν θέλετε να προσθέσετε έναν υπάρχον κρυπτογραφημένο δίσκο."
 
+msgid "This will provide NTFS acls without ZFS ACL support such as UFS."
+msgstr ""
+"Αυτό θα παρέχει acls  στο NTFS χωρίς ZFS ACL υποστήριξη όπως στο UFS."
+
 msgid "This will provide ZFS ACL support. (ZFS only)"
 msgstr "Αυτό παρέχει υποστήριξη ZFS ACL. (για ZFS μόνο)"
 
@@ -7038,6 +7816,15 @@ msgstr "Χρονικό διάστημα"
 
 msgid "Time server"
 msgstr "Διακομιστής Ώρας"
+
+msgid "Time spent during the positioning of the drive heads."
+msgstr "Χρόνος που παρήλθε για την τοποθέτηση των κεφαλών του δίσκου."
+
+msgid ""
+"Time spent operating under data load (movement of magnetic head armature)."
+msgstr ""
+"Ο χρόνος που παρήλθε σε λειτουργία φόρτου δεδομένων (κίνηση της κεφαλής του "
+"μαγνητικού μηχανισμού)"
 
 msgid "Time update interval"
 msgstr "Μεσοδιάστημα ανανέωσης ώρας"
@@ -7144,6 +7931,41 @@ msgstr "Ανεκτή"
 msgid "Tools"
 msgstr "Εργαλεία"
 
+msgid ""
+"Total NAND Writes. Raw value reports the number of writes to NAND in 1GB "
+"increments."
+msgstr ""
+"Συνολικές εγγραφές στη NAND. Η ακατέργαστη τιμή αναφέρει τον αριθμό των "
+"εγγραφών στη NAND, με κλίμακα αύξησης 1GB."
+
+msgid ""
+"Total count of LBAs read. Some S.M.A.R.T. utilities will report a negative "
+"number for the raw value since in reality it has 48 bits rather than 32."
+msgstr ""
+"Συνολικός αριθμός των διαβασμένων LBA. Μερικά εργαλεία S.M.A.R.T. αναφέρουν "
+"αρνητικό αριθμό ως ακατέργαστη τιμή, επειδή στην πραγματικότητα δεν έχει "
+"32bits, αλλά 48."
+
+msgid "Total count of LBAs written."
+msgstr "Συνολικός αριθμός των LBA που έχουν γραφτεί."
+
+msgid "Total count of load cycles."
+msgstr "Συνολικός αριθμός κύκλων φόρτωσης."
+
+msgid ""
+"Total number of Flash program operation failures since the drive was "
+"deployed."
+msgstr ""
+"Συνολικός αριθμός αποτυχιών των λειτουργιών προγράμματος flash από τότε που "
+"ξεκίνησε η χρήση του δίσκου."
+
+msgid ""
+"Total time of loading on the magnetic heads actuator (time not spent in "
+"parking area)."
+msgstr ""
+"Συνολικός χρόνος φόρτωσης  του ενεργοποιητή των μαγνητικών κεφαλών (ο χρόνος "
+"που δεν βρίσκονταν στην περιοχή στάθμευσης)."
+
 #, php-format
 msgid "Total: %s | Used: %s | Free: %s"
 msgstr "Συνολικά: %s | Σε χρήση: %s | Ελεύθερα: %s"
@@ -7162,6 +7984,13 @@ msgstr ""
 "Το traceroute μπορεί να πάρει κάποιο χρόνο μέχρι να ολοκληρωθεί. Μπορείτε να "
 "πατήσετε το κουμπί Σταμάτημα στον περιηγητή σας οποιαδήποτε στιγμή για να "
 "δείτε την πρόοδο των αποτυχημένων traceroutes."
+
+msgid ""
+"Tracks whose path contains one or more of these comma separated strings will "
+"be treated as a compilation."
+msgstr ""
+"Κομμάτια των οποίων η διαδρομή περιέχει μία ή περισσότερες από αυτές τις "
+"διαχωρισμένες με κόμμα συμβολοσειρές, θα αντιμετωπίζονται σαν συλλογή."
 
 msgid "Transcoding"
 msgstr "Ψηφιακή μετατροπή κωδικοποίησης"
@@ -7329,8 +8158,15 @@ msgstr "URI"
 msgid "URL"
 msgstr "Διεύθυνση URL"
 
+msgid "Ukrainian"
+msgstr "Ουκρανικά"
+
 msgid "Unavailable"
 msgstr "Μη διαθέσιμο"
+
+msgid "Uncorrected read errors reported to the operating system."
+msgstr ""
+"Ανεπανόρθωτα σφάλματα ανάγνωσης που αναφέρονται στο λειτουργικό σύστημα."
 
 msgid "Unformated"
 msgstr "Αδιαμόρφωτο"
@@ -7497,6 +8333,9 @@ msgstr "Κωδικός χρήστη."
 msgid "User portal"
 msgstr "Πύλη χρηστών"
 
+msgid "User shares"
+msgstr "Κοινόχρηστα χρηστών"
+
 msgid "User suffix"
 msgstr "Επίθεμα χρήστη"
 
@@ -7534,6 +8373,13 @@ msgstr "ετικέτα VLAN"
 msgid "Value"
 msgstr "Τιμή"
 
+msgid ""
+"Value is equal to (100-temp. &deg;C), allowing manufacturer to set a minimum "
+"threshold which corresponds to a maximum temperature."
+msgstr ""
+"Η τιμή ισούται με (100-βαθμοί &deg;C), επιτρέποντας στον κατασκευαστή να "
+"ορίσει ένα ελάχιστο όριο το οποίο αντιστοιχεί στην μέγιστη θερμοκρασία."
+
 msgid "Variable"
 msgstr "Μεταβλητή"
 
@@ -7542,6 +8388,9 @@ msgstr "ID Προμηθευτή"
 
 msgid "Version"
 msgstr "Έκδοση"
+
+msgid "Vibration During Write."
+msgstr "Δόνηση κατά την εγγραφή."
 
 msgid "Virtual Host ID"
 msgstr "ID Εικονικού Διακομιστή"
@@ -7590,6 +8439,10 @@ msgstr ""
 "IP Διεύθυνση του διακομιστή WINS (π.χ. από τον διακομιστή MS Active "
 "Directory)."
 
+msgid "WLAN"
+msgstr "WLAN"
+
+#, c-format
 msgid "WPA"
 msgstr "WPA"
 
@@ -7601,6 +8454,9 @@ msgstr "WPA-PSK (Προ-διανεμόμενο κλειδί)"
 
 msgid "WPA-PSK WPA-EAP"
 msgstr "WPA-PSK WPA-EAP"
+
+msgid "WPA2"
+msgstr "WPA2"
 
 msgid "Wait time"
 msgstr "Χρόνος αναμονής"
@@ -7640,6 +8496,17 @@ msgstr "Λείπει η ρίζα εγγράφων του web διακομιστ�
 msgid "Week days"
 msgstr "Ημέρες της εβδομάδας"
 
+msgid "Western Digital attribute."
+msgstr "Χαρακτηριστικό των Western Digital."
+
+msgid ""
+"Western Digital, Samsung or Seagate attribute: Total number of data blocks "
+"with detected, uncorrectable errors encountered during normal operation."
+msgstr ""
+"Χαρακτηριστικό των Western Digital, των Samsung ή των Seagate: Συνολικός "
+"αριθμός των block δεδομένων με ανιχνευμένα, ανεπανόρθωτα σφάλματα που "
+"παρουσιάστηκαν κατά την κανονική λειτουργία."
+
 msgid ""
 "When HAST is enabled, the local devices, the local services and the "
 "additional packages which do not support HAST volume cannot be used."
@@ -7647,6 +8514,12 @@ msgstr ""
 "Όταν το HAST είναι ενεργοποιημένο, οι τοπικές συσκευές, οι τοπικές υπηρεσίες "
 "και τα πρόσθετα πακέτα που δεν υποστηρίζουν τόμο HAST δεν μπορούν να "
 "χρησιμοποιηθούν."
+
+msgid ""
+"When Samba AD is enabled, stand-alone CIFS/SMB file sharing cannot be used."
+msgstr ""
+"Όταν το samba AD είναι ενεργό, η αυτόνομη κοινή χρήση CIFS/SMB δεν μπορεί να "
+"χρησιμοποιηθεί."
 
 msgid "When UPS switches to Low Battery"
 msgstr "Πότε το UPS θα μεταπέφτει σε Χαμηλή Μπαταρία"
@@ -7671,6 +8544,11 @@ msgstr ""
 msgid "Where to save downloaded data."
 msgstr "Τοποθεσία αποθήκευσης ληφθέντων αρχείων."
 
+msgid "Whether compilations should be shown together under Various Artists."
+msgstr ""
+"Ορίζει αν οι συλλογές θα πρέπει να εμφανίζονται μαζί κάτω από τους Διάφορους "
+"Καλλιτέχνες."
+
 msgid ""
 "Whether scans should be skipped if there are no users connected. This allows "
 "the drive to spin down when no users are connected."
@@ -7678,6 +8556,9 @@ msgstr ""
 "Αν θα πρέπει να παραλειφθούν οι σαρώσεις αν δεν υπάρχουν χρήστες που να "
 "είναι συνδεδεμένοι. Αυτό επιτρέπει στο δίσκο να σταματήσει να περιστέφεται "
 "όταν δεν είναι συνδεδεμένοι χρήστες."
+
+msgid "Whether to skip initial boot-up scan."
+msgstr "Ορίζει αν θα παραλείπεται η αρχική σάρωση κατά την εκκίνηση."
 
 msgid "Who"
 msgstr "Ποιος"
@@ -7754,6 +8635,9 @@ msgstr "Θα πρέπει να επιλέξετε τουλάχιστον ένα 
 msgid "You may enter a description here for your reference."
 msgstr "Μπορείτε να εισάγετε εδώ μια περιγραφή για δικιά σας εξυπηρέτηση."
 
+msgid "You may enter a device file or label path."
+msgstr "Μπορείτε να εισάγετε ένα αρχείο συσκευής ή διαδρομή ετικέτας."
+
 #, php-format
 msgid ""
 "You may specify as SCSI INQUIRY data. Empty as default. (up to %d ASCII "
@@ -7781,10 +8665,13 @@ msgid "You must enter the same IP type for network and gateway."
 msgstr "Πρέπει να εισάγετε τον ίδιο τύπο IP δικτύων και πύλης."
 
 #, php-format
-msgid "You must have a minimum of %dMB of RAM for using iSCSI target."
+msgid "You must have a minimum of %dMiB RAM for using iSCSI target."
 msgstr ""
-"Πρέπει να έχετε το ελάχιστο %dMB RAM για να χρησιμοποιήσετε έναν προορισμό "
-"iSCSI."
+"Πρέπει να έχετε το λιγότερο %dMiB μνήμης RAM για να χρησιμοποιήσετε "
+"προορισμό iSCSI."
+
+msgid "You must initialize data before enabling."
+msgstr "Πρέπει να αρχικοποιήσετε δεδομένα πριν την ενεργοποίηση."
 
 msgid "You must select at least one authentication method."
 msgstr "Πρέπει να επιλέξετε τουλάχιστον μία μεθοδο πιστοποίησης."
@@ -7856,6 +8743,13 @@ msgstr "chroot() όλοι, εκτός του root."
 
 msgid "day(s)"
 msgstr "ημέρα(ες)"
+
+msgid ""
+"decoded as: byte 0-1-2 = good block count (big endian) and byte 3-4 = "
+"system(free) block count."
+msgstr ""
+"αποκωδικοποιείται ως: byte 0-1-2 = αριθμός καλών block (big endian) και byte "
+"3-4 = αριθμός block συστήματος (ελεύθερων)."
 
 msgid "detected an error while importing."
 msgstr "ανιχνεύθηκε ένα σφάλμα κατά τη διαδικασία εισαγωγής"
@@ -7970,6 +8864,9 @@ msgstr "επιτυχώς."
 msgid "sysctl.conf"
 msgstr "sysctl.conf"
 
+msgid "sysvol exist in path."
+msgstr "υπάρχει sysvol στη διαδρομή."
+
 msgid "to"
 msgstr "σε"
 
@@ -7979,6 +8876,5 @@ msgstr "umask"
 msgid "umount"
 msgstr "αποπροσάρτηση"
 
-#, php-format
 msgid "version:"
 msgstr "έκδοση:"

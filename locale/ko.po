@@ -2,15 +2,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: NAS4Free\n"
 "Report-Msgid-Bugs-To: zoon01 <zoon01@nas4free.org>\n"
-"POT-Creation-Date: 2015-01-17 20:39+0000\n"
+"POT-Creation-Date: 2015-07-16 03:45+0000\n"
 "PO-Revision-Date: 2014-11-17 04:06+0000\n"
 "Last-Translator: NAS4Free Developer <Unknown>\n"
 "Language-Team: NAS4Free\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2015-01-17 20:28+0000\n"
-"X-Generator: Launchpad (build 17304)\n"
+"X-Launchpad-Export-Date: 2015-08-13 21:12+0000\n"
+"X-Generator: Launchpad (build 17686)\n"
 "X-Poedit-Country: KOREA\n"
 "Language: \n"
 "X-Poedit-Language: Korean\n"
@@ -90,6 +90,42 @@ msgstr "%sB 중 %sB 사용 가능."
 msgid "%sB used of %sB"
 msgstr "%sB 중 %sB 사용됨."
 
+msgid "(Found in a Maxtor 6B200M0 200GB and Maxtor 2R015H1 15GB disks)."
+msgstr ""
+
+msgid ""
+"(Kingston)Counts the number of flash erase failures. This Attribute returns "
+"the total number of Flash erase operation failures since the drive was "
+"deployed. This Attribute is identical to Attribute 182."
+msgstr ""
+
+msgid ""
+"(Kingston)Counts the number of flash program failures. This Attribute "
+"returns the total number of Flash program operation failures since the drive "
+"was deployed. This attribute is identical to attribute 181."
+msgstr ""
+
+msgid ""
+"(Vendor specific raw value.) Rate of seek errors of the magnetic heads. If "
+"there is a partial failure in the mechanical positioning system, then seek "
+"errors will arise. Such a failure may be due to numerous factors, such as "
+"damage to a servo, or thermal widening of the hard disk. The raw value has "
+"different structure for different vendors and is often not meaningful as a "
+"decimal number."
+msgstr ""
+
+msgid ""
+"(Vendor specific raw value.) Stores data related to the rate of hardware "
+"read errors that occurred when reading data from a disk surface. The raw "
+"value has different structure for different vendors and is often not "
+"meaningful as a decimal number."
+msgstr ""
+
+msgid ""
+"(Vendor-specific raw value.) The raw value has different structure for "
+"different vendors and is often not meaningful as a decimal number."
+msgstr ""
+
 msgid "*** Imported duplicate ***"
 msgstr "*** 불러들인 복사본 ***"
 
@@ -102,6 +138,9 @@ msgid ""
 msgstr ""
 "1. 이 특수 기능은 디버깅 목적으로만 이용하십시오!<br />2. RAID 볼륨을 사용하기 위해 이 메뉴를 사용할 필요는 "
 "없습니다(자동으로 시작됩니다)."
+
+msgid "4KB wrapper"
+msgstr ""
 
 msgid "802.1Q VLAN tag (between 1 and 4094)."
 msgstr "802.1Q VLAN 태그(1에서 4094까지)."
@@ -198,6 +237,13 @@ msgstr ""
 msgid "A route to this destination network already exists."
 msgstr "이동하려고 하는 네트워크로의 경로가 이미 존재합니다."
 
+msgid ""
+"A tally of spindle start/stop cycles. The spindle turns on, and hence the "
+"count is increased, both when the hard disk is turned on after having before "
+"been turned entirely off (disconnected from power source) and when the hard "
+"disk returns from having previously been put to sleep mode."
+msgstr ""
+
 msgid "A valid IP address must be specified."
 msgstr "유효한 IP 주소가 입력 되어야만 합니다."
 
@@ -246,6 +292,12 @@ msgstr "유효한 접두사(1-128)이 명세 되어야 합니다."
 msgid "A valid systctl MIB value."
 msgstr "유효한 systctl MIB 값."
 
+msgid "ACL inherit"
+msgstr ""
+
+msgid "ACL mode"
+msgstr ""
+
 msgid "AD authentication disabled"
 msgstr "AD 인증이 비활성화 됨"
 
@@ -258,6 +310,9 @@ msgstr "AFP"
 msgid "AG"
 msgstr "AG"
 
+msgid "AIO module"
+msgstr ""
+
 msgid "AIO read size"
 msgstr "AIO 읽기 크기"
 
@@ -267,11 +322,17 @@ msgstr "AIO 쓰기 크기"
 msgid "ALL interfaces"
 msgstr ""
 
+msgid "AP mode"
+msgstr ""
+
 msgid "ARP Tables"
 msgstr "ARP 테이블"
 
 msgid "ARP tables"
 msgstr "ARP 테이블"
+
+msgid "ATTRIBUTE NAME"
+msgstr ""
 
 msgid "Access"
 msgstr "접근"
@@ -427,6 +488,9 @@ msgstr "주소"
 msgid "Address of the remote hastd daemon. It must be a static IP address."
 msgstr ""
 
+msgid "Admin password"
+msgstr ""
+
 msgid "Administration password"
 msgstr "관리 비밀번호"
 
@@ -480,11 +544,21 @@ msgstr "통합 프로토콜"
 msgid "Aggressive"
 msgstr "공격적"
 
+msgid ""
+"Airflow temperature on Western Digital HDs (Same as temp. , but current "
+"value is 50 less for some models. Marked as obsolete.)"
+msgstr ""
+
 msgid "Albanian"
 msgstr "알바니아어"
 
 msgid "All"
 msgstr "모두"
+
+msgid ""
+"All data in the path is overwritten. To avoid invalid data/permission, using "
+"empty UFS directory is recommended."
+msgstr ""
 
 msgid "All dirs"
 msgstr "모든 디렉터리"
@@ -512,8 +586,8 @@ msgstr "모든 사용자가 루트 권한을 가질 것입니다."
 msgid "Allow"
 msgstr "허용"
 
-msgid "Allow TLS/SSL connections only."
-msgstr "TLS/SSL 연결만 허용."
+msgid "Allow TLS connections only."
+msgstr ""
 
 msgid "Allow client access to accounts that have null passwords."
 msgstr "비밀번호가 없는 계정에 클라이언트가 접근하는 것 허용."
@@ -551,6 +625,14 @@ msgstr "특정 사용자와 그룹이 공유에 대한 읽기 전용 권한을 �
 msgid "Allows the server to try and become a local master browser."
 msgstr ""
 
+msgid ""
+"Also known as 'Power-off Retract Count' per conventional HDD terminology. "
+"Raw value reports the number of unclean shutdowns, cumulative over the life "
+"of an SSD, where an 'unclean shutdown' is the removal of power without "
+"STANDBY IMMEDIATE as the last command (regardless of PLI activity using "
+"capacitor power). Normalized value is always 100."
+msgstr ""
+
 msgid "AltRoot"
 msgstr "대체 루트"
 
@@ -578,6 +660,14 @@ msgstr ""
 msgid "Ambient temperature (degrees C)"
 msgstr ""
 
+msgid "Amount of surge current used to spin up the drive."
+msgstr ""
+
+msgid ""
+"Amplitude of 'thrashing' (distance of repetitive forward/reverse head "
+"motion)."
+msgstr ""
+
 msgid "An host with this name already exists."
 msgstr "해당 이름을 가지고 있는 호스트가 존재합니다."
 
@@ -603,6 +693,9 @@ msgstr "익명 사용자만"
 
 msgid "Any"
 msgstr "모두"
+
+msgid "Append user defined shares"
+msgstr ""
 
 msgid "Apple Filing Protocol"
 msgstr "애플 파일링 프로토콜"
@@ -689,6 +782,15 @@ msgid "Auxiliary parameters"
 msgstr "보조 인자들"
 
 msgid "Available"
+msgstr ""
+
+msgid ""
+"Average performance of seek operations of the magnetic heads. If this "
+"attribute is decreasing, it is a sign of problems in the mechanical "
+"subsystem."
+msgstr ""
+
+msgid "Average time of spindle spin up (from zero RPM to fully operational)."
 msgstr ""
 
 msgid "Backup configuration"
@@ -840,6 +942,9 @@ msgstr "CIFS/SMB 비활성화"
 msgid "CIFS/SMB informations"
 msgstr "CIFS/SMB 정보"
 
+msgid "CIFS/SMB is enabled."
+msgstr ""
+
 msgid "CP1251 (Cyrillic)"
 msgstr ""
 
@@ -912,6 +1017,9 @@ msgstr ""
 msgid "Cannot get data about interface"
 msgstr "인터페이스에 관한 데이터를 얻을 수 없습니다."
 
+msgid "Cannot use DHCP for LAN interface."
+msgstr ""
+
 msgid "Capacity"
 msgstr "용량"
 
@@ -943,6 +1051,13 @@ msgid "Channel"
 msgstr "채널"
 
 msgid "Charging Battery"
+msgstr ""
+
+#, php-format
+msgid "Check <a href=\"%s\">System|General Setup</a> before initializing."
+msgstr ""
+
+msgid "Check and replace cable"
 msgstr ""
 
 msgid "Check interval"
@@ -1030,6 +1145,9 @@ msgstr "Common 인터넷 파일 시스템"
 msgid "Community"
 msgstr "커뮤니티"
 
+msgid "Compilations directories"
+msgstr ""
+
 msgid "Compliant profile to be used."
 msgstr "이용될 호환 프로파일."
 
@@ -1064,8 +1182,11 @@ msgstr "확인"
 msgid "Connected FTP users"
 msgstr "연결된 FTP 사용자들"
 
-msgid "Console menu"
-msgstr "콘솔 메뉴"
+msgid "Consider replacing this drive"
+msgstr ""
+
+msgid "Console Menu"
+msgstr ""
 
 msgid "Console screensaver"
 msgstr "콘솔 스크린세이버"
@@ -1151,6 +1272,109 @@ msgstr "이 데이터 셋을 변경할 수 있는 지를 제어합니다."
 msgid "Count"
 msgstr "개수"
 
+msgid "Count of 'Free Fall Events' detected."
+msgstr ""
+
+msgid ""
+"Count of 'unstable' sectors (waiting to be remapped, because of "
+"unrecoverable read errors). If an unstable sector is subsequently read "
+"successfully, the sector is remapped and this value is decreased. Read "
+"errors on a sector will not remap the sector immediately (since the correct "
+"value cannot be read and so the value to remap is not known, and also it "
+"might become readable later); instead, the drive firmware remembers that the "
+"sector needs to be remapped, and will remap it the next time it's written. "
+"However some drives will not immediately remap such sectors when written; "
+"instead the drive will first attempt to write to the problem sector and if "
+"the write operation is successful then the sector will be marked good (in "
+"this case, the 'Reallocation Event Count' (0xC4) will not be increased). "
+"This is a serious shortcoming, for if such a drive contains marginal sectors "
+"that consistently fail only after some time has passed following a "
+"successful write operation, then the drive will never remap these problem "
+"sectors."
+msgstr ""
+
+msgid "Count of Data Address Mark errors (or vendor-specific)."
+msgstr ""
+
+msgid "Count of attempts to compensate for platter speed variations."
+msgstr ""
+
+msgid ""
+"Count of buzz routines needed to spin up the drive due to insufficient power."
+msgstr ""
+
+msgid "Count of errors corrected by software ECC."
+msgstr ""
+
+msgid "Count of errors due to high temperature."
+msgstr ""
+
+msgid "Count of errors while reading from a disk."
+msgstr ""
+
+msgid ""
+"Count of hours in power-on state. The raw value of this attribute shows "
+"total count of hours (or minutes, or seconds, depending on manufacturer) in "
+"power-on state."
+msgstr ""
+
+msgid "Count of load/unload cycles into head landing zone position."
+msgstr ""
+
+msgid "Count of off-track errors."
+msgstr ""
+
+msgid ""
+"Count of reallocated sectors. When the hard drive finds a "
+"read/write/verification error, it marks that sector as 'reallocated' and "
+"transfers data to a special reserved area (spare area). This process is also "
+"known as remapping, and reallocated sectors are called 'remaps'. The raw "
+"value normally represents a count of the bad sectors that have been found "
+"and remapped. Thus, the higher the attribute value, the more sectors the "
+"drive has had to reallocate. This allows a drive with bad sectors to "
+"continue operation; however, a drive which has had any reallocations at all "
+"is significantly more likely to fail in the near future. While primarily "
+"used as a metric of the life expectancy of the drive, this number also "
+"affects performance. As the count of reallocated sectors increases, the "
+"read/write speed tends to become worse because the drive head is forced to "
+"seek to the reserved area whenever a remap is accessed. If sequential access "
+"speed is critical, the remapped sectors can be manually marked as bad blocks "
+"in the file system in order to prevent their use."
+msgstr ""
+
+msgid ""
+"Count of remap operations. The raw value of this attribute shows the total "
+"count of attempts to transfer data from reallocated sectors to a spare area. "
+"Both successful & unsuccessful attempts are counted."
+msgstr ""
+
+msgid ""
+"Count of retry of spin start attempts. This attribute stores a total count "
+"of the spin start attempts to reach the fully operational speed (under the "
+"condition that the first attempt was unsuccessful). An increase of this "
+"attribute value is a sign of problems in the hard disk mechanical subsystem."
+msgstr ""
+
+msgid "Count of times head changes position."
+msgstr ""
+
+msgid ""
+"Count of times the heads are loaded off the media. Heads can be unloaded "
+"without actually powering off."
+msgstr ""
+
+msgid "Count of times the link is reset during a data transfer."
+msgstr ""
+
+msgid "Counts the maximum worst erase count on any block."
+msgstr ""
+
+msgid "Create 4KB wrapper (nop device)."
+msgstr ""
+
+msgid "Create ZFS on GPT partition"
+msgstr ""
+
 msgid "Create and initialize RAID."
 msgstr "RAID 생성 및 초기화."
 
@@ -1202,13 +1426,7 @@ msgstr "현 설정"
 msgid "Current Version:"
 msgstr ""
 
-msgid "Current administrator password is used for decryption."
-msgstr ""
-
-#, php-format
-msgid ""
-"Current administrator password is used for encryption.<br />Encrypted "
-"configuration is automatically gzipped."
+msgid "Current internal temperature."
 msgstr ""
 
 msgid "Current password"
@@ -1216,6 +1434,9 @@ msgstr ""
 
 msgid ""
 "Current password is default password. You should use your own password."
+msgstr ""
+
+msgid "Current state of drive operation based upon the Life Curve."
 msgstr ""
 
 msgid "Current value of apparent power (Volt-Amps)"
@@ -1226,6 +1447,9 @@ msgstr ""
 
 msgid "Custom"
 msgstr "사용자 정의"
+
+msgid "Custom device"
+msgstr ""
 
 msgid "Custom script"
 msgstr "사용자 스크립트"
@@ -1242,13 +1466,28 @@ msgstr "체코어"
 msgid "DAAP"
 msgstr "DAAP"
 
+msgid "DESCRIPTION"
+msgstr ""
+
 msgid "DHCP"
 msgstr "DHCP"
+
+msgid "DHCP cannot be used for LAN interface."
+msgstr ""
 
 msgid "DLNA/UPnP"
 msgstr ""
 
 msgid "DLNA/UPnP Media Server"
+msgstr ""
+
+msgid "DNS domain"
+msgstr ""
+
+msgid "DNS forwarder"
+msgstr ""
+
+msgid "DNS server is empty."
 msgstr ""
 
 msgid "DNS settings"
@@ -1301,6 +1540,14 @@ msgstr "일"
 
 msgid "Debug"
 msgstr "디버그"
+
+msgid ""
+"Decoded as: byte 0-1-2 = average erase count (big endian) and byte 3-4-5 = "
+"max erase count (big endian)."
+msgstr ""
+
+msgid "Decrypt password"
+msgstr ""
 
 msgid "Dedup"
 msgstr ""
@@ -1465,6 +1712,11 @@ msgstr "GEOM 메타 데이터 삭제 중"
 msgid "Deleting MBR and partition table"
 msgstr "MBR과 파티션 테이블 삭제 중"
 
+msgid ""
+"Delta between most-worn and least-worn Flash blocks. It describes how "
+"good/bad the wearleveling of the SSD works on a more technical way."
+msgstr ""
+
 msgid "Deny"
 msgstr "거부"
 
@@ -1515,6 +1767,9 @@ msgstr ""
 
 msgid "Device"
 msgstr "장치"
+
+msgid "Device / Label"
+msgstr ""
 
 #, php-format
 msgid "Device /dev/%s - %s"
@@ -1631,6 +1886,11 @@ msgstr ""
 
 msgid "Display"
 msgstr "표시"
+
+msgid ""
+"Distance the disk has shifted relative to the spindle (usually due to shock "
+"or temperature). Unit of measure is unknown."
+msgstr ""
 
 msgid "Distributed hash table"
 msgstr "분산 해쉬 테이블"
@@ -1781,6 +2041,9 @@ msgstr "도메인"
 msgid "Domain controller name"
 msgstr "도메인 컨트롤러 명"
 
+msgid "Domain have no 2nd level name."
+msgstr ""
+
 msgid "Domain name"
 msgstr "도메인 명"
 
@@ -1832,6 +2095,12 @@ msgstr "다운로드 디렉터리"
 msgid "Download firewall rules."
 msgstr "방화벽 규칙 다운로드."
 
+msgid "Drive Temperature."
+msgstr ""
+
+msgid "Drive's seek performance during its internal tests."
+msgstr ""
+
 msgid "Driver"
 msgstr "드라이버"
 
@@ -1870,6 +2139,9 @@ msgstr "EA 지원"
 
 msgid "EFI/GPT partition can be use with UFS only."
 msgstr "EFI/GPT 파티션은 UFS에서만 이용할 수 있습니다."
+
+msgid "ERROR:"
+msgstr ""
 
 msgid "Edit"
 msgstr "편집"
@@ -1989,6 +2261,9 @@ msgstr ""
 msgid "Enable"
 msgstr "활성화"
 
+msgid "Enable ACL inheritance"
+msgstr ""
+
 msgid "Enable Advanced Format (4KB sector)"
 msgstr "확장 포맷 활성화(4KB 섹터)"
 
@@ -1997,6 +2272,9 @@ msgstr "비동기적 I/O 활성화(AIO)"
 
 msgid "Enable FXP protocol."
 msgstr "FXP 프로토콜 활성화."
+
+msgid "Enable NFSv4 server."
+msgstr ""
 
 msgid "Enable NTP"
 msgstr "NTP 활성화"
@@ -2009,8 +2287,8 @@ msgid ""
 "use SSL."
 msgstr ""
 
-msgid "Enable TLS/SSL connections."
-msgstr "TLS/SSL 연결 활성화."
+msgid "Enable TLS connections."
+msgstr ""
 
 msgid "Enable Time Machine support"
 msgstr ""
@@ -2144,8 +2422,17 @@ msgstr ""
 msgid "Enabled"
 msgstr "활성화됨"
 
+msgid "Encrypt password"
+msgstr ""
+
+msgid "Encrypt password (confirmed)"
+msgstr ""
+
 msgid "Encrypted"
 msgstr "암호화됨"
+
+msgid "Encrypted configuration is automatically gzipped."
+msgstr ""
 
 #, php-format
 msgid "Encrypting '%s'... Please wait"
@@ -2320,6 +2607,10 @@ msgstr "in-memory 파일 시스템을 생성하는 데에 실패했습니다."
 msgid "Failed to execute cron job."
 msgstr "cron 작업 실행에 실패함."
 
+#, php-format
+msgid "Failed to remove: %s"
+msgstr ""
+
 #, c-format
 msgid "Failed to send status report to: %s."
 msgstr "%s에 상태 보고서를 전송하는 데에 실패했습니다."
@@ -2392,6 +2683,9 @@ msgstr "확장자에 의해 파일 업로드가 정지했습니다."
 
 msgid "Filename"
 msgstr "파일 명"
+
+msgid "Fileserver"
+msgstr ""
 
 msgid "Filter"
 msgstr ""
@@ -2500,6 +2794,9 @@ msgstr "일반 설정"
 msgid "Generate"
 msgstr "생성하기"
 
+msgid "Generate password if leave empty."
+msgstr ""
+
 msgid "German"
 msgstr "독일어"
 
@@ -2535,6 +2832,9 @@ msgstr "그룹"
 
 msgid "Group ID"
 msgstr "그룹 ID"
+
+msgid "Group compilations"
+msgstr ""
 
 msgid "Group description."
 msgstr "그룹 설명."
@@ -2578,6 +2878,16 @@ msgstr ""
 msgid "HAST volume can be use with GPT/UFS only."
 msgstr ""
 
+msgid ""
+"HDD producers implement a Fly Height Monitor that attempts to provide "
+"additional protections for write operations by detecting when a recording "
+"head is flying outside its normal operating range. If an unsafe fly height "
+"condition is encountered, the write process is stopped, and the information "
+"is rewritten or reallocated to a safe region of the hard drive. This "
+"attribute indicates the count of these errors detected over the lifetime of "
+"the drive. This feature is implemented in most modern Seagate drives."
+msgstr ""
+
 msgid "HTTP Proxy"
 msgstr "HTTP 프록시"
 
@@ -2595,6 +2905,12 @@ msgstr "헤더 digest"
 
 msgid "Health"
 msgstr "활력"
+
+msgid ""
+"Height of heads above the disk surface. A flying height that's too low "
+"increases the chances of a head crash while a flying height that's too high "
+"increases the chances of a read/write error."
+msgstr ""
 
 msgid "Help"
 msgstr "도움말"
@@ -2675,18 +2991,15 @@ msgstr "헝가리어"
 msgid "I/O Timeout"
 msgstr "I/O 타임아웃"
 
-msgid "I/O errors"
-msgstr "I/O 에러"
-
-msgid "I/O packets"
-msgstr "I/O 패킷"
-
 msgid "I/O statistics"
 msgstr "I/O 통계"
 
 #, php-format
 msgid "I/O timeout in seconds (%d by default)."
 msgstr "초 단위의 I/O 타임아웃(기본 값은 %d)."
+
+msgid "ID"
+msgstr ""
 
 msgid "IG"
 msgstr "IG"
@@ -2854,6 +3167,12 @@ msgstr "대부분의 경우 여기에는 'public'이 이용됩니다."
 msgid "In slave mode it is the UPS name (Identifier) at the UPS master."
 msgstr ""
 
+msgid "In/Out errors"
+msgstr ""
+
+msgid "In/Out packets"
+msgstr ""
+
 msgid "Include basic hardware information."
 msgstr "기본 하드웨어 정보 포함."
 
@@ -2862,6 +3181,11 @@ msgstr ""
 
 msgid "Incomplete directory"
 msgstr "불완전 파일 디렉터리"
+
+msgid ""
+"Indicates the approximate SSD life left, in terms of program/erase cycles or "
+"Flash blocks currently available for use."
+msgstr ""
 
 msgid "Info"
 msgstr "정보"
@@ -2876,6 +3200,9 @@ msgid "Information & Manual"
 msgstr "정보와 매뉴얼"
 
 msgid "Information & Manuals"
+msgstr ""
+
+msgid "Inherit ACL"
 msgstr ""
 
 msgid "Inherit permissions"
@@ -2895,6 +3222,9 @@ msgstr "디스크를 초기화하고 암호화합니다."
 
 msgid "Initializing"
 msgstr "초기화 중"
+
+msgid "Initializing..."
+msgstr ""
 
 msgid "Initiator Group"
 msgstr "개시자 그룹"
@@ -2961,6 +3291,17 @@ msgstr "설치"
 msgid "Install package"
 msgstr "설치 패키지"
 
+msgid ""
+"Intel SSD reports a normalized value of 100 (when the SSD is new) and "
+"declines to a minimum value of 1. It decreases while the NAND erase cycles "
+"increase from 0 to the maximum-rated cycles."
+msgstr ""
+
+msgid ""
+"Intel SSD reports the number of available reserved space as a percentage of "
+"reserved space in a brand new SSD."
+msgstr ""
+
 msgid "Interface"
 msgstr "인터페이스"
 
@@ -2995,6 +3336,9 @@ msgid "Interval to wait before rebooting the UPS)"
 msgstr ""
 
 msgid "Interval to wait before restarting the load"
+msgstr ""
+
+msgid "Invalid file format or incorrect password."
 msgstr ""
 
 msgid "Invalid file format."
@@ -3035,6 +3379,9 @@ msgstr "이탈리아어"
 
 msgid "JBOD"
 msgstr "JBOD"
+
+msgid "JBOD information and status"
+msgstr ""
 
 msgid ""
 "January February March April May June July August September October November "
@@ -3103,6 +3450,18 @@ msgstr "대용량 읽기/쓰기"
 
 msgid "Last config change"
 msgstr "마지막 설정 변경일"
+
+msgid ""
+"Last test result as microseconds to discharge cap, saturated at its maximum "
+"value. Also logs minutes since last test and lifetime number of tests. Raw "
+"value contains the following data: Bytes 0-1: Last test result as "
+"microseconds to discharge cap, saturates at max value. Test result expected "
+"in range 25 <= result <= 5000000, lower indicates specific error code. Bytes "
+"2-3: Minutes since last test, saturates at max value. Bytes 4-5: Lifetime "
+"number of tests, not incremented on power cycle, saturates at max value. "
+"Normalized value is set to one on test failure or 11 if the capacitor has "
+"been tested in an excessive temperature condition, otherwise 100."
+msgstr ""
 
 #, php-format
 msgid "Latest Beta Build: %s"
@@ -3393,6 +3752,11 @@ msgstr ""
 msgid "Map to user"
 msgstr "사용자로 mapping"
 
+msgid ""
+"Margin of a channel while reading data. The function of this attribute is "
+"not specified."
+msgstr ""
+
 msgid "Masquerade address"
 msgstr "매스커레이드 주소"
 
@@ -3561,6 +3925,9 @@ msgstr "추가 모델"
 msgid "Model name"
 msgstr "모델 명"
 
+msgid "Modified"
+msgstr ""
+
 msgid "Modifying"
 msgstr "변경 중"
 
@@ -3613,6 +3980,9 @@ msgstr ""
 msgid "NFS"
 msgstr "NFS"
 
+msgid "NFSv4"
+msgstr ""
+
 msgid "NIS"
 msgstr "NIS"
 
@@ -3627,6 +3997,12 @@ msgid "NOT YET AVAILABLE"
 msgstr "아직 이용할 수 없음"
 
 msgid "NT1"
+msgstr ""
+
+msgid "NTP is not enabled."
+msgstr ""
+
+msgid "NTP must be enabled."
 msgstr ""
 
 msgid "NTP time server"
@@ -3653,6 +4029,9 @@ msgstr "서버의 이름. 이 난이 비어 있으면 기본 서버가 명세 �
 
 msgid "Name of the variable."
 msgstr "변수의 이름."
+
+msgid "NetBIOS domain"
+msgstr ""
 
 msgid "NetBIOS name"
 msgstr "NetBIOS 명"
@@ -3843,6 +4222,9 @@ msgstr ""
 msgid "Not attached"
 msgstr "부착되지 않음"
 
+msgid "Not found path."
+msgstr ""
+
 msgid "Note"
 msgstr "참조"
 
@@ -3881,11 +4263,19 @@ msgstr ""
 msgid "Number of clients"
 msgstr "클라이언트 수"
 
+msgid "Number of hours elapsed in the power-on state."
+msgstr ""
+
 msgid "Number of log entries to show"
 msgstr "보일 로그 항목의 수"
 
 msgid "Number of log entries to show must be between 5 and 1000."
 msgstr "보일 로그 항목의 수는 5에서 1000 사이여야 합니다."
+
+msgid ""
+"Number of physical erase cycles completed on the drive as a percentage of "
+"the maximum physical erase cycles the drive is designed to endure."
+msgstr ""
 
 msgid "Number of servers"
 msgstr "서버 수"
@@ -3975,6 +4365,12 @@ msgstr ""
 msgid "Output voltage (V)"
 msgstr ""
 
+msgid ""
+"Overall (general) throughput performance of a hard disk drive. If the value "
+"of this attribute is decreasing there is a high probability that there is a "
+"problem with the disk."
+msgstr ""
+
 msgid "Overload"
 msgstr ""
 
@@ -4002,6 +4398,7 @@ msgstr "PPTP"
 msgid "PPTP clients"
 msgstr "PPTP 클라이언트"
 
+#, c-format
 msgid "PSK"
 msgstr "PSK"
 
@@ -4027,6 +4424,9 @@ msgid "Pairwise"
 msgstr "Pairwise"
 
 msgid "Parameter xxx (ups.conf or cmdline -x) setting"
+msgstr ""
+
+msgid "Parent Directory"
 msgstr ""
 
 msgid "Partition number"
@@ -4125,6 +4525,10 @@ msgstr "피어 교환"
 
 msgid "Peer port"
 msgstr "피어 포트"
+
+#, php-format
+msgid "Permanent samba data path (e.g. %s)."
+msgstr ""
 
 msgid "Permit root login"
 msgstr "root 로그인 허용"
@@ -4232,6 +4636,12 @@ msgstr ""
 msgid "Power mode"
 msgstr "파워 모드"
 
+msgid "Pre-Fail' Attribute used at least in HP devices."
+msgstr ""
+
+msgid "Pre-Fail' Attribute used at least in Samsung devices."
+msgstr ""
+
 msgid "PreInit"
 msgstr "초기화 전"
 
@@ -4322,14 +4732,26 @@ msgstr "할당량"
 msgid "RAID 0"
 msgstr "RAID 0"
 
+msgid "RAID 0 information and status"
+msgstr ""
+
 msgid "RAID 0/1/5"
 msgstr "RAID 0/1/5"
+
+msgid "RAID 0/1/5 information and status"
+msgstr ""
 
 msgid "RAID 1"
 msgstr "RAID 1"
 
+msgid "RAID 1 information and status"
+msgstr ""
+
 msgid "RAID 5"
 msgstr "RAID 5"
+
+msgid "RAID 5 information and status"
+msgstr ""
 
 msgid "RAID0"
 msgstr "RAID0"
@@ -4339,6 +4761,12 @@ msgstr "RAID1"
 
 msgid "RAID5"
 msgstr "RAID5"
+
+msgid "RAW VALUE"
+msgstr ""
+
+msgid "RAW info"
+msgstr ""
 
 msgid "RSYNC"
 msgstr "RSYNC"
@@ -4463,6 +4891,9 @@ msgstr "원격 모듈 명"
 msgid "Remote monitoring"
 msgstr "원격 모니터링"
 
+msgid "Remote rsync daemon"
+msgstr ""
+
 msgid "Remote syslog server"
 msgstr "원격 syslog 서버"
 
@@ -4504,6 +4935,9 @@ msgid "Rescan interval"
 msgstr "재 스캔 간격"
 
 msgid "Reservation"
+msgstr ""
+
+msgid "Resistance caused by friction in mechanical parts while operating."
 msgstr ""
 
 msgid "Resolve"
@@ -4602,6 +5036,9 @@ msgstr ""
 msgid "Run now"
 msgstr "지금 실행"
 
+msgid "Run without requiring remote rsync daemon. (Disabled by default)"
+msgstr ""
+
 msgid "Running"
 msgstr "실행 중"
 
@@ -4649,11 +5086,11 @@ msgstr "SSHD 로그"
 msgid "SSID"
 msgstr "SSID"
 
-msgid "SSL/TLS"
-msgstr "SSL/TLS"
+msgid "Samba AD"
+msgstr ""
 
-msgid "SSL/TLS only"
-msgstr "SSL/TLS만"
+msgid "Samba Active Directory Domain Controller"
+msgstr ""
 
 #, php-format
 msgid ""
@@ -4727,6 +5164,9 @@ msgstr "보안 셸"
 msgid "Security"
 msgstr "보안"
 
+msgid "See attribute E8."
+msgstr ""
+
 msgid ""
 "Select Hypertext Transfer Protocol (HTTP) or Hypertext Transfer Protocol "
 "Secure (HTTPS) for the WebGUI."
@@ -4766,6 +5206,9 @@ msgstr "읽기 밸런스 알고리즘을 선택하십시오."
 
 msgid "Selected"
 msgstr "선택됨"
+
+msgid "Selected device or label does not exist."
+msgstr ""
 
 msgid "Selected file isn't an valid ISO file."
 msgstr "선택된 파일은 유효한 ISO 파일이 아닙니다."
@@ -4900,6 +5343,9 @@ msgstr "공유"
 msgid "Shell"
 msgstr "셸"
 
+msgid "Shock During Write."
+msgstr ""
+
 msgid "Show RAW UPS Info"
 msgstr ""
 
@@ -4946,6 +5392,9 @@ msgstr "개시자에게 제공된 크기. (8EiB=8388608TiB까지. 실제 크기 
 msgid "Skew"
 msgstr ""
 
+msgid "Skip first scan"
+msgstr ""
+
 msgid "Sleep - Check the device unless it is in SLEEP mode."
 msgstr "휴면 - 휴면 모드가 아닐 경우 장치를 check 합니다."
 
@@ -4979,9 +5428,6 @@ msgstr "소프트웨어 Raid"
 msgid "Software RAID"
 msgstr "소프트웨어 RAID"
 
-msgid "Software RAID information and status"
-msgstr "소프트웨어 RAID 정보와 상태"
-
 msgid "Software used"
 msgstr "이용된 소프트웨어"
 
@@ -5012,6 +5458,16 @@ msgid "Sparse"
 msgstr ""
 
 msgid "Sparse Volume"
+msgstr ""
+
+msgid ""
+"Specific to He8 drives from HGST. The Helium, so says the literature, allows "
+"the drives to run cooler and quieter, and reduces power consumption. This is "
+"the status of the Helium in the drive. It is a pre-fail attribute that trips "
+"once the drive detects that the internal environment is out of specification."
+msgstr ""
+
+msgid "Specified path is NFSv4 root directory."
 msgstr ""
 
 msgid "Specifies how many servers to create."
@@ -5109,6 +5565,18 @@ msgstr "저장 공간"
 
 msgid "Store DOS attributes"
 msgstr "도스 속성 저장"
+
+msgid "Store NTFS acls"
+msgstr ""
+
+msgid "Store NTFS acls in Extended Attributes"
+msgstr ""
+
+msgid "Store alternate data streams"
+msgstr ""
+
+msgid "Store alternate data streams in Extended Attributes"
+msgstr ""
 
 msgid ""
 "String displayed in the dialog presented to the user when accessing the URL."
@@ -5251,7 +5719,13 @@ msgstr "TFTP"
 msgid "TKIP"
 msgstr "TKIP"
 
+msgid "TLS"
+msgstr ""
+
 msgid "TLS mode"
+msgstr ""
+
+msgid "TLS only"
 msgstr ""
 
 msgid "Tag"
@@ -5370,6 +5844,17 @@ msgstr "이 MIB '%s'은(는) 이미 존재합니다."
 msgid "The MIB '%s' doesn't exist in sysctl."
 msgstr "이 MIB '%s'은(는) sysctl에 존재하지 않습니다."
 
+msgid ""
+"The Minimum Spares Remaining attribute indicates the number of remaining "
+"spare blocks as a percentage of the total number of spare blocks available."
+msgstr ""
+
+msgid ""
+"The Newly Added Bad Flash Block attribute indicates the total number of bad "
+"flash blocks the drive detected since it was first initialized in "
+"manufacturing."
+msgstr ""
+
 #, php-format
 msgid ""
 "The RAID volume is currently mounted! Remove the <a href='%s'>mount "
@@ -5466,6 +5951,11 @@ msgstr ""
 
 #, c-format
 msgid "The attribute '%s' is not a valid time value."
+msgstr ""
+
+#, c-format, php-format
+msgid ""
+"The attribute '%s' is required within %d or more characters to %d characters."
 msgstr ""
 
 #, c-format, php-format
@@ -5568,9 +6058,45 @@ msgid "The configuration has been restored. The server is now rebooting."
 msgstr ""
 
 msgid ""
-"The confimed password does not match. Please ensure the passwords match "
+"The confirmation password does not match. Please ensure the passwords match "
 "exactly."
-msgstr "확인 용 비밀번호가 일치하지 않습니다. 비밀번호를 정확히 입력하시기 바랍니다."
+msgstr ""
+
+msgid ""
+"The confirmed password does not match. Please ensure the passwords match "
+"exactly."
+msgstr ""
+
+msgid ""
+"The count of aborted operations due to HDD timeout. Normally this attribute "
+"value should be equal to zero and if the value is far above zero, then most "
+"likely there will be some serious problems with power supply or an oxidized "
+"data cable."
+msgstr ""
+
+msgid ""
+"The count of errors found when writing a sector. The higher the value, the "
+"worse the disk's mechanical condition is."
+msgstr ""
+
+msgid ""
+"The count of errors in data transfer via the interface cable as determined "
+"by ICRC (Interface Cyclic Redundancy Check)."
+msgstr ""
+
+msgid ""
+"The count of errors resulting from externally induced shock & vibration."
+msgstr ""
+
+msgid ""
+"The count of errors that could not be recovered using hardware ECC (see "
+"attribute 195)."
+msgstr ""
+
+msgid ""
+"The count of times the magnetic armature was retracted automatically as a "
+"result of cutting power."
+msgstr ""
 
 msgid "The credentials with which to bind."
 msgstr "bind 할 때 이용할 자격 증명서."
@@ -5790,6 +6316,11 @@ msgstr ""
 msgid "The number of clients must be between 1 and 50."
 msgstr "클라이언트의 수는 1에서 50까지의 사이여야 합니다."
 
+msgid ""
+"The number of errors caused by incorrect checksum during the error "
+"correction."
+msgstr ""
+
 msgid "The old password is not correct."
 msgstr "기존 비밀번호가 올바르지 않습니다."
 
@@ -5930,6 +6461,15 @@ msgstr "시스템 끄기가 시작될 때까지의 초 단위의 시간. 시간�
 
 msgid "The time update interval must be either between 6 and 1440."
 msgstr "시간 갱신 간격은 6과 1640 사이여야 합니다."
+
+msgid "The total count of errors when writing a sector."
+msgstr ""
+
+msgid ""
+"The total count of uncorrectable errors when reading/writing a sector. A "
+"rise in the value of this attribute indicates defects of the disk surface "
+"and/or problems in the mechanical subsystem."
+msgstr ""
 
 msgid "The unique group ID is already used."
 msgstr "유일해야 할 그룹 ID가 이미 이용되고 있습니다."
@@ -6084,6 +6624,10 @@ msgid ""
 msgstr "이 VLAN은 인터페이스로서 여전히 이용되고 이으므로 삭제될 수 없습니다."
 
 msgid ""
+"This WLAN cannot be deleted because it is still being used as an interface."
+msgstr ""
+
+msgid ""
 "This allows you to lower the power consumption of the drive, at the expense "
 "of performance."
 msgstr "이것은 성능을 희생하고 드라이브의 전원 소비를 낮추도록 해줍니다."
@@ -6098,6 +6642,23 @@ msgstr "이것은 데이터를 포함하고 있는 이미 포맷 된 하드 디�
 
 msgid "This allows you to set the transfer mode for ATA/IDE hard drives."
 msgstr "이것은 ATA/IDE 하드 드라이브의 전송 모드를 설정할 수 있게 해줍니다."
+
+msgid ""
+"This attribute indicates the count of full hard disk power on/off cycles."
+msgstr ""
+
+msgid ""
+"This attribute indicates the count that recalibration was requested (under "
+"the condition that the first attempt was unsuccessful). An increase of this "
+"attribute value is a sign of problems in the hard disk mechanical subsystem."
+msgstr ""
+
+msgid ""
+"This attribute is a part of Hewlett-Packard's SMART IV technology, as well "
+"as part of other vendors' IO Error Detection and Correction schemas, and it "
+"contains a count of parity errors which occur in the data path to the media "
+"via the drive's cache RAM."
+msgstr ""
 
 #, php-format
 msgid ""
@@ -6330,6 +6891,9 @@ msgstr "이 풀 이름은 이미 존재합니다."
 msgid "This rule is triggered whenever the selected event directive occurs."
 msgstr "선택된 이벤트 지시자가 발생할 때마다 이 규칙이 작동합니다."
 
+msgid "This server uses default swap."
+msgstr ""
+
 msgid "This tag already exists."
 msgstr "이 태그는 이미 존재합니다."
 
@@ -6369,6 +6933,9 @@ msgid ""
 "add an existing encrypted disk."
 msgstr "이것은 디스크의 모든 데이터를 삭제할 것입니다. 기존의 암호화된 디스크를 추가하려면 이 옵션을 이용하지 마십시오."
 
+msgid "This will provide NTFS acls without ZFS ACL support such as UFS."
+msgstr ""
+
 msgid "This will provide ZFS ACL support. (ZFS only)"
 msgstr ""
 
@@ -6398,6 +6965,13 @@ msgstr "시간 간격"
 
 msgid "Time server"
 msgstr "타임 서버"
+
+msgid "Time spent during the positioning of the drive heads."
+msgstr ""
+
+msgid ""
+"Time spent operating under data load (movement of magnetic head armature)."
+msgstr ""
 
 msgid "Time update interval"
 msgstr "시간 갱신 간격"
@@ -6490,6 +7064,32 @@ msgstr "용인됨"
 msgid "Tools"
 msgstr "도구"
 
+msgid ""
+"Total NAND Writes. Raw value reports the number of writes to NAND in 1GB "
+"increments."
+msgstr ""
+
+msgid ""
+"Total count of LBAs read. Some S.M.A.R.T. utilities will report a negative "
+"number for the raw value since in reality it has 48 bits rather than 32."
+msgstr ""
+
+msgid "Total count of LBAs written."
+msgstr ""
+
+msgid "Total count of load cycles."
+msgstr ""
+
+msgid ""
+"Total number of Flash program operation failures since the drive was "
+"deployed."
+msgstr ""
+
+msgid ""
+"Total time of loading on the magnetic heads actuator (time not spent in "
+"parking area)."
+msgstr ""
+
 #, php-format
 msgid "Total: %s | Used: %s | Free: %s"
 msgstr "전체: %s | 사용: %s | 여유: %s"
@@ -6507,6 +7107,11 @@ msgid ""
 msgstr ""
 "traceroute는 완료할 때까지 시간이 걸릴 수도 있습니다. 브라우저의 정지 버튼을 누르면 언제라도 실패 된 traceroute의 "
 "진행을 볼 수 있습니다."
+
+msgid ""
+"Tracks whose path contains one or more of these comma separated strings will "
+"be treated as a compilation."
+msgstr ""
 
 msgid "Transcoding"
 msgstr "트랜스코딩"
@@ -6666,7 +7271,13 @@ msgstr ""
 msgid "URL"
 msgstr "URL"
 
+msgid "Ukrainian"
+msgstr ""
+
 msgid "Unavailable"
+msgstr ""
+
+msgid "Uncorrected read errors reported to the operating system."
 msgstr ""
 
 msgid "Unformated"
@@ -6814,6 +7425,9 @@ msgstr "사용자 암호."
 msgid "User portal"
 msgstr "사용자 포털"
 
+msgid "User shares"
+msgstr ""
+
 msgid "User suffix"
 msgstr "사용자 접미사"
 
@@ -6851,6 +7465,11 @@ msgstr "VLAN 태그"
 msgid "Value"
 msgstr "값"
 
+msgid ""
+"Value is equal to (100-temp. &deg;C), allowing manufacturer to set a minimum "
+"threshold which corresponds to a maximum temperature."
+msgstr ""
+
 msgid "Variable"
 msgstr "변수"
 
@@ -6859,6 +7478,9 @@ msgstr ""
 
 msgid "Version"
 msgstr "버전"
+
+msgid "Vibration During Write."
+msgstr ""
 
 msgid "Virtual Host ID"
 msgstr ""
@@ -6905,6 +7527,10 @@ msgstr "WINS 서버"
 msgid "WINS server IP address (e.g. from MS Active Directory server)."
 msgstr "WINS 서버 IP 주소(예컨대 MS 액티브 디렉터리 서버에서)."
 
+msgid "WLAN"
+msgstr ""
+
+#, c-format
 msgid "WPA"
 msgstr "WPA"
 
@@ -6916,6 +7542,9 @@ msgstr "WPA-PSK(사전 공유 키)"
 
 msgid "WPA-PSK WPA-EAP"
 msgstr "WPA-PSK WPA-EAP"
+
+msgid "WPA2"
+msgstr ""
 
 msgid "Wait time"
 msgstr ""
@@ -6951,9 +7580,21 @@ msgstr "웹 서버 문서 루트가 없습니다."
 msgid "Week days"
 msgstr "요일"
 
+msgid "Western Digital attribute."
+msgstr ""
+
+msgid ""
+"Western Digital, Samsung or Seagate attribute: Total number of data blocks "
+"with detected, uncorrectable errors encountered during normal operation."
+msgstr ""
+
 msgid ""
 "When HAST is enabled, the local devices, the local services and the "
 "additional packages which do not support HAST volume cannot be used."
+msgstr ""
+
+msgid ""
+"When Samba AD is enabled, stand-alone CIFS/SMB file sharing cannot be used."
 msgstr ""
 
 msgid "When UPS switches to Low Battery"
@@ -6973,11 +7614,17 @@ msgstr ""
 msgid "Where to save downloaded data."
 msgstr "다운로드 한 데이터를 저장하는 곳."
 
+msgid "Whether compilations should be shown together under Various Artists."
+msgstr ""
+
 msgid ""
 "Whether scans should be skipped if there are no users connected. This allows "
 "the drive to spin down when no users are connected."
 msgstr ""
 "아무도 연결되지 않았을 때 스캔을 생략해야 하는 지를 설정. 이것은 아무도 연결되지 않았을 때 드라이브를 멈출 수 있게 해줍니다."
+
+msgid "Whether to skip initial boot-up scan."
+msgstr ""
 
 msgid "Who"
 msgstr "수행자"
@@ -7044,6 +7691,9 @@ msgstr "'%s'에 대해 최소 한 개의 항목을 선택해야 합니다."
 msgid "You may enter a description here for your reference."
 msgstr "여기에 참조하기 위한 설명을 입력하십시오."
 
+msgid "You may enter a device file or label path."
+msgstr ""
+
 #, php-format
 msgid ""
 "You may specify as SCSI INQUIRY data. Empty as default. (up to %d ASCII "
@@ -7067,8 +7717,11 @@ msgid "You must enter the same IP type for network and gateway."
 msgstr "네트워크와 게이트웨이에 동일한 IP 타입을 입력해야 합니다."
 
 #, php-format
-msgid "You must have a minimum of %dMB of RAM for using iSCSI target."
-msgstr "iSCSI 타젯을 이용하려면 최소 %dMB 이상의 램이 있어야 합니다."
+msgid "You must have a minimum of %dMiB RAM for using iSCSI target."
+msgstr ""
+
+msgid "You must initialize data before enabling."
+msgstr ""
 
 msgid "You must select at least one authentication method."
 msgstr "최소 한 개 이상의 인증 방법을 선택해야 합니다."
@@ -7135,6 +7788,11 @@ msgstr "root를 제외한 모두에게 chroot()."
 
 msgid "day(s)"
 msgstr "일"
+
+msgid ""
+"decoded as: byte 0-1-2 = good block count (big endian) and byte 3-4 = "
+"system(free) block count."
+msgstr ""
 
 msgid "detected an error while importing."
 msgstr ""
@@ -7249,6 +7907,9 @@ msgstr "성공적으로."
 msgid "sysctl.conf"
 msgstr "sysctl.conf"
 
+msgid "sysvol exist in path."
+msgstr ""
+
 msgid "to"
 msgstr ""
 
@@ -7258,6 +7919,5 @@ msgstr "umask"
 msgid "umount"
 msgstr "마운트 해제"
 
-#, php-format
 msgid "version:"
 msgstr ""

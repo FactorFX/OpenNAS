@@ -42,6 +42,21 @@ setvar()
 	esac
 }
 
+sethostid()
+{
+	local _uuid _systemuuid
+
+	# set uuid if not exist in smbios
+	_uuid=`/bin/kenv -q smbios.system.uuid`
+	_systemuuid=`configxml_get "//system/uuid"`
+	if [ -z "${_uuid}" -a -n "${_systemuuid}" ]; then
+		#/bin/kenv -q "smbios.system.uuid=${_systemuuid}" > /dev/null
+		if [ ! -f /etc/hostid ]; then
+			echo "${_systemuuid}" > /etc/hostid
+		fi
+	fi
+}
+
 # Set hostname
 sethostname()
 {
@@ -96,7 +111,6 @@ setifconfig()
 			-b \
 			-i "count(wep/enable) = 0" -o " wepmode off" -b \
 			-i "count(wpa/enable) > 0" -o " WPA" -b \
-			-o " up" \
 		-b \
 		-i "starts-with(if,'vlan')" \
 			-m "//vinterfaces/vlan[if = '${_ifn}']" \
@@ -124,6 +138,7 @@ setifconfig()
 			is_validip inet "${_ipaddr}/${_subnet}"
 			if [ 0 -eq $? ]; then
 				_ifconfig_args="inet ${_ipaddr}/${_subnet} ${_ifconfig_args}"
+				eval /usr/local/sbin/rconf attribute set firewall_client_net "${_ipaddr}/${_subnet}"
 			fi
 		fi
 		if [ -n "${_ifconfig_args}" ]; then
@@ -166,7 +181,6 @@ setifconfig()
 					-b \
 					-i "count(wep/enable) = 0" -o " wepmode off" -b \
 					-i "count(wpa/enable) > 0" -o " WPA" -b \
-					-o " up" \
 				-b \
 				-i "starts-with(if,'vlan')" \
 					-m "//vinterfaces/vlan[if = '${_ifn}']" \
@@ -217,9 +231,6 @@ setifconfig()
 		-m "//vinterfaces/bridge/if" \
 			-v "concat(.,' ')" \
 		-b \
-		-m "//vinterfaces/carp/if" \
-			-v "concat(.,' ')" \
-		-b \
 		${configxml_file} | /usr/local/bin/xml unesc`
 
 	eval /usr/local/sbin/rconf attribute set "cloned_interfaces" "${_cloned_interfaces}"
@@ -240,6 +251,32 @@ setifconfig()
 			[ -n "${_laggport}" ] && eval /usr/local/sbin/rconf attribute set "ifconfig_${_laggport}" "${_laggport_args}"
 		done
 
+	# wlan interfaces
+	/usr/local/bin/xml sel -t \
+		-m "//vinterfaces/wlan" \
+			-v if \
+			-v "concat(' ',wlandev)" \
+			-n \
+		-b \
+		${configxml_file} | /usr/local/bin/xml unesc | \
+		while read _wlan _wlandev _wlan_args; do
+			[ -n "${_wlan}" ] && eval /usr/local/sbin/rconf attribute set "wlans_${_wlandev}" "${_wlan}"
+		done
+	/usr/local/bin/xml sel -t \
+		-m "//vinterfaces/wlan[apmode]" \
+			-v if \
+			-v "concat(' ssid ',ap_ssid)" \
+			-v "concat(' channel ',ap_channel)" \
+			-v "concat(' ',ap_extraoptions)" \
+			-n \
+		-b \
+		${configxml_file} | /usr/local/bin/xml unesc | \
+		while read _wlan _ap_args; do
+			_ap_create_args="wlanmode hostap"
+			[ -n "$_wlan" ] && eval /usr/local/sbin/rconf attribute set "create_args_${_wlan}" "${_ap_create_args}"
+			[ -n "$_wlan" ] && eval /usr/local/sbin/rconf attribute set "ifconfig_${_wlan}" "${_ap_args}"
+		done
+
 	# prepare bridge/carp interfaces
 	/usr/local/bin/xml sel -t \
 		-m "//vinterfaces/bridge/bridgeif" \
@@ -250,7 +287,14 @@ setifconfig()
 		while read _bridgeif _bridgeif_mtu; do
 			_bridgeif_args="up"
 			[ -n "${_bridgeif_mtu}" ] && _bridgeif_args="${_bridgeif_args} mtu ${_bridgeif_mtu}"
-			[ -n "${_bridgeif}" ] && eval /usr/local/sbin/rconf attribute set "ifconfig_${_bridgeif}" "${_bridgeif_args}"
+			if [ -n "${_bridgeif}" ]; then
+				if configxml_isset "//vinterfaces/wlan[if='${_bridgeif}']/apmode"; then
+					# wlanN AP mode in bridge member
+					sysctl -q net.link.bridge.inherit_mac=1 > /dev/null
+				else
+					eval /usr/local/sbin/rconf attribute set "ifconfig_${_bridgeif}" "${_bridgeif_args}"
+				fi
+			fi
 		done
 	/usr/local/bin/xml sel -t \
 		-m "//vinterfaces/bridge" \
@@ -281,32 +325,36 @@ setifconfig()
 		-m "//vinterfaces/carp" \
 			-v if \
 			-v "concat(' vhid ',vhid,' advskew ',advskew,' pass ',password)" \
-			-i "string-length(advbase) > 0" -v "concat(' advbase ',advbase)" -b \
-			-v "concat(' ',vipaddr,'/',vsubnet)" \
+			-v "concat(' alias ',vipaddr,'/',vsubnet)" \
 			-v "concat(' \"', extraoptions,'\"')" \
 			-n \
 		-b \
 		${configxml_file} | /usr/local/bin/xml unesc | \
-		while read _carp _carp_args; do
-			_carp_args="up $_carp_args"
+		while read _carp _carp_t1 _carp_vhid _carp_t3 _carp_advskew _carp_args; do
+			if [ -n "${_carp_advskew}" -a ${_carp_advskew} -le 1 ]; then
+				# boot master node with 240(backup)
+				_carp_advskew=240
+			fi
+			_carp_args="$_carp_t1 $_carp_vhid $_carp_t3 $_carp_advskew $_carp_args"
 			_carp_linkup=`/usr/local/bin/xml sel -t -m "//vinterfaces/*[if = '${_carp}']" \
 				-v "linkup" \
 				${configxml_file} | /usr/local/bin/xml unesc`
 			_carp_linkdown=`/usr/local/bin/xml sel -t -m "//vinterfaces/*[if = '${_carp}']" \
 				-v "linkdown" \
 				${configxml_file} | /usr/local/bin/xml unesc`
-			[ -n "${_carp}" ] && eval /usr/local/sbin/rconf attribute set "ifconfig_${_carp}" "${_carp_args}"
-			[ -n "${_carp}" ] && cat <<EOF > "/etc/devd/${_carp}.conf"
+			[ -n "${_carp}" ] && eval /usr/local/sbin/rconf attribute set "ifconfig_${_carp}_alias${_carp_vhid}" "${_carp_args}"
+			[ -n "${_carp}" ] && kldload -n carp.ko
+			[ -n "${_carp}" ] && cat <<EOF > "/etc/devd/carp_${_carp_vhid}@${_carp}.conf"
 notify 30 {
-	match "system" "IFNET";
-	match "subsystem" "${_carp}";
-	match "type" "LINK_UP";
+	match "system" "CARP";
+	match "subsystem" "${_carp_vhid}@${_carp}";
+	match "type" "MASTER";
 	action "${_carp_linkup}";
 };
 notify 30 {
-	match "system" "IFNET";
-	match "subsystem" "${_carp}";
-	match "type" "LINK_DOWN";
+	match "system" "CARP";
+	match "subsystem" "${_carp_vhid}@${_carp}";
+	match "type" "BACKUP";
 	action "${_carp_linkdown}";
 };
 EOF
@@ -374,6 +422,11 @@ updateservices()
 	local _platform
 
     	_platform=`cat /etc/platform`
+
+	# Update boot params
+	if [ -z "${BOOT_LIVECD}" ]; then BOOT_LIVECD=0; fi
+	if [ -f /etc/boot_lowmem ]; then BOOT_LOWMEM=`cat /etc/boot_lowmem`; fi
+	if [ -z "${BOOT_LOWMEM}" ]; then BOOT_LOWMEM=0; fi
 
 	# Update rcvar's. Use settings from config.xml
 	for _rcscript in /etc/rc.d/*; do
@@ -456,6 +509,19 @@ setoptions()
 		_value=""
 	fi
 	eval /usr/local/sbin/rconf attribute set saver "${_value}";
+
+	# Enable/disable NFSv4
+	if configxml_isset "//nfsd/v4enable"; then
+		eval /usr/local/sbin/rconf service enable "nfsv4_server"
+		eval /usr/local/sbin/rconf service enable "nfsuserd"
+	else
+		eval /usr/local/sbin/rconf service disable "nfsv4_server"
+		eval /usr/local/sbin/rconf service disable "nfsuserd"
+	fi
+
+	# Disable ipfw (enabled by /etc/rc.d/ipfw)
+	sysctl -q net.inet.ip.fw.enable=0 > /dev/null
+	sysctl -q net.inet6.ip6.fw.enable=0 > /dev/null
 }
 
 # Serial console
@@ -487,6 +553,7 @@ load_rc_config ${name}
 
 echo -n "Updating rc.conf:"
 
+sethostid
 updateservices
 setvar
 sethostname

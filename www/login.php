@@ -41,13 +41,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 	if(is_validlogin($_POST['username'])){
 		Session::start();
-		if ($_POST['username'] === $config['system']['username']) {
-			$password = crypt($_POST['password'], $config['system']['password']);
-			if ($password === $config['system']['password'] ) {
-				Session::initAdmin();
-				header('Location: index.php');
-				exit;
-			}
+
+		if ($_POST['username'] === $config['system']['username'] &&
+			password_verify($_POST['password'], $config['system']['password'])) {
+			Session::initAdmin();
+			header('Location: index.php');
+			exit;
 		} else {
 			$users = system_get_user_list();
 			foreach ($users as $userk => $userv) {
@@ -233,7 +232,7 @@ function display_menu($menuid) {
 															</tbody>
 														</table>
 													</div>
-												</duv>
+												</div>
 											</td>
 										</tr>
 									</tbody>
@@ -245,7 +244,7 @@ function display_menu($menuid) {
 			</table>
         </div>
         <div id="pagefooter">
-			<span><p><a title="www.<?=get_product_url();?>" href="http://<?=get_product_url();?>" target="_blank"></a> <?=str_replace("Copyright (C)","&copy;",get_product_copyright());?></a></p></span>
+			<span><p><a title="www.<?=get_product_url();?>" href="http://<?=get_product_url();?>" target="_blank"></a> <?=str_replace("Copyright (C)","&copy;",get_product_copyright());?></p></span>
 		</div>
     </body>
 </html>

@@ -34,6 +34,7 @@
 	of the authors and should not be interpreted as representing official policies,
 	either expressed or implied, of the NAS4Free Project.
 */
+require_once("globals.inc");
 require_once("array.inc");
 require_once("system.inc");
 
@@ -428,6 +429,8 @@ function is_valid_privatekey($privatekey, $type = "RSA") {
 }
 
 function get_interface_list() {
+	global $g;
+
 	/* build interface list with netstat */
 	exec("/usr/bin/netstat -inW -f link", $linkinfo);
 	array_shift($linkinfo);
@@ -435,13 +438,95 @@ function get_interface_list() {
 	$iflist = array();
 
 	foreach ($linkinfo as $link) {
-		$alink = preg_split("/\s+/", $link);
+		$alink = preg_split("/\s+/", ltrim($link));
 		$ifname = chop($alink[0]);
 
 		if (substr($ifname, -1) === "*")
 			$ifname = substr($ifname, 0, strlen($ifname) - 1);
+		/* skip wireless */
+		if (preg_match($g['wireless_regex'], $ifname))
+			continue;
 		/* add the plip interface to be excluded too */
 		if (!preg_match("/^(ppp|sl|gif|faith|lo|vlan|tun|plip|ipfw|usbus|carp)/", $ifname)) {
+			$iflist[$ifname] = array();
+
+			$iflist[$ifname]['mac'] = chop($alink[3]);
+			$iflist[$ifname]['up'] = false;
+
+			/* find out if the link on this interface is up */
+			unset($ifinfo);
+			exec("/sbin/ifconfig {$ifname}", $ifinfo);
+
+			foreach ($ifinfo as $ifil) {
+				if (preg_match("/status: (.*)$/", $ifil, $matches)) {
+					if ($matches[1] === "active")
+						$iflist[$ifname]['up'] = true;
+					break;
+				}
+			}
+		}
+	}
+
+	return $iflist;
+}
+
+function get_interface_wlist() {
+	global $g;
+
+	/* build interface list with netstat */
+	exec("/usr/bin/netstat -inW -f link", $linkinfo);
+	array_shift($linkinfo);
+
+	$iflist = array();
+
+	foreach ($linkinfo as $link) {
+		$alink = preg_split("/\s+/", ltrim($link));
+		$ifname = chop($alink[0]);
+
+		if (substr($ifname, -1) === "*")
+			$ifname = substr($ifname, 0, strlen($ifname) - 1);
+		/* skip lo, wlan */
+		if (preg_match("/^(lo|wlan)/", $ifname))
+			continue;
+		if (preg_match($g['wireless_regex'], $ifname)) {
+			$iflist[$ifname] = array();
+
+			$iflist[$ifname]['mac'] = chop($alink[3]);
+			$iflist[$ifname]['up'] = false;
+
+			/* find out if the link on this interface is up */
+			unset($ifinfo);
+			exec("/sbin/ifconfig {$ifname}", $ifinfo);
+
+			foreach ($ifinfo as $ifil) {
+				if (preg_match("/status: (.*)$/", $ifil, $matches)) {
+					if ($matches[1] === "active")
+						$iflist[$ifname]['up'] = true;
+					break;
+				}
+			}
+		}
+	}
+
+	return $iflist;
+}
+
+function get_wlan_interface_list() {
+	global $g;
+
+	/* build interface list with netstat */
+	exec("/usr/bin/netstat -inW -f link", $linkinfo);
+	array_shift($linkinfo);
+
+	$iflist = array();
+
+	foreach ($linkinfo as $link) {
+		$alink = preg_split("/\s+/", ltrim($link));
+		$ifname = chop($alink[0]);
+
+		if (substr($ifname, -1) === "*")
+			$ifname = substr($ifname, 0, strlen($ifname) - 1);
+		if (preg_match("/^(wlan)/", $ifname)) {
 			$iflist[$ifname] = array();
 
 			$iflist[$ifname]['mac'] = chop($alink[3]);
@@ -1165,6 +1250,11 @@ function parse_controller_config(&$devlist){
 		if(empty($device['model'])) $device['model'] = system_get_volume_model($device['devicespecialfile']);
 		if(empty($device['desc'])) $device['desc'] = $device['model'];
 		if(empty($device['serial'])) $device['serial'] = system_get_volume_serial($device['devicespecialfile']);
+
+		// final fixup
+		$device['model'] = str_replace('"', '', $device['model']);
+		$device['desc'] = str_replace('"', '', $device['desc']);
+		$device['serial'] = str_replace('"', '', $device['serial']);
 	}
 	unset($device);
 	return $devlist;
@@ -1270,6 +1360,10 @@ function get_smartctl_info($device){
 	if(empty($smartctl_info['model'])){
 		$smartctl_info['model'] = trim($vendor.' '.$product.' '.$revision);
  	}
+	// final fixup
+	$smartctl_info['model'] = str_replace('"', '', $smartctl_info['model']);
+	$smartctl_info['desc'] = str_replace('"', '', $smartctl_info['desc']);
+	$smartctl_info['serial'] = str_replace('"', '', $smartctl_info['serial']);
 	return $smartctl_info;
 }
 
@@ -1757,12 +1851,18 @@ function get_ipaddr($if)
   $if = get_ifname($if);
 
   unset($ipaddr);
+  exec("/sbin/ifconfig {$if} inet | /usr/bin/grep inet | /usr/bin/grep -v vhid", $inetinfo);
+  $inet = $inetinfo[0];
+  $ainet = preg_split("/\s+/", ltrim($inet));
+  $ipaddr = chop($ainet[1]);
+  if (!empty($ipaddr)) return $ipaddr;
+
   exec("/usr/bin/netstat -inW -f inet -I {$if}", $inetinfo);
   array_shift($inetinfo);
 
   foreach($inetinfo as $inet)
   {
-    $ainet = preg_split("/\s+/", $inet);
+    $ainet = preg_split("/\s+/", ltrim($inet));
     $ifname = chop($ainet[0]);
 
     if (strncmp($ifname,$if,strlen($if)) == 0)
@@ -1779,6 +1879,18 @@ function get_ipaddr($if)
 function get_subnet_bits($if)
 {
 	$if = get_ifname($if);
+
+	exec("/sbin/ifconfig {$if} inet | /usr/bin/grep inet | /usr/bin/grep -v vhid", $inetinfo);
+	$inet = $inetinfo[0];
+	$ainet = preg_split("/\s+/", ltrim($inet));
+	$ipaddr = chop($ainet[1]);
+	$mask = chop($ainet[3]);
+	if (!empty($ipaddr) && !empty($mask)) {
+		exec("/usr/local/bin/sipcalc $ipaddr $mask", $rawdata);
+		if (preg_match("/.+Network mask \(bits\)	- (\d+).+/", implode($rawdata), $matches)) {
+			return $matches[1];
+		}
+	}
 
 	exec("/usr/local/bin/sipcalc --cidr-addr {$if}", $rawdata);
 	if (preg_match("/.+Network mask \(bits\)	- (\d+).+/", implode($rawdata), $matches)) {
@@ -1806,7 +1918,7 @@ function get_ipv6addr($if)
 
   foreach($inetinfo as $inet)
   {
-    $ainet = preg_split("/\s+/", $inet);
+    $ainet = preg_split("/\s+/", ltrim($inet));
     $ifname = chop($ainet[0]);
 
     if (strncmp($ifname,$if,strlen($if)) == 0)
@@ -1829,7 +1941,7 @@ function get_macaddr($if)
   array_shift($linkinfo);
 
   foreach($linkinfo as $link)  {
-    $alink = preg_split("/\s+/", $link);
+    $alink = preg_split("/\s+/", ltrim($link));
     $ifname = chop($alink[0]);
 
     if (strncmp($ifname,$if,strlen($if)) == 0) {
@@ -2041,7 +2153,7 @@ function get_interface_info($if) {
 	/* run netstat to determine link info */
 	unset($linkinfo);
 	exec("/usr/bin/netstat -I " . $ifinfo['hwif'] . " -nWb -f link", $linkinfo);
-	$linkinfo = preg_split("/\s+/", $linkinfo[1]);
+	$linkinfo = preg_split("/\s+/", ltrim($linkinfo[1]));
 	if (preg_match("/\*$/", $linkinfo[0]) || preg_match("/^$/", $linkinfo[0])) {
 		$ifinfo['status'] = "down";
 	} else {
@@ -2496,18 +2608,18 @@ function get_conf_disks_filtered_ex($key, $pattern) {
 
 // Set the given file system type in configuration.
 // Return 0 if successful, otherwise 1.
-function set_conf_disk_fstype($disk, $fstype)
+function set_conf_disk_fstype_opt($disk, $fstype, $opt)
 {
 	global $config;
 
 	$result = 1;
 	$diskconf = array("disks"   => "disk",
-										"gconcat" => "vdisk",
-										"gmirror" => "vdisk",
-										"graid5"  => "vdisk",
-										"gstripe" => "vdisk",
-										"gvinum"  => "vdisk",
-										"geli"    => "vdisk");
+			"gconcat" => "vdisk",
+			"gmirror" => "vdisk",
+			"graid5"  => "vdisk",
+			"gstripe" => "vdisk",
+			"gvinum"  => "vdisk",
+			"geli"    => "vdisk");
 
 	while (list($class, $val) = each($diskconf)) {
 		if (empty($config[$class][$val]) || !is_array($config[$class][$val]))
@@ -2516,6 +2628,8 @@ function set_conf_disk_fstype($disk, $fstype)
 		$id = array_search_ex($disk, $config[$class][$val], "devicespecialfile");
 		if ($id !== false) {
 			$config[$class][$val][$id]['fstype'] = $fstype;
+			if (!empty($opt) && $fstype == "zfs" && isset($opt['zfsgpt']))
+				$config[$class][$val][$id]['zfsgpt'] = $opt['zfsgpt'];
 			$result = 0;
 //		echo "Set \$config['$class']['$val'][$id]['fstype'] = $fstype\n";
 			break;
@@ -2523,6 +2637,9 @@ function set_conf_disk_fstype($disk, $fstype)
 	}
 
 	return $result;
+}
+function set_conf_disk_fstype($disk, $fstype) {
+	 return set_conf_disk_fstype_opt($disk, $fstype, null);
 }
 
 // Convert bytes into best unit.
@@ -2536,6 +2653,9 @@ function decode_size($bytes) {
 // Get the Internet host name corresponding to a given IP address.
 // Returns the host name or the unmodified ip_address  on failure.
 function get_hostbyaddr($ip_address) {
+	$host = gethostbyaddr($ip_address);
+	if ($host != FALSE)
+		return $host;
 	exec("/usr/bin/host {$ip_address}", $rawdata);
 	if (preg_match("/^Name: (\S+)/", $rawdata[0], $matches)) {
 		return $matches[1];
@@ -2669,6 +2789,25 @@ function set_php_timezone()
 		return FALSE;
 	}
 	return TRUE;
+}
+
+function crypt_sha512($password)
+{
+	$method = '$6$'; // SHA512 (salt=16 chars)
+	$salt_len = 12; // 16*(3/4)
+	$salt_raw = openssl_random_pseudo_bytes($salt_len);
+	if ($salt_raw === FALSE)
+		return FALSE;
+	$salt = base64_encode($salt_raw);
+	if ($salt === FALSE)
+		return FALSE;
+	$hash = crypt($password, $method.$salt);
+	return $hash;
+}
+
+function mkpasswd($password)
+{
+	return crypt_sha512($password);
 }
 
 // openssl compatible encryption/decryption + base64 encode/decode

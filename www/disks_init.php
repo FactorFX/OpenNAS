@@ -95,6 +95,7 @@ if ($_POST) {
 	$minspace = $_POST['minspace'];
 	$notinitmbr = isset($_POST['notinitmbr']) ? true : false;
 	$aft4k = isset($_POST['aft4k']) ? true : false;
+	$zfsgpt = isset($_POST['zfsgpt']) ? true : false;
 	$volumelabels = explode(" ", trim($_POST['volumelabels']));
 
 	// Input validation.
@@ -123,7 +124,7 @@ if ($_POST) {
 				// Check whether disk is mounted.
 				if (disks_ismounted_ex($disk, "devicespecialfile")) {
 					$errormsg = sprintf(gettext("The disk is currently mounted! <a href='%s'>Unmount</a> this disk first before proceeding."), "disks_mount_tools.php?disk={$disk}&action=umount");
-					$do_format[$key] = true;
+					$do_format[$key] = false;
 				}
 
 				// Check if user tries to format the OS disk.
@@ -134,7 +135,9 @@ if ($_POST) {
 
 				if ($do_format[$key]) {
 					// Set new file system type attribute ('fstype') in configuration.
-					set_conf_disk_fstype($disk, $type);
+					$opt = array();
+                    $opt['zfsgpt'] = $zfsgpt ? "p1" : "";
+					set_conf_disk_fstype($disk, $type, $opt);
 
 					if (count($volumelabels) == 1 && count($disks) > 1) {
 						for ($i=0; $i < count($disks); $i++) {
@@ -158,9 +161,6 @@ if ($_POST) {
 	}
 }
 
-if (empty($do_format)) {
-
-}
 ?>
 <?php include("fbegin.inc");?>
 <script type="text/javascript">//<![CDATA[
@@ -172,19 +172,34 @@ $(document).ready(function(){
 			$('#minspace_tr').show();
 			$('#volumelabel_tr').show();
 			$('#aft4k_tr').show();
+			$('#zfsgpt_tr').hide();
 			break;
 		case "ext2":
 		case "msdos":
 			$('#minspace_tr').hide();
 			$('#volumelabel_tr').show();
 			$('#aft4k_tr').hide();
+			$('#zfsgpt_tr').hide();
+			break;
+		case "zfs":
+			$('#minspace_tr').hide();
+			$('#volumelabel_tr').hide();
+			$('#aft4k_tr').hide();
+			$('#zfsgpt_tr').show();
 			break;
 		default:
 			$('#minspace_tr').hide();
 			$('#volumelabel_tr').hide();
 			$('#aft4k_tr').hide();
+			$('#zfsgpt_tr').hide();
 			break;
 		}
+	});
+	$('#disk').change(function(){
+		var devfile = $('#disk').val();
+		gui.ajax('', { devfile: devfile }, function(data){
+			$('#type').val(data.data).change();
+		});
 	});
 	$('#type').change();
 });
@@ -243,6 +258,7 @@ $(document).ready(function(){
 						</td>
 					</tr>
 			    <?php html_checkbox("aft4k", gettext("Advanced Format"), $pconfig['aft4k'] ? true : false, gettext("Enable Advanced Format (4KB sector)"), "", false, "");?>
+			    <?php html_checkbox("zfsgpt", gettext("GPT partition"), $pconfig['zfsgpt'] ? true : false, gettext("Create ZFS on GPT partition"), "", false, "");?>
 			    <tr>
 			      <td width="22%" valign="top" class="vncell"><?=gettext("Don't Erase MBR");?></td>
 			      <td width="78%" class="vtable">

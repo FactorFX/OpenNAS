@@ -870,9 +870,9 @@ function install_init_disk($disk, $partlayout)
 	write_console("Create slice/partition table on device {$disk}.\n");
 	$slicesize = array(0, 0, 0, 0);
 	foreach ($partlayout as $partlayoutv) {
-		// add 1MiB alignment
+		// add 4MiB alignment
 		if ($partlayoutv['size'] !== "*")
-			$slicesize[$partlayoutv['slice'] - 1] = $partlayoutv['size'] + 2;
+			$slicesize[$partlayoutv['slice'] - 1] = $partlayoutv['size'] + 4;
 		else
 			$slicesize[$partlayoutv['slice'] - 1] = $partlayoutv['size'];
 	}
@@ -938,9 +938,9 @@ function install_init_disk($disk, $partlayout)
 			}
 		}
 		if ($partlayoutv['fstype'] === "swap") {
-			$flags = "-i2 -a 1m -t freebsd-swap";
+			$flags = "-i2 -a 4m -t freebsd-swap";
 		} else {
-			$flags = "-a 1m -t freebsd-ufs";
+			$flags = "-a 4m -t freebsd-ufs";
 		}
 		if ($partlayoutv['size'] !== "*")
 			$flags .= " -s {$partlayoutv['size']}m";
@@ -960,6 +960,101 @@ function install_init_disk($disk, $partlayout)
 			continue;
 
 		$diskdevicename = "{$disk}s{$partlayoutv['slice']}a";
+
+		write_console("  {$diskdevicename}\n");
+		if (install_newfs($diskdevicename, $partlayoutv['volname'],
+		   		  $newfs_sector, $newfs_fsize, $newfs_bsize)) {
+			set_kern_geom_debugflags(0);
+			write_console("\nError: Failed to create file system on {$diskdevicename}!\n");
+			return 1;
+		}
+	}
+	set_kern_geom_debugflags(0);
+
+	return 0;
+}
+
+// Create partitions on the destination hard drive.
+// $disk - Disk name (e.g. ad0)
+// $partlayout - The layout description of the disk, e.g.
+// array(
+//   array("partition" => 1, "fstype" => "boot", "size" => "512k", "volname" => "boot"),
+//   array("partition" => 2, "fstype" => "ufs",  "size" => 800, "volname" => "root"),
+//   array("partition" => 3, "fstype" => "swap", "size" => 1024, "volname" => "swap"),
+//   array("partition" => 4, "fstype" => "ufs",  "size" => "*", "volname" => "data")
+// )
+// Return 0 if successful, otherwise 1
+function install_init_gptdisk($disk, $partlayout)
+{
+	set_kern_geom_debugflags(0x10);
+	// force delete existing partitions (error is OK)
+	mwexec("/sbin/gpart destroy -F {$disk}");
+	// Initialize the destination
+	if (mwexec("/sbin/gpart create -s gpt {$disk}")) {
+		set_kern_geom_debugflags(0);
+		write_console("Error: Failed to create GPT partition table!\n");
+		return 1;
+	}
+	if (mwexec("/sbin/gpart bootcode -b /boot/pmbr {$disk}")) {
+		set_kern_geom_debugflags(0);
+		write_console("Error: Failed to install pmbr!\n");
+		return 1;
+	}
+
+	$newfs_sector = 4096;
+	$newfs_fsize = 4096;
+	$newfs_bsize = $newfs_fsize * 8;
+
+	write_console("Create partition table on device {$disk}.\n");
+	foreach ($partlayout as $partlayoutv) {
+		$diskdevicename = "{$disk}p{$partlayoutv['partition']}";
+		$partitionsize = $partlayoutv['size'];
+		// if don't have suffix, assume MB
+		if ($partitionsize !== "*" && !preg_match('/[kmgt]$/i', $partitionsize))
+			$partitionsize .= "m"; /* MB */
+
+		write_console("  {$diskdevicename}\n");
+
+		// force delete existing partitions (error is OK)
+		mwexec("/sbin/gpart destroy -F {$diskdevicename}");
+		// create BSD partition with alignment (UFS or swap)
+		if ($partlayoutv['fstype'] === "boot") {
+			$flags = "-a 4k -t freebsd-boot -l gptboot";
+		} else if ($partlayoutv['fstype'] === "swap") {
+			$flags = "-a 4m -t freebsd-swap -l gptswap";
+		} else {
+			$flags = "-a 4m -t freebsd-ufs";
+			if ($partlayoutv['partition'] === 2 && $partlayoutv['volname'] === "root")
+				$flags .= " -l gptroot";
+		}
+		if ($partitionsize !== "*")
+			$flags .= " -s {$partitionsize}";
+		$flags .= " -i {$partlayoutv['partition']}";
+		//write_console("    /sbin/gpart add {$flags} {$disk}\n");
+		if (mwexec("/sbin/gpart add {$flags} {$disk}")) {
+			set_kern_geom_debugflags(0);
+			write_console("\nError: Failed to add partition on {$disk}!\n");
+			return 1;
+		}
+		if ($partlayoutv['fstype'] === "boot") {
+			// install boot code
+			//write_console("    /sbin/gpart bootcode -p /boot/gptboot -i {$partlayoutv['partition']} {$disk}\n");
+			if (mwexec("/sbin/gpart bootcode -p /boot/gptboot -i {$partlayoutv['partition']} {$disk}")) {
+				set_kern_geom_debugflags(0);
+				write_console("Error: Failed to install gptboot on {$diskdevicename}!\n");
+				return 1;
+			}
+		}
+	}
+
+	// Create file systems and set volume label.
+	write_console("Create file system on partition:\n");
+	foreach ($partlayout as $partlayoutv) {
+		// Do not create a file system for swap/unused partitions.
+		if ("boot" === $partlayoutv['fstype'] || "swap" === $partlayoutv['fstype'] || "unused" === $partlayoutv['fstype'])
+			continue;
+
+		$diskdevicename = "{$disk}p{$partlayoutv['partition']}";
 
 		write_console("  {$diskdevicename}\n");
 		if (install_newfs($diskdevicename, $partlayoutv['volname'],
@@ -1252,7 +1347,43 @@ function install_detect_installation($mode, &$devinfo) {
 				// Check install mode
 				switch ($mode) {
 					case 'embedded':
-						if (file_exists("{$mnt_cf_disk}/mfsroot.gz")
+						if (file_exists("{$mnt_cf_disk}/mfsroot.uzip")
+						   && !file_exists("{$mnt_cf_disk}/{$imgfile}")) {
+							$result = 0;
+						}
+						break;
+
+					case 'full':
+						$platform = chop(@file_get_contents("{$mnt_cf_disk}{$g['etc_path']}/platform"));
+						if (FALSE !== ereg("^.*-full", $platform)) {
+							$result = 0;
+						}
+						break;
+				}
+			}
+
+			// Unmount device
+			mwexec("/sbin/umount {$mnt_cf_disk}");
+
+			if (0 == $result)
+				break;
+		}
+
+		// Search on partition 2 for OS installed on disk with install script
+		if (0 == mwexec("/sbin/mount -r /dev/{$diskv}p2 {$mnt_cf_disk}")) {
+			// Check if configuration file exists
+			if (file_exists("{$mnt_cf_disk}/conf/config.xml")) {
+				$devinfo['device'] = $diskv;
+				$devinfo['partition'] = "p2";
+
+				// Get partition information
+				$partinfo = disks_get_partition_info($diskv);
+				$devinfo['size'] = $partinfo[1]['size'];
+
+				// Check install mode
+				switch ($mode) {
+					case 'embedded':
+						if (file_exists("{$mnt_cf_disk}/mfsroot.uzip")
 						   && !file_exists("{$mnt_cf_disk}/{$imgfile}")) {
 							$result = 0;
 						}
@@ -1288,7 +1419,7 @@ function install_detect_installation($mode, &$devinfo) {
 				// Check install mode
 				switch ($mode) {
 					case 'embedded':
-						if (file_exists("{$mnt_cf_disk}/mfsroot.gz")
+						if (file_exists("{$mnt_cf_disk}/mfsroot.uzip")
 						   && !file_exists("{$mnt_cf_disk}/{$imgfile}")) {
 							$result = 0;
 						}

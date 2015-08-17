@@ -76,7 +76,15 @@ if ($_POST) {
 	if (isset($_POST['switch_backup']) && $_POST['switch_backup']) {
 		// down all carp
 		foreach ($a_carp as $carp) {
-			system("/sbin/ifconfig {$carp['if']} down");
+			//system("/sbin/ifconfig {$carp['if']} down");
+			mwexec("/etc/rc.d/netif stop {$carp['if']}");
+			if ($carp['advskew'] <= 1) {
+				system("/sbin/ifconfig {$carp['if']} vhid {$carp['vhid']} state backup advskew 240");
+			} else {
+				system("/sbin/ifconfig {$carp['if']} vhid {$carp['vhid']} state backup");
+			}
+			//system("/sbin/ifconfig {$carp['if']} up");
+			mwexec("/etc/rc.d/netif start {$carp['if']}");
 		}
 		// waits for the primary disk to disappear
 		$retry = 60;
@@ -93,7 +101,7 @@ if ($_POST) {
 		// up and set backup all carp
 		if ($preempt == 0 || (isset($a_carp[0]) && $a_carp[0]['advskew'] > 1)) {
 			foreach ($a_carp as $carp) {
-				system("/sbin/ifconfig {$carp['if']} up state backup");
+				//system("/sbin/ifconfig {$carp['if']} up vhid {$carp['vhid']} state backup");
 			}
 		}
 		header("Location: services_hast.php");
@@ -101,8 +109,19 @@ if ($_POST) {
 	}
 	if (isset($_POST['switch_master']) && $_POST['switch_master']) {
 		// up and set master all carp
+		$role = get_hast_role();
 		foreach ($a_carp as $carp) {
-			system("/sbin/ifconfig {$carp['if']} up state master");
+			$state = @exec("/sbin/ifconfig {$carp['if']} | grep  'carp:' | awk '{ print tolower($2) }'");
+			if ($carp['advskew'] <= 1) {
+				system("/sbin/ifconfig {$carp['if']} up vhid {$carp['vhid']} state master advskew {$carp['advskew']}");
+			} else {
+				system("/sbin/ifconfig {$carp['if']} up vhid {$carp['vhid']} state master");
+			}
+			// if already master, use linkup action
+			if ($state == "master" && $role != "primary") {
+				$action = $carp['linkup'];
+				$result = mwexec($action);
+			}
 		}
 		// waits for the secondary disk to disappear
 		$retry = 60;
@@ -235,10 +254,10 @@ if ($_POST) {
 <script type="text/javascript">//<![CDATA[
 $(document).ready(function(){
 	function enable_change(enable_change) {
-		var val = !($('#enable').attr('checked') || enable_change);
-		$('#auxparam').attr('disabled', val);
-		$('#alertemail').attr('disabled', val);
-		$('#alertemailto').attr('disabled', val);
+		var val = !($('#enable').prop('checked') || enable_change);
+		$('#auxparam').prop('disabled', val);
+		$('#alertemail').prop('disabled', val);
+		$('#alertemailto').prop('disabled', val);
 	}
 	$('#enable').click(function(){
 		enable_change(false);

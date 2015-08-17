@@ -32,7 +32,7 @@ setenv	EDITOR nano
 
 if ($?prompt) then
 	# An interactive shell -- set some stuff up
-	set prompt="%{\033[1;32m%}%m: %{\033[1;32m%}%. %{\033[0m%}%# "
+	set prompt=" %{\033[1;32m%}%m: %{\033[1;32m%}%.%{\033[0m%}%# "
 	set promptchars = "%#"
 	set filec
 	set autolist
@@ -43,6 +43,14 @@ if ($?prompt) then
 		bindkey "^W" backward-delete-word
 		bindkey -k up history-search-backward
 		bindkey -k down history-search-forward
+		bindkey "\e[1~" beginning-of-line       # Home
+                bindkey "\e[2~" overwrite-mode          # Insert
+                bindkey "\e[3~" delete-char             # Delete
+                bindkey "\e[4~" end-of-line             # End
+                bindkey "\e[5~" history-search-backward # Page Up
+                bindkey "\e[6~" history-search-forward  # Page Down
+		bindkey "\eOc"  forward-word            # ctrl right
+		bindkey "\eOd"  backward-word           # ctrl left
 	endif
 endif
 

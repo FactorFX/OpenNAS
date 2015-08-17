@@ -75,6 +75,7 @@ if (isset($uuid) && (FALSE !== ($cnid = array_search_ex($uuid, $a_share, "uuid")
 		list($pconfig['network'][], $pconfig['mask'][]) = explode('/', $network);
 	}
 	$pconfig['comment'] = $a_share[$cnid]['comment'];
+	$pconfig['v4rootdir'] = isset($a_share[$cnid]['v4rootdir']);
 	$pconfig['alldirs'] = isset($a_share[$cnid]['options']['alldirs']);
 	$pconfig['readonly'] = isset($a_share[$cnid]['options']['ro']);
 	$pconfig['quiet'] = isset($a_share[$cnid]['options']['quiet']);
@@ -85,6 +86,7 @@ if (isset($uuid) && (FALSE !== ($cnid = array_search_ex($uuid, $a_share, "uuid")
 	$pconfig['network'][] = "";
 	$pconfig['mask'][] = "24";
 	$pconfig['comment'] = "";
+	$pconfig['v4rootdir'] = false;
 	$pconfig['alldirs'] = false;
 	$pconfig['readonly'] = false;
 	$pconfig['quiet'] = false;
@@ -133,6 +135,7 @@ if ($_POST) {
 			$share['network'][$id] = gen_subnet($network, $_POST['mask'][$id]) . "/" . $_POST['mask'][$id];
 		}
 		$share['comment'] = $_POST['comment'];
+		$share['v4rootdir'] = isset($_POST['v4rootdir']) ? true : false;
 		$share['options']['alldirs'] = isset($_POST['alldirs']) ? true : false;
 		$share['options']['ro'] = isset($_POST['readonly']) ? true : false;
 		$share['options']['quiet'] = isset($_POST['quiet']) ? true : false;
@@ -239,6 +242,13 @@ $(function() {
 			      <td width="22%" valign="top" class="vncell"><?=gettext("Comment");?></td>
 			      <td width="78%" class="vtable">
 			        <input name="comment" type="text" class="formfld" id="comment" size="30" value="<?=htmlspecialchars($pconfig['comment']);?>" />
+			      </td>
+			    </tr>
+			    <tr>
+			      <td width="22%" valign="top" class="vncell"><?=gettext("NFSv4");?></td>
+			      <td width="78%" class="vtable">
+			      	<input name="v4rootdir" type="checkbox" id="v4rootdir" value="yes" <?php if (!empty($pconfig['v4rootdir'])) echo "checked=\"checked\"";?> />
+			      	<span class="vexpl"><?=gettext("Specified path is NFSv4 root directory.");?></span><br />
 			      </td>
 			    </tr>
 			    <tr>

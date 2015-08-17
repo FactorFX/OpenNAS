@@ -55,6 +55,7 @@ require_once("util.inc");
 function zfs_get_pool_list() {
 	$result = array();
 
+	$osver = @exec("/usr/bin/uname -U");
 	mwexec2("zpool list -H", $rawdata);
 	foreach ($rawdata as $line) {
 		$aline = preg_split("/\s+/", $line);
@@ -68,11 +69,25 @@ function zfs_get_pool_list() {
 		$result[$poolname]['size'] = $aline[1];
 		$result[$poolname]['alloc'] = $aline[2];
 		$result[$poolname]['free'] = $aline[3];
-		$result[$poolname]['cap'] = $aline[4];
-		$result[$poolname]['dedup'] = $aline[5];		
-		$result[$poolname]['health'] = $aline[6];
-		$result[$poolname]['altroot'] = $aline[7];
-		//$result[$poolname]['atime'] = $aline[8];
+		if ($osver >= 1000000) {
+			if ($osver >= 1100000) {
+                                $result[$poolname]['expandsz'] = $aline[4];
+                                $result[$poolname]['frag'] = $aline[5];
+			} else {
+                                $result[$poolname]['frag'] = $aline[4];
+                                $result[$poolname]['expandsz'] = $aline[5];
+			}
+                        $result[$poolname]['cap'] = $aline[6];
+                        $result[$poolname]['dedup'] = $aline[7];
+                        $result[$poolname]['health'] = $aline[8];
+                        $result[$poolname]['altroot'] = $aline[9];
+		} else {
+			$result[$poolname]['cap'] = $aline[4];
+			$result[$poolname]['dedup'] = $aline[5];		
+			$result[$poolname]['health'] = $aline[6];
+			$result[$poolname]['altroot'] = $aline[7];
+			//$result[$poolname]['atime'] = $aline[8];
+		}
 
 		// Get correct used/available disk space.
 		// See http://bugs.opensolaris.org/bugdatabase/view_bug.do?bug_id=6308817
@@ -128,6 +143,12 @@ function zfs_zpool_configure($uuid) {
 		write_log("Load NOP GEOM class");
 		@mwexec("/sbin/kldload geom_nop.ko");
 	}
+
+	// Set minimum ashift=12 (4KB)
+	if (isset($pool['ashift']) && $pool['ashift'] == 9)
+		@mwexec("/sbin/sysctl -q vfs.zfs.min_auto_ashift=9");
+	else
+		@mwexec("/sbin/sysctl -q vfs.zfs.min_auto_ashift=12");
 
 	$dev_cache = "";
 	$dev_log = "";
@@ -373,7 +394,13 @@ function zfs_dataset_configure($uuid) {
 
 	if (!empty($dataset['atime']))
 		$param .= "-o atime={$dataset['atime']} ";
-	
+
+	if (!empty($dataset['aclinherit']))
+		$param .= "-o aclinherit={$dataset['aclinherit']} ";
+
+	if (!empty($dataset['aclmode']))
+		$param .= "-o aclmode={$dataset['aclmode']} ";
+
 	if (!isset($dataset['canmount']))
 		$param .= "-o canmount=off ";
 
@@ -386,8 +413,10 @@ function zfs_dataset_configure($uuid) {
 	if (!empty($dataset['quota']))
 		$param .= "-o quota={$dataset['quota']} ";
 
+/*
 	if (!isset($dataset['xattr']))
 		$param .= "-o xattr=off ";
+*/
 
 	if (isset($dataset['snapdir']))
 		$param .= "-o snapdir=visible ";
@@ -486,7 +515,7 @@ function zfs_dataset_properties($uuid) {
 
 	$result = 0;
 
-	foreach (explode(" ", "compression dedup sync atime canmount readonly reservation quota xattr snapdir") as $attr) {
+	foreach (explode(" ", "compression dedup sync atime aclinherit aclmode canmount readonly reservation quota xattr snapdir") as $attr) {
 		$param = "";
 
 		switch ($attr) {
@@ -508,6 +537,16 @@ function zfs_dataset_properties($uuid) {
 			case "atime":
 				if (!empty($dataset['atime']))
 					$param = "atime={$dataset['atime']}";
+				break;
+
+			case "aclinherit":
+				if (!empty($dataset['aclinherit']))
+					$param = "aclinherit={$dataset['aclinherit']}";
+				break;
+
+			case "aclmode":
+				if (!empty($dataset['aclmode']))
+					$param = "aclmode={$dataset['aclmode']}";
 				break;
 
 			case "canmount":

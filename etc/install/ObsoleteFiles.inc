@@ -164,4 +164,4 @@ usr/local/etc/bacula-fd.conf
 usr/local/etc/bconsole.conf
 
 # Old ssh lib
-usr/lib/libssh.so.5
+usr/lib/libssh.so.5etc/inc/XML

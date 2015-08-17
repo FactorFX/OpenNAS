@@ -2,15 +2,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: NAS4Free\n"
 "Report-Msgid-Bugs-To: zoon01 <zoon01@nas4free.org>\n"
-"POT-Creation-Date: 2015-01-17 20:39+0000\n"
-"PO-Revision-Date: 2015-01-17 16:34+0000\n"
+"POT-Creation-Date: 2015-07-16 03:45+0000\n"
+"PO-Revision-Date: 2015-08-01 12:44+0000\n"
 "Last-Translator: zoon01 <Unknown>\n"
 "Language-Team: NAS4Free\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Launchpad-Export-Date: 2015-01-17 20:28+0000\n"
-"X-Generator: Launchpad (build 17304)\n"
+"X-Launchpad-Export-Date: 2015-08-13 21:12+0000\n"
+"X-Generator: Launchpad (build 17686)\n"
 "X-Poedit-Country: Netherlands\n"
 "Language: \n"
 "X-Poedit-Language: Dutch\n"
@@ -90,6 +90,64 @@ msgstr "%sB beschikbaar van %sB"
 msgid "%sB used of %sB"
 msgstr "%sB gebruikt van %sB"
 
+msgid "(Found in a Maxtor 6B200M0 200GB and Maxtor 2R015H1 15GB disks)."
+msgstr ""
+"(Gevonden in een Maxtor 6B200M0 200 GB en Maxtor 2R015H1 15GB schijven)."
+
+msgid ""
+"(Kingston)Counts the number of flash erase failures. This Attribute returns "
+"the total number of Flash erase operation failures since the drive was "
+"deployed. This Attribute is identical to Attribute 182."
+msgstr ""
+"(Kingston) Telt het aantal mislukte flash wis pogingen. Dit attribuut geeft "
+"het totale aantal Flash wis fouten weer sinds de schijf werd ingezet. Dit "
+"attribuut is identiek aan attribuut 182."
+
+msgid ""
+"(Kingston)Counts the number of flash program failures. This Attribute "
+"returns the total number of Flash program operation failures since the drive "
+"was deployed. This attribute is identical to attribute 181."
+msgstr ""
+"(Kingston) Telt het aantal mislukte flash schrijf fouten. Dit attribuut "
+"geeft als resultaat het totaal aantal flash schrijf fouten weer sinds het "
+"station werd ingezet. Dit attribuut is identiek aan attribuut 181."
+
+msgid ""
+"(Vendor specific raw value.) Rate of seek errors of the magnetic heads. If "
+"there is a partial failure in the mechanical positioning system, then seek "
+"errors will arise. Such a failure may be due to numerous factors, such as "
+"damage to a servo, or thermal widening of the hard disk. The raw value has "
+"different structure for different vendors and is often not meaningful as a "
+"decimal number."
+msgstr ""
+"(Leverancier specifieke ruwe waarde.) Aantal zoek fouten van de "
+"magneetkoppen. Als er een gedeeltelijke fout in het mechanische "
+"positionering system is, dan zullen zoek fouten ontstaan. Een dergelijk "
+"gebrek kan worden veroorzaakt door talrijke factoren, zoals schade aan een "
+"servo, of thermische verbreding van de harde schijf. De ruwe waarde heeft "
+"een verschillende structuur voor verschillende leveranciers en is vaak van "
+"weinig betekenis als decimaal getal."
+
+msgid ""
+"(Vendor specific raw value.) Stores data related to the rate of hardware "
+"read errors that occurred when reading data from a disk surface. The raw "
+"value has different structure for different vendors and is often not "
+"meaningful as a decimal number."
+msgstr ""
+"(Leverancier specifieke ruwe waarde.) Slaat data op met betrekking tot het "
+"aantal hardware gelezen fouten die zijn opgetreden tijdens het lezen van "
+"data van een schijfoppervlakte. De ruwe waarde heeft een verschillende "
+"structuur voor verschillende leveranciers en is vaak van weinig betekenis "
+"als decimaal getal."
+
+msgid ""
+"(Vendor-specific raw value.) The raw value has different structure for "
+"different vendors and is often not meaningful as a decimal number."
+msgstr ""
+"(Leverancier specifieke ruwe waarde.) De ruwe waarde heeft een verschillende "
+"structuur voor verschillende leveranciers en is vaak van weinig betekenis "
+"als decimaal getal."
+
 msgid "*** Imported duplicate ***"
 msgstr "*** Geïmporteerde duplicaat ***"
 
@@ -105,6 +163,9 @@ msgstr ""
 "1. Gebruik deze speciale opdrachten alléén voor fout opsporing!<br />2. Het "
 "is niet nodig om dit menu te gebruiken om een RAID volume te starten. (start "
 "automatisch)."
+
+msgid "4KB wrapper"
+msgstr "4KB wrapper"
 
 msgid "802.1Q VLAN tag (between 1 and 4094)."
 msgstr "802.1Q VLAN markering (tussen 1 en 4094)."
@@ -226,6 +287,18 @@ msgstr ""
 msgid "A route to this destination network already exists."
 msgstr "Een route naar dit bestemmingsnetwerk bestaat reeds."
 
+msgid ""
+"A tally of spindle start/stop cycles. The spindle turns on, and hence the "
+"count is increased, both when the hard disk is turned on after having before "
+"been turned entirely off (disconnected from power source) and when the hard "
+"disk returns from having previously been put to sleep mode."
+msgstr ""
+"Een telling van spindel start/stop cyclussen. De spindel wordt ingeschakeld, "
+"en wanneer de telling is verhoogd, beide wanneer de harde schijf is "
+"ingeschakeld en daarvoor eerst volledig uitgeschakeld was (losgekoppeld van "
+"voedingsbron) en wanneer de harde schijf terug keert nadat deze hiervoor in "
+"slaap mode was gebracht."
+
 msgid "A valid IP address must be specified."
 msgstr "Een geldig IP-adres moet worden gespecificeerd."
 
@@ -280,6 +353,12 @@ msgstr "Een geldig voorvoegsel (1-128) moet worden gespecificeerd."
 msgid "A valid systctl MIB value."
 msgstr "Een geldige systctl MIB waarde."
 
+msgid "ACL inherit"
+msgstr "ACL overnemen"
+
+msgid "ACL mode"
+msgstr "ACL modus"
+
 msgid "AD authentication disabled"
 msgstr "AD verificatie is uitgeschakeld"
 
@@ -292,6 +371,9 @@ msgstr "AFP"
 msgid "AG"
 msgstr "AG"
 
+msgid "AIO module"
+msgstr "AIO module"
+
 msgid "AIO read size"
 msgstr "AIO lees grootte"
 
@@ -301,11 +383,17 @@ msgstr "AIO schrijf grootte"
 msgid "ALL interfaces"
 msgstr "Alle netwerken"
 
+msgid "AP mode"
+msgstr "AP modus"
+
 msgid "ARP Tables"
 msgstr "ARP Tabel"
 
 msgid "ARP tables"
 msgstr "ARP tabel"
+
+msgid "ATTRIBUTE NAME"
+msgstr "ATTRIBUUT NAAM"
 
 msgid "Access"
 msgstr "Toegang"
@@ -329,7 +417,7 @@ msgid "Activate"
 msgstr "Activeren"
 
 msgid "Activate S.M.A.R.T. monitoring for this device."
-msgstr "Activeer S.M.A.R.T. controle voor deze harde schijf."
+msgstr "Activeer S.M.A.R.T. controle voor deze schijf."
 
 msgid ""
 "Activate email report if you want to be notified if a failure or a new error "
@@ -343,7 +431,7 @@ msgid "Active Directory"
 msgstr "Active Directory"
 
 msgid "Active Directory List"
-msgstr "Actieve Folderlijst"
+msgstr "Active Directory Lijst"
 
 msgid "Active Shares"
 msgstr "Actief Gedeeld"
@@ -373,7 +461,7 @@ msgid "Add URL"
 msgstr "URL Toevoegen"
 
 msgid "Add additional scheduled self-test."
-msgstr "Een extra geplande zelf-test toevoegen."
+msgstr "Een geplande zelf-test toevoegen."
 
 msgid "Add auth group"
 msgstr "Auth groep toevoegen"
@@ -464,6 +552,9 @@ msgid "Address of the remote hastd daemon. It must be a static IP address."
 msgstr ""
 "Adres van de remote hastd daemon. Het moet een statisch IP-adres zijn."
 
+msgid "Admin password"
+msgstr "Admin wachtwoord"
+
 msgid "Administration password"
 msgstr "Administrator wachtwoord"
 
@@ -527,11 +618,25 @@ msgstr "Protocol samenvoeging"
 msgid "Aggressive"
 msgstr "Agressief"
 
+msgid ""
+"Airflow temperature on Western Digital HDs (Same as temp. , but current "
+"value is 50 less for some models. Marked as obsolete.)"
+msgstr ""
+"Luchtstroom temperatuur op Western Digital HDs (zelfde als temp. ,maar de "
+"huidige waarde is 50 minder voor sommige modellen. Gemarkeerd als verouderd.)"
+
 msgid "Albanian"
 msgstr "Albanees"
 
 msgid "All"
 msgstr "Alle"
+
+msgid ""
+"All data in the path is overwritten. To avoid invalid data/permission, using "
+"empty UFS directory is recommended."
+msgstr ""
+"Alle data in het pad wordt overschreven. Om ongeldige bestands/permissies te "
+"vermijden, gebruik van een lege UFS folder is ten sterkste aanbevolen."
 
 msgid "All dirs"
 msgstr "Alle mappen"
@@ -560,8 +665,8 @@ msgstr "Alle gebruikers zullen root bevoegdheden hebben."
 msgid "Allow"
 msgstr "Toestaan"
 
-msgid "Allow TLS/SSL connections only."
-msgstr "Alleen TLS/SSL verbindingen toestaan."
+msgid "Allow TLS connections only."
+msgstr "Alleen TLS verbindingen toestaan."
 
 msgid "Allow client access to accounts that have null passwords."
 msgstr "Sta werkstations toe tot accounts met een leeg wachtwoord."
@@ -606,6 +711,20 @@ msgstr ""
 msgid "Allows the server to try and become a local master browser."
 msgstr "Sta toe dat de server de lokale hoofd browser wordt."
 
+msgid ""
+"Also known as 'Power-off Retract Count' per conventional HDD terminology. "
+"Raw value reports the number of unclean shutdowns, cumulative over the life "
+"of an SSD, where an 'unclean shutdown' is the removal of power without "
+"STANDBY IMMEDIATE as the last command (regardless of PLI activity using "
+"capacitor power). Normalized value is always 100."
+msgstr ""
+"Ook bekend als 'Power-off Retract Count' per conventionele HDD terminologie. "
+"Ruwe waarde rapporteert het aantal niet schone afsluitingen, cumulatieve "
+"gedurende de looptijd van een SSD, waar een 'niet schone afsluiting' is de "
+"verwijdering van de stroom zonder onmiddellijke Stand-by als de laatste "
+"opdracht (ongeacht PLI activiteit met behulp van stroom  uit een "
+"condensator). Genormaliseerde waarde is altijd 100."
+
 msgid "AltRoot"
 msgstr "AltRoot"
 
@@ -632,6 +751,16 @@ msgstr "Relatieve luchtvochtigheid (procent)"
 
 msgid "Ambient temperature (degrees C)"
 msgstr "Omgevingstemperatuur (graden C)"
+
+msgid "Amount of surge current used to spin up the drive."
+msgstr "Hoeveelheid stroom gebruikt voor het op spinnen van de schijf."
+
+msgid ""
+"Amplitude of 'thrashing' (distance of repetitive forward/reverse head "
+"motion)."
+msgstr ""
+"Amplitude van 'thrashing' (afstand van herhaalde vooruit/achteruitspoelen "
+"kop motie)."
 
 msgid "An host with this name already exists."
 msgstr "Een host met deze naam bestaat reeds."
@@ -662,6 +791,9 @@ msgstr "Alleen anonieme gebruikers"
 
 msgid "Any"
 msgstr "Alle"
+
+msgid "Append user defined shares"
+msgstr "Toevoegen van gebruiker gedefinieerde mappen"
 
 msgid "Apple Filing Protocol"
 msgstr "Apple Filing Protocol"
@@ -752,6 +884,18 @@ msgstr "Aanvullende parameters"
 msgid "Available"
 msgstr "Beschikbaar"
 
+msgid ""
+"Average performance of seek operations of the magnetic heads. If this "
+"attribute is decreasing, it is a sign of problems in the mechanical "
+"subsystem."
+msgstr ""
+"Gemiddelde zoek prestaties van de magneetkoppen. Als dit attribuut aan het "
+"afnemen is, dan is dit het teken van problemen in het mechanische subsysteem."
+
+msgid "Average time of spindle spin up (from zero RPM to fully operational)."
+msgstr ""
+"Gemiddelde tijd van spindle spin up (van nul TPM tot volledig operationeel)."
+
 msgid "Backup configuration"
 msgstr "Backup Configuratie"
 
@@ -788,7 +932,7 @@ msgstr ""
 "De Basisnaam zal automatisch worden toegevoegt bij het starten zonder 'iqn.'."
 
 msgid "Battery Details"
-msgstr "Batterij Details"
+msgstr "Batterij Informatie"
 
 msgid "Battery Level"
 msgstr "Batterijniveau"
@@ -799,8 +943,8 @@ msgstr "Batterij Leeg"
 msgid ""
 "Battery Remaining level when UPS switches to Shutdown mode (Low Battery)"
 msgstr ""
-"Resterend Batterijniveau wanneer UPS schakelt naar Afsluit mode (Laag "
-"Batterij Niveau)"
+"Batterijniveau waarop UPS overschakelt naar Afsluit mode (Laag Batterij "
+"Niveau)"
 
 msgid "Battery alarm threshold"
 msgstr "Batterij alarmdrempel"
@@ -809,10 +953,10 @@ msgid "Battery capacity"
 msgstr "Batterij capaciteit"
 
 msgid "Battery change date"
-msgstr "Batterij vervang datum"
+msgstr "Batterij vervangingsdatum"
 
 msgid "Battery chemistry"
-msgstr "Batterij chemie"
+msgstr "Batterij chemische samenstelling"
 
 msgid "Battery current"
 msgstr "Huidige Batterij"
@@ -821,13 +965,13 @@ msgid "Battery level"
 msgstr "Batterijniveau"
 
 msgid "Battery level when UPS switches to \"Warning\" state"
-msgstr "Batterijniveau wanneer UPS schakelt naar de \"Waarschuwing\" staat"
+msgstr "Batterijniveau waarop UPS overschakelt naar \"Waarschuwing\" staat"
 
 msgid "Battery manufacturing date"
-msgstr "Batterij productie datum"
+msgstr "Batterij productiedatum"
 
 msgid "Battery temperature"
-msgstr "Battery temperature"
+msgstr "Batterij temperatuur"
 
 msgid "Battery voltage"
 msgstr "Batterij  voltage"
@@ -848,7 +992,7 @@ msgid "Blank time"
 msgstr "Wachttijd Schermbeveiliging"
 
 msgid "Blocksize"
-msgstr "Blocksize"
+msgstr "Blokgrootte"
 
 #, php-format
 msgid ""
@@ -906,6 +1050,9 @@ msgstr "CIFS/SMB uitgeschakeld"
 msgid "CIFS/SMB informations"
 msgstr "CIFS/SMB informatie"
 
+msgid "CIFS/SMB is enabled."
+msgstr "CIFS/SMB is ingeschakeld."
+
 msgid "CP1251 (Cyrillic)"
 msgstr "CP1251 (Cyrillisch)"
 
@@ -961,7 +1108,7 @@ msgid "Can't format the OS origin disk!"
 msgstr "Kan de schijf waarop van oorsprong het OS staat niet formatteren!"
 
 msgid "Can't get UFS ID."
-msgstr "Can geen UFS ID verkrijgen"
+msgstr "Kan de UFS ID niet verkrijgen."
 
 msgid "Can't mount the system partition 1, the DATA partition is the 2."
 msgstr ""
@@ -978,6 +1125,9 @@ msgstr "Kan geen CPU-belasting ophalen"
 
 msgid "Cannot get data about interface"
 msgstr "Kan geen data krijgen van de netwerkkaart"
+
+msgid "Cannot use DHCP for LAN interface."
+msgstr "Kan DHCP niet gebruiken voor de LAN-interface."
 
 msgid "Capacity"
 msgstr "Capaciteit"
@@ -1014,6 +1164,14 @@ msgstr "Kanaal"
 
 msgid "Charging Battery"
 msgstr "Opladen Batterij"
+
+#, php-format
+msgid "Check <a href=\"%s\">System|General Setup</a> before initializing."
+msgstr ""
+"Controleer <a href=\"%s\">System|General Setup</a> alvorens te initialiseren."
+
+msgid "Check and replace cable"
+msgstr "Controleer en vervang de kabel"
 
 msgid "Check interval"
 msgstr "Controle interval"
@@ -1107,6 +1265,9 @@ msgstr "Algemeen Internet Bestands Systeem"
 msgid "Community"
 msgstr "Gemeenschap"
 
+msgid "Compilations directories"
+msgstr "Compilaties mappen"
+
 msgid "Compliant profile to be used."
 msgstr "Selecteer het compatibele profiel om te gebruiken."
 
@@ -1144,7 +1305,10 @@ msgstr "Bevestiging"
 msgid "Connected FTP users"
 msgstr "Verbonden FTP gebruikers"
 
-msgid "Console menu"
+msgid "Consider replacing this drive"
+msgstr "Overweeg vervanging van deze schijf"
+
+msgid "Console Menu"
 msgstr "Console Menu"
 
 msgid "Console screensaver"
@@ -1182,7 +1346,7 @@ msgid "Controller TCP Port"
 msgstr "TCP-poort Controller"
 
 msgid "Controller model"
-msgstr "Model controller"
+msgstr "Controller model"
 
 msgid "Controls power consumption."
 msgstr "Instelling van het energieverbruik."
@@ -1253,6 +1417,162 @@ msgstr "Controleert of deze dataset kan worden gewijzigd."
 msgid "Count"
 msgstr "Aantal"
 
+msgid "Count of 'Free Fall Events' detected."
+msgstr "Aantal 'Vrije Val Gebeurtenissen' gedetecteerd."
+
+msgid ""
+"Count of 'unstable' sectors (waiting to be remapped, because of "
+"unrecoverable read errors). If an unstable sector is subsequently read "
+"successfully, the sector is remapped and this value is decreased. Read "
+"errors on a sector will not remap the sector immediately (since the correct "
+"value cannot be read and so the value to remap is not known, and also it "
+"might become readable later); instead, the drive firmware remembers that the "
+"sector needs to be remapped, and will remap it the next time it's written. "
+"However some drives will not immediately remap such sectors when written; "
+"instead the drive will first attempt to write to the problem sector and if "
+"the write operation is successful then the sector will be marked good (in "
+"this case, the 'Reallocation Event Count' (0xC4) will not be increased). "
+"This is a serious shortcoming, for if such a drive contains marginal sectors "
+"that consistently fail only after some time has passed following a "
+"successful write operation, then the drive will never remap these problem "
+"sectors."
+msgstr ""
+"Telling van 'onstabiele' sectoren (wachtend om te remapped, vanwege "
+"onherstelbare leesfouten). Als een onstabiele sector vervolgens met succes "
+"gelezen wordt, is de sector remapped en wordt deze waarde verlaagd. Lees "
+"fouten op een sector zal niet onmiddellijk de sector remappen (want de "
+"juiste waarde kan niet worden gelezen en zo is de waarde om te remappen niet "
+"bekend, en ook kan het misschien later leesbaar worden); in plaats daarvan, "
+"de firmware van de drive onthoudt dat de sector remapped moet worden, en zal "
+"het de volgende keer remappen wanneer het wordt geschreven. Echter sommige "
+"schijven zullen niet onmiddellijk beginnen met een remap van dergelijke "
+"sectoren wanneer geschreven; in plaats daarvan zal de schijf eerst proberen "
+"te schrijven naar de probleem sector en als de schrijfbewerking succesvol is "
+"wordt de sector gemarkeerd als goed (in dit geval, de 'Reallocation Event "
+"Count' (0xC4) wordt niet verhoogd). Dit is een ernstige tekortkoming, voor "
+"als een dergelijke schijf marginale sectoren bevat die systematisch falen "
+"maar alleen na enige verstreken tijd gevold door een succesvolle "
+"schrijfbewerking, dan zal de schijf nooit remappen van deze probleem "
+"sectoren."
+
+msgid "Count of Data Address Mark errors (or vendor-specific)."
+msgstr "Aantal Data adres Mark fouten (of leverancier-specifiek)."
+
+msgid "Count of attempts to compensate for platter speed variations."
+msgstr "Aantal pogingen om platter snelheid variaties te compenseren."
+
+msgid ""
+"Count of buzz routines needed to spin up the drive due to insufficient power."
+msgstr ""
+"Telling van buzz routines die nodig zijn voor spin up de schijf als gevolg "
+"van onvoldoende kracht."
+
+msgid "Count of errors corrected by software ECC."
+msgstr "Aantal fouten gecorrigeerd door software ECC."
+
+msgid "Count of errors due to high temperature."
+msgstr "Aantal fouten door te hoge temperaturen."
+
+msgid "Count of errors while reading from a disk."
+msgstr "Aantal fouten tijdens het lezen van de schijf."
+
+msgid ""
+"Count of hours in power-on state. The raw value of this attribute shows "
+"total count of hours (or minutes, or seconds, depending on manufacturer) in "
+"power-on state."
+msgstr ""
+"Aantal uren in power-on staat. De ruwe waarde van dit attribuut toont het "
+"totaal aantal uur (of minuten, of seconden, afhankelijk van fabrikant) in "
+"power-on staat."
+
+msgid "Count of load/unload cycles into head landing zone position."
+msgstr "Aantal laad/ontlaad cycli in head landing zone positie."
+
+msgid "Count of off-track errors."
+msgstr "Aantal van off-track fouten."
+
+msgid ""
+"Count of reallocated sectors. When the hard drive finds a "
+"read/write/verification error, it marks that sector as 'reallocated' and "
+"transfers data to a special reserved area (spare area). This process is also "
+"known as remapping, and reallocated sectors are called 'remaps'. The raw "
+"value normally represents a count of the bad sectors that have been found "
+"and remapped. Thus, the higher the attribute value, the more sectors the "
+"drive has had to reallocate. This allows a drive with bad sectors to "
+"continue operation; however, a drive which has had any reallocations at all "
+"is significantly more likely to fail in the near future. While primarily "
+"used as a metric of the life expectancy of the drive, this number also "
+"affects performance. As the count of reallocated sectors increases, the "
+"read/write speed tends to become worse because the drive head is forced to "
+"seek to the reserved area whenever a remap is accessed. If sequential access "
+"speed is critical, the remapped sectors can be manually marked as bad blocks "
+"in the file system in order to prevent their use."
+msgstr ""
+"Telling van opnieuw toegewezen sectoren. Wanneer de harde schijf een "
+"lees/schrijf/verificatie fout vindt, markeert het die sector als ' opnieuw "
+"toegewezen' en transporteert de  data naar een speciaal gereserveerd gebied "
+"(reserve gebied). Dit proces staat ook bekend als remapping en opnieuw "
+"toegewezen sectoren worden 'remaps' genoemd. De ruwe waarde vertegenwoordigt "
+"normaal een telling van de slechte sectoren die zijn gevonden en remapped. "
+"Dus, hoe hoger de attribuut waarde, des te meer sectoren het station heeft "
+"gehad om opnieuw toe te wijzen. Hierdoor kan een schijf met beschadigde "
+"sectoren blijven functioneren; maar een schijf met opnieuw toegewezen "
+"sectoren zal waarschijnlijk echter aanzienlijk meer fouten gaan geven in de "
+"nabije toekomst. Hoewel voornamelijk gebruikt als een metric voor de "
+"levensverwachting van de schijf, heeft dit nummer ook invloed op de "
+"prestaties. Indien het aantal opnieuw toegewezen sectoren toeneemt, heeft de "
+"lees/schrijf snelheid de neiging om slechter te worden omdat de schijf kop "
+"gedwongen is te zoeken naar het gereserveerde gebied als een remap is "
+"benaderd. Als de sequentiële toegangssnelheid van cruciaal belang is, kunnen "
+"de remapped sectoren handmatig gemarkeerd worden als slechte blokken in het "
+"bestandssysteem, dit om gebruik ervan te voorkomen."
+
+msgid ""
+"Count of remap operations. The raw value of this attribute shows the total "
+"count of attempts to transfer data from reallocated sectors to a spare area. "
+"Both successful & unsuccessful attempts are counted."
+msgstr ""
+"Telling van remap operaties. De ruwe waarde van dit attribuut geeft het "
+"totale aantal data overdracht pogingen weer van de opnieuw toegewezen "
+"sectoren aan het extra reserve gebied. Zowel succesvolle & mislukte pogingen "
+"worden geteld."
+
+msgid ""
+"Count of retry of spin start attempts. This attribute stores a total count "
+"of the spin start attempts to reach the fully operational speed (under the "
+"condition that the first attempt was unsuccessful). An increase of this "
+"attribute value is a sign of problems in the hard disk mechanical subsystem."
+msgstr ""
+"Aantal opnieuw proberen van spin start pogingen. Dit attribuut bevat een "
+"totale telling van de spin start pogingen om volledig operationele snelheid "
+"te bereiken(onder de voorwaarde dat de eerste poging mislukt is). Een "
+"verhoging van dit attribuut is een teken van problemen in het mechanische "
+"subsysteem van de harde schijf."
+
+msgid "Count of times head changes position."
+msgstr "Aantal keren de head van positie wijzigt."
+
+msgid ""
+"Count of times the heads are loaded off the media. Heads can be unloaded "
+"without actually powering off."
+msgstr ""
+"Aantal keren dat de koppen van de media weg zijn gehaald. De koppen kunnen "
+"in rust worden gezet zonder daadwerkelijk de stroom uit te schakelen."
+
+msgid "Count of times the link is reset during a data transfer."
+msgstr ""
+"Aantal keren dat de verbinding opnieuw wordt ingesteld tijdens een "
+"gegevensoverdracht."
+
+msgid "Counts the maximum worst erase count on any block."
+msgstr "Telt het maximum slechtste wis telling op een blok."
+
+msgid "Create 4KB wrapper (nop device)."
+msgstr "Creëer 4KB wrapper (nop device)."
+
+msgid "Create ZFS on GPT partition"
+msgstr "Creëer ZFS op GPT-partitie"
+
 msgid "Create and initialize RAID."
 msgstr "Creëer en initialiseer de RAID."
 
@@ -1299,21 +1619,13 @@ msgid "Cron job"
 msgstr "Cron taak"
 
 msgid "Current"
-msgstr "Huidig"
+msgstr "Huidige"
 
 msgid "Current Version:"
 msgstr "Huidige Versie:"
 
-msgid "Current administrator password is used for decryption."
-msgstr "Het huidige beheerderswachtwoord wordt gebruikt voor decryptie."
-
-#, php-format
-msgid ""
-"Current administrator password is used for encryption.<br />Encrypted "
-"configuration is automatically gzipped."
-msgstr ""
-"Het huidige beheerderswachtwoord wordt gebruikt voor de versleuteling.<br "
-"/>De versleutelde configuratie wordt automatisch gzipped."
+msgid "Current internal temperature."
+msgstr "Huidige interne temperatuur."
 
 msgid "Current password"
 msgstr "Huidig wachtwoord"
@@ -1324,6 +1636,9 @@ msgstr ""
 "Het huidige wachtwoord is het standaard wachtwoord. U dient uw eigen "
 "wachtwoord te gebruiken."
 
+msgid "Current state of drive operation based upon the Life Curve."
+msgstr "Huidige staat werking van de schijf op basis van de Levens Curve."
+
 msgid "Current value of apparent power (Volt-Amps)"
 msgstr "Huidige waarde van schijnbaar vermogen (Volt-Amps)"
 
@@ -1332,6 +1647,9 @@ msgstr "Huidige waarde van het reële vermogen (watt)"
 
 msgid "Custom"
 msgstr "Aangepast"
+
+msgid "Custom device"
+msgstr "Custom schijf"
 
 msgid "Custom script"
 msgstr "Aangepast script"
@@ -1348,14 +1666,29 @@ msgstr "Tsjechisch"
 msgid "DAAP"
 msgstr "DAAP"
 
+msgid "DESCRIPTION"
+msgstr "BESCHRIJVING"
+
 msgid "DHCP"
 msgstr "DHCP"
+
+msgid "DHCP cannot be used for LAN interface."
+msgstr "DHCP kan niet worden gebruikt voor de LAN-interface."
 
 msgid "DLNA/UPnP"
 msgstr "DLNA/UPnP"
 
 msgid "DLNA/UPnP Media Server"
 msgstr "DLNA/UPnP Media Server"
+
+msgid "DNS domain"
+msgstr "DNS domein"
+
+msgid "DNS forwarder"
+msgstr "DNS forwarder"
+
+msgid "DNS server is empty."
+msgstr "DNS server is leeg."
 
 msgid "DNS settings"
 msgstr "DNS instellingen"
@@ -1413,6 +1746,16 @@ msgstr "Dagen"
 
 msgid "Debug"
 msgstr "Debug"
+
+msgid ""
+"Decoded as: byte 0-1-2 = average erase count (big endian) and byte 3-4-5 = "
+"max erase count (big endian)."
+msgstr ""
+"Gedecodeerd als: byte 0-1-2 = gemiddelde wis telling (big endian) en byte 3-"
+"4-5 = max wis telling (big endian)."
+
+msgid "Decrypt password"
+msgstr "Ontsleutel wachtwoord"
 
 msgid "Dedup"
 msgstr "Dubbeling"
@@ -1578,6 +1921,14 @@ msgstr "Verwijderen van de GEOM metadata"
 msgid "Deleting MBR and partition table"
 msgstr "Verwijderen van de MBR en partitie tabel"
 
+msgid ""
+"Delta between most-worn and least-worn Flash blocks. It describes how "
+"good/bad the wearleveling of the SSD works on a more technical way."
+msgstr ""
+"Delta tussen de meeste-gedragen en minst-gedragen Flash blokken. Het "
+"beschrijft hoe goed/slecht de wear leveling van de SSD werkt op een meer "
+"technische manier."
+
 msgid "Deny"
 msgstr "Weigeren"
 
@@ -1612,7 +1963,7 @@ msgid "Detected"
 msgstr "Gedetecteerd"
 
 msgid "Detected Language:<br />(Change if needed)"
-msgstr "Gedetecteerde taal:<br />(Veranderen als dat nodig is)"
+msgstr "Gedetecteerde taal:<br />(verander indien nodig)"
 
 msgid "Detected RSYNC remote shares"
 msgstr "Gedetecteerde RSYNC remote mappen"
@@ -1630,6 +1981,9 @@ msgstr ""
 msgid "Device"
 msgstr "Schijf"
 
+msgid "Device / Label"
+msgstr "Schijf / Label"
+
 #, php-format
 msgid "Device /dev/%s - %s"
 msgstr "Schijf /dev/%s - %s"
@@ -1644,7 +1998,7 @@ msgid "Device Serial"
 msgstr "Serienummer"
 
 msgid "Device model"
-msgstr "Apparaat model"
+msgstr "Modelnaam"
 
 msgid "Device polling"
 msgstr "Netwerk-polling"
@@ -1665,7 +2019,7 @@ msgstr ""
 
 #, php-format
 msgid "Device: %s | Total: %s | Used: %s | Free: %s"
-msgstr "Apparaat: %s | Totaal: %s | Gebruikt: %s | Vrij: %s"
+msgstr "Schijf: %s | Totaal: %s | Gebruikt: %s | Vrij: %s"
 
 msgid "Devices"
 msgstr "Schijven"
@@ -1750,6 +2104,13 @@ msgstr "Disks (ATA) informatie"
 
 msgid "Display"
 msgstr "Weergave"
+
+msgid ""
+"Distance the disk has shifted relative to the spindle (usually due to shock "
+"or temperature). Unit of measure is unknown."
+msgstr ""
+"Afstand de schijf is verschoven ten opzichte van de spindel (meestal te "
+"wijten aan schokken of temperatuur). Eenheid van meten is onbekend."
 
 msgid "Distributed hash table"
 msgstr "Distributed hash table"
@@ -1917,6 +2278,9 @@ msgstr "Domein"
 msgid "Domain controller name"
 msgstr "Naam domeinbeheerder"
 
+msgid "Domain have no 2nd level name."
+msgstr "Domein heeft geen 2e level naam."
+
 msgid "Domain name"
 msgstr "Domeinnaam"
 
@@ -1971,6 +2335,12 @@ msgid "Download firewall rules."
 msgstr ""
 "Exporteer de huidige firewall configuratie om als backup elders te bewaren."
 
+msgid "Drive Temperature."
+msgstr "Schijf temperatuur."
+
+msgid "Drive's seek performance during its internal tests."
+msgstr "Schijf zoek prestaties tijdens zijn interne testen."
+
 msgid "Driver"
 msgstr "Stuurprogramma"
 
@@ -1981,7 +2351,7 @@ msgid "Driver parameters"
 msgstr "Stuurprogramma parameters"
 
 msgid "Driver used"
-msgstr "Gebruikt stuurprogramma"
+msgstr "Huidig stuurprogramma"
 
 msgid "Driver version"
 msgstr "Versie stuurprogramma"
@@ -2010,6 +2380,9 @@ msgstr "EA support"
 
 msgid "EFI/GPT partition can be use with UFS only."
 msgstr "EFI/GPT partitie kan alleen gebruikt worden met UFS."
+
+msgid "ERROR:"
+msgstr "FOUT:"
 
 msgid "Edit"
 msgstr "Bewerken"
@@ -2130,6 +2503,9 @@ msgstr "Standaard leeg."
 msgid "Enable"
 msgstr "Inschakelen"
 
+msgid "Enable ACL inheritance"
+msgstr "ACL overnemen inschakelen"
+
 msgid "Enable Advanced Format (4KB sector)"
 msgstr "Inschakelen Geavanceerd Formateren (4KB sectoren)"
 
@@ -2138,6 +2514,9 @@ msgstr "Inschakelen Asynchronous I/O (AIO)"
 
 msgid "Enable FXP protocol."
 msgstr "Inschakelen FXP protocol."
+
+msgid "Enable NFSv4 server."
+msgstr "Inschakelen NFSv4 server."
 
 msgid "Enable NTP"
 msgstr "Inschakelen NTP"
@@ -2152,8 +2531,8 @@ msgstr ""
 "Inschakelen STARTTLS encryptie. Dit betekent niet dat u TLS moet gebruikt, u "
 "kunt ook SSL gebruiken."
 
-msgid "Enable TLS/SSL connections."
-msgstr "Inschakelen TLS/SSL verbindingen."
+msgid "Enable TLS connections."
+msgstr "Inschakelen TLS verbindingen."
 
 msgid "Enable Time Machine support"
 msgstr "Inschakelen Time Machine ondersteuning"
@@ -2295,8 +2674,17 @@ msgstr "Inschakelen schrijf cache mode."
 msgid "Enabled"
 msgstr "Ingeschakeld"
 
+msgid "Encrypt password"
+msgstr "Wachtwoord versleutelen"
+
+msgid "Encrypt password (confirmed)"
+msgstr "Wachtwoord versleutelen (Bevestiging)"
+
 msgid "Encrypted"
 msgstr "Versleuteld"
+
+msgid "Encrypted configuration is automatically gzipped."
+msgstr "Versleutelde configuratie wordt automatisch gzipped."
 
 #, php-format
 msgid "Encrypting '%s'... Please wait"
@@ -2486,6 +2874,10 @@ msgstr "Mislukt om het in-geheugen bestandsysteem te maken."
 msgid "Failed to execute cron job."
 msgstr "Mislukt om de cron taak uit te voeren."
 
+#, php-format
+msgid "Failed to remove: %s"
+msgstr "Mislukt te verwijderen: %s"
+
 #, c-format
 msgid "Failed to send status report to: %s."
 msgstr "Mislukt om het statusrapport te verzenden naar: %s."
@@ -2563,6 +2955,9 @@ msgstr "Bestand upload gestopt door uitbreidingen."
 msgid "Filename"
 msgstr "bestandsnaam"
 
+msgid "Fileserver"
+msgstr "Bestandsserver"
+
 msgid "Filter"
 msgstr "Filter"
 
@@ -2622,7 +3017,7 @@ msgid "Format disk"
 msgstr "Formatteer harde schijf"
 
 msgid "Format the report for phpBB forum."
-msgstr "Rapportage indelen voor plaatsing op het phpBB forum."
+msgstr "Rapportage indelen voor plaatsing op het NAS4Free forum."
 
 msgid "Forum"
 msgstr "Forum"
@@ -2672,6 +3067,9 @@ msgstr "Algemene instellingen"
 msgid "Generate"
 msgstr "Aanmaken"
 
+msgid "Generate password if leave empty."
+msgstr "Genereer wachtwoord indien leeg gelaten."
+
 msgid "German"
 msgstr "Duits"
 
@@ -2709,6 +3107,9 @@ msgstr "Groep"
 
 msgid "Group ID"
 msgstr "Groep-ID"
+
+msgid "Group compilations"
+msgstr "Groep compilaties"
 
 msgid "Group description."
 msgstr "Groepsbeschrijving."
@@ -2752,6 +3153,24 @@ msgstr "HAST volume"
 msgid "HAST volume can be use with GPT/UFS only."
 msgstr "HAST volumes kunnen alleen worden gebruikt met GPT/UFS."
 
+msgid ""
+"HDD producers implement a Fly Height Monitor that attempts to provide "
+"additional protections for write operations by detecting when a recording "
+"head is flying outside its normal operating range. If an unsafe fly height "
+"condition is encountered, the write process is stopped, and the information "
+"is rewritten or reallocated to a safe region of the hard drive. This "
+"attribute indicates the count of these errors detected over the lifetime of "
+"the drive. This feature is implemented in most modern Seagate drives."
+msgstr ""
+"HDD producenten implementeren een Fly Height Monitor die probeert extra "
+"bescherming te bieden voor schrijf acties door te detecteren wanneer een "
+"opnamekop aan het vliegen is buiten zijn normale bereik. Als een onveilige "
+"vlieg hoogte conditie wordt aangetroffen, dan wordt het schrijven proces is "
+"gestaakt, en de informatie is herschreven of toegewezen aan een veilige "
+"regio van de harde schijf. Dit attribuut geeft de telling aan van deze "
+"fouten gedetecteerd gedurende de levensduur van de schijf. Deze functie is "
+"geïmplementeerd in de meeste moderne Seagate schijven."
+
 msgid "HTTP Proxy"
 msgstr "HTTP Proxy"
 
@@ -2770,6 +3189,15 @@ msgstr "Hoofd overzicht"
 msgid "Health"
 msgstr "Gezondheid"
 
+msgid ""
+"Height of heads above the disk surface. A flying height that's too low "
+"increases the chances of a head crash while a flying height that's too high "
+"increases the chances of a read/write error."
+msgstr ""
+"Hoogte van koppen boven de schijfoppervlakte. Een vliegende hoogte die te "
+"laag is verhoogt de kans op een kop crash terwijl een vliegende hoogte die "
+"te hoog is de kans op lees/schrijf fouten aanzienlijk verhoogt."
+
 msgid "Help"
 msgstr "Help"
 
@@ -2777,13 +3205,13 @@ msgid "Hide dot files"
 msgstr "Verberg punt bestanden"
 
 msgid "High voltage boosting transfer point"
-msgstr "Hoog voltage boosting overdrachtspunt"
+msgstr "Hoog voltage boosting overschakelpunt"
 
 msgid "High voltage transfer point"
-msgstr "Hoog voltage overdrachtspunt"
+msgstr "Hoog voltage overschakelpunt"
 
 msgid "High voltage trimming transfer point"
-msgstr "Hoog voltage trimming overdrachtspunt"
+msgstr "Hoog voltage trimming overschakelpunt"
 
 msgid "Highlighting"
 msgstr "Markeren"
@@ -2857,18 +3285,15 @@ msgstr "Hongaars"
 msgid "I/O Timeout"
 msgstr "In/Uit Onderbreking"
 
-msgid "I/O errors"
-msgstr "In/Uitgaande fouten"
-
-msgid "I/O packets"
-msgstr "In/Uitgaande pakketten"
-
 msgid "I/O statistics"
 msgstr "In/Uitgaande statistieken"
 
 #, php-format
 msgid "I/O timeout in seconds (%d by default)."
 msgstr "In/Uitgaande onderbreking in seconden (standaard %d)."
+
+msgid "ID"
+msgstr "ID"
 
 msgid "IG"
 msgstr "IG"
@@ -3063,6 +3488,12 @@ msgstr "In de meeste gevallen, wordt 'publiek' hier gebruikt."
 msgid "In slave mode it is the UPS name (Identifier) at the UPS master."
 msgstr "In slave mode is het de UPS naam (Identifier) op de UPS master."
 
+msgid "In/Out errors"
+msgstr "In/Uitgaande fouten"
+
+msgid "In/Out packets"
+msgstr "In/Uitgaande pakketten"
+
 msgid "Include basic hardware information."
 msgstr "Basis hardware informatie bijsluiten."
 
@@ -3071,6 +3502,13 @@ msgstr "Binnenkomende Netspanning/Stroom Informatie"
 
 msgid "Incomplete directory"
 msgstr "Incompleet map"
+
+msgid ""
+"Indicates the approximate SSD life left, in terms of program/erase cycles or "
+"Flash blocks currently available for use."
+msgstr ""
+"Geeft de overgebleven geschatte levensduur van de SSD weer, in termen van "
+"programmeer/wissen cycli of Flash blokken momenteel beschikbaar voor gebruik."
 
 msgid "Info"
 msgstr "Info"
@@ -3086,6 +3524,9 @@ msgstr "Informatie & Handleiding"
 
 msgid "Information & Manuals"
 msgstr "Informatie & Handleidingen"
+
+msgid "Inherit ACL"
+msgstr "Overnemen ACL"
 
 msgid "Inherit permissions"
 msgstr "Overerf permissies"
@@ -3104,6 +3545,9 @@ msgstr "Initialiseer en versleutel de schijf."
 
 msgid "Initializing"
 msgstr "Aan het initialiseren"
+
+msgid "Initializing..."
+msgstr "Initialiseren…"
 
 msgid "Initiator Group"
 msgstr "Initiator Groep"
@@ -3172,6 +3616,22 @@ msgstr "Installeren"
 msgid "Install package"
 msgstr "Pakket Installeren"
 
+msgid ""
+"Intel SSD reports a normalized value of 100 (when the SSD is new) and "
+"declines to a minimum value of 1. It decreases while the NAND erase cycles "
+"increase from 0 to the maximum-rated cycles."
+msgstr ""
+"Intel SSD rapporteert een genormaliseerde waarde van 100 (wanneer de SSD "
+"nieuw is) en daalt naar een minimumwaarde van 1. Het vermindert terwijl de "
+"NAND wis cycli verhoogt van 0 tot de maximale-gewaardeerde cycli."
+
+msgid ""
+"Intel SSD reports the number of available reserved space as a percentage of "
+"reserved space in a brand new SSD."
+msgstr ""
+"Intel SSD rapporteert het aantal beschikbare gereserveerde ruimte als een "
+"percentage van gereserveerde ruimte in een gloednieuwe SSD."
+
 msgid "Interface"
 msgstr "Netwerk"
 
@@ -3207,6 +3667,9 @@ msgstr "Interval te wachten voor het herstarten van de UPS)"
 
 msgid "Interval to wait before restarting the load"
 msgstr "Interval te wachten voor het opnieuw starten van de belasting"
+
+msgid "Invalid file format or incorrect password."
+msgstr "Ongeldig bestandsformaat of onjuist wachtwoord."
 
 msgid "Invalid file format."
 msgstr "Ongeldig bestandsformaat."
@@ -3254,6 +3717,9 @@ msgstr "Italiaans"
 
 msgid "JBOD"
 msgstr "JBOD"
+
+msgid "JBOD information and status"
+msgstr "JBOD status en informatie"
 
 msgid ""
 "January February March April May June July August September October November "
@@ -3325,6 +3791,28 @@ msgstr "Groot lezen/schrijven"
 
 msgid "Last config change"
 msgstr "Laatste configuratiewijziging"
+
+msgid ""
+"Last test result as microseconds to discharge cap, saturated at its maximum "
+"value. Also logs minutes since last test and lifetime number of tests. Raw "
+"value contains the following data: Bytes 0-1: Last test result as "
+"microseconds to discharge cap, saturates at max value. Test result expected "
+"in range 25 <= result <= 5000000, lower indicates specific error code. Bytes "
+"2-3: Minutes since last test, saturates at max value. Bytes 4-5: Lifetime "
+"number of tests, not incremented on power cycle, saturates at max value. "
+"Normalized value is set to one on test failure or 11 if the capacitor has "
+"been tested in an excessive temperature condition, otherwise 100."
+msgstr ""
+"Laatste test resultaat in microseconden voor ontlaad gat, verzadigd op zijn "
+"maximale waarde. Ook logt minuten na de laatste test en levensduur nummer "
+"van testen. Ruwe waarde bevat de volgende data: Bytes 0-1: laatste "
+"testresultaat in microseconden voor ontlaad gat, verzadigd tegen max waarde. "
+"Testresultaten verwacht in bereik 25 <= resultaat <= 5000000, lager geeft "
+"specifieke fout code. Bytes 2-3: minuten sinds de laatste test, verzadigd op "
+"max waarde. Bytes 4-5: levensduur nummer aantal testen, niet verhoogd op "
+"inschakel cyclus,  verzadigd op maximale waarde. Genormaliseerde waarde is "
+"ingesteld op een op test fout of 11 als de condensator is getest in een "
+"buitensporige temperatuur conditie, anders 100."
 
 #, php-format
 msgid "Latest Beta Build: %s"
@@ -3447,7 +3935,7 @@ msgid "Load file"
 msgstr "Bestand openen"
 
 msgid "Load on UPS"
-msgstr "Belasting van de UPS"
+msgstr "Belasting op UPS"
 
 msgid "Load when UPS switches to overload condition (\"OVER\")"
 msgstr ""
@@ -3564,13 +4052,13 @@ msgid "Logout"
 msgstr "Uitloggen"
 
 msgid "Low voltage boosting transfer point"
-msgstr "Laag voltage boosting overdrachtspunt"
+msgstr "Laag voltage boosting overschakelpunt"
 
 msgid "Low voltage transfer point"
-msgstr "Laag voltage overdrachtspunt"
+msgstr "Laag voltage overschakelpunt"
 
 msgid "Low voltage trimming transfer point"
-msgstr "Laag voltage trimming overdrachtspunt"
+msgstr "Laag voltage trimming overschakelpunt"
 
 msgid ""
 "Lowest value is higher priority. For master node, use 0 or 1. If preempt is "
@@ -3630,7 +4118,7 @@ msgid "Manufacturer"
 msgstr "Fabrikant"
 
 msgid "Manufacturing date"
-msgstr "Productie datum"
+msgstr "Productiedatum"
 
 msgid "Map all users to root"
 msgstr "Alle gebruikers aan de root toewijzen"
@@ -3640,6 +4128,13 @@ msgstr "Verwijs naar gast"
 
 msgid "Map to user"
 msgstr "Aan gebruiker toewijzen"
+
+msgid ""
+"Margin of a channel while reading data. The function of this attribute is "
+"not specified."
+msgstr ""
+"Marge van een kanaal tijdens het lezen van data. De functie van dit "
+"attribuut is niet gespecificeerd."
 
 msgid "Masquerade address"
 msgstr "Masquerade adres"
@@ -3752,10 +4247,10 @@ msgid "Medium acoustic output"
 msgstr "Medium geluidsproductie"
 
 msgid "Member Interface"
-msgstr "Gebrruikers Interface"
+msgstr "Gebruikers Interface"
 
 msgid "Memory usage"
-msgstr "Geheugengebruik"
+msgstr "Geheugen gebruik"
 
 msgid "Message of the day."
 msgstr "Bericht van de dag"
@@ -3773,7 +4268,7 @@ msgid "Minimum"
 msgstr "Minimaal"
 
 msgid "Minimum battery level for UPS restart after power-off"
-msgstr "Minimum batterijniveau voor de UPS opnieuw opstart na power-off"
+msgstr "Minimum batterijniveau voor de UPS herstart na power-off"
 
 msgid "Minimum free space"
 msgstr "Minimale vrije ruimte"
@@ -3816,6 +4311,9 @@ msgstr "Model extra"
 
 msgid "Model name"
 msgstr "Modelnaam"
+
+msgid "Modified"
+msgstr "Gewijzigd op"
 
 msgid "Modifying"
 msgstr "Wijzigen"
@@ -3871,6 +4369,9 @@ msgstr "NAS4Free WebGUI Login"
 msgid "NFS"
 msgstr "NFS"
 
+msgid "NFSv4"
+msgstr "NFSv4"
+
 msgid "NIS"
 msgstr "NIS"
 
@@ -3886,6 +4387,12 @@ msgstr "NOG NIET BESCHIKBAAR"
 
 msgid "NT1"
 msgstr "NT1"
+
+msgid "NTP is not enabled."
+msgstr "NTP is niet ingeschakeld."
+
+msgid "NTP must be enabled."
+msgstr "NTP tijdserver moet ingeschakeld worden."
 
 msgid "NTP time server"
 msgstr "NTP Tijdservers"
@@ -3915,6 +4422,9 @@ msgstr ""
 
 msgid "Name of the variable."
 msgstr "Naam van de variable."
+
+msgid "NetBIOS domain"
+msgstr "NetBIOS domein"
 
 msgid "NetBIOS name"
 msgstr "NetBIOS naam"
@@ -4079,7 +4589,7 @@ msgid "Node Name"
 msgstr "Knooppuntnaam"
 
 msgid "Nominal battery voltage"
-msgstr "Nominale batterij voltage"
+msgstr "Batterij nominale voltage"
 
 msgid "Nominal input current (A)"
 msgstr "Nominale Ingangsstroom (A)"
@@ -4103,7 +4613,7 @@ msgid "Nominal value of apparent power (Volt-Amps)"
 msgstr "Nominale waarde van schijnbaar vermogen (Volt-Amps)"
 
 msgid "Nominal value of real power (Watts)"
-msgstr "Nominale waarde van echte vermogen (watt)"
+msgstr "Stroomcapaciteit (watt)"
 
 msgid "None"
 msgstr "None (Geen)"
@@ -4126,6 +4636,9 @@ msgstr ""
 
 msgid "Not attached"
 msgstr "Niet verbonden"
+
+msgid "Not found path."
+msgstr "Niet gevonden pad."
 
 msgid "Note"
 msgstr "Opmerking"
@@ -4171,12 +4684,22 @@ msgstr "Aantal batterijsets"
 msgid "Number of clients"
 msgstr "Aantal werkstations"
 
+msgid "Number of hours elapsed in the power-on state."
+msgstr "Aantal uren verstreken in de power-on staat."
+
 msgid "Number of log entries to show"
 msgstr "Vul hier het aantal logboekregels in dat bijgehouden dient te worden"
 
 msgid "Number of log entries to show must be between 5 and 1000."
 msgstr ""
 "Het regel aantal van het logboek dient tussen de 5 en 1000 opgegeven te zijn."
+
+msgid ""
+"Number of physical erase cycles completed on the drive as a percentage of "
+"the maximum physical erase cycles the drive is designed to endure."
+msgstr ""
+"Aantal fysieke wis cycli voltooid op de schijf als een percentage van de "
+"maximale fysieke wis cycli waarop de schijf is ontworpen te verduren."
 
 msgid "Number of servers"
 msgstr "Aantal servers"
@@ -4273,6 +4796,14 @@ msgstr "Uitgangsvoltage"
 msgid "Output voltage (V)"
 msgstr "Uitgangsspanning (V)"
 
+msgid ""
+"Overall (general) throughput performance of a hard disk drive. If the value "
+"of this attribute is decreasing there is a high probability that there is a "
+"problem with the disk."
+msgstr ""
+"Algemene doorvoer prestaties van een harde schijf. Als de waarde van dit "
+"attribuut afneemt is er zeer waarschijnlijkheid een probleem met de schijf."
+
 msgid "Overload"
 msgstr "Overbelasting"
 
@@ -4302,6 +4833,7 @@ msgstr "PPTP"
 msgid "PPTP clients"
 msgstr "PPTP werkstations"
 
+#, c-format
 msgid "PSK"
 msgstr "PSK"
 
@@ -4328,6 +4860,9 @@ msgstr "Paargewijs"
 
 msgid "Parameter xxx (ups.conf or cmdline -x) setting"
 msgstr "Parameter xxx (ups.conf of cmdline -x) instelling"
+
+msgid "Parent Directory"
+msgstr "Bovenliggende Map"
 
 msgid "Partition number"
 msgstr "Partitie nummer"
@@ -4432,6 +4967,10 @@ msgstr "Peer exchange"
 msgid "Peer port"
 msgstr "Peer poort"
 
+#, php-format
+msgid "Permanent samba data path (e.g. %s)."
+msgstr "Permanente samba datapad (bijv. %s)."
+
 msgid "Permit root login"
 msgstr "Root aanmeldingen toelaten"
 
@@ -4439,7 +4978,7 @@ msgid "Permit to do SSH Tunneling."
 msgstr "SSH Tunneling toelaten."
 
 msgid "Physical interface"
-msgstr "Fysieke netwerkkaart"
+msgstr "fysiek netwerk"
 
 msgid "Ping"
 msgstr "Ping"
@@ -4541,6 +5080,12 @@ msgstr "Energie Mode"
 msgid "Power mode"
 msgstr "Energie mode"
 
+msgid "Pre-Fail' Attribute used at least in HP devices."
+msgstr "Pre-Fail' attribuut ten minste gebruikt in HP schijven."
+
+msgid "Pre-Fail' Attribute used at least in Samsung devices."
+msgstr "Pre-Fail' attribuut ten minste gebruikt in Samsung schijven."
+
 msgid "PreInit"
 msgstr "PreInit"
 
@@ -4597,7 +5142,7 @@ msgid "Processes information"
 msgstr "systeemprocessen"
 
 msgid "Product ID"
-msgstr "Product-ID"
+msgstr "Product ID"
 
 msgid "Profile"
 msgstr "Profiel"
@@ -4628,19 +5173,31 @@ msgid "Quiet"
 msgstr "Stil"
 
 msgid "Quota"
-msgstr "Quota"
+msgstr "Quotum"
 
 msgid "RAID 0"
 msgstr "RAID 0"
 
+msgid "RAID 0 information and status"
+msgstr "RAID 0 status en informatie"
+
 msgid "RAID 0/1/5"
 msgstr "RAID 0/1/5"
+
+msgid "RAID 0/1/5 information and status"
+msgstr "RAID 0/1/5 status en informatie"
 
 msgid "RAID 1"
 msgstr "RAID 1"
 
+msgid "RAID 1 information and status"
+msgstr "RAID 1 status en informatie"
+
 msgid "RAID 5"
 msgstr "RAID 5"
+
+msgid "RAID 5 information and status"
+msgstr "RAID 5 status en informatie"
 
 msgid "RAID0"
 msgstr "RAID0"
@@ -4650,6 +5207,12 @@ msgstr "RAID1"
 
 msgid "RAID5"
 msgstr "RAID5"
+
+msgid "RAW VALUE"
+msgstr "RUWE WAARDE"
+
+msgid "RAW info"
+msgstr "Ruwe info"
 
 msgid "RSYNC"
 msgstr "RSYNC"
@@ -4779,6 +5342,9 @@ msgstr "Remote module naam"
 msgid "Remote monitoring"
 msgstr "Remote monitoring"
 
+msgid "Remote rsync daemon"
+msgstr "Remote rsync daemon"
+
 msgid "Remote syslog server"
 msgstr "Externe syslog server"
 
@@ -4825,6 +5391,10 @@ msgstr "Opnieuw scannen interval"
 
 msgid "Reservation"
 msgstr "Reservering"
+
+msgid "Resistance caused by friction in mechanical parts while operating."
+msgstr ""
+"Weerstand veroorzaakt door wrijving in mechanische delen terwijl in werking."
 
 msgid "Resolve"
 msgstr "Omzetten"
@@ -4923,6 +5493,10 @@ msgstr "Uitvoeren als"
 msgid "Run now"
 msgstr "Nu uitvoeren"
 
+msgid "Run without requiring remote rsync daemon. (Disabled by default)"
+msgstr ""
+"Uitvoeren zonder remote rsync daemon te vereisen. (Standaard uitgeschakeld)"
+
 msgid "Running"
 msgstr "Uitvoerend"
 
@@ -4972,11 +5546,11 @@ msgstr "SSHD log"
 msgid "SSID"
 msgstr "SSID"
 
-msgid "SSL/TLS"
-msgstr "SSL/TLS"
+msgid "Samba AD"
+msgstr "Samba AD"
 
-msgid "SSL/TLS only"
-msgstr "Alleen SSL/TLS"
+msgid "Samba Active Directory Domain Controller"
+msgstr "Samba Active Directory Domain Controller"
 
 #, php-format
 msgid ""
@@ -5057,6 +5631,9 @@ msgstr "Secure Shell"
 msgid "Security"
 msgstr "Versleutelde verbinding"
 
+msgid "See attribute E8."
+msgstr "Zie attribuut E8."
+
 msgid ""
 "Select Hypertext Transfer Protocol (HTTP) or Hypertext Transfer Protocol "
 "Secure (HTTPS) for the WebGUI."
@@ -5104,6 +5681,9 @@ msgstr "Selecteer het lees balance algoritme."
 
 msgid "Selected"
 msgstr "Geselecteerd"
+
+msgid "Selected device or label does not exist."
+msgstr "Geselecteerde schijf of label bestaat niet."
 
 msgid "Selected file isn't an valid ISO file."
 msgstr "Het geselecteerd bestand is geen geldig ISO bestand."
@@ -5253,6 +5833,9 @@ msgstr "Gedeelde mappen"
 msgid "Shell"
 msgstr "Shell"
 
+msgid "Shock During Write."
+msgstr "Schokken tijdens schrijven."
+
 msgid "Show RAW UPS Info"
 msgstr "Toon ruwe UPS Info"
 
@@ -5302,6 +5885,9 @@ msgstr ""
 msgid "Skew"
 msgstr "Skew"
 
+msgid "Skip first scan"
+msgstr "Skip eerste scan"
+
 msgid "Sleep - Check the device unless it is in SLEEP mode."
 msgstr ""
 "Sleep - Controleert de harde schijf tenzij het zich in de SLAAP mode bevindt."
@@ -5336,9 +5922,6 @@ msgstr "SoftRAID"
 msgid "Software RAID"
 msgstr "Software RAID"
 
-msgid "Software RAID information and status"
-msgstr "Software RAID status en informatie"
-
 msgid "Software used"
 msgstr "Gebruikte software"
 
@@ -5361,8 +5944,8 @@ msgid ""
 "Space delimited set of IP or CIDR notation that permitted to access the "
 "WebGUI. (empty is the same network of LAN interface)"
 msgstr ""
-"Spaties gescheiden set IP of CIDR notatie die is toegestaan voor toegang tot "
-"de WebGUI. (leeg is hetzelfde netwerk LAN interface)"
+"Spaties gescheiden set IP of CIDR notatie die wordt toegestaan voor de "
+"toegang tot de WebGUI. (leeg is hetzelfde netwerk als de LAN interface)"
 
 msgid "Spanish"
 msgstr "Spaans"
@@ -5372,6 +5955,21 @@ msgstr "Sparse"
 
 msgid "Sparse Volume"
 msgstr "Sparse Volume"
+
+msgid ""
+"Specific to He8 drives from HGST. The Helium, so says the literature, allows "
+"the drives to run cooler and quieter, and reduces power consumption. This is "
+"the status of the Helium in the drive. It is a pre-fail attribute that trips "
+"once the drive detects that the internal environment is out of specification."
+msgstr ""
+"Specifiek voor He8 schijven van HGST. De Helium, aldus de literatuur, maakt "
+"het mogelijk de schijven koeler en stiller te laten draaien, en verminderd "
+"het energieverbruik. Dit is de status van de Helium in de schijf. Het is een "
+"pre-fail attribuut dat verhoogt zodra de schijf detecteert dat het interne "
+"Helium levels uit specificatie zijn."
+
+msgid "Specified path is NFSv4 root directory."
+msgstr "Opgegeven pad is een NFSv4 root folder."
 
 msgid "Specifies how many servers to create."
 msgstr "Vul het aantal servers in die je wil creëren."
@@ -5481,6 +6079,18 @@ msgstr "Opslag"
 
 msgid "Store DOS attributes"
 msgstr "DOS attributen opslaan"
+
+msgid "Store NTFS acls"
+msgstr "NTFS acls opslaan"
+
+msgid "Store NTFS acls in Extended Attributes"
+msgstr "NTFS ACL's opslaan in Uitgebreide attributen"
+
+msgid "Store alternate data streams"
+msgstr "Opslaan alternatieve gegevensstromen"
+
+msgid "Store alternate data streams in Extended Attributes"
+msgstr "Opslaan alternatieve gegevensstromen in Uitgebreide Attributen"
 
 msgid ""
 "String displayed in the dialog presented to the user when accessing the URL."
@@ -5628,8 +6238,14 @@ msgstr "TFTP"
 msgid "TKIP"
 msgstr "TKIP"
 
+msgid "TLS"
+msgstr "TLS"
+
 msgid "TLS mode"
 msgstr "TLS modus"
+
+msgid "TLS only"
+msgstr "Alleen TLS"
 
 msgid "Tag"
 msgstr "Markering"
@@ -5755,6 +6371,22 @@ msgstr "De MIB '%s' bestaat reeds."
 msgid "The MIB '%s' doesn't exist in sysctl."
 msgstr "De MIB '%s' bestaat niet in sysctl."
 
+msgid ""
+"The Minimum Spares Remaining attribute indicates the number of remaining "
+"spare blocks as a percentage of the total number of spare blocks available."
+msgstr ""
+"De Minimum Spares Overgebleven attribuut geeft het aantal resterende reserve "
+"blokken in een percentage van het totale aantal reserve blokken overgebleven."
+
+msgid ""
+"The Newly Added Bad Flash Block attribute indicates the total number of bad "
+"flash blocks the drive detected since it was first initialized in "
+"manufacturing."
+msgstr ""
+"De nieuwe toegevoegde Bad Flash Block attribuut geeft het totaal aantal "
+"slechte flash blokken aan dat de schijf heeft ontdekt sinds het was "
+"geïnitialiseerd tijdens de productie."
+
 #, php-format
 msgid ""
 "The RAID volume is currently mounted! Remove the <a href='%s'>mount "
@@ -5862,6 +6494,12 @@ msgstr "Het attribuut '%s' is geen geldig subnetmasker."
 #, c-format
 msgid "The attribute '%s' is not a valid time value."
 msgstr "De attribuut '%s' is geen geldige tijd."
+
+#, c-format, php-format
+msgid ""
+"The attribute '%s' is required within %d or more characters to %d characters."
+msgstr ""
+"Het attribuut '%s' is vereist binnen %d of meer karakters naar %d karakters."
 
 #, c-format, php-format
 msgid "The attribute '%s' is required."
@@ -5979,11 +6617,61 @@ msgid "The configuration has been restored. The server is now rebooting."
 msgstr "De configuratie is hersteld. De server is nu aan het herstarten."
 
 msgid ""
-"The confimed password does not match. Please ensure the passwords match "
+"The confirmation password does not match. Please ensure the passwords match "
 "exactly."
 msgstr ""
-"Het bevestigings wachtwoord komt niet overeen. Verzeker u er van dat het "
-"wachtwoord exact gelijk is."
+"Wachtwoord komt niet overeen met verificatie. Verzeker u er van dat de "
+"wachtwoorden gelijk zijn."
+
+msgid ""
+"The confirmed password does not match. Please ensure the passwords match "
+"exactly."
+msgstr ""
+"Wachtwoord komt niet overeen met verificatie. Verzeker u er van dat de "
+"wachtwoorden gelijk zijn."
+
+msgid ""
+"The count of aborted operations due to HDD timeout. Normally this attribute "
+"value should be equal to zero and if the value is far above zero, then most "
+"likely there will be some serious problems with power supply or an oxidized "
+"data cable."
+msgstr ""
+"Aantal afgebroken overdrachten ten gevolge van HDD time-outs. Normaal "
+"gesproken moet deze waarde van het attribuut gelijk zijn aan nul en indien "
+"de waarde ver boven nul is, dan zal er zeer waarschijnlijk een ernstige "
+"probleem zijn met de stroomvoorziening of een geoxideerde datakabel."
+
+msgid ""
+"The count of errors found when writing a sector. The higher the value, the "
+"worse the disk's mechanical condition is."
+msgstr ""
+"Aantal fouten gevonden bij het schrijven van een sector. Hoe hoger de "
+"waarde, hoe slechter de schijf zijn mechanische conditie is."
+
+msgid ""
+"The count of errors in data transfer via the interface cable as determined "
+"by ICRC (Interface Cyclic Redundancy Check)."
+msgstr ""
+"Aantal fouten in data overdracht via de interfacekabel zoals bepaald door "
+"ICRC (Interface Cyclic Redundancy Check)."
+
+msgid ""
+"The count of errors resulting from externally induced shock & vibration."
+msgstr "Aantal fouten als gevolg van extern geïnduceerde schok & trillingen."
+
+msgid ""
+"The count of errors that could not be recovered using hardware ECC (see "
+"attribute 195)."
+msgstr ""
+"Aantal fouten die niet hersteld konden worden met behulp van hardware ECC "
+"(zie attribuut 195)."
+
+msgid ""
+"The count of times the magnetic armature was retracted automatically as a "
+"result of cutting power."
+msgstr ""
+"Aantal keren dat de magnetische armatuur automatisch als gevolg van "
+"afgesneden stroom teruggetrokken werd."
 
 msgid "The credentials with which to bind."
 msgstr "De credentials om mee te koppelen."
@@ -6253,6 +6941,13 @@ msgstr ""
 msgid "The number of clients must be between 1 and 50."
 msgstr "Het aantal werkstations dient tussen de 1 en 50 te zijn."
 
+msgid ""
+"The number of errors caused by incorrect checksum during the error "
+"correction."
+msgstr ""
+"Aantal fouten veroorzaakt door onjuiste controle som tijdens de "
+"foutcorrectie."
+
 msgid "The old password is not correct."
 msgstr "Het oude wachtwoord is niet juist."
 
@@ -6412,6 +7107,18 @@ msgstr ""
 
 msgid "The time update interval must be either between 6 and 1440."
 msgstr "De tijd bijwerk interval moet ergens tussen de 6 en 1440 zijn."
+
+msgid "The total count of errors when writing a sector."
+msgstr "Totaal aantal fouten bij het schrijven van een sector."
+
+msgid ""
+"The total count of uncorrectable errors when reading/writing a sector. A "
+"rise in the value of this attribute indicates defects of the disk surface "
+"and/or problems in the mechanical subsystem."
+msgstr ""
+"Het totaal aantal niet corrigeerbare fouten tijdens lezen/schrijven van een "
+"sector. Een stijging van dit attribuut identificeert defecten aan het "
+"schijfoppervlakte en/of problemen in het mechanische subsysteem."
 
 msgid "The unique group ID is already used."
 msgstr "De unieke groeps ID is reeds gebruikt."
@@ -6595,6 +7302,12 @@ msgstr ""
 "gebruik is."
 
 msgid ""
+"This WLAN cannot be deleted because it is still being used as an interface."
+msgstr ""
+"Deze WLAN kan niet gewist worden omdat deze nog steeds als netwerk gebruikt "
+"wordt."
+
+msgid ""
 "This allows you to lower the power consumption of the drive, at the expense "
 "of performance."
 msgstr ""
@@ -6615,6 +7328,33 @@ msgstr ""
 
 msgid "This allows you to set the transfer mode for ATA/IDE hard drives."
 msgstr "Selecteer de overdracht mode voor ATA/IDE schijven."
+
+msgid ""
+"This attribute indicates the count of full hard disk power on/off cycles."
+msgstr ""
+"Dit attribuut geeft het aantal van volledige harde schijf "
+"inschakelingen/uitschakelingen weer."
+
+msgid ""
+"This attribute indicates the count that recalibration was requested (under "
+"the condition that the first attempt was unsuccessful). An increase of this "
+"attribute value is a sign of problems in the hard disk mechanical subsystem."
+msgstr ""
+"Dit attribuut geeft het aantal dat her-kalibratie werd aangevraagd (onder de "
+"voorwaarde dat de eerste poging was mislukt). Een verhoging van deze "
+"attribuut is een teken van problemen in het mechanische subsysteem van de "
+"harde schijf."
+
+msgid ""
+"This attribute is a part of Hewlett-Packard's SMART IV technology, as well "
+"as part of other vendors' IO Error Detection and Correction schemas, and it "
+"contains a count of parity errors which occur in the data path to the media "
+"via the drive's cache RAM."
+msgstr ""
+"Dit attribuut is een onderdeel van Hewlett-Packard 's SMART IV technologie, "
+"evenals deel van andere leveranciers IO foutdetectie en correctie schema's, "
+"en het bevat een aantal pariteit fouten die zich in het data pad tot de "
+"media via de schijf  cache RAM voordoen."
 
 #, php-format
 msgid ""
@@ -6905,6 +7645,9 @@ msgid "This rule is triggered whenever the selected event directive occurs."
 msgstr ""
 "Deze regel wordt toegepast wanneer de geselecteerde gebeurtenis voorkomt."
 
+msgid "This server uses default swap."
+msgstr "Deze server gebruikt wisselbestand standaard."
+
 msgid "This tag already exists."
 msgstr "Deze markering bestaat reeds."
 
@@ -6948,6 +7691,10 @@ msgstr ""
 "Dit zal ALLE data op de schijf wissen! Gebruik deze optie niet als u een "
 "bestaande reeds versleutelde schijf wil toevoegen."
 
+msgid "This will provide NTFS acls without ZFS ACL support such as UFS."
+msgstr ""
+"Dit zal zorgen voor NTFS ACL's zonder ZFS ACL ondersteuning, zoals UFS."
+
 msgid "This will provide ZFS ACL support. (ZFS only)"
 msgstr "Deze optie zorgt voor ZFS ACL ondersteuing (alleen ZFS)"
 
@@ -6979,6 +7726,14 @@ msgstr "Tijdsinterval"
 
 msgid "Time server"
 msgstr "Tijdserver"
+
+msgid "Time spent during the positioning of the drive heads."
+msgstr "Tijd besteed tijdens de positionering van de schijf koppen."
+
+msgid ""
+"Time spent operating under data load (movement of magnetic head armature)."
+msgstr ""
+"Tijd besteed tijdens het data laden (beweging van magneetkop armatuur)."
 
 msgid "Time update interval"
 msgstr "Tijd update interval"
@@ -7081,6 +7836,39 @@ msgstr "Toelaten"
 msgid "Tools"
 msgstr "Hulpmiddelen"
 
+msgid ""
+"Total NAND Writes. Raw value reports the number of writes to NAND in 1GB "
+"increments."
+msgstr ""
+"Totaal NAND beschrijvingen. Ruwe waarde rapporteert het aantal geschreven "
+"NAND in stappen van 1GB."
+
+msgid ""
+"Total count of LBAs read. Some S.M.A.R.T. utilities will report a negative "
+"number for the raw value since in reality it has 48 bits rather than 32."
+msgstr ""
+"Totaal aantal LBAs gelezen. Sommige S.M.A.R.T. hulpprogramma 's zal een "
+"negatief getal voor de ruwe waarde rapporteren omdat het in werkelijkheid 48 "
+"bits heeft in plaats van 32."
+
+msgid "Total count of LBAs written."
+msgstr "Totaal aantal LBAs geschreven."
+
+msgid "Total count of load cycles."
+msgstr "Totaal aantal laad cyclussen."
+
+msgid ""
+"Total number of Flash program operation failures since the drive was "
+"deployed."
+msgstr "Totaal aantal Flash schrijf fouten sinds de schijf werd ingezet."
+
+msgid ""
+"Total time of loading on the magnetic heads actuator (time not spent in "
+"parking area)."
+msgstr ""
+"Totale tijd van laden op de magneetkoppen actuator (tijd niet doorgebracht "
+"in het parkeer gebied)."
+
 #, php-format
 msgid "Total: %s | Used: %s | Free: %s"
 msgstr "Totaal: %s | Gebruikt: %s | Vrij: %s"
@@ -7099,6 +7887,13 @@ msgstr ""
 "Het kan even duren voor de traceer route klaar is. U mag ten alle tijden op "
 "de stop knop van uw browser klikken om de voortgang te zien van de gefaalde "
 "traceer route."
+
+msgid ""
+"Tracks whose path contains one or more of these comma separated strings will "
+"be treated as a compilation."
+msgstr ""
+"Tracks waarvan het pad een of meer van deze door komma's gescheiden "
+"tekenreeksen worden behandeld als een compilatie."
 
 msgid "Transcoding"
 msgstr "Hercodering"
@@ -7264,8 +8059,14 @@ msgstr "URI"
 msgid "URL"
 msgstr "URL"
 
+msgid "Ukrainian"
+msgstr "Oekraïens"
+
 msgid "Unavailable"
 msgstr "Niet beschikbaar"
+
+msgid "Uncorrected read errors reported to the operating system."
+msgstr "Niet-gecorrigeerde leesfouten gemeld aan het besturingssysteem."
 
 msgid "Unformated"
 msgstr "Niet geformatteerd"
@@ -7310,7 +8111,7 @@ msgid "Update period"
 msgstr "Update periode"
 
 msgid "Updating in 5 seconds."
-msgstr "Bijwerken over 5 seconden."
+msgstr "Bijwerken over 5 seconden"
 
 msgid "Upgrade firmware"
 msgstr "Update Firmware"
@@ -7427,6 +8228,9 @@ msgstr "Wachtwoord gebruiker."
 msgid "User portal"
 msgstr "Gebruikers portaal"
 
+msgid "User shares"
+msgstr "Gebruiker gedeelde mappen"
+
 msgid "User suffix"
 msgstr "Gebruiker achtervoegsel"
 
@@ -7464,6 +8268,13 @@ msgstr "VLAN markering"
 msgid "Value"
 msgstr "Waarde"
 
+msgid ""
+"Value is equal to (100-temp. &deg;C), allowing manufacturer to set a minimum "
+"threshold which corresponds to a maximum temperature."
+msgstr ""
+"Waarde is gelijk aan (100-temp. &deg;C), aan fabrikant toegestaan om een "
+"minimumdrempel in te stellen die overeenkomt met een maximale temperatuur."
+
 msgid "Variable"
 msgstr "Variabele"
 
@@ -7472,6 +8283,9 @@ msgstr "Vendor ID"
 
 msgid "Version"
 msgstr "Versie"
+
+msgid "Vibration During Write."
+msgstr "Trillingen Tijdens Schrijven."
 
 msgid "Virtual Host ID"
 msgstr "Virtueel Host ID"
@@ -7518,6 +8332,10 @@ msgstr "WINS server"
 msgid "WINS server IP address (e.g. from MS Active Directory server)."
 msgstr "WINS server IP-adres (bijv. van de MS Active Directory server)."
 
+msgid "WLAN"
+msgstr "WLAN"
+
+#, c-format
 msgid "WPA"
 msgstr "WPA"
 
@@ -7529,6 +8347,9 @@ msgstr "WPA-PSK (Pre Shared Key)"
 
 msgid "WPA-PSK WPA-EAP"
 msgstr "WPA-PSK WPA-EAP"
+
+msgid "WPA2"
+msgstr "WPA2"
 
 msgid "Wait time"
 msgstr "Wachttijd"
@@ -7568,6 +8389,17 @@ msgstr "De webserver documentmap ontbreekt."
 msgid "Week days"
 msgstr "Week dagen"
 
+msgid "Western Digital attribute."
+msgstr "Western Digital attribuut."
+
+msgid ""
+"Western Digital, Samsung or Seagate attribute: Total number of data blocks "
+"with detected, uncorrectable errors encountered during normal operation."
+msgstr ""
+"Western Digital, Samsung of Seagate attribuut: Totaal aantal datablokken met "
+"gedetecteerde, oncorrigeerbare fouten die zijn opgetreden tijdens de normale "
+"werking."
+
 msgid ""
 "When HAST is enabled, the local devices, the local services and the "
 "additional packages which do not support HAST volume cannot be used."
@@ -7576,8 +8408,14 @@ msgstr ""
 "diensten met aanvullende pakketten die geen ondersteuning voor HAST volumes "
 "bieden niet worden gebruikt."
 
+msgid ""
+"When Samba AD is enabled, stand-alone CIFS/SMB file sharing cannot be used."
+msgstr ""
+"Indien Samba AD is ingeschakeld, kan stand-alone CIFS/SMB bestandsdeling "
+"niet gebruikt worden."
+
 msgid "When UPS switches to Low Battery"
-msgstr "Wanneer de UPS schakelt naar Laag Batterij Niveau"
+msgstr "Tijd overschakelen naar Laag Batterij Niveau"
 
 msgid ""
 "When a client initially connects to the server the ident protocol is used to "
@@ -7598,6 +8436,9 @@ msgstr ""
 msgid "Where to save downloaded data."
 msgstr "Map waarin de gedownloade bestanden opgeslagen worden."
 
+msgid "Whether compilations should be shown together under Various Artists."
+msgstr "Of compilaties samen worden weergegeven onder Various Artists."
+
 msgid ""
 "Whether scans should be skipped if there are no users connected. This allows "
 "the drive to spin down when no users are connected."
@@ -7605,6 +8446,9 @@ msgstr ""
 "Of het scannen moeten worden overgeslagen als er geen gebruikers verbonden "
 "zijn. Dit laat een schijf spin-down toe waneer er geen gebruikers zijn "
 "verbonden."
+
+msgid "Whether to skip initial boot-up scan."
+msgstr "Of u de eerste boot-up scan wilt overslaan."
 
 msgid "Who"
 msgstr "Wie"
@@ -7677,7 +8521,10 @@ msgid "You have to select at least one item for '%s'."
 msgstr "U moet tenminste 1 item selecteren voor '%s'."
 
 msgid "You may enter a description here for your reference."
-msgstr "Geef hier uw referentie omschrijving."
+msgstr "U kunt hier een beschrijving invullen als referentie."
+
+msgid "You may enter a device file or label path."
+msgstr "U kunt een schijf bestand of label pad in voeren."
 
 #, php-format
 msgid ""
@@ -7707,9 +8554,11 @@ msgstr ""
 "U moet voor de het netwerk en de gateway het zelfde IP-nummer invullen."
 
 #, php-format
-msgid "You must have a minimum of %dMB of RAM for using iSCSI target."
-msgstr ""
-"U heeft minimaal %dMB RAM geheugen nodig om een iSCSI doel te gebruiken."
+msgid "You must have a minimum of %dMiB RAM for using iSCSI target."
+msgstr "U heeft minimaal  %dMiB RAM nodig om iSCSI doel te gebruiken."
+
+msgid "You must initialize data before enabling."
+msgstr "U moet de data eerst initialiseren alvorens in te schakelen."
 
 msgid "You must select at least one authentication method."
 msgstr "U dient tenminste één verificatie methode te selecteren."
@@ -7781,6 +8630,13 @@ msgstr "chroot() iedereen, maar niet de root."
 msgid "day(s)"
 msgstr "dag(en)"
 
+msgid ""
+"decoded as: byte 0-1-2 = good block count (big endian) and byte 3-4 = "
+"system(free) block count."
+msgstr ""
+"gedecodeerd als: byte 0-1-2 = goede blok telling (big endian) en byte 3-4 = "
+"systeem(vrij) blok telling."
+
 msgid "detected an error while importing."
 msgstr "Fout geconstateerd tijdens het importeren."
 
@@ -7795,10 +8651,10 @@ msgid "get target info failed."
 msgstr "doel info opvragen is mislukt."
 
 msgid "greatest settable high voltage transfer point"
-msgstr "grootste instelbare hoogspanning overdrachtspunt"
+msgstr "grootste instelbare hoogspanning overschakelpunt"
 
 msgid "greatest settable low voltage transfer point"
-msgstr "grootste instelbare laagspanning overdrachtspunt"
+msgstr "grootste instelbare laagspanning overschakelpunt"
 
 msgid "hiadaptive (high performance)"
 msgstr "hiadaptive (hoge prestaties)"
@@ -7880,10 +8736,10 @@ msgid "second(s)"
 msgstr "seconde(n)"
 
 msgid "smallest settable high voltage transfer point"
-msgstr "kleinste instelbare hoogspanning overdrachtspunt"
+msgstr "kleinste instelbare hoogspanning overschakelpunt"
 
 msgid "smallest settable low voltage transfer point"
-msgstr "kleinste instelbare laagspanning overdrachtspunt"
+msgstr "kleinste instelbare laagspanning overschakelpunt"
 
 msgid "striping"
 msgstr "striping"
@@ -7894,6 +8750,9 @@ msgstr "succes."
 msgid "sysctl.conf"
 msgstr "sysctl.conf"
 
+msgid "sysvol exist in path."
+msgstr "sysvol bestaat in pad."
+
 msgid "to"
 msgstr "naar"
 
@@ -7903,6 +8762,5 @@ msgstr "umask"
 msgid "umount"
 msgstr "loskoppelen"
 
-#, php-format
 msgid "version:"
 msgstr "versie:"

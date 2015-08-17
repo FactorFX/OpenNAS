@@ -6,7 +6,6 @@
 # 
 # Portions of freenas (http://www.freenas.org).
 # Copyright (c) 2005-2011 by Olivier Cochard <olivier@freenas.org>.
-# Copyright (c) 2006-2010 Volker Theile (votdev@gmx.de)
 # All rights reserved.
 #
 # Service types definition: http://www.dns-sd.org/ServiceTypes.html
@@ -39,8 +38,12 @@ command_args=" -b -f ${mdnsresponder_config} -P ${pidfile}"
 
 mdnsresponder_mkconf()
 {
-	local _if
+	local _if _domain
 
+	_domain=`configxml_get "//system/domain"`
+	if [ -z ${_domain} ]; then
+	    _domain="local"
+	fi
 	echo "" > ${mdnsresponder_config}
 #
 # This file contains the services to be announced to other Rendezvous aware
@@ -54,19 +57,19 @@ mdnsresponder_mkconf()
 #
 # For types: http://www.dns-sd.org/ServiceTypes.html" > ${mdnsresponder_config}
 	/usr/local/bin/xml sel -t \
--v "//system/hostname" -n \
-		-o "_device-info._tcp. local." -n \
+		-v "//system/hostname" -n \
+		-o "_device-info._tcp. ${_domain}" -n \
 		-o "1" -n \
 		-o "model=Xserve" -n \
 		-n \
 		-v "//system/hostname" -n \
 		-i "//system/webgui/protocol[. = 'https']" \
-			-o "_https._tcp. local." -n \
+			-o "_https._tcp. ${_domain}" -n \
 			-i "string-length(//system/webgui/port) > 0" -v "//system/webgui/port" -n -b \
 			-i "string-length(//system/webgui/port) = 0" -o "443" -n -b \
 		-b \
 		-i "//system/webgui/protocol[. != 'https']" \
-			-o "_http._tcp. local." -n \
+			-o "_http._tcp. ${_domain}" -n \
 			-i "string-length(//system/webgui/port) > 0" -v "//system/webgui/port" -n -b \
 			-i "string-length(//system/webgui/port) = 0" -o "80" -n -b \
 		-b \
@@ -77,53 +80,51 @@ mdnsresponder_mkconf()
 			-v "//system/hostname" \
 			-b \
 			-v "//afp/afpname" -n \
-			-o "_afpovertcp._tcp. local." -n \
+			-o "_afpovertcp._tcp. ${_domain}" -n \
 			-o "548" -n \
 			-n \
 			-i "//afp/afpname[. = '']" \
 			-v "//system/hostname" \
 			-b \
 			-v "//afp/afpname" -n \
-			-o "_adisk._tcp. local." -n \
+			-o "_adisk._tcp. ${_domain}" -n \
 			-o "9" -n \
 			-o "sys=waMA=0,adVF=0x100" -n \
-			-m "//afp/share" \
-				-i "adisk/enable" \
-					-v "concat('dk',position()-1,'=')" \
-					-i "string-length(adisk/advf) > 0" -v "concat('adVF=',adisk/advf,',')" -b \
-					-v "concat('adVN=',name,',adVU=',uuid)" -n \
-				-b \
+			-m "//afp/share[timemachine]" \
+				-v "concat('dk',position()-1,'=')" \
+				-i "count(timemachine) > 0" -o "adVF=0xa1," -b \
+				-v "concat('adVN=',name,',adVU=',uuid)" -n \
 			-b \
 			-n \
 		-b \
 		-i "count(//rsyncd/enable) > 0" \
 			-v "//system/hostname" -n \
-			-o "_rsync._tcp. local." -n \
+			-o "_rsync._tcp. ${_domain}" -n \
 			-v "//rsyncd/port" -n \
 			-n \
 		-b \
 		-i "count(//sshd/enable) > 0" \
 			-v "//system/hostname" -n \
-			-o "_ssh._tcp. local." -n \
+			-o "_ssh._tcp. ${_domain}" -n \
 			-v "//sshd/port" -n \
 			-n \
 		-b \
 		-i "count(//ftpd/enable) > 0" \
 			-v "//system/hostname" -n \
-			-o "_ftp._tcp. local." -n \
+			-o "_ftp._tcp. ${_domain}" -n \
 			-v "//ftpd/port" -n \
 			-n \
 		-b \
 		-i "count(//samba/enable) > 0" \
 			-v "//system/hostname" -n \
-			-o "_smb._tcp. local." -n \
-			-o "139" -n \
+			-o "_smb._tcp. ${_domain}" -n \
+			-o "445" -n \
 			-n \
 		-b \
 		-i "count(//nfsd/enable) > 0" \
 			-m "//nfsd/share" \
 				-v "//system/hostname" -n \
-				-o "_nfs._tcp. local." -n \
+				-o "_nfs._tcp. ${_domain}" -n \
 				-o "2049" -n \
 				-v "concat('path=',path)" -n \
 				-n \

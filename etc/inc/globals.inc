@@ -51,9 +51,9 @@ $g = array(
 	"www_path" => "/usr/local/www",
 	"xml_rootobj" => "opennas",
 	"debug" => false,
-	"latest_config" => "1.8",
+	"latest_config" => "2.0",
 	"nopccard_platforms" => array("wrap", "net48xx"),
-	"wireless_regex" => "/^(ndis|wi|ath|an|ral|ural|wai|iwi|awi|wlan|ipw|wpi|rum|arl|zyd)/",
+	"wireless_regex" => "/^(ndis|wlan|an|ath|bwi|bwn|ipw|iwi|iwn|malo|mwl|ral|wi|wpi|rsu|rum|run|uath|upgt|ural|urtw|urtwn|usie|zyd)/",
 	"default_passwd" => "opennas",
 	"default_ip" => "192.168.1.250"
 );
@@ -69,6 +69,7 @@ $g_install = array(
 $g_languages = array (
 	"sq"    => array("codeset" => "UTF-8", "desc" => gettext("Albanian")),
 	"bg"    => array("codeset" => "UTF-8", "desc" => gettext("Bulgarian")),
+	"cs"    => array("codeset" => "UTF-8", "desc" => gettext("Czech")),
 	"zh_CN" => array("codeset" => "UTF-8", "desc" => gettext("Chinese (Simplified)")),
 	"zh_TW" => array("codeset" => "UTF-8", "desc" => gettext("Chinese (Traditional)")),
 	"nl"    => array("codeset" => "UTF-8", "desc" => gettext("Dutch")),
@@ -90,11 +91,11 @@ $g_languages = array (
 	"ro"    => array("codeset" => "UTF-8", "desc" => gettext("Romanian")),
 	"ru"    => array("codeset" => "UTF-8", "desc" => gettext("Russian")),
 	"sl"    => array("codeset" => "UTF-8", "desc" => gettext("Slovenian")),
-	"tr"    => array("codeset" => "UTF-8", "desc" => gettext("Turkish")),
 	"es"    => array("codeset" => "UTF-8", "desc" => gettext("Spanish")),
 	"sv"    => array("codeset" => "UTF-8", "desc" => gettext("Swedish")),
 	"sk"    => array("codeset" => "UTF-8", "desc" => gettext("Slovak")),
-	"cs"    => array("codeset" => "UTF-8", "desc" => gettext("Czech"))
+	"tr"    => array("codeset" => "UTF-8", "desc" => gettext("Turkish")),
+	"uk"    => array("codeset" => "UTF-8", "desc" => gettext("Ukrainian"))
 );
 
 /* Supported filesystems */

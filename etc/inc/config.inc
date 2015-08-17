@@ -130,6 +130,14 @@ if (is_booting()) {
 					}
 					// Unmount device
 					mwexec("/sbin/umount -f {$g['cf_path']}");
+				} else if (0 == mwexec("/sbin/mount -r /dev/{$disk}p2 {$g['cf_path']}")) { // Search on GPT/p2
+					if (file_exists("{$g['cf_conf_path']}/config.xml")) {
+						$cfgdevice = $disk;
+						$cfgpartition = "{$cfgdevice}p2";
+						$cfgfstype = "ufs";
+					}
+					// Unmount device
+					mwexec("/sbin/umount -f {$g['cf_path']}");
 				} else if (0 == mwexec("/sbin/mount -r /dev/{$disk}a {$g['cf_path']}")) { // Search on partition 'a'
 					if (file_exists("{$g['cf_conf_path']}/config.xml")) {
 						$cfgdevice = $disk;
@@ -138,7 +146,7 @@ if (is_booting()) {
 					}
 					// Unmount device
 					mwexec("/sbin/umount -f {$g['cf_path']}");
-				} else if ($g['arch'] == "rpi" && (0 == mwexec("/sbin/mount -r /dev/{$disk}s3a {$g['cf_path']}"))) { // Search on slice 3
+				} else if (($g['arch'] == "rpi" || $g['arch'] == "rpi2" || $g['arch'] == "oc1") && (0 == mwexec("/sbin/mount -r /dev/{$disk}s3a {$g['cf_path']}"))) { // Search on slice 3
 					if (file_exists("{$g['cf_conf_path']}/config.xml")) {
 						$cfgdevice = $disk;
 						$cfgpartition = "{$cfgdevice}s3a";
@@ -502,6 +510,9 @@ function reset_factory_defaults() {
 	// Modify file permissions
 	@chmod("{$g['cf_conf_path']}/config.xml", 0600);
 
+	// remove existing pool cache
+	unlink_if_exists("{$g['cf_path']}/boot/zfs/zpool.cache");
+
 	$loader_filename = "{$g['cf_path']}/boot/loader.conf.local";
 
 	if (file_exists($loader_filename) && unlink($loader_filename) === FALSE) {
@@ -839,6 +850,74 @@ function config_upgrade() {
 		}
 		$config['version'] = "1.8";
 	}
+
+	/* Convert 1.8 -> 1.9 */
+	if ($config['version'] === "1.8") {
+		if ($config['samba']['rcvbuf'] < 128480)
+			$config['samba']['rcvbuf'] = 128480;
+		if ($config['samba']['sndbuf'] < 128480)
+			$config['samba']['sndbuf'] = 128480;
+		if ($config['samba']['aiorsize'] == 4096)
+			$config['samba']['aiorsize'] = 1024;
+		if ($config['samba']['aiowsize'] == 4096)
+			$config['samba']['aiowsize'] = 1024;
+
+		$config['version'] = "1.9";
+	}
+
+	/* Convert 1.9 -> 2.0 */
+	if ($config['version'] === "1.9") {
+	// 
+	// **** Add => Forgot in version 1.8
+		if ($config['samba']['rcvbuf'] < 128480)
+			$config['samba']['rcvbuf'] = 128480;
+		if ($config['samba']['sndbuf'] < 128480)
+			$config['samba']['sndbuf'] = 128480;
+		if ($config['samba']['aiorsize'] == 4096)
+			$config['samba']['aiorsize'] = 1024;
+		if ($config['samba']['aiowsize'] == 4096)
+			$config['samba']['aiowsize'] = 1024;
+	// ********
+		if (isset($config['system']['firewall'])
+		    && isset($config['system']['firewall']['rule'])
+		    && is_array($config['system']['firewall']['rule'])) {
+			array_sort_key($config['system']['firewall']['rule'], "ruleno");
+			$ruleno = 10100;
+			if ($config['system']['firewall']['rule'][0]['ruleno'] < $ruleno) {
+				foreach ($config['system']['firewall']['rule'] as $k => &$v) {
+					$v['ruleno'] = $ruleno;
+					$ruleno += 100;
+				}
+				unset($v);
+			}
+		}
+		if (isset($config['afp']) && isset($config['afp']['share'])
+		    && is_array($config['afp']['share'])) {
+			foreach ($config['afp']['share'] as &$a) {
+				if (isset($a['adisk']) && isset($a['adisk']['advf'])) {
+					$a['timemachine'] = true;
+				}
+				unset($a['cnidscheme']);
+				unset($a['options']);
+				unset($a['adisk']);
+			}
+			unset($a);
+		}
+		if (isset($config['samba']) && isset($config['samba']['share'])
+		    && is_array($config['samba']['share'])) {
+			foreach ($config['samba']['share'] as &$a) {
+				if (empty($a['aiomodule'])) {
+					$a['aiomodule'] = "aio_pthread";
+				}
+			}
+			unset($a);
+		}
+		if (!preg_match('/^\$6\$/', $config['system']['password'])) {
+			$config['system']['password'] = mkpasswd($config['system']['password']);
+		}
+		$config['version'] = "2.0";
+	}
+
 	/* XXX Convert 9.5 -> 9.7 (must skip 9.6) */
 
 	write_config();
@@ -1004,6 +1083,17 @@ function config_postinit() {
 
 	if (isset($config['old_after072'])) {
 		unset($config['old_after072']);
+		$need_write_config = true;
+	}
+
+	// save current uuid if not found in config
+	if (stristr($g['platform'], "embedded")) {
+		$uuid = @exec("/bin/kenv -q smbios.system.uuid");
+		$hostuuid = @exec("/sbin/sysctl -qn kern.hostuuid");
+		if (empty($uuid) && !empty($hostuuid) && empty($config['system']['uuid'])) {
+			$config['system']['uuid'] = $hostuuid;
+			$need_write_config = true;
+		}
 	}
 
 	if ($need_write_config) {

@@ -16,7 +16,7 @@ if_tap/if_tap.ko
 if_tun/if_tun.ko
 #if_bridge/if_bridge.ko
 #bridgestp/bridgestp.ko
-if_carp/if_carp.ko
+carp/carp.ko
 
 # File systems
 ext2fs/ext2fs.ko
@@ -40,6 +40,11 @@ libmchain/libmchain.ko
 netgraph/netgraph/netgraph.ko
 netgraph/socket/ng_socket.ko
 netgraph/ether/ng_ether.ko
+
+# IP firewall
+ipfw/ipfw.ko
+ipfw_nat/ipfw_nat.ko
+libalias/libalias/libalias.ko
 
 # Misc.
 iscsi/initiator/iscsi_initiator.ko
@@ -69,6 +74,3 @@ hifn/hifn.ko
 safe/safe.ko
 padlock/padlock.ko
 ubsec/ubsec.ko
-
-# igb
-igb/if_igb.ko

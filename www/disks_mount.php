@@ -190,7 +190,9 @@ function mountmanagement_process_updatenotification($mode, $data) {
           	<?php if ("disk" === $mount['type']):?>
             <td class="listlr"><?=htmlspecialchars($mount['devicespecialfile']);?>&nbsp;<?php if ($mount['fstype'] == "ufs" && preg_match('/^\/dev\/(.+)$/', $mount['mdisk'], $match)) { echo "({$match[1]}{$mount['partition']})"; } ?></td>
             <?php elseif ("hvol" === $mount['type']):?>
-            <td class="listlr"><?=htmlspecialchars($mount['devicespecialfile']);?>&nbsp;<?php if ($mount['fstype'] == "ufs" && preg_match('/^\/dev\/(.+)$/', $mount['mdisk'], $match)) { echo "({$match[1]})"; } ?></td>
+            <td class="listlr"><?=htmlspecialchars($mount['devicespecialfile']);?>&nbsp;<?php if ($mount['fstype'] == "ufs" && preg_match('/^\/dev\/(.+)$/', $mount['mdisk'], $match)) { echo "({$match[1]}{$mount['partition']})"; } ?></td>
+            <?php elseif ("custom" === $mount['type']):?>
+            <td class="listlr"><?=htmlspecialchars($mount['devicespecialfile']);?>&nbsp;</td>
             <?php else:?>
             <td class="listlr"><?=htmlspecialchars($mount['filename']);?>&nbsp;</td>
             <?php endif;?>
