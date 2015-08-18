@@ -148,6 +148,9 @@ usr/local/lib/perl5/5.16/
 usr/local/lib/perl5/site_perl/5.16/
 usr/local/bin/perl5.16.3
 usr/local/etc/man.d/perl5.16.conf
+usr/local/lib/perl5/5.18/
+usr/local/bin/perl5.18.4
+usr/local/etc/man.d/perl5.18.conf
 
 # Clean old bacula share file
 usr/local/share/bacula
@@ -164,4 +167,6 @@ usr/local/etc/bacula-fd.conf
 usr/local/etc/bconsole.conf
 
 # Old ssh lib
-usr/lib/libssh.so.5etc/inc/XML
+usr/lib/libssh.so.5
+
+etc/inc/XML

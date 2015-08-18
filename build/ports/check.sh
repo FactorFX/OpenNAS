@@ -2,9 +2,9 @@
 
 export NAS4FREE_ROOTFS="defined"
 
-PAC="bacula5-server cmdwatch curl ipmitool \
+PAC="bacula5-server cmdwatch ipmitool \
 	ncdu nload nmap ocsinventory-agent openldap24-client \
-	pciutils pdksh perl5.18 pkg python27 rsnapshot sssd sudo sysinfo \
+	pciutils pdksh rsnapshot sssd sysinfo \
 	usbutils vim-lite wget zfs-stats zsh"
 
 for P in $PAC; do

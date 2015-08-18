@@ -2,7 +2,6 @@
 # $FreeBSD: head/security/sssd/Makefile 358784 2014-06-22 10:44:29Z tijl $
 
 PORTNAME=		sssd
-DISTVERSION=	1.9.6
 
 COMMENT=		System Security Services Daemon
 

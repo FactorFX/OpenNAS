@@ -1,11 +1,11 @@
 # Created by: markm
-# $FreeBSD: head/lang/perl5.16/Makefile 357601 2014-06-12 14:33:28Z mat $
+# $FreeBSD: head/lang/perl5.20/Makefile 392626 2015-07-21 12:36:08Z mat $
 
 PORTNAME=		perl
 
 COMMENT=	Practical Extraction and Report Language
 
-MASTERDIR=	/usr/ports/lang/perl5.18
+MASTERDIR=	/usr/ports/lang/perl5.20
 
 post-install:
 	${MKDIR} ${NAS4FREE_ROOTFS}${SITE_MAN3}

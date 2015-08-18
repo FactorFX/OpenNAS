@@ -38,7 +38,8 @@
     SUBDIR += pam_ldap
     SUBDIR += pam_mkhomedir
     SUBDIR += pciutils
-    SUBDIR += pdksh        
+    SUBDIR += pdksh
+    SUBDIR += perl
     SUBDIR += php56
     SUBDIR += proftpd
     SUBDIR += python2
