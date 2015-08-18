@@ -1,7 +1,7 @@
 # $FreeBSD: head/sysutils/bacula-client/Makefile 360216 2014-07-02 16:14:10Z bapt $
 
 PORTNAME=	bacula
-PKGNAMESUFFIX=	5-client
+PKGNAMESUFFIX=	-client
 
 COMMENT=	Network backup solution (client)
 
@@ -10,7 +10,7 @@ USE_RC_SUBR=
 CONFFILES=
 
 PLIST=		${PKGDIR}/pkg-plist.client
-MASTERDIR=	/usr/ports/sysutils/bacula5-server
+MASTERDIR=	/usr/ports/sysutils/bacula-server
 
 STAGEDIR=	${NAS4FREE_ROOTFS}
 

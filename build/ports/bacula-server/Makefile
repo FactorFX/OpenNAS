@@ -3,14 +3,14 @@
 
 
 PORTNAME=	bacula
-PKGNAMESUFFIX=	5-server
+PKGNAMESUFFIX=	-server
 
 COMMENT=	Network backup solution (server)
 
 CONFFILES=
 USE_RC_SUBR=
 
-MASTERDIR=	/usr/ports/sysutils/bacula5-server
+MASTERDIR=	/usr/ports/sysutils/bacula-server
 
 STAGEDIR=	${NAS4FREE_ROOTFS}
 
