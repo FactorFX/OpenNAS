@@ -2009,6 +2009,7 @@ if [ -z "$MAKE_ALL" ]; then
 else
 	# Ensure we are in $NAS4FREE_WORKINGDIR
 	[ ! -d "$NAS4FREE_WORKINGDIR" ] && mkdir $NAS4FREE_WORKINGDIR
+	[ ! -d "$NAS4FREE_WORKINGDIR/pkg" ] && mkdir $NAS4FREE_WORKINGDIR/pkg
 	
 	create_rootfs || exit 1;
 	if ! [ -f ${NAS4FREE_WORKINGDIR}/kernel.gz ] || [ "$FORCE_BUILD_KERNEL" = "true" ]; then		
