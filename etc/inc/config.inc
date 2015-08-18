@@ -1049,6 +1049,14 @@ function opennas_upgrade()  {
 		$config['on_version'] = "0.2";
 	}
 
+	/* Convert 0.1 -> 0.3 */
+    if ($config['on_version'] === "0.2") {
+        if (!preg_match('/^\$6\$/', $config['system']['password'])) {
+            $config['system']['password'] = mkpasswd($config['system']['password']);
+        }
+        $config['on_version'] = "0.3";
+    }
+
 	write_config();
 
 	echo "done\n";
