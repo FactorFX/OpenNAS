@@ -7,10 +7,13 @@ COMMENT=	Practical Extraction and Report Language
 
 MASTERDIR=	/usr/ports/lang/perl5.20
 
+STAGEDIR=	${NAS4FREE_ROOTFS}
+
 post-install:
 	${MKDIR} ${NAS4FREE_ROOTFS}${SITE_MAN3}
 	${MKDIR} ${NAS4FREE_ROOTFS}${SITE_ARCH}/auto
 	${MKDIR} ${NAS4FREE_ROOTFS}${SITE_PERL}/auto
+	${RM} ${NAS4FREE_ROOTFS}${PREFIX}/bin/perl5
 	${LN} ${NAS4FREE_ROOTFS}${PREFIX}/bin/perl${PERL_VERSION} ${NAS4FREE_ROOTFS}${PREFIX}/bin/perl5
 	${LN} -sf libperl.so.${PERL_VERSION} ${NAS4FREE_ROOTFS}${PREFIX}/${_ARCH_LIB}/CORE/libperl.so
 	${LN} -sf libperl.so.${PERL_VERSION} ${NAS4FREE_ROOTFS}${PREFIX}/${_ARCH_LIB}/CORE/libperl.so.${PERL_VER}

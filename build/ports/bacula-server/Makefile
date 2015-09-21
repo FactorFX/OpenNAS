@@ -26,5 +26,3 @@ do-install:
 	$(MAKE) -C  ${WRKSRC} install DESTDIR=${NAS4FREE_ROOTFS} LOCALBASE=/usr/local
 
 .include "${MASTERDIR}/Makefile"
-
-CONFIGURE_ARGS+= --disable-build-dird

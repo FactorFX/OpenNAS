@@ -1926,7 +1926,7 @@ build_ports() {
 					echo ">>> Building Port: ${port}";
 					echo "--------------------------------------------------------------";
 					cd ${NAS4FREE_SVNDIR}/build/ports/${port};
-					make build;
+					make build DISABLE_VULNERABILITIES=yes;
 					[ 0 != $? ] && return 1; # successful?
 				done;
 				;;
