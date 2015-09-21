@@ -1,5 +1,5 @@
 include         GENERIC
-ident		NAS4FREE-x64
+ident		OPENNAS-x64
 
 makeoptions	MODULES_EXTRA="mlx4 mlxen"
 
