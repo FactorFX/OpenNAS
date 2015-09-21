@@ -11,6 +11,9 @@ STAGEDIR=	${NAS4FREE_ROOTFS}
 
 PLIST= ${MASTERDIR}/pkg-plist
 
+fix-perl-things:
+	echo 'Ignore some fix for perl'
+
 do-install:
 	$(MAKE) -C  ${WRKSRC} install DESTDIR=${NAS4FREE_ROOTFS}
 	
