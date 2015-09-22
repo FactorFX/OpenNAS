@@ -9,6 +9,8 @@ COMMENT=	 Open source LDAP client implementation with SASL2 support
 
 STAGEDIR=	${NAS4FREE_ROOTFS}
 
+CONFLICTS=
+
 do-install:
 	$(MAKE) -C  ${WRKSRC} install DESTDIR=${NAS4FREE_ROOTFS}
 
