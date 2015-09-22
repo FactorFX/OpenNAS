@@ -4,7 +4,8 @@ PORTNAME=	openjdk8-jre
 
 COMMENT=	Java Runtime Environment ${JDK_MAJOR_VERSION}
 
-MASTERDIR=	/usr/ports/java/openjdk8-jre/
+BUILD_JRE=      yes
+MASTERDIR=      /usr/ports/java/openjdk8
 
 STAGEDIR=	${NAS4FREE_ROOTFS}
 
