@@ -11,6 +11,11 @@ COMMENT=		Display human-readable ZFS statistics
 
 MASTERDIR=		/usr/ports/sysutils/zfs-stats
 
+STAGEDIR=	${NAS4FREE_ROOTFS}
+
+fix-perl-things:
+	echo 'Ignore some fix for perl'
+
 do-install:
 	${INSTALL_SCRIPT} ${WRKSRC}/zfs-stats ${NAS4FREE_ROOTFS}${PREFIX}/bin/zfs-stats
 	${INSTALL_SCRIPT} ${WRKSRC}/zfs-mon ${NAS4FREE_ROOTFS}${PREFIX}/bin/zfs-mon
