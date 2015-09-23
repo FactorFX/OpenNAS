@@ -13,5 +13,10 @@ CONFLICTS=
 
 do-install:
 	$(MAKE) -C  ${WRKSRC} install DESTDIR=${NAS4FREE_ROOTFS}
+	@for prog in ldapcompare ldapdelete ldapexop ldapmodify ldapmodrdn ldappasswd ldapsearch ldapurl ldapwhoami; do\
+			${CP} ${WRKSRC}/clients/tools/.libs/$${prog} ${NAS4FREE_ROOTFS}/usr/local/bin; \
+	done
+
+	${CP} /usr/local/bin/ldapadd ${NAS4FREE_ROOTFS}/usr/local/bin
 
 .include "${MASTERDIR}/Makefile"
