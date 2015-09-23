@@ -1755,7 +1755,7 @@ finalization()
 	rsync -r --exclude=usr/local/lib/perl5/site_perl/Ocsinventory /usr/local/lib/perl5/site_perl/ ${NAS4FREE_ROOTFS}/usr/local/lib/perl5/site_perl/
 	
 	# bootstrap pkgng
-	chroot ${NAS4FREE_ROOTFS} env ASSUME_ALWAYS_YES=yes pkg update
+	# chroot ${NAS4FREE_ROOTFS} env ASSUME_ALWAYS_YES=yes pkg update
 	
 }
 
