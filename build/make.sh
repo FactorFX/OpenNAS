@@ -1753,7 +1753,10 @@ finalization()
 	
 	# Add missing perl library
 	rsync -r --exclude=usr/local/lib/perl5/site_perl/Ocsinventory /usr/local/lib/perl5/site_perl/ ${NAS4FREE_ROOTFS}/usr/local/lib/perl5/site_perl/
-	
+
+	#copy snaprepl script
+	cd ${NAS4FREE_SVNDIR}/build/scripts && cp -pv snaprepl ${NAS4FREE_ROOTFS}/usr/local/bin
+
 	# bootstrap pkgng
 	# chroot ${NAS4FREE_ROOTFS} env ASSUME_ALWAYS_YES=yes pkg update
 	

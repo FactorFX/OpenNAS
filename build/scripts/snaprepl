@@ -1,0 +1,222 @@
+#!/bin/sh
+# Regular Snapshots with replication
+
+# Copyright (c) 2015, Paul LECUQ
+# All rights reserved.
+
+# Redistribution and use in source and binary forms, with or without
+# modification, are permitted provided that the following conditions are met:
+
+# 1. Redistributions of source code must retain the above copyright notice, this
+#    list of conditions and the following disclaimer.
+# 2. Redistributions in binary form must reproduce the above copyright notice,
+#    this list of conditions and the following disclaimer in the documentation
+#    and/or other materials provided with the distribution.
+
+# THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+# ANY EXPRESS OR I MPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+# WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+# DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
+# ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+# (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+# LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+# ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+# (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+# SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+. /etc/snaprepl.conf
+
+tag="snaprepl"
+new=$(date +"%Y-%m-%d-%H-%M")-$tag
+
+ssh_cmd="ssh $ssh_options root@$remotehost"
+
+list_snapshot_cmd="zfs list -H -o name -t snapshot | grep $tag | sort -r"
+
+list_snapshot=$(eval $list_snapshot_cmd)
+remote_list_snapshot=$(eval $ssh_cmd $list_snapshot_cmd)
+
+first_snapshot=$(echo $list_snapshot | awk '-F[ @]' '{print $2}')
+remote_first_snapshot=$(echo $remote_list_snapshot | awk '-F[ @]' '{print $2}')
+
+carpstate=$(ifconfig ${carpdev} | grep 'carp:' | cut -d' ' -f2)
+peercarpstate=$(${ssh_cmd} ifconfig ${carpdev} | grep 'carp:' | cut -d' ' -f2)
+
+lockfile="/var/run/snaprepl.lock"
+
+# new snapshot variable
+snapshot_new="$localpool@$new"
+
+# look for old snapshot
+snapshot_old="$localpool@$first_snapshot"
+
+full_snap()
+{
+	zfs_destroy -R $list_snapshot
+
+	zfs snapshot -r $snapshot_new
+	if [ $? -eq 1 ]
+	then
+		zfs destroy -R $snapshot_new
+		exit 1
+	fi
+
+	log_cmd "zfs send -R $snapshot_new | $ssh_cmd zfs receive -Fduv $remotepool"
+	log_cmd "$ssh_cmd zfs mount -a"
+	if [ $? -eq 1 ]
+	then
+		zfs destroy -R $snapshot_new
+	fi
+
+}
+
+
+# $1 depends(-R) or children(-r)
+# $@ array of snaphots
+zfs_destroy()
+{
+	local arg=$1
+	shift
+
+	for trash_snapshot in $@
+	do
+		logger -s "remove snapshot $trash_snapshot"
+		zfs destroy $arg "$trash_snapshot"
+	done
+}
+
+log_cmd()
+{
+	local ret output
+
+	exec 3>&1
+	output=$(eval "$1 2>&1 1>&3")
+	ret=$?
+	exec 3>&-
+	logger -s "$output"
+	return $ret
+}
+
+incremental_snap()
+{
+	# look for a snapshot with this name
+	if $( eval $list_snapshot_cmd | grep $snapshot_new$ > /dev/null)
+	then
+		logger -s "snapshot, $snapshot_new, already exists, aborting"
+		/etc/inc/repl_alert.php -e ${notify_addr} -c snapEchoue
+	else
+		logger -s "taking new snapshot, $snapshot_new"
+		zfs snapshot -r $snapshot_new
+
+		if $( eval $list_snapshot_cmd | grep $snapshot_old$ > /dev/null)
+		then
+			logger -s "old snapshot, $snapshot_old, exists lets proceed with replication"
+
+			log_cmd "zfs send -R -i $snapshot_old $snapshot_new | $ssh_cmd zfs receive -Fduv $remotepool"
+			if [ $? -eq 0 ]
+			then
+				logger -s "backup complete destroying old snapshot"
+				for trash_snapshot in $( eval $list_snapshot_cmd | grep -v $snapshot_new$)
+				do
+					zfs destroy -r $trash_snapshot
+				done
+				$ssh_cmd $(which $0) remove_old $remote_list_snapshot
+			fi
+		else
+			logger -s "missing old snapshot aborting, $snapshot_old"
+			/etc/inc/repl_alert.php -e ${notify_addr} -c oldSnapmissing
+		fi
+	fi
+}
+
+lock()
+{
+	logger -s "locking process"
+	touch ${lockfile}
+}
+
+unlock()
+{
+	logger -s "unlocking process"
+	rm ${lockfile}
+}
+
+test_carp()
+{
+	if [ ${carpstate} != "MASTER" ]
+	then
+		logger -s "carp is not master, exiting"
+		exit 1
+	else
+		logger -s "carp is master, let's continue"
+		if [ ${carpstate} == ${peercarpstate} ]
+		then
+			logger -s "members are in the same state, exiting"
+			/etc/inc/repl_alert.php -e ${notify_addr} -c carpSamestate
+			exit 1
+		fi
+	fi
+}
+
+is_running()
+{
+	if $(pgrep zfs > /dev/null)
+	then
+		logger -s "a zfs command is already running"
+		/etc/inc/repl_alert.php -e ${notify_addr} -c zfsRunning
+		exit 1
+	fi
+}
+
+if [ -f $lockfile ]
+then
+	logger -s "lockfile exists"
+	exit 1
+fi
+
+case "$1" in
+	full)
+		test_carp
+		is_running
+		lock
+
+		logger -s "full snapshot"
+		full_snap
+
+		unlock
+		exit 0
+	;;
+	remove_old)
+		lock
+			zfs_destroy -R "$2"
+		unlock
+	;;
+	*)
+		test_carp
+		is_running
+		lock
+
+		logger -s "incremental snapshot"
+
+		if [ -z $first_snapshot ] || [ -z $remote_first_snapshot ]
+		then
+			logger -s "first_snapshot is empty, you sould create a full snapshot by using : # `basename $0` full"
+			/etc/inc/repl_alert.php -e ${notify_addr} -c firstSnapmissing
+		else
+			# Check if local snapshot is equal to remote snapshot
+			if [ $first_snapshot == $remote_first_snapshot ]
+			then
+				logger -s "local and remote snapshots are equal, starting incremental snapshot"
+				incremental_snap
+			else
+				logger -s "local and remote differents, or remote is unavailable, you should manually repair this error nor create a full snapshot by using : # `basename $0` full"
+				/etc/inc/repl_alert.php -e ${notify_addr} -c snapNotequal
+			fi
+		fi
+
+		unlock
+		exit 0
+	;;
+esac
+
+trap "exit" unlock
