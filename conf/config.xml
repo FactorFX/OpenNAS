@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- NAS4Free default system configuration -->
-<nas4free>
+<!-- OpenNAS default system configuration -->
+<opennas>
 	<version>2.0</version>
 	<on_version>0.3</on_version>
 	<lastchange></lastchange>
