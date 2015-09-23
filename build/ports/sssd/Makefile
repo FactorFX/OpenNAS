@@ -134,14 +134,12 @@ do-install:
 	${MKDIR} ${NAS4FREE_ROOTFS}/usr/local/share/doc/sssd/libsss_sudo_doc/
 	${MKDIR} ${NAS4FREE_ROOTFS}/usr/local/share/doc/sssd/nss_idmap_doc/
 
-.for FILE in libsss_nss_idmap.so.0 libsss_nss_idmap.so.0.0.1 libsss_idmap.so.0.4.0
+.for FILE in libsss_nss_idmap.so.0 libsss_nss_idmap.so.0.0.1 libsss_idmap.so.0.4.0 libsss_nss_idmap.so
 	${CP} -v ${WRKSRC}/.libs/${FILE} ${NAS4FREE_ROOTFS}/usr/local/lib/
 .endfor
 
 .for FILE in libsss_child.so libsss_crypt.so libsss_debug.so libsss_util.so libsss_ldap_common.so libsss_krb5_common.so
 	${CP} -v ${WRKSRC}/.libs/${FILE} ${NAS4FREE_ROOTFS}/usr/local/lib/sssd/
 .endfor
-
-	${LN} -sfv /usr/local/lib/libsss_nss_idmap.so ${NAS4FREE_ROOTFS}/usr/local/lib/libsss_nss_idmap.so.0.0.1
 
 .include "${MASTERDIR}/Makefile"
