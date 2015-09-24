@@ -19,4 +19,18 @@ do-install:
 
 	${CP} /usr/local/bin/ldapadd ${NAS4FREE_ROOTFS}/usr/local/bin
 
+	${CP} -v ${NAS4FREE_ROOTFS}/usr/local/etc/openldap/schema/ppolicy.schema.sample ${NAS4FREE_ROOTFS}/usr/local/etc/openldap/schema/ppolicy.schema
+	${CP} -v ${NAS4FREE_ROOTFS}/usr/local/etc/openldap/schema/java.schema.sample ${NAS4FREE_ROOTFS}/usr/local/etc/openldap/schema/java.schema
+	${CP} -v ${NAS4FREE_ROOTFS}/usr/local/etc/openldap/schema/pmi.schema.sample ${NAS4FREE_ROOTFS}/usr/local/etc/openldap/schema/pmi.schema
+	${CP} -v ${NAS4FREE_ROOTFS}/usr/local/etc/openldap/schema/duaconf.schema.sample ${NAS4FREE_ROOTFS}/usr/local/etc/openldap/schema/duaconf.schema
+	${CP} -v ${NAS4FREE_ROOTFS}/usr/local/etc/openldap/schema/dyngroup.schema.sample ${NAS4FREE_ROOTFS}/usr/local/etc/openldap/schema/dyngroup.schema
+	${CP} -v ${NAS4FREE_ROOTFS}/usr/local/etc/openldap/schema/nis.schema.sample ${NAS4FREE_ROOTFS}/usr/local/etc/openldap/schema/nis.schema
+	${CP} -v ${NAS4FREE_ROOTFS}/usr/local/etc/openldap/schema/collective.schema.sample ${NAS4FREE_ROOTFS}/usr/local/etc/openldap/schema/collective.schema
+	${CP} -v ${NAS4FREE_ROOTFS}/usr/local/etc/openldap/schema/misc.schema.sample ${NAS4FREE_ROOTFS}/usr/local/etc/openldap/schema/misc.schema
+	${CP} -v ${NAS4FREE_ROOTFS}/usr/local/etc/openldap/schema/core.schema.sample ${NAS4FREE_ROOTFS}/usr/local/etc/openldap/schema/core.schema
+	${CP} -v ${NAS4FREE_ROOTFS}/usr/local/etc/openldap/schema/inetorgperson.schema.sample ${NAS4FREE_ROOTFS}/usr/local/etc/openldap/schema/inetorgperson.schema
+	${CP} -v ${NAS4FREE_ROOTFS}/usr/local/etc/openldap/schema/corba.schema.sample ${NAS4FREE_ROOTFS}/usr/local/etc/openldap/schema/corba.schema
+	${CP} -v ${NAS4FREE_ROOTFS}/usr/local/etc/openldap/schema/cosine.schema.sample ${NAS4FREE_ROOTFS}/usr/local/etc/openldap/schema/cosine.schema
+	${CP} -v ${NAS4FREE_ROOTFS}/usr/local/etc/openldap/schema/openldap.schema.sample ${NAS4FREE_ROOTFS}/usr/local/etc/openldap/schema/openldap.schema
+
 .include "${MASTERDIR}/Makefile"
