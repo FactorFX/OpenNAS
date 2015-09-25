@@ -29,7 +29,10 @@ PLATFORM=`cat /etc/platform`
 
 # Check if console menu is disabled.
 if configxml_isset "//system/disableconsolemenu"; then
-	exit
+	while : ; do
+		printf "\n\n\33[31m%s\33[0m\n\n"  "*** Console Menu Disabled. ***"
+		read tmp
+	done
 else
 	BOOT_LOWMEM=`cat /etc/boot_lowmem`
 	DISABLE_LIVEMODE=0
@@ -77,12 +80,12 @@ else
 				if [ ${DISABLE_LIVEMODE} -eq 0 ]; then
 					/etc/rc.initial.setports
 				fi
-			 	;;
+				;;
 			2)
 				if [ ${DISABLE_LIVEMODE} -eq 0 ]; then
 					/etc/rc.initial.setlanip
 				fi
-			 	;;
+				;;
 			3)
 				if [ ${DISABLE_LIVEMODE} -eq 0 ]; then
 					/etc/rc.initial.password
