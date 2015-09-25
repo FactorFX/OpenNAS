@@ -29,10 +29,7 @@ PLATFORM=`cat /etc/platform`
 
 # Check if console menu is disabled.
 if configxml_isset "//system/disableconsolemenu"; then
-	while : ; do
-		printf "\n\n\33[31m%s\33[0m\n\n"  "*** Console Menu Disabled. ***"
-		read tmp
-	done
+	exit
 else
 	BOOT_LOWMEM=`cat /etc/boot_lowmem`
 	DISABLE_LIVEMODE=0
