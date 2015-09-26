@@ -34,8 +34,8 @@
 		will get lost because of the PHP XML parser. -->
 		<motd>V2VsY29tZSB0byBPcGVuTkFTIQ0K</motd>
 		<disablebeep/>
-		<disableconsolemenu/>
 		<!--
+		<disableconsolemenu/>
 		<enableserialconsole/>
 		<disablefm/>
 		<disablefirmwarecheck/>
