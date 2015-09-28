@@ -211,7 +211,7 @@ EOF
 	fi
 	# hosts allow
 	cat <<EOF >> ${lighttpd_conf}
-url.access-deny = ( "" )
+#url.access-deny = ( "" )
 EOF
 	for h in $_hostsallow; do
 		cat <<EOF >> ${lighttpd_conf}
