@@ -215,9 +215,9 @@ url.access-deny = ( "" )
 EOF
 	for h in $_hostsallow; do
 		cat <<EOF >> ${lighttpd_conf}
-\$HTTP["remoteip"] == "$h" {
-	url.access-deny = ( "~", ".inc", ".htpasswd" )
-}
+#\$HTTP["remoteip"] == "$h" {
+#	url.access-deny = ( "~", ".inc", ".htpasswd" )
+#}
 EOF
 	done
 
