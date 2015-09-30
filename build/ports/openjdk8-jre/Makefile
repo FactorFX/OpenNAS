@@ -28,6 +28,7 @@ do-install:
 	@${ECHO} "@exec ${LOCALBASE}/bin/registervm '${INSTALLDIR}/bin/java # ${JAVAVMS_COMMENT}'" >> ${TMPPLIST}
 
 post-install:
+	${CP} ${WRKSRC}/build/bsd-x86_64-normal-server-release/jdk/bin/jar ${NAS4FREE_ROOTFS}/usr/local/bin/
 	${CP} -r ${NAS4FREE_ROOTFS}/usr/local/openjdk8/ ${NAS4FREE_ROOTFS}/usr/local/
 
 .include "${MASTERDIR}/Makefile"
