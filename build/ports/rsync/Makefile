@@ -1,55 +1,18 @@
-PORTNAME=		rsync
-PORTVERSION=	3.1.1
-PORTREVISION=	0
-CATEGORIES=		net
-COMMENT=		A network file distribution/sync utility
-MAINTAINER=		zoon01@nas4free.org
+# Created by: David O'Brien (obrien@cs.ucdavis.edu)
+# $FreeBSD: head/net/rsync/Makefile 386312 2015-05-14 10:15:04Z mat $
 
-MASTER_SITES=		http://rsync.samba.org/ftp/%SUBDIR%/ \
-							ftp://ftp.samba.org/pub/%SUBDIR%/ \
-							ftp://ftp.sunet.se/pub/unix/admin/%SUBDIR%/  \
-							ftp://ftp.fu-berlin.de/pub/unix/network/%SUBDIR%/ \
-							http://www.mirrorservice.org/sites/rsync.samba.org/ \
-							CRITICAL
-MASTER_SITE_SUBDIR=	rsync
-DISTFILES=		${DISTNAME}${EXTRACT_SUFX}
-DISTFILES+=		${PORTNAME}-patches-${PORTVERSION}${EXTRACT_SUFX}
+PORTNAME=       rsync
 
-GNU_CONFIGURE=	yes
-CONFIGURE_ARGS+=		--disable-debug \
-							--enable-ipv6 \
-							--with-rsyncd-conf=/var/etc/rsyncd.conf \
-							--with-included-popt \
-							--enable-largefile
+COMMENT=        Network file distribution/synchronization utility
 
-# Enable iconv support.
-ICONV_USES=	iconv
-CFLAGS+=		-I${LOCALBASE}/include
-LDFLAGS+=		-L${LOCALBASE}/lib
-CONFIGURE_ENV=	CFLAGS="${CFLAGS}" \
-								LDFLAGS="${LDFLAGS}"
+MASTERDIR=      /usr/ports/net/rsync
 
-# Install on host system too, otherwise depending ports fail during ./configure process (e.g. scponly).
-FORCE_PKG_REGISTER=	yes
+STAGEDIR=       ${NAS4FREE_ROOTFS}
 
-.include <bsd.port.pre.mk>
+.include "${MASTERDIR}/Makefile"
 
-# guard against CFLAGS damage by MAKE_ENV
-post-patch:
-	@${REINPLACE_CMD} -e 's|CFLAGS|CONFIGUREDCFLAGS|' \
-		-e 's|perl.*|${DO_NADA}|' \
-			${WRKSRC}/Makefile.in
-
-
-pre-configure:
-	@${REINPLACE_CMD} -e 's:/etc/:${PREFIX}/etc/:g'  \
-		${WRKSRC}/rsync.h ${WRKSRC}/rsync.1 ${WRKSRC}/rsyncd.conf.5
-	@${REINPLACE_CMD} -e 's|malloc.h|stdlib.h|g' \
-		${WRKSRC}/rsync.h ${WRKSRC}/zlib/zutil.h
+ACL_EXTRA_PATCHES= ${WRKSRC}/patches/acls.diff \
+				   ${.CURDIR}/files/extrapatch-acl
 
 do-install:
 	@${INSTALL_PROGRAM} -v ${WRKSRC}/rsync ${NAS4FREE_ROOTFS}/usr/local/bin
-# Install on host system too, otherwise depending ports fail during ./configure process (e.g. scponly). 
-	@${INSTALL_PROGRAM} -v ${WRKSRC}/rsync ${PREFIX}/bin
-
-.include <bsd.port.post.mk>
