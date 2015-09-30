@@ -912,7 +912,7 @@ function config_upgrade() {
 			}
 			unset($a);
 		}
-		if (!preg_match('/^\$6\$/', $config['system']['password'])) {
+		if (!preg_match('/^\$6\$/', $config['system']['password']) && !preg_match('/^\$1\$/', $config['system']['password'])) {
 			$config['system']['password'] = mkpasswd($config['system']['password']);
 		}
 		$config['version'] = "2.0";
@@ -938,7 +938,7 @@ function searchAndRemoveInConfig($needle, &$haystack, $key){
 }
 
 function opennas_upgrade()  {
-	global $config;
+	global $config, $g;
 
 	if (!is_booting())
 		return 0;
@@ -1049,10 +1049,12 @@ function opennas_upgrade()  {
 		$config['on_version'] = "0.2";
 	}
 
-	/* Convert 0.1 -> 0.3 */
+	/* Convert 0.2 -> 0.3 */
     if ($config['on_version'] === "0.2") {
         if (!preg_match('/^\$6\$/', $config['system']['password'])) {
-            $config['system']['password'] = mkpasswd($config['system']['password']);
+            $default_passwd = $g['default_passwd'];
+            $config['system']['password'] = mkpasswd($g['default_passwd']);
+            write_console("\33[1;33mInfo: Password will be reset to $default_passwd \33[0;37m\n");
         }
         $config['on_version'] = "0.3";
     }

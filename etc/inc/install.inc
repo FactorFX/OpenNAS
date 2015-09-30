@@ -671,28 +671,6 @@ function install_upgrade_config($disk)
 		return 1;
 	}
 
-	/*
-	 * If Previous version is a BETA
-	 * @todo Could be remove in future version
-	 *
-	 */
-	if (false !== strpos($prev_revision, 'BETA') || $prev_name == 'NAS4Free') {
-
-		if (false !== strpos($prev_revision, 'BETA')) {
-			write_console("The previous version is a BETA version.\n");
-		}
-		else if ($prev_name == 'NAS4Free') {
-			write_console("The previous version is NAS4Free.\n");
-		}
-
-		write_console("We are going to crypt password.\n");
-
-		/* Reset password to opennas */
-		$default_passwd = $g['default_passwd'];
-		write_console("\33[1;33mInfo: Password will be reset to $default_passwd \33[0;37m\n");
-		$config['system']['password'] = crypt($default_passwd);
-	}
-
 	$xmlconfig = dump_xml_config($config, $g['xml_rootobj'], $codeset);
 
 	// Write configuration file
