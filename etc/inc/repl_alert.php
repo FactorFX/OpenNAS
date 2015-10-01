@@ -101,7 +101,7 @@ function parseEmail($content, $extra = false) {
 function sendErrorReport() {
 
 	$options = getOptions();
-	print_r($options);
+
 	$extra_vars = (isset($options['params'])) ? $options['params']: false;
 
 	$content = parseEmail($options['email'], $extra_vars);
