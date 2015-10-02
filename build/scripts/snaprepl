@@ -1,4 +1,6 @@
 #!/bin/sh
+set -e
+
 # Regular Snapshots with replication
 
 # Copyright (c) 2015, Paul LECUQ
@@ -31,7 +33,7 @@ new=$(date +"%Y-%m-%d-%H-%M")-$tag
 
 ssh_cmd="ssh $ssh_options root@$remotehost"
 
-list_snapshot_cmd="zfs list -H -o name -t snapshot | grep $tag | sort -r"
+list_snapshot_cmd="zfs list -H -o name -t snapshot | grep $tag | grep -v '/' | sort -r"
 
 list_snapshot=$(eval $list_snapshot_cmd)
 remote_list_snapshot=$(eval $ssh_cmd $list_snapshot_cmd)
@@ -52,7 +54,15 @@ snapshot_old="$localpool@$first_snapshot"
 
 full_snap()
 {
-	zfs_destroy -R $list_snapshot
+	check_snapshot_vars $list_snapshot $snapshot_new $remote_list_snapshot
+	if [ "x$list_snapshot" != "x" ]
+	then
+		zfs_destroy -R $list_snapshot
+	fi
+	if [ "x$remote_list_snapshot" != "x" ]
+	then
+		$ssh_cmd $(which $0) remove_old $remote_list_snapshot
+	fi
 
 	zfs snapshot -r $snapshot_new
 	if [ $? -eq 1 ]
@@ -76,7 +86,12 @@ full_snap()
 zfs_destroy()
 {
 	local arg=$1
-	shift
+	if [ "x$arg" != "x" ]
+	then
+		shift
+	fi
+
+	check_snapshot_vars $@
 
 	for trash_snapshot in $@
 	do
@@ -118,6 +133,7 @@ incremental_snap()
 				logger -s "backup complete destroying old snapshot"
 				for trash_snapshot in $( eval $list_snapshot_cmd | grep -v $snapshot_new$)
 				do
+					check_snapshot_vars $trash_snapshot
 					zfs destroy -r $trash_snapshot
 				done
 				$ssh_cmd $(which $0) remove_old $remote_list_snapshot
@@ -127,6 +143,27 @@ incremental_snap()
 			/etc/inc/repl_alert.php -e ${notify_addr} -c oldSnapmissing
 		fi
 	fi
+}
+
+
+# Check if variable is whele form, exit otherwise
+check_snapshot_vars()
+{
+
+	for var in $@
+	do
+		if [ -z "${var+x}" ]
+		then
+			logger -s "Oups! Variable $var is empty, exit..."
+			exit 1
+		fi
+		case "$var" in
+			*@*)
+				continue;;
+			*)
+				exit 1;;
+		esac
+	done
 }
 
 lock()
@@ -188,7 +225,8 @@ case "$1" in
 	;;
 	remove_old)
 		lock
-			zfs_destroy -R "$2"
+		check_snapshot_vars "$2"
+		zfs_destroy -R "$2"
 		unlock
 	;;
 	*)
@@ -219,4 +257,4 @@ case "$1" in
 	;;
 esac
 
-trap "exit" unlock
+trap unlock SIGINT SIGTERM SIGHUP SIGKILL SIGQUIT SIGSTOP SIGTSTP
