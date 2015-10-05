@@ -33,7 +33,7 @@ new=$(date +"%Y-%m-%d-%H-%M")-$tag
 
 ssh_cmd="ssh $ssh_options root@$remotehost"
 
-list_snapshot_cmd="zfs list -H -o name -t snapshot | grep $tag | grep -v '/' | sort -r"
+list_snapshot_cmd="zfs list -H -o name -t snapshot | grep $tag | sort -r"
 
 list_snapshot=$(eval $list_snapshot_cmd)
 remote_list_snapshot=$(eval $ssh_cmd $list_snapshot_cmd)
@@ -44,6 +44,8 @@ remote_first_snapshot=$(echo $remote_list_snapshot | awk '-F[ @]' '{print $2}')
 carpstate=$(ifconfig ${carpdev} | grep 'carp:' | cut -d' ' -f2)
 peercarpstate=$(${ssh_cmd} ifconfig ${carpdev} | grep 'carp:' | cut -d' ' -f2)
 
+diff_snapshot=$(echo ${list_snapshot} ${remote_list_snapshot} | tr ' ' '\n' | sort | uniq -u )
+
 lockfile="/var/run/snaprepl.lock"
 
 # new snapshot variable
@@ -51,18 +53,14 @@ snapshot_new="$localpool@$new"
 
 # look for old snapshot
 snapshot_old="$localpool@$first_snapshot"
+remote_snapshot_old="$localpool@$remote_first_snapshot"
 
 full_snap()
 {
-	check_snapshot_vars $list_snapshot $snapshot_new $remote_list_snapshot
-	if [ "x$list_snapshot" != "x" ]
-	then
-		zfs_destroy -R $list_snapshot
-	fi
-	if [ "x$remote_list_snapshot" != "x" ]
-	then
-		$ssh_cmd $(which $0) remove_old $remote_list_snapshot
-	fi
+	check_snapshot_vars $snapshot_new
+
+	remove_old_snapshot_local $list_snapshot
+	remove_old_snapshot_remote $remote_list_snapshot
 
 	zfs snapshot -r $snapshot_new
 	if [ $? -eq 1 ]
@@ -80,12 +78,43 @@ full_snap()
 
 }
 
+# Remove old snapshot from param on local
+# $@ array of snaphots
+remove_old_snapshot_local()
+{
+	for trash_snapsot in $@
+	do
+		case $trash_snapsot in
+			*/*)
+				continue;;
+			*)
+				zfs_destroy -R $trash_snapsot;;
+		esac
+	done
+}
+
+# Remove old snapshot from param on remote
+# $@ array of snaphots
+remove_old_snapshot_remote()
+{
+	for trash_snapsot in $@
+	do
+		case $trash_snapsot in
+			*/*)
+				continue;;
+			*)
+				$ssh_cmd $(which $0) remove_old $trash_snapsot;;
+		esac
+	done
+}
 
 # $1 depends(-R) or children(-r)
+# $2 exclude_child if is true exclude children
 # $@ array of snaphots
 zfs_destroy()
 {
 	local arg=$1
+	local exclude_child=$2
 	if [ "x$arg" != "x" ]
 	then
 		shift
@@ -95,8 +124,11 @@ zfs_destroy()
 
 	for trash_snapshot in $@
 	do
-		logger -s "remove snapshot $trash_snapshot"
-		zfs destroy $arg "$trash_snapshot"
+		if [ ! -z ${trash_snapshot#*@} ]  # Check if snapshot as value after @
+		then
+			logger -s "remove snapshot $trash_snapshot"
+			zfs destroy $arg "$trash_snapshot"
+		fi
 	done
 }
 
@@ -131,12 +163,8 @@ incremental_snap()
 			if [ $? -eq 0 ]
 			then
 				logger -s "backup complete destroying old snapshot"
-				for trash_snapshot in $( eval $list_snapshot_cmd | grep -v $snapshot_new$)
-				do
-					check_snapshot_vars $trash_snapshot
-					zfs destroy -r $trash_snapshot
-				done
-				$ssh_cmd $(which $0) remove_old $remote_list_snapshot
+				remove_old_snapshot_local $snapshot_old
+				remove_old_snapshot_remote $remote_snapshot_old
 			fi
 		else
 			logger -s "missing old snapshot aborting, $snapshot_old"
@@ -156,13 +184,11 @@ check_snapshot_vars()
 		then
 			logger -s "Oups! Variable $var is empty, exit..."
 			exit 1
+		elif [ -z ${var#*@} ]
+		then
+			logger -s "Oups! Variable $var is malformed, exit..."
+			exit 1
 		fi
-		case "$var" in
-			*@*)
-				continue;;
-			*)
-				exit 1;;
-		esac
 	done
 }
 
@@ -195,6 +221,15 @@ test_carp()
 	fi
 }
 
+exit_prog()
+{
+	echo "********************************"
+	echo '*********  EXIT  ***************'
+	echo "********************************"
+	unlock
+	$ssh_cmd $(which $0) "unlock > /dev/null"
+}
+
 is_running()
 {
 	if $(pgrep zfs > /dev/null)
@@ -205,6 +240,11 @@ is_running()
 	fi
 }
 
+###########
+## BEGIN ##
+###########
+trap exit_prog SIGINT SIGTERM SIGHUP SIGKILL SIGQUIT SIGSTOP SIGTSTP
+
 if [ -f $lockfile ]
 then
 	logger -s "lockfile exists"
@@ -212,6 +252,10 @@ then
 fi
 
 case "$1" in
+	unlock)
+		unlock
+		exit 0
+	;;
 	full)
 		test_carp
 		is_running
@@ -225,8 +269,7 @@ case "$1" in
 	;;
 	remove_old)
 		lock
-		check_snapshot_vars "$2"
-		zfs_destroy -R "$2"
+		remove_old_snapshot_local "$2"
 		unlock
 	;;
 	*)
@@ -240,6 +283,17 @@ case "$1" in
 		then
 			logger -s "first_snapshot is empty, you sould create a full snapshot by using : # `basename $0` full"
 			/etc/inc/repl_alert.php -e ${notify_addr} -c firstSnapmissing
+		elif [ x"$diff_snapshot" != "x" ]
+		then
+			logger -s "Les snapshots ne sont pas égaux, analyser sur les deux machines"
+			/etc/inc/repl_alert.php -e ${notify_addr} -c snapNotequal
+			unlock
+			exit 1
+		elif [ $snapshot_old == $snapshot_new ]
+		then
+			logger -s "Ce snapshot a déjà été effectué, essaye un peu plus tard, ... "
+			unlock
+			exit 0
 		else
 			# Check if local snapshot is equal to remote snapshot
 			if [ $first_snapshot == $remote_first_snapshot ]
@@ -256,5 +310,3 @@ case "$1" in
 		exit 0
 	;;
 esac
-
-trap unlock SIGINT SIGTERM SIGHUP SIGKILL SIGQUIT SIGSTOP SIGTSTP

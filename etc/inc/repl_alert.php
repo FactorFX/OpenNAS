@@ -15,7 +15,8 @@ $emails = [
 	'firstSnapmissing' => "Le @@now \nUn snapshop à échoué sur le serveur @@hostname à l'adresse @@adresses @@test\n - Le premier snapshot semble manquant. Un snapshot complet est requis",
 	'zfsRunning' => "Le @@now \nUn snapshop à échoué sur le serveur @@hostname à l'adresse @@adresses @@test\n - Une commande zfs est lancée. Il n'est pas possible de démarrer un snapshot",
 	'carpSamestate' => "Le @@now \nUn snapshop à échoué sur le serveur @@hostname à l'adresse @@adresses @@test\n - Les interfaces carp des serveurs sont dans le même état",
-	'oldSnapmissing' => "Le @@now \nUn snapshop à échoué sur le serveur @@hostname à l'adresse @@adresses @@test\n - Le snapshot de base niveau incrémentiel semble manquant. Un snapshot complet est requis"
+	'oldSnapmissing' => "Le @@now \nUn snapshop à échoué sur le serveur @@hostname à l'adresse @@adresses @@test\n - Le snapshot de base niveau incrémentiel semble manquant. Un snapshot complet est requis",
+	'scriptExit' => "Le @@now \nLe script s'est arrété alors qu'un snapshot est en cours sur le serveur @@hostname à l'adresse @@adresses @@test"
 ];
 /*
  *  Options are
