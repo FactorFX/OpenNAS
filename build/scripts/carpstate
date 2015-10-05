@@ -1,0 +1,67 @@
+#!/bin/sh
+
+. /etc/snaprepl.conf
+
+hostname=$(/bin/hostname)
+carpstate=$(/sbin/ifconfig ${carpdev} | /usr/bin/grep 'carp:' | /usr/bin/cut -d ' ' -f2)
+carpstatefile=/tmp/carpstate
+mail=/tmp/msg.carpstate
+lockfile=/tmp/remote.mon
+
+if [ ! -f ${carpstatefile} ]
+then
+	touch ${carpstatefile}
+	oldcarpstate="RESET"
+else
+	oldcarpstate=$(cat /tmp/carpstate)
+fi
+
+touch ${mail}
+
+if [ ${carpstate} != ${oldcarpstate} ]
+then
+	echo "Subject: Changement d'état sur $hostname" > ${mail}
+	echo "L'interface ${carpdev} est désormais en état ${carpstate} sur ${hostname}, auparavant en ${oldcarpstate}" >> ${mail}
+	cat ${mail} | /usr/local/bin/msmtp -C /var/etc/msmtp.conf ${notify_addr}
+fi
+
+if [ ${carpstate} == "MASTER" ]
+then
+        /etc/rc.d/samba start
+else
+        /etc/rc.d/samba forcestop
+fi
+
+rm ${mail}
+
+echo ${carpstate} > ${carpstatefile}
+
+
+# Monitor remote host
+
+ping -t 4 -c 4 ${remotehost}
+rcode=$?
+
+if [ ${rcode} != "0" ]
+then
+        if [ ! -f ${lockfile} ]
+        then
+		echo "Subject: Membre indisponible à l'adresse ${remotehost}" > ${mail}
+		echo "L'hôte distant est indisponible à l'adresse ${remotehost}" >> ${mail}
+		cat ${mail} | /usr/local/bin/msmtp -C /var/etc/msmtp.conf ${notify_addr}
+        fi
+        touch ${lockfile}
+else
+        if [ -f ${lockfile} ]
+        then
+		echo "Subject: Membre $hostname -> ${carpstate}" > ${mail}
+		echo "L'interface ${carpdev} est désormais en état ${carpstate} depuis $hostname" >> ${mail}
+		cat ${mail} | /usr/local/bin/msmtp -C /var/etc/msmtp.conf ${notify_addr}
+                rm ${lockfile}
+        fi
+fi
+
+if [ -f ${mail} ]
+then
+	rm ${mail}
+fi

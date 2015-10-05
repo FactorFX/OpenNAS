@@ -1757,6 +1757,9 @@ finalization()
 	#copy snaprepl script
 	cd ${NAS4FREE_SVNDIR}/build/scripts && cp -pv snaprepl ${NAS4FREE_ROOTFS}/usr/local/bin
 
+	#copy carpstate script
+	cd ${NAS4FREE_SVNDIR}/build/scripts && cp -pv carpstate ${NAS4FREE_ROOTFS}/usr/local/bin
+
 	# bootstrap pkgng
 	# chroot ${NAS4FREE_ROOTFS} env ASSUME_ALWAYS_YES=yes pkg update
 	
