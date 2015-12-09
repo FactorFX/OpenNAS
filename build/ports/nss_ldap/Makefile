@@ -16,9 +16,6 @@ DEPENDS_TARGET=	clean build
 
 BUILD_DEPENDS=	${NONEXISTENT}:${PORTSDIR}/net/nss_ldap
 
-post-extract:
-	${CP} ${FILESDIR}/bsdnss.c ${PORTSDIR}/net/nss_ldap/files/bsdnss.c
-
 do-install:
 	@${INSTALL_PROGRAM} -v ${PORTSDIR}/net/nss_ldap/work/nss_ldap-*/nss_ldap.so ${NAS4FREE_ROOTFS}/usr/local/lib/nss_ldap.so.1
 	@${LN} -fsv /var/etc/ldap.conf ${NAS4FREE_ROOTFS}/usr/local/etc/nss_ldap.conf
