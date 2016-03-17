@@ -29,6 +29,7 @@ if configxml_isset //kerberos/enable && [ -n "${type}" ]; then
 	/usr/local/bin/xml sel -t -m "//kerberos" \
 		-o "[libdefaults]" -n \
 		-v "concat('default_realm =  ', realms)" -n \
+		-o "allow_weak_crypto = true" -n \
 		-n \
 		-o "[realms]" -n \
 		-v "concat(realms, ' = {')" -n \
