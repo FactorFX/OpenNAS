@@ -275,7 +275,7 @@ $(document).ready(function(){
 						if ($do_format[$key]) {
 							echo(sprintf("<div id='cmdoutput'>%s</div>", sprintf(gettext("Command output")." for disk %s :", $disk)));
 							echo('<pre class="cmdoutput">');
-								disks_format($disk,$type,$notinitmbr,$minspace,$_volumelabels[$key], $aft4k);
+								disks_format($disk,$type,$notinitmbr,$minspace,$_volumelabels[$key], $aft4k, $zfsgpt);
 							echo('</pre><br/>');
 						}
 					}
