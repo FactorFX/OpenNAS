@@ -45,30 +45,34 @@ mountd_mkconf()
 	_index=`configxml_get_count "//nfsd/share"`
 	while [ ${_index} -gt 0 ]
 	do
-		_ipaddr=`configxml_get "//nfsd/share[position()=${_index}]/network"`
-		_network=${_ipaddr%/*}
-		_mask=`get_subnetmask ${_ipaddr}`
+	    _index_n=`configxml_get_count "//nfsd/share[position()=${_index}]/network"`
+        while [ ${_index_n} -gt 0 ]
+		do
+            _ipaddr=`configxml_get "//nfsd/share[position()=${_index}]/network[position()=${_index_n}]"`
+            _network=${_ipaddr%/*}
+            _mask=`get_subnetmask ${_ipaddr}`
 
-		if configxml_isset "//nfsd/share[position()=${_index}]/v4rootdir"; then
-			/usr/local/bin/xml sel -t -m "//nfsd/share[position()=${_index}]" \
-				-i "count(v4rootdir) > 0" -o "V4: " -b \
-				-v "path" \
-				-o " -network ${_network} -mask ${_mask}" -n \
-			${configxml_file} | /usr/local/bin/xml unesc >> ${mountd_config}
-		else
-			/usr/local/bin/xml sel -t -m "//nfsd/share[position()=${_index}]" \
-				-v "path" \
-				-i "count(options/*) > 0" -o " -" -b \
-				-m "options/*" \
-					-i "position() > 1" -o "," -b \
-					-v "local-name()" \
-				-b \
-				-i "mapall[. = 'yes']" -o " -mapall=root" -b \
-				-i "mapall[. != 'yes']" -o " -maproot=root" -b \
-				-o " -network ${_network} -mask ${_mask}" -n \
-			${configxml_file} | /usr/local/bin/xml unesc >> ${mountd_config}
-		fi
-
+            if configxml_isset "//nfsd/share[position()=${_index}]/v4rootdir"; then
+                /usr/local/bin/xml sel -t -m "//nfsd/share[position()=${_index}]" \
+                    -i "count(v4rootdir) > 0" -o "V4: " -b \
+                    -v "path" \
+                    -o " -network ${_network} -mask ${_mask}" -n \
+                ${configxml_file} | /usr/local/bin/xml unesc >> ${mountd_config}
+            else
+                /usr/local/bin/xml sel -t -m "//nfsd/share[position()=${_index}]" \
+                    -v "path" \
+                    -i "count(options/*) > 0" -o " -" -b \
+                    -m "options/*" \
+                        -i "position() > 1" -o "," -b \
+                        -v "local-name()" \
+                    -b \
+                    -i "mapall[. = 'yes']" -o " -mapall=root" -b \
+                    -i "mapall[. != 'yes']" -o " -maproot=root" -b \
+                    -o " -network ${_network} -mask ${_mask}" -n \
+                ${configxml_file} | /usr/local/bin/xml unesc >> ${mountd_config}
+                _index_n=$(( ${_index_n} - 1 ))
+            fi
+        done
 		_index=$(( ${_index} - 1 ))
 	done
 }
