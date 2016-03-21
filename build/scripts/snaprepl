@@ -40,8 +40,11 @@ remote_list_snapshot=$(eval $ssh_cmd $list_snapshot_cmd)
 first_snapshot=$(echo $list_snapshot | awk '-F[ @]' '{print $2}')
 remote_first_snapshot=$(echo $remote_list_snapshot | awk '-F[ @]' '{print $2}')
 
-carpstate=$(ifconfig ${carpdev} | grep 'carp:' | cut -d' ' -f2)
-peercarpstate=$(${ssh_cmd} ifconfig ${carpdev} | grep 'carp:' | cut -d' ' -f2)
+if [ $carpdev ]
+then
+	carpstate=$(ifconfig ${carpdev} | grep 'carp:' | cut -d' ' -f2)
+	peercarpstate=$(${ssh_cmd} ifconfig ${carpdev} | grep 'carp:' | cut -d' ' -f2)
+fi
 
 diff_snapshot=$(echo ${list_snapshot} ${remote_list_snapshot} | tr ' ' '\n' | sort | uniq -u )
 
@@ -256,7 +259,10 @@ case "$1" in
 		exit 0
 	;;
 	full)
-		test_carp
+		if [ $carpdev ]
+		then
+			test_carp
+		fi
 		is_running
 		lock
 
@@ -272,7 +278,10 @@ case "$1" in
 		unlock
 	;;
 	*)
-		test_carp
+		if [ $carpdev ]
+		then
+			test_carp
+		fi
 		is_running
 		lock
 
