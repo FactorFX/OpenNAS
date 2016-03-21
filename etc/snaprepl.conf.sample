@@ -1,0 +1,5 @@
+localpool="SAMPLEPOOL"
+remotepool="SAMPLEPOOL"
+remotehost="8.8.8.8"
+ssh_options="-o ConnectTimeout=5 -o Cipher=arcfour128"
+notify_addr="info@test.org"
