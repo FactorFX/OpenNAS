@@ -33,6 +33,7 @@ required_files="${mountd_config}"
 start_precmd="mountd_precmd"
 mkconf_cmd="mountd_mkconf"
 extra_commands="reload mkconf"
+reload_cmd="mountd_prereload"
 
 # Clear existing file
 cat /dev/null > ${mountd_config}
@@ -106,6 +107,16 @@ mountd_precmd()
 	rm -f /var/db/mountdtab
 	( umask 022 ; > /var/db/mountdtab )
 	return 0
+}
+
+
+mountd_prereload()
+{
+	# Clear existing file
+	cat /dev/null > ${mountd_config}
+
+	# Create configuration file
+	mountd_mkconf
 }
 
 load_rc_config $name
