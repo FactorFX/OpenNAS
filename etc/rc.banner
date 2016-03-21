@@ -104,7 +104,7 @@ EOD;
 			
 echo <<<EOD
 
-	Type menu in shell to acces Menu\n
+	Type menu in shell to access Menu\n
 EOD;
 
 ?>
