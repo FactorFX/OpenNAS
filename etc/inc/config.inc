@@ -73,11 +73,8 @@ if (is_booting()) {
 
 		if (stristr($g['platform'], "livecd") || stristr($g['platform'], "liveusb")) {
 			// Config is on floppy disk/USB stick for LiveCD version per default
-			$cfgdevice = $cfgpartition = "fd0";
+			$cfgdevice = $cfgpartition = false;
 			$cfgfstype = "msdos";
-
-			// Display progress...
-			echo " fd0";
 
 			// Check if there is any USB device that can be used
 			foreach ($disks as $disk) {
@@ -108,9 +105,11 @@ if (is_booting()) {
 				}
 			}
 
-			// Display device information used to store the configuration
-			echo "\n";
-			echo "Using device=/dev/{$cfgpartition} fstype={$cfgfstype} to store configuration.\n";
+            if ($cfgdevice) {
+                // Display device information used to store the configuration
+                echo "\n";
+                echo "Using device=/dev/{$cfgpartition} fstype={$cfgfstype} to store configuration.\n";
+			}
 		} else {
 			// Probe kernel known disks until we find one with config.xml
 			foreach ($disks as $disk) {
@@ -203,22 +202,6 @@ if (is_booting()) {
 			if ($cfgdevice) {
 				echo "Found configuration on device=/dev/{$cfgpartition} fstype={$cfgfstype}.\n";
 			}
-		}
-
-		if (!$cfgdevice) {
-			// No device found, print an error and die
-			echo <<<EOD
-
-*******************************************************************************
-FATAL ERROR!
-The device that contains the configuration file (config.xml) could not be
-found. {$productname} cannot continue booting.
-*******************************************************************************
-
-EOD;
-
-			mwexec("/sbin/halt");
-			exit;
 		}
 
 		// Write device name to a file (used by rc.firmware for example)
