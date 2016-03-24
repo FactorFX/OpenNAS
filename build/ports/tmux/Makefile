@@ -65,6 +65,7 @@ do-install:
 	(cd ${WRKSRC} && ${INSTALL_DATA} ${PORTDOCS} ${STAGEDIR}${DOCSDIR})
 	@${MKDIR} ${STAGEDIR}${EXAMPLESDIR}
 	${INSTALL_DATA} ${WRKSRC}/examples/* ${STAGEDIR}${EXAMPLESDIR}
+	${CP} ${.CURDIR}/files/tmux.conf ${STAGEDIR}${PREFIX}/etc/tmux.conf
 
 #	NAS4Free Install
 	@${INSTALL_PROGRAM} ${WRKSRC}/tmux ${NAS4FREE_ROOTFS}/bin
