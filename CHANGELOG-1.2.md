@@ -1,5 +1,19 @@
 # CHANGELOG V1.2
 
+## v1.2.xx
+- Kernel updated to 10.2-RELEASE-p14
+
+### Update softwares
+- bacula 7.0.5 => 7.4.0
+- ipmitool 1.8.14 => 1.8.15
+- nmap 6.47 => 7.11
+- openjdk8 8.51.16 => 8.72.15
+- pciutils 3.3.1 => 3.4.1
+- rsnapshot 1.4.0 =>1.4.2
+- rsync 3.1.1 => 3.1.2
+- sg3_utils 1.40 => 1.41
+- vim-lite 7.4.826 => 7.4.1556
+
 ## v1.2.466
 
 ### Add software
