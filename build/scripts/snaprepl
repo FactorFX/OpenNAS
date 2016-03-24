@@ -84,13 +84,13 @@ full_snap()
 # $@ array of snaphots
 remove_old_snapshot_local()
 {
-	for trash_snapsot in $@
+	for trash_snapshot in $@
 	do
-		case $trash_snapsot in
+		case $trash_snapshot in
 			*/*)
 				continue;;
 			*)
-				zfs_destroy -R $trash_snapsot;;
+				zfs_destroy -R $trash_snapshot;;
 		esac
 	done
 }
@@ -99,13 +99,13 @@ remove_old_snapshot_local()
 # $@ array of snaphots
 remove_old_snapshot_remote()
 {
-	for trash_snapsot in $@
+	for trash_snapshot in $@
 	do
-		case $trash_snapsot in
+		case $trash_snapshot in
 			*/*)
 				continue;;
 			*)
-				$ssh_cmd $(which $0) remove_old $trash_snapsot;;
+				$ssh_cmd $(which $0) remove_old $trash_snapshot;;
 		esac
 	done
 }
