@@ -1,7 +1,7 @@
 # CHANGELOG V1.1
 
 ## v1.1.405
-- Kernel updated to 9.3-RELEASE-p9 for security reasons http://www.exploit-db.com/exploits/35938/
+- Kernel updated to 9.3-RELEASE-p9 for security reasons [read more on exploit-db] (http://www.exploit-db.com/exploits/35938/)
 - Add issue message for default login
 - Remove bad index in array in disk_zfs_zpool.php
 - Default webgui login is root / opennas
