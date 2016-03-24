@@ -1,0 +1,52 @@
+# CHANGELOG V1.1
+
+## v1.1.405
+- Kernel updated to 9.3-RELEASE-p9 for security reasons http://www.exploit-db.com/exploits/35938/
+- Add issue message for default login
+- Remove bad index in array in disk_zfs_zpool.php
+- Default webgui login is root / opennas
+
+## v1.1.402
+- Kernel updated to 9.3-RELEASE-p8
+- Update perl 5.16 to 5.18
+- Update curl 7.38 to 7.39
+- Update pkg 1.3.8 to 1.4.3
+- Update pciutils 3.2.1 to 3.3.0
+- Update python 2.7.8 to 2.7.9
+- Upgrade e2fsprogs to 1.42.12.
+- Upgrade isboot to 0.2.8.
+- Upgrade istgt to 20141125.
+- Upgrade smartmontools 6.3
+- Upgrade xmlstarlet to 1.6.1.
+- Upgrade zoneinfo to 2014j.
+- Change iperf2.x for iperf3.
+- Upgrade php to 5.6.4.
+- Upgrade mDNSResponder to 561.1.1.
+- Upgrade xmd to 0.4.2.
+- Upgrade bash 4.3 to patch 33.
+- Upgrade unison to 2.48.3.
+- Upgrade netatalk to 3.1.7.
+- Upgrade samba to 4.1.16.
+- Add auxiliaire parameters in bacula sd and fd
+- Upgrade to Samba4.1 and add SMB3 in WebGUI.
+- Ability to backup and restore encrypted configuration.
+- Improved WebGUI under PHP 5.6.
+- Improved WebGUI with Chrome.
+- Improved config restore verbose output.
+- Improved ZFS pool usage/tool and import ZFS disks.
+- Improved ZFS pool import on embedded.
+- Improved HAST switch with net.inet.carp.preempt.
+- Improved PHP session handle.
+- Replaced /dev/md0 with xmd using LZ4 compression.
+- Replaced the server certificate with 2048bits key and sha256 signature.
+- Changed samba reload when changing the shares. (it takes few secs.)
+- Changed rootfs layout. (2GB USB/CF is required. Full is 4GB or more.)
+- Changed image files to use XZ.
+- Drop SSLv3 support. (HTTPS must use TLS)
+- Add NFS support in HAST service.
+- Adjust number of Status|Processes.
+- Add log/mirrored log support in Disks|ZFS|Pools|Tools.
+- Add expires HTTP header. (some js must be force reloaded.)
+- Increase http upload size to 512MB.
+- Remove last slash of the path added by filechooser.
+- Add wait_on and spindown.

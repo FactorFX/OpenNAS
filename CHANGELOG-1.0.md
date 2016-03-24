@@ -1,15 +1,13 @@
-** CHANGELOG **
+# CHANGELOG V1.0
 
-	1.0.278
-
+## v1.0.278
 - Kernel updated to 9.2-RELEASE-p14
 - Add mfiutil command
 - Add smbclient command
 - Add wget 1.15
 - Add curl 7.38.0
 
-	1.0.274RC5
-
+## v1.0.274RC5
 - Kernel updated to 9.2-RELEASE-p12
 - GPT partioning replace MBR in installation
 - Update bacula 5.2.12 to 7.0.5
@@ -21,8 +19,7 @@
 - /var in memory is now deactive by default and override in update
 - Inventory packages with pkgng in OCS
 
-	1.0.253RC4
-
+## v1.0.253RC4
 - Kernel updated to 9.2-RELEASE-p10
 - Minimun memory to boot iso is 800Mb
 - Add sssd 1.9.6 in kerberos menu
@@ -34,21 +31,18 @@
 - Add pkgng
 - United States of America ISO-8859-1 keymap by default
 
-	1.0.202RC3
-
+## v1.0.202RC3
 - Kernel updated to 9.2-RELEASE-p5
 - This version is based on Nas4free 9.2.0.1.972
 - Ocs Agent updated to 2.1
 - Update from NAS4Free is possible
 
-	1.0.172RC2
-
+## v1.0.172RC2
 - Kernel updated to 9.1-RELEASE-p9
 - Add OCS Inventory NG Agents 2.1RC1, nmap 6.40, pciutils 3.2.1, ipmitool 1.8.12
 - Add sftp command
 
-	1.0.148RC1
-
+## v1.0.148RC1
 - Kernel updated to 9.1-RELEASE-p8
 - This version is based on Nas4free 9.1.0.1.847
 - Fix change password bug in WebGui
