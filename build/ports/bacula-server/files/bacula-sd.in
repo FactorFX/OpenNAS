@@ -53,6 +53,7 @@ bacula_sd_mkconf()
 		-v "concat('SDPort = ', //bacula_sd/storageport)" -n \
 		-o "WorkingDirectory = ${bacula_sd_workingdir} " -n \
 		-o "Pid Directory = /var/run" -n \
+		-m "//bacula_sd/storageauxparam" -v "." -n -b \
 		-i "string-length(//bacula_sd/storagemaxjobs) > 0" -v "concat('Maximum Concurrent Jobs = ', //bacula_sd/storagemaxjobs)" -n -b \
 		-o "}" -n \
 		-n \
@@ -84,7 +85,6 @@ bacula_sd_mkconf()
 		-o "Name     = Standard" -n \
 		-v "concat('director = ', //bacula_sd/directorname, ' = all')" -n \
 		-o "}" -n \
-		-m "//bacula_sd/storageauxparam" -v "." -n -b \
 		${configxml_file} | /usr/local/bin/xml unesc >> ${bacula_sd_config}
 
 }
