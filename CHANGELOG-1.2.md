@@ -2,6 +2,7 @@
 
 ## v1.2.xx
 - Kernel updated to 10.2-RELEASE-p14
+- Add ctladm command line
 
 ### Update softwares
 - bacula 7.0.5 => 7.4.0

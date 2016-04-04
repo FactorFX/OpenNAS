@@ -88,3 +88,6 @@ usr/sbin/tcpdump
 
 ## dc
 usr/bin/dc
+
+## ctladm
+usr/sbin/ctladm

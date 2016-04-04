@@ -6,7 +6,7 @@ COMMENT=	 Keep track of the computers configuration and software
 
 MASTERDIR=	/usr/ports/net-mgmt/ocsinventory-agent
 
-BIN_DEP=GET HEAD POST lwp-download lwp-dump lwp-mirror lwp-request \
+BIN_DEP= GET HEAD POST lwp-download lwp-dump lwp-mirror lwp-request \
 	iptab ipcount\
 	snmpkey \
 	xml_grep xml_merge xml_pp xml_spellcheck xml_split \
