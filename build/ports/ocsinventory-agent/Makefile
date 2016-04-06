@@ -24,7 +24,7 @@ do-install:
 	${MKDIR} ${NAS4FREE_ROOTFS}/usr/local/share/man/man1/
 	${CP} ${WRKSRC}/blib/man1/ocsinventory-agent.1 ${NAS4FREE_ROOTFS}/usr/local/share/man/man1/ocsinventory-agent.1
 	gzip -c ${NAS4FREE_ROOTFS}/usr/local/share/man/man1/ocsinventory-agent.1 > ${NAS4FREE_ROOTFS}/usr/local/share/man/man1/ocsinventory-agent.1.gz
-	rm ${NAS4FREE_ROOTFS}/usr/local/man/man1/ocsinventory-agent.1
+	rm ${NAS4FREE_ROOTFS}/usr/local/share/man/man1/ocsinventory-agent.1
 
 	$(MAKE) -C  ${WRKSRC} install DESTDIR=${NAS4FREE_ROOTFS}
 
