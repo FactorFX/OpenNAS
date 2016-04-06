@@ -18,7 +18,6 @@ post-install:
 	${LN} -sf libperl.so.${PERL_VERSION} ${NAS4FREE_ROOTFS}${PREFIX}/${_ARCH_LIB}/CORE/libperl.so
 	${LN} -sf libperl.so.${PERL_VERSION} ${NAS4FREE_ROOTFS}${PREFIX}/${_ARCH_LIB}/CORE/libperl.so.${PERL_VER}
 	${STRIP_CMD} ${NAS4FREE_ROOTFS}${PREFIX}/bin/perl${PERL_VERSION}
-	${INSTALL_DATA} ${WRKDIR}/perl5_version ${NAS4FREE_ROOTFS}${PREFIX}/etc
 	${FIND} ${NAS4FREE_ROOTFS} -name '*.bs' -size 0 -delete
 	${MKDIR} ${NAS4FREE_ROOTFS}${SITE_ARCH}/machine
 	${MKDIR} ${NAS4FREE_ROOTFS}${SITE_ARCH}/sys
