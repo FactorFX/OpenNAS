@@ -71,7 +71,7 @@ full_snap()
 		exit 1
 	fi
 
-	log_cmd "zfs send -R $snapshot_new | $ssh_cmd zfs receive -Fduv $remotepool"
+	log_cmd "zfs send -L -R $snapshot_new | $ssh_cmd zfs receive -Fduv $remotepool"
 	log_cmd "$ssh_cmd zfs mount -a"
 	if [ $? -eq 1 ]
 	then
@@ -161,7 +161,7 @@ incremental_snap()
 		then
 			logger -s "old snapshot, $snapshot_old, exists lets proceed with replication"
 
-			log_cmd "zfs send -R -i $snapshot_old $snapshot_new | $ssh_cmd zfs receive -Fduv $remotepool"
+			log_cmd "zfs send -L -R -i $snapshot_old $snapshot_new | $ssh_cmd zfs receive -Fduv $remotepool"
 			if [ $? -eq 0 ]
 			then
 				logger -s "backup complete destroying old snapshot"
