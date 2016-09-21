@@ -7,4 +7,4 @@ PATCHFILE=patch-oce_mbox.c
 all:
 
 install:
-	(cd /usr/src; patch -p1 < ${.CURDIR}/files/${PATCHFILE})
+	(cd /usr/src; patch -p0 < ${.CURDIR}/files/${PATCHFILE})
