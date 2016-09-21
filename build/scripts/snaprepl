@@ -208,17 +208,20 @@ unlock()
 
 test_carp()
 {
-	if [ ${carpstate} != "MASTER" ]
+	if [ ${carpstate} == "BACKUP" ]
 	then
 		logger -s "carp is not master, exiting"
 		exit 1
 	else
-		logger -s "carp is master, let's continue"
-		if [ ${carpstate} == ${peercarpstate} ]
+		if [ ${carpstate} == "MASTER" ]
 		then
-			logger -s "members are in the same state, exiting"
-			/etc/inc/repl_alert.php -e ${notify_addr} -c carpSamestate
-			exit 1
+			logger -s "carp is master, let's continue"
+			if [ ${carpstate} == ${peercarpstate} ]
+			then
+				logger -s "members are in the same state, exiting"
+				/etc/inc/repl_alert.php -e ${notify_addr} -c carpSamestate
+				exit 1
+			fi
 		fi
 	fi
 }
