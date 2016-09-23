@@ -43,9 +43,7 @@ do-install:
 	@${CP} -pv /boot/kernel/fuse.ko ${NAS4FREE_ROOTFS}/boot/kernel
 .endif
 	@${INSTALL_PROGRAM} -v ${PORTSDIR}/sysutils/fusefs-ntfs/work/ntfs-3g*/libntfs-3g/.libs/libntfs-3g.so.86 ${NAS4FREE_ROOTFS}/usr/local/lib
-#	@${INSTALL_PROGRAM} -v ${PORTSDIR}/sysutils/fusefs-libs/work/libfuse-fuse*/lib/.libs/lib*.so* ${NAS4FREE_ROOTFS}/usr/local/lib
-	@${INSTALL_PROGRAM} -v ${PORTSDIR}/sysutils/fusefs-libs/work/libfuse-fuse*/lib/.libs/lib*.so ${NAS4FREE_ROOTFS}/usr/local/lib
-#	@${INSTALL_PROGRAM} -v ${PORTSDIR}/devel/libublio/work/libublio-*/libubl*.so* ${NAS4FREE_ROOTFS}/usr/local/lib
+	@${INSTALL_PROGRAM} -v ${PORTSDIR}/sysutils/fusefs-libs/work/fuse*/lib/.libs/lib*.so ${NAS4FREE_ROOTFS}/usr/local/lib
 	@${INSTALL_PROGRAM} -v ${PORTSDIR}/devel/libublio/work/libublio-*/libubl*.so ${NAS4FREE_ROOTFS}/usr/local/lib
 
 	@${LN} -s -f -v /usr/local/bin/ntfs-3g ${NAS4FREE_ROOTFS}/sbin/mount_ntfs
