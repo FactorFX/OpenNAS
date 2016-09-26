@@ -34,6 +34,7 @@ post-install:
 			${CHMOD} 444 $$f; \
 		done
 	${INSTALL_DATA} ${WRKDIR}/perl-man.conf ${NAS4FREE_ROOTFS}${PREFIX}/etc/man.d/perl${PERL_VER}.conf
+	${CP} /usr/local/etc/perl5_version ${NAS4FREE_ROOTFS}/usr/local/etc/perl5_version
 
 do-install:
 	$(MAKE) -C  ${WRKSRC} install DESTDIR=${NAS4FREE_ROOTFS}
