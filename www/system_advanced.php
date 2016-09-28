@@ -233,20 +233,18 @@ function sysctl_tune($mode) {
         "hw.igb.num_queues"	                =>  0,
         "hw.ix.num_queues"	                =>  8,
 
-        "kern.maxfilesperproc" => 60000,
+		"net.inet.tcp.delayed_ack" 			=> 1,
+		"net.inet.tcp.rfc1323" 				=> 1,
+		"net.inet.udp.recvspace" 			=> 65536,
+		"net.inet.udp.maxdgram" 			=> 57344,
 
-		"net.inet.tcp.delayed_ack" => 1,
-		"net.inet.tcp.rfc1323" => 1,
-		"net.inet.udp.recvspace" => 65536,
-		"net.inet.udp.maxdgram" => 57344,
+		"net.local.stream.recvspace" 		=> 65536,
+		"net.local.stream.sendspace" 		=> 65536,
 
-		"net.local.stream.recvspace" => 65536,
-		"net.local.stream.sendspace" => 65536,
-
-		"net.inet.icmp.icmplim" => 300,
-		"net.inet.icmp.icmplim_output" => 1,
-		"net.inet.tcp.path_mtu_discovery" => 0,
-		"hw.intr_storm_threshold" => 9000,
+		"net.inet.icmp.icmplim" 			=> 300,
+		"net.inet.icmp.icmplim_output" 		=> 1,
+		"net.inet.tcp.path_mtu_discovery" 	=> 0,
+		"hw.intr_storm_threshold" 			=> 9000,
 	);
 
 	switch ($mode) {

@@ -2,7 +2,7 @@
 <!-- OpenNAS default system configuration -->
 <opennas>
 	<version>2.0</version>
-	<on_version>0.3</on_version>
+	<on_version>0.4</on_version>
 	<lastchange></lastchange>
 	<system>
 		<hostname>opennas</hostname>
@@ -307,14 +307,7 @@
 			<param>
 				<uuid>5867a59c-5332-4589-a9cb-4510f1405901</uuid>
 				<name>kern.maxfiles</name>
-				<value>65536</value>
-				<comment>System tuning</comment>
-				<enable/>
-			</param>
-			<param>
-				<uuid>a4bd7970-1c77-43d7-8bc8-7924d9f86077</uuid>
-				<name>kern.maxfilesperproc</name>
-				<value>60000</value>
+				<value>6289573</value>
 				<comment>System tuning</comment>
 				<enable/>
 			</param>

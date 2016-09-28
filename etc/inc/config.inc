@@ -1042,6 +1042,20 @@ function opennas_upgrade()  {
         $config['on_version'] = "0.3";
     }
 
+	/* Convert 0.3 -> 0.4 */
+	if ($config['on_version'] === "0.3") {
+        searchAndRemoveInConfig('a4bd7970-1c77-43d7-8bc8-7924d9f86077', $config['system']['sysctl']['param'], 'uuid');
+
+        if (!empty($config['system']['sysctl']) && !empty($config['system']['sysctl']['param'])) {
+            $index = array_search_ex("kern.maxfiles", $config['system']['sysctl']['param'], "name");
+            if ($index !== false) {
+                $config['system']['sysctl']['param'][$index]['value'] = "6289573";
+            }
+        }
+
+		$config['on_version'] = "0.4";
+	}
+
 	write_config();
 
 	echo "done\n";
