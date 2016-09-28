@@ -28,7 +28,11 @@ PLATFORM=`cat /etc/platform`
 #exec </dev/console >/dev/console 2>/dev/console
 
 # Check if console menu is disabled.
-if ! configxml_isset "//system/disableconsolemenu" || [ "$1" == "display_menu" ]; then
+IS_LIVE=`echo ${PLATFORM} | grep "^live"`
+
+# Check if console menu is disabled.
+if ! configxml_isset "//system/disableconsolemenu" || [ "$1" == "display_menu" ] || [ ! -z ${IS_LIVE} ]; then
+
 	BOOT_LOWMEM=`cat /etc/boot_lowmem`
 	DISABLE_LIVEMODE=0
 	if [ "${BOOT_LOWMEM}" = "1" ]; then
