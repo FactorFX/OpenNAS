@@ -98,6 +98,11 @@ sshd_mkconf()
 		-i "string-length(//sshd/subsystem) > 0" -v "concat('Subsystem ', //sshd/subsystem)" -n -b \
 		-i "string-length(//sshd/subsystem) = 0" -v "concat('Subsystem ', 'sftp /usr/libexec/sftp-server')" -n -b \
 		-o "ChallengeResponseAuthentication no" -n \
+		-o "hostkey /etc/ssh/ssh_host_key" -n \
+		-o "hostkey /etc/ssh/ssh_host_rsa_key" -n \
+		-o "hostkey /etc/ssh/ssh_host_dsa_key" -n \
+		-o "hostkey /etc/ssh/ssh_host_ecdsa_key" -n \
+		-o "hostkey /etc/ssh/ssh_host_ed25519_key" -n \
 		-m "//sshd" \
 			-i "count(port) > 0" -v "concat('Port ',port)" -n -b \
 			-i "count(permitrootlogin) > 0" -o "PermitRootLogin yes" -n -b \
