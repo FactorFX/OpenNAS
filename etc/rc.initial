@@ -28,7 +28,7 @@ PLATFORM=`cat /etc/platform`
 #exec </dev/console >/dev/console 2>/dev/console
 
 # Check if console menu is disabled.
-IS_LIVE=`echo ${PLATFORM} | grep "^live"`
+IS_LIVE=`echo ${PLATFORM} | grep -E "live(CD|USB)"`
 
 # Check if console menu is disabled.
 if ! configxml_isset "//system/disableconsolemenu" || [ "$1" == "display_menu" ] || [ ! -z ${IS_LIVE} ]; then
